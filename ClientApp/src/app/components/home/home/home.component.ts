@@ -1,5 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { GetModelLista } from 'src/app/models/GetModelLista.model';
+import { Turma } from 'src/app/models/Turma.model';
+import { Usuario } from 'src/app/models/usuario.model';
 
 @Component({
   selector: 'app-home',
@@ -8,49 +12,31 @@ import { Component, Inject, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  // constructor(
-  //   private router: Router,
-  //   private http: HttpClient
-  // ) { }
-  // constructor(
-  //   private router: Router,
-  //   private http: HttpClient
-  // ) { }
+  usuario = new Usuario;
+  listaTurmas: Array<Turma> = [];
+  // turmaService: TurmaService;
+  retorno: any;
   
-  data!: dadosPontos; 
-  
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<dadosPontos>(baseUrl + 'classificacao/obter').subscribe(result => {
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string,private router: Router){
+    this.usuario.id = "0000";
+    this.usuario.nome = "Lucas Vinicius";
+
+    // this.turmaService = new TurmaService(http, baseUrl);
+
+    http.get<GetModelLista<Turma>>(baseUrl + 'v1/turma/obter').subscribe(result => {
       console.log(result);
+      this.listaTurmas = result.objeto;
     }, error => console.error(error));
+  
+    // this.listaTurmas = this.turmaService.obterTurmas().objeto;
   }
-
-
   ngOnInit(): void {
-    // var data = this.get("http://localhost:5101/classificacao/obter");
   }
-  
-  // get(rota: string): Observable<any> {
-  //       return this.http
-  //           .get<any>(rota)
-  //   }
-  
+  obterUsuario() {
+    return this.usuario;
+  }
+  obterTurmas() {
+    return this.listaTurmas;
+  }
 }
 
-interface dadosPontos{
-  status: String;
-  mensagem: String;
-  objeto: Array<pontos>;
-}
-
-interface pontos{
-  turma: String;
-  aluno: String;
-  livrosLidos: Array<String>;
-  totalPontos: number;
-  id: String;
-  dataCriacao: any;
-  dataAlteracao: any;
-  dataExclusao: any;
-  status: boolean;
-}

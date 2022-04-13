@@ -1,1 +1,16 @@
-<p>home works!</p>
+<div class="container">
+    <app-app-bar [usuario]="obterUsuario()" ></app-app-bar>
+</div>  
+<div class="row mt-4">
+    <div class="col-2">
+        <div class="row" *ngFor="let item of obterTurmas()">
+            <button class="btn-primary" routerLink="/listaclassificacao/{{item.nome}}">Classificacao turma: {{item.nome}}</button>
+        </div>
+    </div>
+
+    <div class="col-1"></div>
+    <div class="col">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+

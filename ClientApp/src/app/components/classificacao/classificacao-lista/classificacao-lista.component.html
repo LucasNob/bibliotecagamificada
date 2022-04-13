@@ -1,1 +1,5 @@
-<p>classificacao-lista works!</p>
+<div class="col-md-auto">
+    <div class="row" *ngFor="let item of this.listaPontos">
+        <app-classificacao-lista-item [ponto]="item"></app-classificacao-lista-item>
+    </div>
+</div>

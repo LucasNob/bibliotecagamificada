@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BibliotecaGamificada.Classificacao.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("/v1/classificacao")]
 public class ClassificacaoController : ControllerBase
 {
     private readonly ILogger<ClassificacaoController> _logger;
@@ -20,5 +20,9 @@ public class ClassificacaoController : ControllerBase
     {
         return await classificacaoNegocio.Obter();
     }
-
+    [HttpGet, Route("obterPorTurma/{id}")]
+    public async Task<IActionResult> ObterClassificacaoPorTurma([FromRoute] string id)
+    {
+        return await classificacaoNegocio.ObterPorTurma(id);
+    }
 }

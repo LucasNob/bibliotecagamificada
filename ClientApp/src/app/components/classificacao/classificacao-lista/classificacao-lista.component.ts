@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Ponto } from 'src/app/models/Ponto.model';
 
 @Component({
   selector: 'app-classificacao-lista',
@@ -8,8 +9,11 @@ import { Component, OnInit } from '@angular/core';
 export class ClassificacaoListaComponent implements OnInit {
 
   constructor() { }
+  
+  @Input()
+  listaPontos!: Array<Ponto>;
 
   ngOnInit(): void {
+    
   }
-
 }

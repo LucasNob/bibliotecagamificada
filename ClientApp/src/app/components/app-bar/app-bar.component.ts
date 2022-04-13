@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Aluno } from 'src/app/models/Aluno.model';
+import { Usuario } from 'src/app/models/usuario.model';
 
 @Component({
   selector: 'app-app-bar',
@@ -9,7 +11,11 @@ export class AppBarComponent implements OnInit {
 
   constructor() { }
 
+  @Input()
+  usuario!: Usuario;
+
   ngOnInit(): void {
+  
   }
 
 }
