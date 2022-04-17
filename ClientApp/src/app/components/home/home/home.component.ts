@@ -1,5 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Turma } from 'src/app/models/entidades/Turma.model';
+import { Usuario } from 'src/app/models/entidades/Usuario.model';
+import { GetModelLista } from 'src/app/models/GetModelLista.model';
 
 @Component({
   selector: 'app-home',
@@ -8,49 +12,37 @@ import { Component, Inject, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  // constructor(
-  //   private router: Router,
-  //   private http: HttpClient
-  // ) { }
-  // constructor(
-  //   private router: Router,
-  //   private http: HttpClient
-  // ) { }
+  usuario = new Usuario;
+  listaTurmas: Array<Turma> = [];
+  // turmaService: TurmaService;
+  retorno: any;
   
-  data!: dadosPontos; 
-  
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<dadosPontos>(baseUrl + 'classificacao/obter').subscribe(result => {
-      console.log(result);
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string,private router: Router){
+    
+    this.usuario.id = "idaluno1";
+    this.usuario.nome = "Lucas Vinicius";
+    this.usuario.foto = "../../../../assets/default_avatar.png";
+
+    http.get<GetModelLista<Turma>>(baseUrl + 'v1/turma/obterTurmasUsuario/'+this.usuario.id).subscribe(result => {
+      // console.log(result);
+      this.listaTurmas = result.objeto;
     }, error => console.error(error));
+  
+    // this.listaTurmas = this.turmaService.obterTurmas().objeto;
   }
-
-
   ngOnInit(): void {
-    // var data = this.get("http://localhost:5101/classificacao/obter");
   }
-  
-  // get(rota: string): Observable<any> {
-  //       return this.http
-  //           .get<any>(rota)
-  //   }
-  
+  obterUsuario() {
+    return this.usuario;
+  }
+  obterTurmas() {
+    return this.listaTurmas;
+  }
+  navegar(id: String) {
+    let url = '/listaclassificacao/' + id;
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate([url]);
+  });
+  }
 }
 
-interface dadosPontos{
-  status: String;
-  mensagem: String;
-  objeto: Array<pontos>;
-}
-
-interface pontos{
-  turma: String;
-  aluno: String;
-  livrosLidos: Array<String>;
-  totalPontos: number;
-  id: String;
-  dataCriacao: any;
-  dataAlteracao: any;
-  dataExclusao: any;
-  status: boolean;
-}

@@ -1,35 +1,40 @@
 using System.Security.Authentication;
-using BibliotecaGamificada.Classificacao.Api.Repositorios;
 using BibliotecaGamificada.Classificacao.Negocios;
 using BibliotecaGamificada.Comum.Classes.Settings;
 using MongoDB.Driver;
-
-
-
-
-
+using BibliotecaGamificada.Pontos.Comum.Repositorios;
+using BibliotecaGamificada.Turma.Negocios;
+using BibliotecaGamificada.Turma.Comum.Entidades;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddTransient<ClassificacaoNegocio>();
-builder.Services.AddTransient<ClassificacaoRepositorio>();
 
-builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
+//classificacao
+builder.Services.AddTransient<ClassificacaoNegocio>();
+builder.Services.AddTransient<PontoRepositorio>();
+
+//turma
+builder.Services.AddTransient<TurmaNegocio>();
+builder.Services.AddTransient<TurmaRepositorio>();
+
 
 //configurar mongo
-builder.Services.AddSingleton<IMongoClient>((s) =>{
-var stringConexaoCosmoDB = Environment.GetEnvironmentVariable("dbConnectionString");
-if (String.IsNullOrWhiteSpace(stringConexaoCosmoDB))
-    throw new Exception("Não foi possível identificar a string do conexão com o CosmoDB");
+builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
 
-MongoClientSettings settings = MongoClientSettings.FromUrl(new MongoUrl(stringConexaoCosmoDB));
+builder.Services.AddSingleton<IMongoClient>((s) =>
+{
+    var stringConexaoCosmoDB = Environment.GetEnvironmentVariable("dbConnectionString");
+    if (String.IsNullOrWhiteSpace(stringConexaoCosmoDB))
+        throw new Exception("Não foi possível identificar a string do conexão com o CosmoDB");
 
-settings.SslSettings = new SslSettings() { EnabledSslProtocols = SslProtocols.Tls12 };
+    MongoClientSettings settings = MongoClientSettings.FromUrl(new MongoUrl(stringConexaoCosmoDB));
 
-return new MongoClient(settings);
+    settings.SslSettings = new SslSettings() { EnabledSslProtocols = SslProtocols.Tls12 };
+
+    return new MongoClient(settings);
 });
 
 var app = builder.Build();
@@ -45,10 +50,15 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-app.MapControllerRoute(name: "default", pattern: "{controller}/{action=Index}/{id?}");
+// app.MapControllerRoute(name: "classificacaoController", pattern: "{controller}/{action=Index}/{id?}");
+// app.MapControllerRoute(name: "turmaController", pattern: "{controller}/{action=Index}/{id?}");
 
-app.MapFallbackToFile("index.html");;
+app.MapControllerRoute(name: "turma", pattern: "/v1/turma/{action=Index}/{id?}");
+app.MapControllerRoute(name: "classificacao", pattern: "/v1/classificacao/{action=Index}/{id?}");
+
+
+app.MapFallbackToFile("index.html"); ;
 
 app.Run();
 
-  
+
