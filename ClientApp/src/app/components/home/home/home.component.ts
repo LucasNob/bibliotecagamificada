@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Turma } from 'src/app/models/entidades/Turma.model';
+import { Usuario } from 'src/app/models/entidades/Usuario.model';
 import { GetModelLista } from 'src/app/models/GetModelLista.model';
-import { Turma } from 'src/app/models/Turma.model';
-import { Usuario } from 'src/app/models/usuario.model';
 
 @Component({
   selector: 'app-home',
@@ -18,13 +18,13 @@ export class HomeComponent implements OnInit {
   retorno: any;
   
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string,private router: Router){
-    this.usuario.id = "0000";
+    
+    this.usuario.id = "idaluno1";
     this.usuario.nome = "Lucas Vinicius";
+    this.usuario.foto = "../../../../assets/default_avatar.png";
 
-    // this.turmaService = new TurmaService(http, baseUrl);
-
-    http.get<GetModelLista<Turma>>(baseUrl + 'v1/turma/obter').subscribe(result => {
-      console.log(result);
+    http.get<GetModelLista<Turma>>(baseUrl + 'v1/turma/obterTurmasUsuario/'+this.usuario.id).subscribe(result => {
+      // console.log(result);
       this.listaTurmas = result.objeto;
     }, error => console.error(error));
   
@@ -37,6 +37,12 @@ export class HomeComponent implements OnInit {
   }
   obterTurmas() {
     return this.listaTurmas;
+  }
+  navegar(id: String) {
+    let url = '/listaclassificacao/' + id;
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate([url]);
+  });
   }
 }
 

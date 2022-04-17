@@ -10,7 +10,8 @@ namespace BibliotecaGamificada.Pontos.Comum.Repositorios
     public class PontoRepositorio : MongoDBBase<Ponto>
     {
         public PontoRepositorio(IConfiguration configuracao, IMongoClient mongoClient, IOptions<MongoDBSettings> settings) :
-         base(configuracao, mongoClient, "pontos", settings) { }
+         base(configuracao, mongoClient, "pontos", settings)
+        { }
 
         public async Task<List<Ponto>> Obter()
         {
@@ -19,12 +20,12 @@ namespace BibliotecaGamificada.Pontos.Comum.Repositorios
 
         public async Task<Ponto> ObterPorId(string id)
         {
-             return await this.ObterDadosPorId(id);
+            return await this.ObterDadosPorId(id);
         }
-        public async Task<Ponto> ObterPorFiltro(string id)
+        public async Task<List<Ponto>> ObterPorIdTurma(string id)
         {
             var filtro = Builders<Ponto>.Filter.Eq(p => p.turma, id);
-            return await this.ObterDadosPorFiltro(filtro);
+            return await this.ObterListaDadosPorFiltro(filtro);
         }
-    }
+    }   
 }

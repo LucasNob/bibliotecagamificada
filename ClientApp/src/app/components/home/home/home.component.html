@@ -1,16 +1,31 @@
-<div class="container">
-    <app-app-bar [usuario]="obterUsuario()" ></app-app-bar>
-</div>  
-<div class="row mt-4">
-    <div class="col-2">
-        <div class="row" *ngFor="let item of obterTurmas()">
-            <button class="btn-primary" routerLink="/listaclassificacao/{{item.nome}}">Classificacao turma: {{item.nome}}</button>
+<div class="container-flex ">
+    <div class="container-flex">
+        <app-app-bar [usuario]="obterUsuario()" ></app-app-bar>
+    </div> 
+    <div class="container-flex">
+        <div class="row mt-4 backgroundcolor">
+            <div class="col-2">
+                <!-- <div class="row" *ngFor="let item of obterTurmas()">
+                    <button class="btn-primary" routerLink="/listaclassificacao/{{item.nome}}">Classificacao turma: {{item.nome}}</button>
+                </div> -->
+                <div *ngIf="obterTurmas().length > 0; else erro" >
+                    <div class="row" *ngFor="let item of obterTurmas()">
+                        <!-- <button class="btn-primary" routerLink="/listaclassificacao/{{item.nome}}">Classificacao turma: {{item.nome}}</button> -->
+                        <button class="btn-primary" (click)="navegar(item.id)">Classificacao turma: {{item.nome}}</button>
+                    
+                    </div>
+                </div>
+                <ng-template #erro>
+                    <div class="alert alert-danger" role="alert">
+                        Lista de turmas não encontrada para o aluno {{usuario.nome}}!
+                    </div>
+                </ng-template>
+            </div>
+        
+            <div class="col-1"></div>
+            <div class="col">
+                <router-outlet></router-outlet>
+            </div>
         </div>
     </div>
-
-    <div class="col-1"></div>
-    <div class="col">
-        <router-outlet></router-outlet>
-    </div>
-</div>
-
+</div>    

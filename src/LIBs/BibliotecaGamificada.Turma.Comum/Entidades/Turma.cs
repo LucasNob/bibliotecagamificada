@@ -8,15 +8,13 @@ namespace BibliotecaGamificada.Turma.Comum.Entidades
     {
         public string nome { get; set; }
         public int anoLetivo { get; set; } //TODO: enum ano letivo
-        public List<string> alunos { get; set; }
-        public List<Ponto> pontos { get; set; }
-
-        public Turma(string turma, int anoLetivo, List<string> alunos, List<Ponto> pontos)
+        public string aluno { get; set; }
+        
+        public Turma(string turma, int anoLetivo, string alunos)
         {
             this.nome = turma;
             this.anoLetivo = anoLetivo;
-            this.alunos = alunos;
-            this.pontos = pontos;
+            this.aluno = alunos;
         }
     }
 }

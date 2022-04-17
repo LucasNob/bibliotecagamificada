@@ -1,5 +1,28 @@
-<div class="col-md-auto">
-    <div class="row" *ngFor="let item of this.listaPontos">
-        <app-classificacao-lista-item [ponto]="item"></app-classificacao-lista-item>
+<div class="container-flex" class="background">
+    <div *ngIf="obterLista().length > 0; else erro" >
+        <div class="row justify-content-md-center border">    
+            <div class="col">
+                <span>Posição</span>
+            </div>
+            <div class="col-2">
+                <span></span>
+            </div>
+            <div class="col-6">
+                <span>Nome</span>
+            </div>
+            <div class="col-1">
+                <span>Pontos</span>
+            </div>
+        </div>
+        <div class="col-md-auto backgroundlista">
+            <div class="row" *ngFor="let item of obterLista()">
+                <app-classificacao-lista-item [ponto]="item.ponto" [colocacao]="item.colocacao" [premio]="item.premio"></app-classificacao-lista-item>
+            </div>
+        </div>
     </div>
-</div>
+    <ng-template #erro>
+        <div class="alert alert-danger" role="alert">
+            Lista de Pontos vazia!
+        </div>
+    </ng-template>
+</div>    

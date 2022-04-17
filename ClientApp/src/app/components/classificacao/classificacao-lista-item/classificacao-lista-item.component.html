@@ -1,10 +1,20 @@
-<div class="col-md-auto">
-    <div class="row justify-content-md-center border">    
-        <div class="col">
-            <span>x</span>
+<div class="col-md-auto ">
+    <div class="row justify-content-md-center border background">    
+        <div class="col align-self-center">    
+            <div *ngIf="premio != null; else colocacaoPadrao" >
+                <span><img src="{{premio}}" alt="" height="50"></span>
+            </div> 
+            <ng-template #colocacaoPadrao>
+                    <span class="align-self-center">{{colocacao}}</span>
+            </ng-template>
         </div>
         <div class="col-2">
-            <span><img src="../../../../assets/default_avatar.png" alt="" height="30"></span>
+            <div *ngIf="ponto.aluno.foto != null; else fotoPadrao" >
+                <span><img src={{ponto.aluno.foto}} alt="" height="50"></span>
+            </div>                
+            <ng-template #fotoPadrao>
+                    <span><img src="../../../../assets/default_avatar.png" alt="" height="50"></span>
+            </ng-template>
         </div>
         <div class="col-6">
             <span>{{ponto.aluno}}</span>
@@ -12,5 +22,5 @@
         <div class="col-1">
             <span>{{ponto.totalPontos}}</span>
         </div>
-    </div>
+    </div> 
 </div>
