@@ -21,7 +21,7 @@ namespace BibliotecaGamificada.Pontos.Comum.Repositorios
         {
              return await this.ObterDadosPorId(id);
         }
-        public async Task<Ponto> ObterPorFiltro(string id)
+        public async Task<Ponto> ObterPorTurma(string id)
         {
             var filtro = Builders<Ponto>.Filter.Eq(p => p.turma, id);
             return await this.ObterDadosPorFiltro(filtro);

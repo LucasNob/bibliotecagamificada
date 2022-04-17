@@ -28,7 +28,7 @@ namespace BibliotecaGamificada.Classificacao.Negocios
         internal async Task<IActionResult> ObterPorTurma(string id)
         {
             RetornoMsg msg;
-            var classificacoes = await classificacaoRepositorio.ObterPorFiltro(id);
+            var classificacoes = await classificacaoRepositorio.ObterPorTurma(id);
             if (classificacoes == null)
                 msg = new RetornoMsg("erro", "Registros não encontrados");
             else
