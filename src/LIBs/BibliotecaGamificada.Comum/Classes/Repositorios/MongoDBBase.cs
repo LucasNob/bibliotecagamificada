@@ -39,9 +39,9 @@ namespace BibliotecaGamificada.Comum.Classes.Repositorio
         protected async Task<List<C>> ObterDados(FilterDefinition<C>? filtro, Expression<Func<C, object>> sort)
         {
             return await this.colecao
-            .Find(filtro)
-            .SortBy(sort)
-            .ToListAsync();
+                .Find(filtro)
+                .SortBy(sort)
+                .ToListAsync();
         }
         /// <summary>
         /// Retorna dado do banco por id do objeto
@@ -56,6 +56,10 @@ namespace BibliotecaGamificada.Comum.Classes.Repositorio
         protected async Task<C> ObterDadosPorFiltro(FilterDefinition<C> filtro)
         {
             return await this.colecao.Find(filtro).SingleOrDefaultAsync();
+        }
+         protected async Task<List<C>> ObterListaDadosPorFiltro(FilterDefinition<C> filtro)
+        {
+            return await this.colecao.Find(filtro).ToListAsync<C>();
         }
         /// <summary>
         /// Inserir dados de um modelo C

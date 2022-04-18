@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Aluno } from 'src/app/models/Aluno.model';
-import { Usuario } from 'src/app/models/usuario.model';
+import { Usuario } from 'src/app/models/entidades/Usuario.model';
+
 
 @Component({
   selector: 'app-app-bar',

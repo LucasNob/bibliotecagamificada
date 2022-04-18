@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { newArray } from '@angular/compiler/src/util';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { GetModelLista } from 'src/app/models/GetModelLista.model';
+import { Ponto } from 'src/app/models/entidades/Ponto.model';
+import { Turma } from 'src/app/models/entidades/Turma.model';
 import { GetModelUnico } from 'src/app/models/GetModelUnico.model';
-import { Ponto } from 'src/app/models/Ponto.model';
 
 @Component({
   selector: 'app-classificacao-pagina',
@@ -12,27 +13,33 @@ import { Ponto } from 'src/app/models/Ponto.model';
 })
 export class ClassificacaoPaginaComponent implements OnInit {
   
-  dados = new Ponto();
+  dados = new Array<Ponto>();
+  turma?: Turma;
   // pontosService: PontosService;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string,private router: Router,private route: ActivatedRoute) {
-    // this.pontosService = new PontosService(http, baseUrl);
     let url = baseUrl + 'v1/classificacao/obterPorTurma/'
+    let id="";
     this.route.paramMap.subscribe((params: ParamMap) => {
-      // this.dados = this.pontosService.obterPontosPorTurma(params.get('id')!);
-      url = url+params.get('id');
+      id = params.get('id')!;
+      url = url + id;
     });
 
-    http.get<GetModelUnico<Ponto>>(url).subscribe(result => {
-      console.log(result);
+    //obter lista de pontos da turma
+    http.get<GetModelLista<Ponto>>(url).subscribe(result => {
       this.dados = result.objeto!;
+    }, error => console.error(error));
+
+    //obter dados da turma
+    http.get<GetModelUnico<Turma>>(baseUrl + 'v1/turma/obterTurma/'+id).subscribe(result => {
+      this.turma = result.objeto;
     }, error => console.error(error));
   }
   ngOnInit(): void {
-    
+    // console.log('on init')
   }
   
-  getListaAlunos(): Array<Ponto> {
-    return new Array<Ponto>();
+  getListaPontos(): Array<Ponto> {
+    return this.dados;
   }
 }

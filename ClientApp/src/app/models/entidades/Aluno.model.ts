@@ -1,4 +1,4 @@
-import { Usuario } from "./usuario.model";
+import { Usuario } from "./Usuario.model";
 
 export class Aluno extends Usuario{
     turma: String = "";
