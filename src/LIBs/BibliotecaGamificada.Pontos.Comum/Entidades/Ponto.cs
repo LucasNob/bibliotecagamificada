@@ -5,15 +5,15 @@ namespace BibliotecaGamificada.Pontos.Comum.Entidades
 {
     public class Ponto : EntidadeRepositorioBase
     {
-        public string turma { get; set; }
         public string aluno { get; set; }
+        public string turma { get; set; }
         public List<string> livrosLidos { get; set; }
-        public int totalPontos { get; set; }
+        public double totalPontos { get; set; }
 
-        public Ponto(string turma, string aluno, List<string> livrosLidos, int totalPontos)
+        public Ponto(string aluno, string turma, List<string> livrosLidos, double totalPontos)
         {
-            this.turma = turma;
             this.aluno = aluno;
+            this.turma = turma;
             this.livrosLidos = livrosLidos;
             this.totalPontos = totalPontos;
         }
