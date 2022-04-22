@@ -22,9 +22,10 @@ namespace BibliotecaGamificada.Turma.Comum.Entidades
         }
         public async Task<List<Turma>> ObterTurmasPorIdUsuario(string id)
         {
-            //Alterar método, turmas possui lista de id de alunos e não um id único de aluno.
-            var filtro = Builders<Turma>.Filter.Eq(p => p.alunos[0],id);
+            // var filtro = Builders<Turma>.Filter.Eq(p => p.alunos[0],id);
+
+            var filtro = Builders<Turma>.Filter.AnyEq(x => x.alunos, id);
             return await this.ObterListaDadosPorFiltro(filtro);
         }
-     }
+    }
 }
