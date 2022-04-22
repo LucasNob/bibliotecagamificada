@@ -5,6 +5,10 @@ using MongoDB.Driver;
 using BibliotecaGamificada.Pontos.Comum.Repositorios;
 using BibliotecaGamificada.Turma.Negocios;
 using BibliotecaGamificada.Turma.Comum.Entidades;
+using BibliotecaGamificada.Instituicoes.Negocios;
+using BibliotecaGamificada.Instituicoes.Comum.Repositorios;
+using BibliotecaGamificada.Livros.Negocios;
+using BibliotecaGamificada.Livros.Comum.Repositorios;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +23,14 @@ builder.Services.AddTransient<PontoRepositorio>();
 //turma
 builder.Services.AddTransient<TurmaNegocio>();
 builder.Services.AddTransient<TurmaRepositorio>();
+
+//instituicao
+builder.Services.AddTransient<InstituicoesNegocio>();
+builder.Services.AddTransient<InstituicaoRepositorio>();
+
+//livro
+builder.Services.AddTransient<LivrosNegocio>();
+builder.Services.AddTransient<LivroRepositorio>();
 
 
 //configurar mongo
@@ -55,6 +67,8 @@ app.UseRouting();
 
 app.MapControllerRoute(name: "turma", pattern: "/v1/turma/{action=Index}/{id?}");
 app.MapControllerRoute(name: "classificacao", pattern: "/v1/classificacao/{action=Index}/{id?}");
+app.MapControllerRoute(name: "livro", pattern: "/v1/livro/{action=Index}/{id?}");
+app.MapControllerRoute(name: "instituicao", pattern: "/v1/instituicao/{action=Index}/{id?}");
 
 
 app.MapFallbackToFile("index.html"); ;
