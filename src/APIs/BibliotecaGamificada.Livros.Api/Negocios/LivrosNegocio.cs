@@ -1,5 +1,7 @@
 using BibliotecaGamificada.Comum.Classes.Models;
+using BibliotecaGamificada.Livros.Api.Models;
 using BibliotecaGamificada.Livros.Comum.Entidades;
+using BibliotecaGamificada.Livros.Comum.Enums;
 using BibliotecaGamificada.Livros.Comum.Repositorios;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
@@ -54,18 +56,21 @@ namespace BibliotecaGamificada.Livros.Negocios
             return new OkObjectResult(msg);
         }
   
-        public async Task<IActionResult> CadastrarLivro(string l)
+        public async Task<IActionResult> CadastrarLivro(LivroCadastroModel livro)
         {
             try
             {
                 // var livro = new Livro("a", Comum.Enums.Genero.Conto, "a", "c", "I");
                 // var t1 = JsonSerializer.Serialize(livro);
-                var livro = JsonSerializer.Deserialize<Livro>(l);
-                
-                if(livro == null)
-                    throw new NullReferenceException();
 
-                await livroRepositorio.Cadastrar(livro);
+                // var livro = JsonSerializer.Deserialize<Livro>(l);
+
+                // if(livro == null)
+                //     throw new NullReferenceException();
+
+                var l = new Livro(livro.titulo, (Genero)livro.genero, livro.autor, livro.capa, livro.instituicao);
+
+                await livroRepositorio.Cadastrar(l);
             }
             catch 
             {

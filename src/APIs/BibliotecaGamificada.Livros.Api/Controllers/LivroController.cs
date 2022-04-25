@@ -1,3 +1,4 @@
+using BibliotecaGamificada.Livros.Api.Models;
 using BibliotecaGamificada.Livros.Comum.Entidades;
 using BibliotecaGamificada.Livros.Negocios;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +37,7 @@ public class LivroController : ControllerBase
     }
 
     [HttpPost, Route("cadastrarLivro")]
-    public async Task<IActionResult> CadastrarLivro([FromBody] string livro)
+    public async Task<IActionResult> CadastrarLivro([FromBody] LivroCadastroModel livro)
     {
         return await livroNegocio.CadastrarLivro(livro);
     }

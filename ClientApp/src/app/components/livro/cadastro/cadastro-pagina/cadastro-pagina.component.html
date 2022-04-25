@@ -1,0 +1,40 @@
+<form [formGroup]="formCadastro" (ngSubmit)="cadastrarLivro(formCadastro.value)">
+
+    
+    <div class="col-11">
+        <div class="row titulo m-4">
+            <span>Cadastro de Livros</span>
+        </div> 
+        <div class="row my-4">
+            <div class="form-group">
+                <label for="titulo">Titulo</label>
+                <input type="text" class="form-control" id="titulo" name="titulo" formControlName="titulo" placeholder="Titulo do livro">
+            </div>
+        </div>
+        <div class="row my-4">
+            <div class="form-group">
+                <label for="Autor">Autor</label>
+                <input type="text" class="form-control" id="autor" name="autor" formControlName="autor" placeholder="Autor do livro">    
+            </div>
+        </div>
+        <div class="row my-4">
+            <div class="col-6">
+                <label for="genero">Genero</label>
+                <select class="form-select" id="genero" formControlName="genero" name="genero">
+                    <option selected>Genêro...</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+            </div>
+            <div class="col-6">
+                <app-upload-imagem></app-upload-imagem>
+            </div>
+        </div>
+        <div class="row cadastrar m-1">
+            <input type="submit" class="btn btn-success" value="Cadastrar" (click)="cadastrarLivro(formCadastro.value)">
+            <!-- <button class="btn btn-success" (click)="cadastrarLivro(formCadastro.value)">cadastrar        </button> -->
+        </div>
+    </div>
+</form>
+<app-livro-lista></app-livro-lista>
