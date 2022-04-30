@@ -1,3 +1,12 @@
 .background{
     background-color: white;
 }
+.usuario{
+    font-family: Usuario;
+    font-weight: bold;
+    color: #1C9474;
+}
+.foto
+{
+border: 5px solid #1A3369;
+}

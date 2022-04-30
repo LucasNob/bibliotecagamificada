@@ -17,7 +17,7 @@
 <div class="row justify-content-center">
     <div class="col-10" *ngIf="obterTurmaAtual() != undefined; else erroTurma">
         <div class="row">
-            <span class="title">Ranking {{obterTurmaAtual()!.nome}}</span>
+            <span class="titulo">Ranking {{obterTurmaAtual()!.nome}}</span>
         </div>
         <div class="row">
             <app-classificacao-lista [listaPontos]="getListaPontos()"></app-classificacao-lista>

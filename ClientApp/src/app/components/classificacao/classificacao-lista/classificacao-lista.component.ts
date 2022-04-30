@@ -33,7 +33,7 @@ export class ClassificacaoListaComponent implements OnInit {
       new ItemClassificacao(
         this.listaPontos[0],
         1,
-        "../../../../assets/Ouro.png",
+        "../../../../assets/images/Ouro.png",
       )
     )
     for (let i = 1; i < this.listaPontos.length; i++){
@@ -46,21 +46,21 @@ export class ClassificacaoListaComponent implements OnInit {
           )
         );
       }
-      else if (listaClassificacao[i - 1].premio == "../../../../assets/Ouro.png") {
+      else if (listaClassificacao[i - 1].premio == "../../../../assets/images/Ouro.png") {
         listaClassificacao.push(
           new ItemClassificacao(
             this.listaPontos[i],
             i + 1,
-            "../../../../assets/Prata.png",
+            "../../../../assets/images/Prata.png",
           )
         );
       }
-      else if (listaClassificacao[i - 1].premio == "../../../../assets/Prata.png") {
+      else if (listaClassificacao[i - 1].premio == "../../../../assets/images/Prata.png") {
         listaClassificacao.push(
           new ItemClassificacao(
             this.listaPontos[i],
             i + 1,
-            "../../../../assets/Bronze.png",
+            "../../../../assets/images/Bronze.png",
           )
         );
       }

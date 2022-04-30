@@ -5,3 +5,8 @@
 .backgroundlista{
     background-color: #A4CDBE;
 }
+.cabecalho{
+    color: #E37623;
+    font-size: 20px;
+    text-transform: uppercase;
+}
