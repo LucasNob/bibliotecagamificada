@@ -13,17 +13,6 @@ export class TurmaService {
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     }
 
-    // public obterTurmasPorIdUsuario(id: String): Array<Turma> {
-    //     let listaTurmas: Array<Turma> = [];
-        
-    //     this.http.get<GetModelLista<Turma>>(this.baseUrl + 'v1/turma/obterTurmasUsuario/' + id).subscribe(result => {
-    //         //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
-    //         listaTurmas = result.objeto;
-    //     }, error => console.error(error));
-      
-    //     return listaTurmas;
-    // }
-    
     public obterTurmasPorIdUsuario(id: String){
         let listaTurmas: Array<Turma> = [];
 
