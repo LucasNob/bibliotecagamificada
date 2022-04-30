@@ -21,21 +21,12 @@ import { UsuarioService } from './services/usuario.service';
 
 //TODO: App routing module 
 const appRoutes: Routes = [
-  {
-    path: '', component: HomeComponent, children: [  
-      {
-        path: 'listaclassificacao', component: ClassificacaoPaginaComponent
-      },
-      {
-        path: 'cadastrolivro', component: CadastroPaginaComponent
-      },
-    ],
 
-  },
-  
-
-  {path: 'not-found', component: NotFoundComponent},
-  {path: '**', redirectTo: '/not-found', pathMatch:'full'}
+  { path: '', component: HomeComponent },
+  { path: 'listaclassificacao', component: ClassificacaoPaginaComponent },
+  { path: 'cadastrolivro', component: CadastroPaginaComponent },
+  { path: 'not-found', component: NotFoundComponent },
+  { path: '**', redirectTo: '/not-found', pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -62,7 +53,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [UsuarioService,TurmaService,PontoService,LivroService],
+  providers: [UsuarioService, TurmaService, PontoService, LivroService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

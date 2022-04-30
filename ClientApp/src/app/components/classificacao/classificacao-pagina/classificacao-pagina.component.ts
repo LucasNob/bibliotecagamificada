@@ -14,7 +14,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   styleUrls: ['./classificacao-pagina.component.css']
 })
 export class ClassificacaoPaginaComponent implements OnInit {
-  
+
   pontos = new Array<Ponto>();
   turmaAtual?: Turma;
   // pontosService: PontosService;
@@ -28,7 +28,7 @@ export class ClassificacaoPaginaComponent implements OnInit {
     private usuarioService: UsuarioService,
     private turmaService: TurmaService,
     private pontoService: PontoService) {
-    
+
     // let url = baseUrl + 'v1/classificacao/obterPorTurma/'
     // let id="";
     this.usuario = usuarioService.obterUsuario();
@@ -49,7 +49,7 @@ export class ClassificacaoPaginaComponent implements OnInit {
   obterTurmasUsuario() {
     return this.listaTurmas;
   }
-  
+
   getListaPontos(): Array<Ponto> {
     return this.pontos;
   }
