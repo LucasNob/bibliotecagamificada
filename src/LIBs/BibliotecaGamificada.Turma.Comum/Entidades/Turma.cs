@@ -1,6 +1,5 @@
 
 using BibliotecaGamificada.Comum.Classes.Entidades;
-using BibliotecaGamificada.Pontos.Comum.Entidades;
 
 namespace BibliotecaGamificada.Turma.Comum.Entidades
 {
@@ -11,7 +10,6 @@ namespace BibliotecaGamificada.Turma.Comum.Entidades
         public string professor { get; set; }
         public List<string> alunos { get; set; }
         public List<string> livros { get; set; }
-
         public Turma(string turma, int anoLetivo, string professor, List<string> alunos, List<string> livros)
         {
             this.nome = turma;

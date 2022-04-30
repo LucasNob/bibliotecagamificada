@@ -1,7 +1,7 @@
 namespace BibliotecaGamificada.Comum.Classes.Entidades
 {
     public class EntidadeRepositorioBase
-    {
+    {  
         public string? Id { get; set; }
         public DateTime DataCriacao { get; set; }
         public DateTime DataAlteracao { get; set; }
