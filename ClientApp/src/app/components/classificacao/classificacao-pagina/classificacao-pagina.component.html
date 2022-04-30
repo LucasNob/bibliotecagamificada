@@ -1,8 +1,10 @@
-<div class="col-8">
-    <div class="row">
-        <span class="title">Ranking {{turma?.nome}}</span>
-    </div>
-    <div class="row">
-        <app-classificacao-lista [listaPontos]="getListaPontos()"></app-classificacao-lista>
+<div class="row justify-content-center">
+    <div class="col-10">
+        <div class="row">
+            <span class="title">Ranking {{turma?.nome}}</span>
+        </div>
+        <div class="row">
+            <app-classificacao-lista [listaPontos]="getListaPontos()"></app-classificacao-lista>
+        </div>
     </div>
 </div>
