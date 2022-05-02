@@ -1,7 +1,6 @@
 using BibliotecaGamificada.Comum.Classes.Models;
 using BibliotecaGamificada.Livros.Api.Models;
 using BibliotecaGamificada.Livros.Comum.Entidades;
-using BibliotecaGamificada.Livros.Comum.Enums;
 using BibliotecaGamificada.Livros.Comum.Repositorios;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
@@ -21,7 +20,7 @@ namespace BibliotecaGamificada.Livros.Negocios
         {
             RetornoMsg msg;
             var livros = await livroRepositorio.Obter();
-            
+
             if (livros == null || livros.Count == 0)
                 msg = new RetornoMsg("erro", "Registros não encontrados");
             else
@@ -30,11 +29,11 @@ namespace BibliotecaGamificada.Livros.Negocios
             return new OkObjectResult(msg);
         }
 
-      internal async Task<IActionResult> ObterPorId(string id)
+        internal async Task<IActionResult> ObterPorId(string id)
         {
             RetornoMsg msg;
             var livros = await livroRepositorio.ObterPorId(id);
-            
+
             if (livros == null)
                 msg = new RetornoMsg("erro", "Registros não encontrados");
             else
@@ -46,8 +45,9 @@ namespace BibliotecaGamificada.Livros.Negocios
         internal async Task<IActionResult> ObterLivrosPorInstituicao(string id)
         {
             RetornoMsg msg;
-            
+
             var livros = await livroRepositorio.ObterPorInstituicao(id);
+
             if (livros == null)
                 msg = new RetornoMsg("erro", "Registros não encontrados");
             else
@@ -55,60 +55,64 @@ namespace BibliotecaGamificada.Livros.Negocios
 
             return new OkObjectResult(msg);
         }
-  
+
         public async Task<IActionResult> CadastrarLivro(LivroCadastroModel livro)
         {
+            string capa = "../../../assets/images/default_capa.png";
             try
             {
-                // var livro = new Livro("a", Comum.Enums.Genero.Conto, "a", "c", "I");
-                // var t1 = JsonSerializer.Serialize(livro);
+                var bs = new AzureBlobStorage();
 
-                // var livro = JsonSerializer.Deserialize<Livro>(l);
+                if (livro.capa != capa)
+                {
+                    capa = await bs.UploadImagem(livro.capa!, "imagens");
+                }
 
-                // if(livro == null)
-                //     throw new NullReferenceException();
-
-                var l = new Livro(livro.titulo, (Genero)livro.genero, livro.autor, livro.capa, livro.instituicao);
+                var l = new Livro(livro.titulo, livro.genero, livro.autor, capa, livro.instituicao);
 
                 await livroRepositorio.Cadastrar(l);
             }
-            catch 
+            catch (Exception e)
             {
-               return new OkObjectResult(new RetornoMsg("erro", "Erro ao cadastrar"));
+                return new OkObjectResult(new RetornoMsg("erro", "Erro ao cadastrar", e));
             }
             return new OkObjectResult(new RetornoMsg("sucesso", "Livro Registrado"));
         }
 
-            public async Task<IActionResult> ExcluirLivro(string id)
+        public async Task<IActionResult> ExcluirLivro(string id)
         {
             try
             {
                 await livroRepositorio.Excluir(id);
             }
-            catch 
+            catch
             {
-               return new OkObjectResult(new RetornoMsg("erro", "Erro ao exluir"));
+                return new OkObjectResult(new RetornoMsg("erro", "Erro ao exluir"));
             }
             return new OkObjectResult(new RetornoMsg("sucesso", "Livro Excluido"));
         }
-   
-          public async Task<IActionResult> EditarLivro(string l)
+
+        public async Task<IActionResult> EditarLivro(LivroCadastroModel livro)
         {
+            string capa = "../../../assets/images/default_capa.png";
             try
             {
-                var livro = JsonSerializer.Deserialize<Livro>(l);
-                
-                if(livro == null)
-                    throw new NullReferenceException();
+                var bs = new AzureBlobStorage();
 
-                await livroRepositorio.Editar(livro);
+                if (livro.capa != capa)
+                {
+                    capa = await bs.UploadImagem(livro.capa!, "imagens");
+                }
+
+                var l = new Livro(livro.titulo, livro.genero, livro.autor, capa, livro.instituicao);
+                l.Id = livro.id;
+                await livroRepositorio.Editar(l);
             }
-            catch 
+            catch
             {
-               return new OkObjectResult(new RetornoMsg("erro", "Erro ao editar"));
+                return new OkObjectResult(new RetornoMsg("erro", "Erro ao editar"));
             }
             return new OkObjectResult(new RetornoMsg("sucesso", "Livro editado"));
         }
-
     }
 }

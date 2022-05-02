@@ -1,11 +1,13 @@
-import { Aluno } from "./Aluno.model";
+import { Genero } from "../livro/Genero.model";
 import { EntidadeBase } from "./EntidadeBase.model";
 
-export class Livro extends EntidadeBase{
+// export class Livro extends EntidadeBase{
+    export class Livro extends EntidadeBase{
+    
     titulo: String = "";
     autor: String = "";
     capa?: String = "../../assets/default_capa.png";
-    genero?: String;
+    genero?: Genero;
     instituicao: String = ""; 
     
     // constructor(titulo: String, autor: String, genero: String, capa?: String) {

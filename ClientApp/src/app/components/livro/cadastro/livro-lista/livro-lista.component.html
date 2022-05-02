@@ -1,1 +1,25 @@
-<p>livro-lista works!</p>
+<div class="table-resposive">
+    <table class="table" *ngIf="obterLista().length > 0; else erro">
+        <thead>
+            <tr>
+                <th class="tabela cabecalho" scope="col">Id</th>
+                <th class="tabela cabecalho" scope="col">Titulo</th>
+                <th class="tabela cabecalho" scope="col">Autor</th>
+                <th class="tabela cabecalho" scope="col">Editar</th>
+                <th class="tabela cabecalho" scope="col">Excluir</th>
+            </tr>
+        </thead>
+        <tbody>
+            <div *ngFor="let item of obterLista()">
+                <app-livro-lista-item [livro]="item" (excluirEmitter)="emitExcluir($event)" (editarEmitter)="emitEditar($event)"></app-livro-lista-item>
+            </div>
+        <tbody>
+    </table>
+    <ng-template #erro>
+        <div class="alert alert-danger" role="alert">
+           <span>Lista de Pontos vazia!</span>
+        </div>
+    </ng-template>
+</div>
+
+

@@ -43,7 +43,7 @@ public class LivroController : ControllerBase
     }
 
     [HttpPut, Route("editarLivro")]
-    public async Task<IActionResult> EditarLivro([FromBody] string livro)
+    public async Task<IActionResult> EditarLivro([FromBody] LivroCadastroModel livro)
     {
         return await livroNegocio.EditarLivro(livro);
     }

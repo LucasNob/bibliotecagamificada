@@ -1,9 +1,18 @@
-import { EntidadeBase } from "./EntidadeBase.model";
+import { Genero } from "../livro/Genero.model";
 
-export class LivroCadastroModel extends EntidadeBase {
+export class LivroCadastroModel{
+    id?: string = "";
     titulo: String = "";
     autor: String = "";
-    capa?: String = "../../assets/default_capa.png";
-    genero?: number = 0;
+    capa?: String = "../../../assets/images/default_capa.png";
+    genero: Genero;
     instituicao: String = "";
+    constructor(titulo: string,autor: string,genero: Genero,instituicao: String,capa?: string) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.genero = genero;
+        this.instituicao = instituicao;
+        if(capa!=undefined)
+            this.capa = capa;
+    }
 }

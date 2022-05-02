@@ -22,25 +22,17 @@ export class ClassificacaoPaginaComponent implements OnInit {
   usuario?: Usuario;
 
   constructor(
-    http: HttpClient, @Inject('BASE_URL') baseUrl: string,
-    private router: Router,
-    private route: ActivatedRoute,
     private usuarioService: UsuarioService,
     private turmaService: TurmaService,
     private pontoService: PontoService) {
+    
+    this.usuarioService.usuario = new Usuario("idaluno1", "Lucas Vinicius");
+    
+    this.usuario = usuarioService.obterUsuario(); 
 
-    // let url = baseUrl + 'v1/classificacao/obterPorTurma/'
-    // let id="";
-    this.usuario = usuarioService.obterUsuario();
-
-    turmaService.obterTurmasPorIdUsuario(this.usuario.id).then(data => {
+    turmaService.obterTurmasPorIdUsuario(this.usuario!.id).then(data => {
       this.listaTurmas = data as Array<Turma>;
     });
-
-    // this.route.paramMap.subscribe((params: ParamMap) => {
-    //   id = params.get('id')!;
-    //   url = url + id;
-    // });
   }
   ngOnInit(): void {
     // console.log('on init')

@@ -9,8 +9,9 @@ namespace BibliotecaGamificada.Livros.Comum.Repositorios
 {
     public class LivroRepositorio : MongoDBBase<Livro>
     {
-        public LivroRepositorio(IConfiguration configuracao, IMongoClient mongoClient, IOptions<MongoDBSettings> settings) : 
-        base(configuracao, mongoClient, "livros", settings) { }
+        public LivroRepositorio(IConfiguration configuracao, IMongoClient mongoClient, IOptions<MongoDBSettings> settings) :
+        base(configuracao, mongoClient, "livros", settings)
+        { }
 
         public async Task<List<Livro>> Obter()
         {
@@ -19,13 +20,13 @@ namespace BibliotecaGamificada.Livros.Comum.Repositorios
 
         public async Task<Livro> ObterPorId(string id)
         {
-             return await this.ObterDadosPorId(id);
+            return await this.ObterDadosPorId(id);
         }
 
-        public async Task<Livro> ObterPorInstituicao(string id)
+        public async Task<List<Livro>> ObterPorInstituicao(string id)
         {
             var filtro = Builders<Livro>.Filter.Eq(p => p.instituicao, id);
-            return await this.ObterDadosPorFiltro(filtro);
+            return await this.ObterListaDadosPorFiltro(filtro);
         }
 
         public async Task<string> Cadastrar(Livro livro)
@@ -33,22 +34,23 @@ namespace BibliotecaGamificada.Livros.Comum.Repositorios
             return await this.InserirDados(livro);
         }
 
-         public async Task Excluir(string id)
+        public async Task Excluir(string id)
         {
             var filtro = Builders<Livro>.Filter.Eq(p => p.Id, id);
-            await this.ExclusaoDado(id);
+            // await this.ExclusaoDado(id);
+            await this.ExcluirDados(filtro);
         }
 
         public async Task Editar(Livro livro)
         {
             var atualizacao = Builders<Livro>.Update.Combine(
             Builders<Livro>.Update
-            .Set(x=>x.titulo,livro.titulo)
-            .Set(x=>x.autor, livro.autor)
-            .Set(x=>x.genero,livro.genero)
-            .Set(x=>x.capa,  livro.capa)
+            .Set(x => x.titulo, livro.titulo)
+            .Set(x => x.autor, livro.autor)
+            .Set(x => x.genero, livro.genero)
+            .Set(x => x.capa, livro.capa)
             );
-            await this.AtualizarDados(livro,atualizacao);
+            await this.AtualizarDados(livro, atualizacao);
         }
     }
 }

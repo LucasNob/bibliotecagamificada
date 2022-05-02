@@ -6,11 +6,10 @@ import { Injectable } from '@angular/core';
 })
 
 export class UsuarioService{
-    usuario = new Usuario("idaluno1","Lucas Vinicius");
-    constructor() {
-        
-    }
-    obterUsuario() {
-        return this.usuario;
-    }
+  usuario: Usuario=new Usuario("idaluno1","Lucas Vinicius");;
+  constructor() {
+  }
+  obterUsuario() {
+      return this.usuario;
+  }
 }

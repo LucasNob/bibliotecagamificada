@@ -37,9 +37,7 @@ export class LivroService {
             }
         )
     }
-    public obterLivroPorId(id:string){
-        let listaLivro: Array<Livro> = [];
-
+    public obterLivroPorId(id:String){
         return new Promise(
             resolve => {
                 this.http.get<GetModelUnico<Livro>>(this.baseUrl + 'v1/livro/obterLivro/'+id).subscribe(result => {
@@ -49,12 +47,42 @@ export class LivroService {
             }
         )
     }
-    public cadastrarLivro(livro: LivroCadastroModel) {
-        let headers = { 'Content-Type': 'application/json'} 
-        // let body = JSON.stringify(livro);
+    public obterLivrosPorIdInstituicao(id:String){
+        let listaLivro: Array<Livro> = [];
+
         return new Promise(
             resolve => {
-                this.http.post<any>(this.baseUrl + 'v1/livro/cadastrarLivro/', livro, { 'headers': headers }).subscribe(result => {
+                this.http.get<GetModelLista<Livro>>(this.baseUrl + 'v1/livro/obterPorInstituicao/'+id).subscribe(result => {
+                    //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
+                    resolve(result.objeto);
+                }, error => console.error(error));
+            }
+        )
+    }
+    public cadastrarLivro(livro: LivroCadastroModel) {
+        return new Promise(
+            resolve => {
+                this.http.post<any>(this.baseUrl + 'v1/livro/cadastrarLivro/', livro).subscribe(result => {
+                    //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
+                    resolve(result.objeto);
+                }, error => console.error(error));
+            }
+        )
+    }
+    public editarLivro(livro: LivroCadastroModel) {
+        return new Promise(
+            resolve => {
+                this.http.put<any>(this.baseUrl + 'v1/livro/editarLivro/', livro).subscribe(result => {
+                    //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
+                    resolve(result.objeto);
+                }, error => console.error(error));
+            }
+        )
+    }
+    public excluirLivro(id: String){
+        return new Promise(
+            resolve => {
+                this.http.delete<GetModelLista<Livro>>(this.baseUrl + 'v1/livro/excluirLivro/'+id).subscribe(result => {
                     //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
                     resolve(result.objeto);
                 }, error => console.error(error));

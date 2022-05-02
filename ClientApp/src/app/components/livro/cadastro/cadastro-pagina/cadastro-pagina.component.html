@@ -22,19 +22,28 @@
                 <label for="genero">Genero</label>
                 <select class="form-select" id="genero" formControlName="genero" name="genero">
                     <option selected>Genêro...</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option *ngFor="let genero of listaGeneros()">{{genero}}</option>
                   </select>
             </div>
             <div class="col-6">
-                <app-upload-imagem></app-upload-imagem>
+                <app-upload-imagem (img)="imgCarregada = $event"></app-upload-imagem>
             </div>
         </div>
-        <div class="row cadastrar m-1">
-            <input type="submit" class="btn btn-success" value="Cadastrar" (click)="cadastrarLivro(formCadastro.value)">
-            <!-- <button class="btn btn-success" (click)="cadastrarLivro(formCadastro.value)">cadastrar        </button> -->
+        <div class="row" *ngIf="modoEdicao(); else cadastrar">
+            <div class="cadastrar m-1">
+                <input class="btn btn-warning" value="Salvar" (click)="salvarLivro()">
+            </div>
+            <div class="cadastrar m-1">
+                <input class="btn btn-success" value="Cancelar" (click)="limparCampos()">
+            </div>
         </div>
+        <ng-template #cadastrar>
+            <div class="row cadastrar m-1">
+                <input type="submit" class="btn btn-success" value="Cadastrar" (click)="cadastrarLivro(formCadastro.value)">
+            </div>
+        </ng-template>
     </div>
 </form>
-<app-livro-lista></app-livro-lista>
+<div class="row">
+    <app-livro-lista [listaLivros]="listaLivros" (excluirEmitter)="excluirLivro($event)" (editarEmitter)="editarLivro($event)" ></app-livro-lista>
+</div>

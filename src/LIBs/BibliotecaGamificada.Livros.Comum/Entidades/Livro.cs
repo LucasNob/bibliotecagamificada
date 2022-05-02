@@ -8,7 +8,7 @@ namespace BibliotecaGamificada.Livros.Comum.Entidades
         public string titulo { get; set; }
         public string autor { get; set; }
         public Genero genero { get; set; }
-        public string capa { get; set; }
+        public string? capa { get; set; }
         public string instituicao { get; set;}
 
         public Livro(string titulo, Genero genero, string autor, string capa, string instituicao)
@@ -18,7 +18,6 @@ namespace BibliotecaGamificada.Livros.Comum.Entidades
             this.autor = autor;
             this.capa = capa;
             this.instituicao = instituicao;
-            
         }
     }
 }

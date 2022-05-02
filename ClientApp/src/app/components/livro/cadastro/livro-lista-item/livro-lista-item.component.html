@@ -1,1 +1,20 @@
-<p>livro-lista-item works!</p>
+<tr>
+    <td>
+        <span class="tabela item">{{livro!.id}}</span>
+    </td>
+    <td>
+        <span class="tabela item">{{livro!.titulo}}</span>
+    </td>
+    <td>
+        <span class="tabela item">{{livro!.autor}}</span>
+    </td>
+    <td>
+        <span><button><i class="bi bi-pencil" (click)="Editar()"></i></button></span>
+    </td>
+    <td>
+        <span><button><i class="bi bi-trash" (click)="Excluir()"></i></button></span>
+    </td>
+</tr>
+
+
+
