@@ -2,13 +2,13 @@
     <div class="row mt-4 backgroundcolor">
         <div *ngIf="obterTurmasUsuario().length > 0; else erro">
             <div class="row">
-                <div class="col-md-2" *ngFor="let item of obterTurmasUsuario()">
+                <div class="col-md-2 col-4" *ngFor="let item of obterTurmasUsuario()">
                     <button class="btn-primary w-100" (click)="obterClassificacaoTurma(item.id)">{{item.nome}}</button>
                 </div>
             </div>
         </div>
         <ng-template #erro>
-            <div class="alert alert-danger" role="alert">
+            <div class="alert alert-warning my-3" role="alert">
                 <span>Lista de turmas não encontrada para o aluno {{usuario?.nome}}!</span>
             </div>
         </ng-template>
@@ -16,7 +16,7 @@
 </div>
 <div class="row justify-content-center">
     <div class="col-10" *ngIf="obterTurmaAtual() != undefined; else erroTurma">
-        <div class="row">
+        <div class="row py-3">
             <span class="titulo">Ranking {{obterTurmaAtual()!.nome}}</span>
         </div>
         <div class="row">
@@ -24,8 +24,8 @@
         </div>
     </div>
     <ng-template #erroTurma>
-        <div class="alert alert-danger col-8" role="alert">
-            <span>Nenhuma turma para exibir</span>
+        <div class="alert alert-info col-8 my-5" role="alert">
+            <span>Nenhuma turma selecionada</span>
         </div>
     </ng-template>
 </div>

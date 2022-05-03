@@ -18,10 +18,25 @@
 
 .btn-primary {
   color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+  background-color: #E37623;
+  border: solid #E37623;
+  border-radius: 3px;
   font-family: Usuario;
   font-weight: bold;
+}
+.btn-primary:hover
+{
+  background-color: #c5671f;
+  border: solid #c5671f;
+  outline: none !important;
+  box-shadow: none;
+}
+
+.btn-primary:focus{
+  background-color: #c5671f;
+  border: solid #c5671f;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .titulo
@@ -29,11 +44,15 @@
  font-family: Titulo;
  font-weight: bold;
  font-size: xx-large;
- color: #E37623;
+ color: #1a3369;
  text-align: center;
  text-transform: uppercase;
 }
 
 .tabela{
   font-family: Tabela;
+}
+
+.tabela-cheia{
+background-color: #3464cc ;
 }
