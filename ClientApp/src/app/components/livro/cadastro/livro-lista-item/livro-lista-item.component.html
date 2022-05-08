@@ -1,20 +1,14 @@
-<tr>
-    <td>
-        <span class="tabela item">{{livro!.id}}</span>
-    </td>
-    <td>
+<div class="row">
+    <div class="col-md text-center">
         <span class="tabela item">{{livro!.titulo}}</span>
-    </td>
-    <td>
+    </div>
+    <div class="col-md-2">
         <span class="tabela item">{{livro!.autor}}</span>
-    </td>
-    <td>
-        <span><button><i class="bi bi-pencil" (click)="Editar()"></i></button></span>
-    </td>
-    <td>
-        <span><button><i class="bi bi-trash" (click)="Excluir()"></i></button></span>
-    </td>
-</tr>
-
-
-
+    </div>
+    <div class="col-md-1 text-center">
+        <span><button class="btn btn-warning w-75"><i class="bi bi-pencil" (click)="Editar()"></i></button></span>
+    </div>
+    <div class="col-md-1 text-center">
+        <span><button class="btn btn-danger w-75"><i class="bi bi-trash" (click)="Excluir()"></i></button></span>
+    </div>
+</div>

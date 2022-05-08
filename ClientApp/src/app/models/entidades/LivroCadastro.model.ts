@@ -1,7 +1,7 @@
 import { Genero } from "../livro/Genero.model";
 
 export class LivroCadastroModel{
-    id?: string = "";
+    id?: String = "";
     titulo: String = "";
     autor: String = "";
     capa?: String = "../../../assets/images/default_capa.png";

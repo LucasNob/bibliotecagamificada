@@ -7,3 +7,10 @@
     width: fit-content;
     align-content: space-between;
 }
+.alinhamento{
+    align-items: center;
+    height: 40;
+}
+.imagem{
+    text-align: center;
+}

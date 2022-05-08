@@ -1,19 +1,20 @@
 <div class="table-resposive">
     <table class="table" *ngIf="obterLista().length > 0; else erro">
-        <thead>
-            <tr>
-                <th class="tabela cabecalho" scope="col">Id</th>
-                <th class="tabela cabecalho" scope="col">Titulo</th>
-                <th class="tabela cabecalho" scope="col">Autor</th>
-                <th class="tabela cabecalho" scope="col">Editar</th>
-                <th class="tabela cabecalho" scope="col">Excluir</th>
-            </tr>
-        </thead>
-        <tbody>
+        <div class="table-resposive">
+            <div class="tabela-cheia" *ngIf="obterLista().length > 0; else erro">
+                <div class="row py-2">
+                    <div class="col-md text-center tabela cabecalho" scope="col">Titulo</div>
+                    <div class="col-md-2 tabela cabecalho" scope="col">Autor</div>
+                    <div class="col-md-1 tabela cabecalho" scope="col">Editar</div>
+                    <div class="col-md-1 tabela cabecalho" scope="col">Excluir</div>
+                </div>
+            </div>
+        </div>
+        <div>
             <div *ngFor="let item of obterLista()">
                 <app-livro-lista-item [livro]="item" (excluirEmitter)="emitExcluir($event)" (editarEmitter)="emitEditar($event)"></app-livro-lista-item>
             </div>
-        <tbody>
+        </div>
     </table>
     <ng-template #erro>
         <div class="alert alert-danger" role="alert">

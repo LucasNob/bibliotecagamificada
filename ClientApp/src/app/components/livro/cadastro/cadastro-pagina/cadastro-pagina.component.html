@@ -1,7 +1,5 @@
-<form [formGroup]="formCadastro" (ngSubmit)="cadastrarLivro(formCadastro.value)">
-
-    
-    <div class="col-11">
+<form [formGroup]="formCadastro" (ngSubmit)="cadastrarLivro(formCadastro.value)">    
+    <div class="col-12">
         <div class="row titulo m-4">
             <span>Cadastro de Livros</span>
         </div> 
@@ -17,7 +15,7 @@
                 <input type="text" class="form-control" id="autor" name="autor" formControlName="autor" placeholder="Autor do livro">    
             </div>
         </div>
-        <div class="row my-4">
+        <div class="row my-4 alinhamento">
             <div class="col-6">
                 <label for="genero">Genero</label>
                 <select class="form-select" id="genero" formControlName="genero" name="genero">
@@ -25,7 +23,7 @@
                     <option *ngFor="let genero of listaGeneros()">{{genero}}</option>
                   </select>
             </div>
-            <div class="col-6">
+            <div class="col imagem">
                 <app-upload-imagem (img)="imgCarregada = $event"></app-upload-imagem>
             </div>
         </div>
@@ -39,11 +37,10 @@
         </div>
         <ng-template #cadastrar>
             <div class="row cadastrar m-1">
-                <input type="submit" class="btn btn-success" value="Cadastrar" (click)="cadastrarLivro(formCadastro.value)">
+                <input type="submit" class="btn btn-success" value="Cadastrar">
             </div>
         </ng-template>
     </div>
 </form>
-<div class="row">
-    <app-livro-lista [listaLivros]="listaLivros" (excluirEmitter)="excluirLivro($event)" (editarEmitter)="editarLivro($event)" ></app-livro-lista>
-</div>
+<div class="row my-4"></div>
+<app-livro-lista [listaLivros]="listaLivros" (excluirEmitter)="excluirLivro($event)" (editarEmitter)="editarLivro($event)" ></app-livro-lista>

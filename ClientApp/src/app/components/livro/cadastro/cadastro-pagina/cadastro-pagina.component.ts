@@ -6,6 +6,7 @@ import { Usuario } from 'src/app/models/entidades/Usuario.model';
 import { Genero } from 'src/app/models/livro/Genero.model';
 import { LivroService } from 'src/app/services/livro.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { LivroListaComponent } from '../livro-lista/livro-lista.component';
 
 @Component({
   selector: 'app-cadastro-pagina',
@@ -74,34 +75,38 @@ export class CadastroPaginaComponent implements OnInit {
       this.usuario?.id!,
       this.imgCarregada
     );
+    if (this.edicao != "")
+      livro.id = this.edicao;
+    
     return livro;
   }
+
   editarLivro(id: String) {
     let livro = this.listaLivros.find(m => m.id == id);
     this.formCadastro.get('titulo')!.setValue(livro?.titulo);
     this.formCadastro.get('autor')!.setValue(livro?.autor);
     this.formCadastro.get('genero')!.setValue(livro?.genero);
     this.formCadastro.get('capa')!.setValue(livro?.capa);
-    
     this.edicao = id;
-
-    console.log("cadastro editar" + id)
   }
+
   excluirLivro(id:String) {
-    console.log("cadastro excluir " + id)
-    
+
     this.livroService.excluirLivro(id).then(data => {
       this.obterListaLivros();
     });
   }
+
   limparCampos() { 
     this.criarForm(new Livro());
   }
+
   salvarLivro() {
     let livro = this.obterObjetoLivro();
     this.livroService.editarLivro(livro);
     this.edicao = "";
   }
+
   modoEdicao() {
     if (this.edicao != "") {
       return true
