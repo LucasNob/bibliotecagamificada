@@ -1,5 +1,8 @@
 using BibliotecaGamificada.Comum.Classes.Models;
+using BibliotecaGamificada.Pontos.Comum.Entidades;
+using BibliotecaGamificada.Pontos.Comum.Repositorios;
 using BibliotecaGamificada.Turma.Comum.Entidades;
+using BibliotecaGamificada.Turma.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BibliotecaGamificada.Turma.Negocios
@@ -7,10 +10,12 @@ namespace BibliotecaGamificada.Turma.Negocios
     public class TurmaNegocio
     {
         private readonly TurmaRepositorio turmaRepositorio;
+        private readonly PontoRepositorio pontoRepositorio;
 
-        public TurmaNegocio(TurmaRepositorio turmaRepositorio)
+        public TurmaNegocio(TurmaRepositorio turmaRepositorio,PontoRepositorio pontoRepositorio)
         {
             this.turmaRepositorio = turmaRepositorio;
+            this.pontoRepositorio = pontoRepositorio;
         }
 
         public async Task<IActionResult> Obter()
@@ -53,6 +58,25 @@ namespace BibliotecaGamificada.Turma.Negocios
                 msg = new RetornoMsg("sucesso", "retorno enviado", turma);
 
             return new OkObjectResult(msg);
+        }
+
+        public async Task<IActionResult> AdicionarLivroLido(PontoAtualizacao atualizacao)
+        {
+            try
+            {
+                var ponto = await pontoRepositorio.ObterPorId(atualizacao.id);
+                var ponto2 = new Ponto();
+
+                ponto2.livrosLidos = ponto.livrosLidos;
+                ponto2.livrosLidos.Concat(atualizacao.livrosLidos);
+                ponto2.totalPontos = ponto.totalPontos += atualizacao.livrosLidos.Count;
+
+                await pontoRepositorio.Atualizar(ponto,ponto2);
+            }
+            catch(Exception e){
+                return new OkObjectResult(new RetornoMsg("erro", "Registros não encontrados",e));
+            }
+            return new OkObjectResult(new RetornoMsg("sucesso", "Livros Livros Atualizados"));
         }
 
         // internal Task<IActionResult> ObterPorTurma(string turma)
