@@ -1,26 +1,39 @@
-// import { HttpClient } from "@angular/common/http";
-// import { GetModel } from "../models/GetModel.model";
-// import { Turma } from "../models/Turma.model";
+import { HttpClient } from "@angular/common/http";
+import { Turma } from "../models/entidades/Turma.model";
+import { GetModelLista } from "../models/GetModelLista.model";
+import { GetModelUnico } from "../models/GetModelUnico.model";
 
-// export class TurmaService { 
+import { Inject, Injectable } from '@angular/core';
 
-//     http?: HttpClient;
-//     baseUrl?: string;
-//     retorno?: GetModel<Turma>;
+@Injectable({
+  providedIn: 'root',
+})
 
-//     constructor(http: HttpClient, baseUrl: string) {
-//         this.http = http;
-//         this.baseUrl = baseUrl;
-//     }
+export class TurmaService {
+    constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+    }
 
-//     public obterTurmas(): GetModel<Turma> {
+    public obterTurmasPorIdUsuario(id: String){
+        let listaTurmas: Array<Turma> = [];
+
+        return new Promise(
+            resolve => {
+                this.http.get<GetModelLista<Turma>>(this.baseUrl + 'v1/turma/obterTurmasUsuario/' + id).subscribe(result => {
+                    //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
+                    resolve(result.objeto);
+                }, error => console.error(error));
+            }
+        )
+    }
+
+    public obterTurmaPorIdTurma(id: String): Turma {
+        let turma: Turma;    
         
-//         this.http?.get<GetModel<Turma>>(this.baseUrl + 'v1/turma/obter').subscribe(result => {
-//             console.log(result);
-//             this.retorno = result;
-//         }, error => console.error(error));
-        
-//         return this.retorno!;
-//     }
-// }
+        this.http.get<GetModelUnico<Turma>>(this.baseUrl + 'v1/turma/obterTurma/' + id).subscribe(result => {
+            turma = result.objeto!;
+        }, error => console.error(error));
+
+        return turma!;
+    }
+}
   

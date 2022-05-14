@@ -1,28 +1,21 @@
-<div class="container-flex" class="background">
-    <div *ngIf="obterLista().length > 0; else erro" >
-        <div class="row justify-content-md-center border">    
-            <div class="col">
-                <span>Posição</span>
+<div class="table-resposive">
+    <div class="tabela-cheia" *ngIf="obterLista().length > 0; else erro">
+            <div class="row py-2">
+                <div class="col-md-2 col-3 text-center tabela cabecalho">Posição</div>
+                <div class=" col-md-2 col-2 tabela cabecalho"></div>
+                <div class=" col-md-6 col-3 tabela cabecalho">Nome</div>
+                <div class="col-md-1 col-4 text-center tabela cabecalho">Pontos</div>
             </div>
-            <div class="col-2">
-                <span></span>
-            </div>
-            <div class="col-6">
-                <span>Nome</span>
-            </div>
-            <div class="col-1">
-                <span>Pontos</span>
-            </div>
-        </div>
-        <div class="col-md-auto backgroundlista">
-            <div class="row" *ngFor="let item of obterLista()">
-                <app-classificacao-lista-item [ponto]="item.ponto" [colocacao]="item.colocacao" [premio]="item.premio"></app-classificacao-lista-item>
+        <div>
+            <div *ngFor="let item of obterLista()">
+                <app-classificacao-lista-item [ponto]="item.ponto" [colocacao]="item.colocacao" [premio]="item.premio">
+                </app-classificacao-lista-item>
             </div>
         </div>
     </div>
     <ng-template #erro>
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-info" role="alert">
             Lista de Pontos vazia!
         </div>
     </ng-template>
-</div>    
+</div>

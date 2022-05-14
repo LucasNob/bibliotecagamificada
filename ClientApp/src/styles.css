@@ -1,16 +1,60 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+@font-face {
+  font-family: Usuario;
+  src: url(assets/fonts/Inter.ttf);
 }
 
-code {
-  color: #e01a76;
+@font-face {
+  font-family: Titulo;
+  src: url(assets/fonts/Rowdies.ttf);
+}
+
+@font-face {
+  font-family: Tabela;
+  src: url(assets/fonts/SecularOne.ttf);
 }
 
 .btn-primary {
   color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+  background-color: #E37623;
+  border: solid #E37623;
+  border-radius: 3px;
+  font-family: Usuario;
+  font-weight: bold;
+}
+.btn-primary:hover
+{
+  background-color: #c5671f;
+  border: solid #c5671f;
+  outline: none !important;
+  box-shadow: none;
+}
+
+.btn-primary:focus{
+  background-color: #c5671f;
+  border: solid #c5671f;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.titulo
+{
+ font-family: Titulo;
+ font-weight: bold;
+ font-size: xx-large;
+ color: #1a3369;
+ text-align: center;
+ text-transform: uppercase;
+}
+
+.tabela{
+  font-family: Tabela;
+}
+
+.tabela-cheia{
+background-color: #3464cc ;
 }
