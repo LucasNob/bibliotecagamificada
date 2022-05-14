@@ -15,17 +15,15 @@
     </div>
 </div>
 <div class="row justify-content-center">
-    <div class="col-10" *ngIf="obterTurmaAtual() != undefined; else erroTurma">
+    <div class=" col-md-10 px-0" *ngIf="obterTurmaAtual() != undefined; else erroTurma">
         <div class="row py-3">
             <span class="titulo">Ranking {{obterTurmaAtual()!.nome}}</span>
         </div>
-        <div class="row">
             <app-classificacao-lista [listaPontos]="getListaPontos()"></app-classificacao-lista>
-        </div>
     </div>
+</div>
     <ng-template #erroTurma>
         <div class="alert alert-info col-8 my-5" role="alert">
             <span>Nenhuma turma selecionada</span>
         </div>
     </ng-template>
-</div>
