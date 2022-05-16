@@ -52,5 +52,11 @@ namespace BibliotecaGamificada.Livros.Comum.Repositorios
             );
             await this.AtualizarDados(livro, atualizacao);
         }
+
+        public async Task<List<Livro>> ObterPorListaId(List<string> ids)
+        {
+            var filtro = Builders<Livro>.Filter.In(p => p.Id, ids);
+            return await this.ObterListaDadosPorFiltro(filtro);
+        }
     }
 }

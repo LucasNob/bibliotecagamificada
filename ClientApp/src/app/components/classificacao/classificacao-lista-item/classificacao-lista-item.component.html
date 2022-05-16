@@ -8,15 +8,15 @@
         </ng-template>
     </div>
     <div class="col-md-2">
-        <div *ngIf="ponto.aluno.foto != null; else fotoPadrao">
-            <span><img src={{ponto.aluno.foto}} alt="" height="50"></span>
+        <div *ngIf="img != null; else fotoPadrao">
+            <span><img src={{img}} alt="" height="50"></span>
         </div>
         <ng-template #fotoPadrao>
             <span><img src="../../../../assets/images/default_avatar.png" alt="" height="50"></span>
         </ng-template>
     </div>
     <div class="col-md-6">
-        <span class="tabela item">{{ponto.aluno}}</span>
+        <span class="tabela item">{{nome}}</span>
     </div>
     <div class="col-md-1 text-center">
         <span class="tabela item">{{ponto.totalPontos}}</span>

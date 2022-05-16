@@ -1,4 +1,5 @@
 import { HttpClient } from "@angular/common/http";
+import { Parser, Serializer } from "@angular/compiler";
 import { Inject, Injectable } from '@angular/core';
 import { Livro } from "../models/entidades/Livro.model";
 import { LivroCadastroModel } from "../models/entidades/LivroCadastro.model";
@@ -26,22 +27,29 @@ export class LivroService {
     // }
     
     public obterLivros(){
-        let listaLivro: Array<Livro> = [];
-
         return new Promise(
             resolve => {
                 this.http.get<GetModelLista<Livro>>(this.baseUrl + 'v1/livro/obterLivros').subscribe(result => {
-                    //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
                     resolve(result.objeto);
                 }, error => console.error(error));
             }
         )
     }
+    public obterListaLivros(ids: Array<String>) {
+        console.log(JSON.stringify(ids));
+        return new Promise(
+            resolve => {
+                this.http.post<GetModelLista<Livro>>(this.baseUrl + 'v1/livro/obterLivrosPorLista',ids).subscribe(result => {
+                    resolve(result.objeto);
+                }, error => console.error(error));
+            }
+        )
+    }
+
     public obterLivroPorId(id:String){
         return new Promise(
             resolve => {
                 this.http.get<GetModelUnico<Livro>>(this.baseUrl + 'v1/livro/obterLivro/'+id).subscribe(result => {
-                    //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
                     resolve(result.objeto);
                 }, error => console.error(error));
             }

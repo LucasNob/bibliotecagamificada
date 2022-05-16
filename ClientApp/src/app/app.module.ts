@@ -12,8 +12,12 @@ import { HomeComponent } from './components/home/home/home.component';
 import { CadastroPaginaComponent } from './components/livro/cadastro/cadastro-pagina/cadastro-pagina.component';
 import { LivroListaItemComponent } from './components/livro/cadastro/livro-lista-item/livro-lista-item.component';
 import { LivroListaComponent } from './components/livro/cadastro/livro-lista/livro-lista.component';
+import { MarcacaoAlunoListaComponent } from './components/marcacao/marcacao-aluno-lista/marcacao-aluno-lista.component';
+import { MarcacaoLivroPaginaComponent } from './components/marcacao/marcacao-livro-pagina/marcacao-livro-pagina.component';
+import { MarcacaoPaginaComponent } from './components/marcacao/marcacao-pagina/marcacao-pagina.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { UploadImagemComponent } from './components/upload-imagem/upload-imagem.component';
+import { AlunoService } from './services/aluno.service';
 import { LivroService } from './services/livro.service';
 import { PontoService } from './services/pontos.service';
 import { TurmaService } from './services/turma.service';
@@ -21,10 +25,11 @@ import { UsuarioService } from './services/usuario.service';
 
 //TODO: App routing module 
 const appRoutes: Routes = [
-
   { path: '', component: HomeComponent },
   { path: 'listaclassificacao', component: ClassificacaoPaginaComponent },
   { path: 'cadastrolivro', component: CadastroPaginaComponent },
+  { path: 'marcacao', component: MarcacaoPaginaComponent },
+  { path: 'marcacaoLivro', component: MarcacaoLivroPaginaComponent},
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: '/not-found', pathMatch: 'full' }
 ];
@@ -45,6 +50,9 @@ const appRoutes: Routes = [
     LivroListaItemComponent,
     UploadImagemComponent,
     CadastroPaginaComponent,
+    MarcacaoPaginaComponent,
+    MarcacaoLivroPaginaComponent,
+    MarcacaoAlunoListaComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -53,7 +61,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [UsuarioService, TurmaService, PontoService, LivroService],
+  providers: [UsuarioService, TurmaService, PontoService, LivroService,AlunoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

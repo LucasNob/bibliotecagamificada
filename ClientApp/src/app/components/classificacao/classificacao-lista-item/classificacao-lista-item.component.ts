@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Aluno } from 'src/app/models/entidades/Aluno.model';
 import { Ponto } from 'src/app/models/entidades/Ponto.model';
 
 @Component({
@@ -11,9 +12,13 @@ export class ClassificacaoListaItemComponent implements OnInit {
   @Input()
   ponto!: Ponto;
   @Input()
-  premio?: string;
+  premio?:String;
   @Input()
   colocacao!: number;
+  @Input()
+  img!: String;
+  @Input()
+  nome!: String;
 
   constructor() { }
 

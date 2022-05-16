@@ -53,4 +53,9 @@ public class LivroController : ControllerBase
     {
         return await livroNegocio.ExcluirLivro(id);
     }
+      [HttpPost, Route("obterLivrosPorLista")]
+    public async Task<IActionResult> ObterInstituicaoPorId([FromBody] List<string> ids)
+    {
+        return await livroNegocio.ObterLivrosPorListaId(ids);
+    }
 }

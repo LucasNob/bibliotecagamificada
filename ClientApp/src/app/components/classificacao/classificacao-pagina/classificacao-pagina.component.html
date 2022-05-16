@@ -20,7 +20,7 @@
             <span class="titulo">Ranking {{obterTurmaAtual()!.nome}}</span>
         </div>
         <div class="row">
-            <app-classificacao-lista [listaPontos]="getListaPontos()"></app-classificacao-lista>
+            <app-classificacao-lista [listaPontos]="obterListaPontos()" [listaAlunos]="obterListaAlunos()"></app-classificacao-lista>
         </div>
     </div>
     <ng-template #erroTurma>

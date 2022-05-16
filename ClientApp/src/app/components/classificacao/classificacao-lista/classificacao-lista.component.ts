@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ItemClassificacao } from 'src/app/models/classificacao/ItemClassificacao.model';
+import { Aluno } from 'src/app/models/entidades/Aluno.model';
 import { Ponto } from 'src/app/models/entidades/Ponto.model';
+import { AlunoService } from 'src/app/services/aluno.service';
 
 @Component({
   selector: 'app-classificacao-lista',
@@ -11,37 +13,51 @@ export class ClassificacaoListaComponent implements OnInit {
   
   @Input()
   listaPontos!: Array<Ponto>;
+  @Input()
+  listaAlunos!: Array<Aluno>;
 
   // listaClassificacao!: Array<ItemClassificacao> ;
 
-  constructor() { }
+  constructor( private alunoServie:AlunoService) { }
 
   ngOnInit(): void {
     // this.listaClassificacao = [];
-    // console.log(this.listaPontos);
+    console.log(this.listaAlunos);
   }
   obterLista() {
-    let listaClassificacao: Array<ItemClassificacao> = [];
+    let listaClassificacao = new Array<ItemClassificacao>();
     let item = 4;
-
-    if (this.listaPontos.length == 0)
+      
+    if (this.listaPontos.length == 0 || this.listaAlunos.length == 0 )
       return listaClassificacao;
     
     this.listaPontos = this.listaPontos.sort((a: Ponto, b: Ponto) => (a.totalPontos <= b.totalPontos) ? 1 : -1);
+    let a = this.listaAlunos.find(a => a.id == this.listaPontos[0].aluno);
+
+    if (a == undefined)
+      return listaClassificacao;
     
     listaClassificacao.push(
       new ItemClassificacao(
         this.listaPontos[0],
         1,
+        a.nome,
+        a.foto,
         "../../../../assets/images/Ouro.png",
       )
     )
+    
     for (let i = 1; i < this.listaPontos.length; i++){
+
+      let aluno = this.listaAlunos.find(a => a.id == this.listaPontos[i].aluno);
+
       if (listaClassificacao[i - 1].ponto.totalPontos == this.listaPontos[i].totalPontos) {
         listaClassificacao.push(
           new ItemClassificacao(
             this.listaPontos[i],
-            item-1,
+            item - 1,
+            aluno?.nome!,
+            aluno?.foto,
             listaClassificacao[i - 1].premio,
           )
         );
@@ -51,6 +67,8 @@ export class ClassificacaoListaComponent implements OnInit {
           new ItemClassificacao(
             this.listaPontos[i],
             i + 1,
+            aluno?.nome!,
+            aluno?.foto,
             "../../../../assets/images/Prata.png",
           )
         );
@@ -60,6 +78,8 @@ export class ClassificacaoListaComponent implements OnInit {
           new ItemClassificacao(
             this.listaPontos[i],
             i + 1,
+            aluno?.nome!,
+            aluno?.foto,
             "../../../../assets/images/Bronze.png",
           )
         );
@@ -69,6 +89,8 @@ export class ClassificacaoListaComponent implements OnInit {
           new ItemClassificacao(
             this.listaPontos[i],
             item++,
+            aluno?.nome!,
+            aluno?.foto,
           )
         );
       }
