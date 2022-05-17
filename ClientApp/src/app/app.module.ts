@@ -1,34 +1,49 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
-
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { AppBarComponent } from './components/app-bar/app-bar.component';
+import { ClassificacaoListaItemComponent } from './components/classificacao/classificacao-lista-item/classificacao-lista-item.component';
+import { ClassificacaoListaComponent } from './components/classificacao/classificacao-lista/classificacao-lista.component';
+import { ClassificacaoPaginaComponent } from './components/classificacao/classificacao-pagina/classificacao-pagina.component';
+import { HomeComponent } from './components/home/home/home.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { PontoService } from './services/pontos.service';
+import { TurmaService } from './services/turma.service';
+import { UsuarioService } from './services/usuario.service';
+
+//TODO: App routing module 
+const appRoutes: Routes = [
+
+  { path: '', component: HomeComponent },
+  { path: 'listaclassificacao', component: ClassificacaoPaginaComponent },
+  { path: 'not-found', component: NotFoundComponent },
+  { path: '**', redirectTo: '/not-found', pathMatch: 'full' }
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
+    ClassificacaoListaComponent,
+    ClassificacaoListaItemComponent,
+    AppBarComponent,
+    NotFoundComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent
+    ClassificacaoPaginaComponent,
+    AppBarComponent,
+    ClassificacaoListaComponent,
+    ClassificacaoListaItemComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-    ])
+    ReactiveFormsModule,
+    RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [UsuarioService, TurmaService, PontoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
