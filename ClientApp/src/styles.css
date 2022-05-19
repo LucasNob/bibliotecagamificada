@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Provide sufficient contrast against white background */
-@import "~bootstrap-icons/font/bootstrap-icons.css";
+/* @import 'https://fonts.googleapis.com/icon?family=Material+Icons'; */
 
 @font-face {
   font-family: Usuario;
@@ -58,3 +58,5 @@
 .tabela-cheia{
 background-color: #3464cc ;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AppBarComponent } from './components/app-bar/app-bar.component';
@@ -22,6 +23,7 @@ import { LivroService } from './services/livro.service';
 import { PontoService } from './services/pontos.service';
 import { TurmaService } from './services/turma.service';
 import { UsuarioService } from './services/usuario.service';
+import { MaterialModule } from './shared/modules/material/material.module';
 
 //TODO: App routing module 
 const appRoutes: Routes = [
@@ -59,7 +61,9 @@ const appRoutes: Routes = [
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [UsuarioService, TurmaService, PontoService, LivroService,AlunoService],
   bootstrap: [AppComponent]
