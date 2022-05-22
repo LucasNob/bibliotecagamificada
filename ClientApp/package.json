@@ -5,9 +5,8 @@
     "ng": "ng",
     "prestart": "node aspnetcore-https",
     "start": "run-script-os",
-    "start:windows": "ng serve --port 44493 --ssl --ssl-cert %APPDATA%\\ASP.NET\\https\\%npm_package_name%.pem --ssl-key %APPDATA%\\ASP.NET\\https\\%npm_package_name%.key",
-    "start:default": "ng serve --port 44493 --ssl --ssl-cert $HOME/.aspnet/https/${npm_package_name}.pem --ssl-key $HOME/.aspnet/https/${npm_package_name}.key",
     "build": "ng build",
+    "start:default": "ng serve --port 44493 --ssl --ssl-cert %APPDATA%\\ASP.NET\\https\\%npm_package_name%.pem --ssl-key %APPDATA%\\ASP.NET\\https\\%npm_package_name%.key",
     "build:ssr": "ng run BibliotecaGamificada:server:dev",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -27,6 +26,7 @@
     "@angular/router": "~12.2.2",
     "bootstrap": "^5.1.0",
     "jquery": "^3.5.1",
+    "npm": "^8.10.0",
     "oidc-client": "^1.11.5",
     "popper.js": "^1.16.0",
     "rxjs": "~6.6.0",
