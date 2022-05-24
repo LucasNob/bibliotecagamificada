@@ -15,20 +15,19 @@
     </div>
 </div> -->
 <div class="row justify-content-center">
-    <div class="col-10" *ngIf="obterTurmaAtual() != undefined; else erroTurma">
+    <div class=" col-md-10 px-0" *ngIf="obterTurmaAtual() != undefined; else erroTurma">
         <div class="row py-3">
             <span class="titulo">Ranking {{obterTurmaAtual()!.nome}}</span>
         </div>
-        <div class="row">
-            <app-classificacao-lista [listaPontos]="obterListaPontos()" [listaAlunos]="obterListaAlunos()"></app-classificacao-lista>
-        </div>
-    </div>
-    <ng-template #erroTurma>
-        <div class="alert alert-info col-8 my-5" role="alert">
-            <span>Nenhuma turma selecionada</span>
-        </div>
-    </ng-template>
-    <div class="row-md-4 py-4" *ngIf="checarPermissaoMarcacaoLivro()">
-            <button class="btn btn-primary" (click)="navegarMarcacao()">Marcação livro</button>
+        <app-classificacao-lista [listaPontos]="obterListaPontos()" [listaAlunos]="obterListaAlunos()"></app-classificacao-lista>
     </div>
 </div>
+<ng-template #erroTurma>
+    <div class="alert alert-info col-8 my-5" role="alert">
+        <span>Nenhuma turma selecionada</span>
+    </div>
+</ng-template>
+<div class="row-md-4 py-4" *ngIf="checarPermissaoMarcacaoLivro()">
+        <button class="btn btn-primary" (click)="navegarMarcacao()">Marcação livro</button>
+</div>
+

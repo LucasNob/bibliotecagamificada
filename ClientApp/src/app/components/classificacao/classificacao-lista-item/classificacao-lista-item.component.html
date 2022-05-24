@@ -1,5 +1,5 @@
 <div class="row py-1">
-    <div class="col-md-2 text-center">
+    <div class="col-md-2 col-3 text-center">
         <div *ngIf="premio != null; else colocacaoPadrao">
             <span><img src="{{premio}}" alt="" height="50"></span>
         </div>
@@ -7,7 +7,7 @@
             <span class="align-self-center tabela item">{{colocacao}}</span>
         </ng-template>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-2 col-2">
         <div *ngIf="img != null; else fotoPadrao">
             <span><img src={{img}} alt="" height="50"></span>
         </div>
@@ -15,10 +15,10 @@
             <span><img src="../../../../assets/images/default_avatar.png" alt="" height="50"></span>
         </ng-template>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 col-3">
         <span class="tabela item">{{nome}}</span>
     </div>
-    <div class="col-md-1 text-center">
+    <div class="col-md-1 col-4 text-center">
         <span class="tabela item">{{ponto.totalPontos}}</span>
     </div>
 </div>
