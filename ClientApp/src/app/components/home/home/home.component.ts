@@ -20,4 +20,3 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl('/selecaoturma', { state: { Usuario: this.usuarioService.obterUsuario()} });
   }
 }
-
