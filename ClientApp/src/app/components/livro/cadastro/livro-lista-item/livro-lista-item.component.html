@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-md text-center">
+        <span class="tabela item">{{livro!.titulo}}</span>
+    </div>
+    <div class="col-md-2">
+        <span class="tabela item">{{livro!.autor}}</span>
+    </div>
+    <div class="col-md-1 text-center">
+        <span><button class="btn btn-warning w-75"><mat-icon>edit</mat-icon><i class="bi bi-pencil" (click)="Editar()"></i></button></span>
+    </div>
+    <div class="col-md-1 text-center">
+        <span><button class="btn btn-danger w-75"><mat-icon>delete</mat-icon><i class="bi bi-trash" (click)="Excluir()"></i></button></span>
+    </div>
+</div>

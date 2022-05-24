@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AppBarComponent } from './components/app-bar/app-bar.component';
@@ -9,16 +10,30 @@ import { ClassificacaoListaItemComponent } from './components/classificacao/clas
 import { ClassificacaoListaComponent } from './components/classificacao/classificacao-lista/classificacao-lista.component';
 import { ClassificacaoPaginaComponent } from './components/classificacao/classificacao-pagina/classificacao-pagina.component';
 import { HomeComponent } from './components/home/home/home.component';
+import { CadastroPaginaComponent } from './components/livro/cadastro/cadastro-pagina/cadastro-pagina.component';
+import { LivroListaItemComponent } from './components/livro/cadastro/livro-lista-item/livro-lista-item.component';
+import { LivroListaComponent } from './components/livro/cadastro/livro-lista/livro-lista.component';
+import { MarcacaoAlunoListaComponent } from './components/marcacao/marcacao-aluno-lista/marcacao-aluno-lista.component';
+import { MarcacaoLivroPaginaComponent } from './components/marcacao/marcacao-livro-pagina/marcacao-livro-pagina.component';
+import { MarcacaoPaginaComponent } from './components/marcacao/marcacao-pagina/marcacao-pagina.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { UploadImagemComponent } from './components/upload-imagem/upload-imagem.component';
+import { AlunoService } from './services/aluno.service';
+import { LivroService } from './services/livro.service';
 import { PontoService } from './services/pontos.service';
 import { TurmaService } from './services/turma.service';
 import { UsuarioService } from './services/usuario.service';
+import { MaterialModule } from './shared/modules/material/material.module';
+import { SelecaoTurmaPaginaComponent } from './components/turma/selecao-turma/selecao-turma-pagina.component';
 
 //TODO: App routing module 
 const appRoutes: Routes = [
-
   { path: '', component: HomeComponent },
   { path: 'listaclassificacao', component: ClassificacaoPaginaComponent },
+  { path: 'selecaoturma', component: SelecaoTurmaPaginaComponent },
+  { path: 'cadastrolivro', component: CadastroPaginaComponent },
+  { path: 'marcacao', component: MarcacaoPaginaComponent },
+  { path: 'marcacaoLivro', component: MarcacaoLivroPaginaComponent},
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: '/not-found', pathMatch: 'full' }
 ];
@@ -35,15 +50,25 @@ const appRoutes: Routes = [
     AppBarComponent,
     ClassificacaoListaComponent,
     ClassificacaoListaItemComponent,
+    LivroListaComponent,
+    LivroListaItemComponent,
+    UploadImagemComponent,
+    CadastroPaginaComponent,
+    MarcacaoPaginaComponent,
+    MarcacaoLivroPaginaComponent,
+    MarcacaoAlunoListaComponent,
+    SelecaoTurmaPaginaComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    BrowserAnimationsModule,
+    MaterialModule
   ],
-  providers: [UsuarioService, TurmaService, PontoService],
+  providers: [UsuarioService, TurmaService, PontoService, LivroService,AlunoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

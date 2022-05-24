@@ -1,0 +1,46 @@
+<form [formGroup]="formCadastro" (ngSubmit)="cadastrarLivro(formCadastro.value)">    
+    <div class="col-12">
+        <div class="row titulo m-4">
+            <span>Cadastro de Livros</span>
+        </div> 
+        <div class="row my-4">
+            <div class="form-group">
+                <label for="titulo">Titulo</label>
+                <input type="text" class="form-control" id="titulo" name="titulo" formControlName="titulo" placeholder="Titulo do livro">
+            </div>
+        </div>
+        <div class="row my-4">
+            <div class="form-group">
+                <label for="Autor">Autor</label>
+                <input type="text" class="form-control" id="autor" name="autor" formControlName="autor" placeholder="Autor do livro">    
+            </div>
+        </div>
+        <div class="row my-4 alinhamento">
+            <div class="col-6">
+                <label for="genero">Genero</label>
+                <select class="form-select" id="genero" formControlName="genero" name="genero">
+                    <option selected>Genêro...</option>
+                    <option *ngFor="let genero of listaGeneros()">{{genero}}</option>
+                  </select>
+            </div>
+            <div class="col imagem">
+                <app-upload-imagem (img)="imgCarregada = $event"></app-upload-imagem>
+            </div>
+        </div>
+        <div class="row" *ngIf="modoEdicao(); else cadastrar">
+            <div class="cadastrar m-1">
+                <input class="btn btn-warning" value="Salvar" (click)="salvarLivro()">
+            </div>
+            <div class="cadastrar m-1">
+                <input class="btn btn-success" value="Cancelar" (click)="limparCampos()">
+            </div>
+        </div>
+        <ng-template #cadastrar>
+            <div class="row cadastrar m-1">
+                <input type="submit" class="btn btn-success" value="Cadastrar">
+            </div>
+        </ng-template>
+    </div>
+</form>
+<div class="row my-4"></div>
+<app-livro-lista [listaLivros]="listaLivros" (excluirEmitter)="excluirLivro($event)" (editarEmitter)="editarLivro($event)" ></app-livro-lista>

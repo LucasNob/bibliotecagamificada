@@ -1,0 +1,36 @@
+<!-- <div class="container">
+    <div class="row mt-4 backgroundcolor">
+        <div *ngIf="obterTurmasUsuario().length > 0; else erro">
+            <div class="row">
+                <div class="col-md-2 col-4" *ngFor="let item of obterTurmasUsuario()">
+                    <button class="btn-primary w-100" (click)="obterAlunosTurma(item.id)">{{item.nome}}</button>
+                </div>
+            </div>
+        </div>
+        <ng-template #erro>
+            <div class="alert alert-warning my-3" role="alert">
+                <span>Lista de turmas não encontrada para o usuario {{usuario?.nome}}!</span>
+            </div>
+        </ng-template>
+    </div>
+</div> -->
+<div class="row justify-content-center m-4">
+    <div class="col-4">
+        <div class="col" *ngIf="obterTurmaAtual() != undefined; else erroTurma">
+            <div class="row py-3">
+                <span class="titulo">Alunos {{obterTurmaAtual()!.nome}}</span>
+            </div>
+            <div class="row">
+                <app-marcacao-aluno-lista [listaAlunos]="obterListaAlunos()" [listaPonto]="obterListaPonto()" (selecaoEmitter)="emitSelecao($event)"></app-marcacao-aluno-lista>
+            </div>
+        </div>
+        <ng-template #erroTurma>
+            <div class="alert alert-info col-8 my-5" role="alert">
+                <span>Nenhuma turma selecionada</span>
+            </div>
+        </ng-template>
+    </div>
+    <div class="col-8" *ngIf="obterAlunoAtual() != undefined">
+        <!-- <app-marcacao-livro [turma]="obterTurmaAtual()" [aluno]="obterAlunoAtual()" ></app-marcacao-livro> -->
+    </div>
+</div>

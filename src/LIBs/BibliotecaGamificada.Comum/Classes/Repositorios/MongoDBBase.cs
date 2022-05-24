@@ -97,9 +97,9 @@ namespace BibliotecaGamificada.Comum.Classes.Repositorio
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        protected void ExcluirDados(FilterDefinition<C> filtro, CancellationToken cancellationToken = default)
+        protected async Task ExcluirDados(FilterDefinition<C> filtro, CancellationToken cancellationToken = default)
         {
-            this.colecao.DeleteOne(filtro, cancellationToken);
+            await this.colecao.DeleteOneAsync(filtro, cancellationToken);
         }
 
         protected async Task AtualizarDados(C model, UpdateDefinition<C> updateDefinition)

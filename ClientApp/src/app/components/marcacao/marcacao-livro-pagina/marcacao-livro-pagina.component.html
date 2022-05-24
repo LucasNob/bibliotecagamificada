@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="table-resposive">
+        <div class="tabela-cheia" *ngIf="obterListaLivros()!.length > 0; else erro">
+                <div class="row py-2">
+                    <div class="col-md-8 text-center tabela cabecalho">Nome do Livro</div>
+                    <div class=" col-md-4 text-center tabela cabecalho">Leu</div>
+                </div>
+            <div>
+                <div *ngFor="let livro of obterListaLivros()">
+                    <div class="row py-1">
+                        <div class="col-md-8 text-center">
+                            <span>{{livro.titulo}}</span>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <span><input type="checkbox" (change)="check(livro.id)"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-template #erro>
+            <div class="alert alert-info" role="alert">
+                Lista de Livros vazia!
+            </div>
+        </ng-template>
+    </div>
+    <button class="btn btn-primary" (click)="salvar()">Salvar</button>
+</div>

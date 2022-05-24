@@ -1,0 +1,16 @@
+.titulo{
+    color:  #E37623;
+    font-size: xx-large;
+    text-align: center;
+}
+.cadastrar{
+    width: fit-content;
+    align-content: space-between;
+}
+.alinhamento{
+    align-items: center;
+    height: 40;
+}
+.imagem{
+    text-align: center;
+}

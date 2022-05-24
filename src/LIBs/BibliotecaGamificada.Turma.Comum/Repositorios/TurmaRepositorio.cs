@@ -20,11 +20,14 @@ namespace BibliotecaGamificada.Turma.Comum.Entidades
         {
             return await this.ObterDadosPorId(id);
         }
-        public async Task<List<Turma>> ObterTurmasPorIdUsuario(string id)
+        public async Task<List<Turma>> ObterTurmasPorIdAluno(string id)
         {
-            // var filtro = Builders<Turma>.Filter.Eq(p => p.alunos[0],id);
-
             var filtro = Builders<Turma>.Filter.AnyEq(x => x.alunos, id);
+            return await this.ObterListaDadosPorFiltro(filtro);
+        }
+        public async Task<List<Turma>> ObterTurmasPorIdProfessor(string id)
+        {
+            var filtro = Builders<Turma>.Filter.Eq(x => x.professor, id);
             return await this.ObterListaDadosPorFiltro(filtro);
         }
     }

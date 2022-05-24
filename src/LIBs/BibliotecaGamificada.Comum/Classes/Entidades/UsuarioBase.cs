@@ -20,6 +20,5 @@ namespace  BibliotecaGamificada.Comum.Classes.Entidades
             this.foto = foto;
             this.permissao = permissao;
         }
-        
     }
 }
