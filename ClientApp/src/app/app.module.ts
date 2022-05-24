@@ -24,11 +24,13 @@ import { PontoService } from './services/pontos.service';
 import { TurmaService } from './services/turma.service';
 import { UsuarioService } from './services/usuario.service';
 import { MaterialModule } from './shared/modules/material/material.module';
+import { SelecaoTurmaPaginaComponent } from './components/turma/selecao-turma/selecao-turma-pagina.component';
 
 //TODO: App routing module 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'listaclassificacao', component: ClassificacaoPaginaComponent },
+  { path: 'selecaoturma', component: SelecaoTurmaPaginaComponent },
   { path: 'cadastrolivro', component: CadastroPaginaComponent },
   { path: 'marcacao', component: MarcacaoPaginaComponent },
   { path: 'marcacaoLivro', component: MarcacaoLivroPaginaComponent},
@@ -55,6 +57,7 @@ const appRoutes: Routes = [
     MarcacaoPaginaComponent,
     MarcacaoLivroPaginaComponent,
     MarcacaoAlunoListaComponent,
+    SelecaoTurmaPaginaComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

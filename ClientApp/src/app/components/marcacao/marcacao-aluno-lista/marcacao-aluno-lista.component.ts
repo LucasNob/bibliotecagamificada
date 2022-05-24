@@ -24,10 +24,10 @@ export class MarcacaoAlunoListaComponent implements OnInit {
   obterLista(): Array<Aluno> {
     return this.listaAlunos;
   }
-  selecionarAluno(aluno: Aluno) { 
+  selecionarAluno(aluno: Aluno) {
     this.selecaoEmitter.emit(aluno);
   }
   obterPontuacaoAluno(aluno: Aluno) {
-    this.listaPonto.find(m=>m.aluno==aluno.id)
+    return this.listaPonto.find(m => m.aluno == aluno.id)?.livrosLidos.length;
   }
 }

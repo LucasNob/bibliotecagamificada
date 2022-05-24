@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
     <div class="row mt-4 backgroundcolor">
         <div *ngIf="obterTurmasUsuario().length > 0; else erro">
             <div class="row">
@@ -13,7 +13,7 @@
             </div>
         </ng-template>
     </div>
-</div>
+</div> -->
 <div class="row justify-content-center">
     <div class="col-10" *ngIf="obterTurmaAtual() != undefined; else erroTurma">
         <div class="row py-3">
@@ -28,4 +28,7 @@
             <span>Nenhuma turma selecionada</span>
         </div>
     </ng-template>
+    <div class="row-md-4 py-4" *ngIf="checarPermissaoMarcacaoLivro()">
+            <button class="btn btn-primary" (click)="navegarMarcacao()">Marcação livro</button>
+    </div>
 </div>

@@ -28,12 +28,16 @@ export class MarcacaoLivroPaginaComponent implements OnInit {
   ngOnInit(): void {
     this.aluno = history.state.Aluno;
     this.turma = history.state.Turma;
-
-    this.livroService.obterListaLivros(this.turma!.livros!).then(data => {
-      this.listaLivros = data as Array<Livro>;
-    });;
+    
+    if (this.turma?.livros != undefined && this.turma.livros.length > 0)
+      this.livroService.obterListaLivros(this.turma!.livros!).then(data => {
+        this.listaLivros = data as Array<Livro>;
+      });;
   }
   obterListaLivros() { 
+    console.log(this.listaLivros)
+    if (this.listaLivros == undefined)
+      return [];
     return this.listaLivros;
   }
   check(id: String) {

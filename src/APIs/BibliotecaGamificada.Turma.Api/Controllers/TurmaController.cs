@@ -25,9 +25,14 @@ public class TurmaController : ControllerBase
     {
         return await turmaNegocio.ObterPorId(id);
     }
-    [HttpGet, Route("obterTurmasUsuario/{id}")]
-    public async Task<IActionResult> ObterTurmasPorUsuario([FromRoute] string id)
+    [HttpGet, Route("obterTurmasProfessor/{id}")]
+    public async Task<IActionResult> ObterTurmasPorProfessor([FromRoute] string id)
     {
-        return await turmaNegocio.ObterTurmasPorUsuario(id);
+        return await turmaNegocio.ObterTurmasPorProfessor(id);
+    }
+    [HttpGet, Route("obterTurmasAluno/{id}")]
+    public async Task<IActionResult> ObterTurmasPorAluno([FromRoute] string id)
+    {
+        return await turmaNegocio.ObterTurmasPorAluno(id);
     }
 }

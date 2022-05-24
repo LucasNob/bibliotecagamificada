@@ -23,20 +23,25 @@ export class ClassificacaoPaginaComponent implements OnInit {
   listaPontos = new Array<Ponto>();
   usuario?: Usuario;
   turmaAtual?: Turma;
+  idTurma: String = "";
 
   constructor(
     private usuarioService: UsuarioService,
     private turmaService: TurmaService,
     private pontoService: PontoService,
-    private alunoServie:AlunoService) {
+    private alunoServie: AlunoService,
+    private router:Router) {
     
-    this.usuarioService.usuario = new Usuario("idaluno1", "Lucas Vinicius");
+    // this.usuarioService.usuario = new Usuario("idaluno1", "Lucas Vinicius");
+    this.turmaAtual = history.state.Turma;
     
     this.usuario = usuarioService.obterUsuario(); 
 
-    turmaService.obterTurmasPorIdUsuario(this.usuario!.id).then(data => {
-      this.listaTurmas = data as Array<Turma>;
-    });
+    this.obterClassificacaoTurma();
+
+    // turmaService.obterTurmasPorIdUsuario(this.usuario!.id).then(data => {
+    //   this.listaTurmas = data as Array<Turma>;
+    // });
   }
   ngOnInit(): void {
     // console.log('on init')
@@ -46,9 +51,9 @@ export class ClassificacaoPaginaComponent implements OnInit {
     return this.listaTurmas;
   }
 
-  obterClassificacaoTurma(id: String) {
-    this.turmaAtual = this.listaTurmas.find(value => value.id == id);
-    this.pontoService.obterClassificacaoPorIdTurma(id).then(data => {
+  obterClassificacaoTurma() {
+    // this.turmaAtual = this.listaTurmas.find(value => value.id == this.idTurma);
+    this.pontoService.obterClassificacaoPorIdTurma(this.turmaAtual?.id!).then(data => {
       this.listaPontos = data as Array<Ponto>;
     });
     this.alunoServie.ObterListaAlunosPorId(this.turmaAtual?.alunos!).then(data => {
@@ -69,5 +74,13 @@ export class ClassificacaoPaginaComponent implements OnInit {
 
   obterTurmaAtual() {
     return this.turmaAtual;
+  }
+  checarPermissaoMarcacaoLivro() {
+    if (this.usuarioService.ObterNivelPermissao() == 2)
+      return true;
+    return false;
+  }
+  navegarMarcacao() {
+    this.router.navigateByUrl('/marcacao',{ state: {Turma: this.turmaAtual} });
   }
 }

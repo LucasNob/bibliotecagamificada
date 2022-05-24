@@ -34,10 +34,22 @@ namespace BibliotecaGamificada.Turma.Negocios
             throw new NotImplementedException();
         }
 
-        public async Task<IActionResult> ObterTurmasPorUsuario(string id)
+        public async Task<IActionResult> ObterTurmasPorAluno(string id)
         {
             RetornoMsg msg;
-            var turmas = await turmaRepositorio.ObterTurmasPorIdUsuario(id);
+            var turmas = await turmaRepositorio.ObterTurmasPorIdAluno(id);
+
+            if (turmas == null || turmas.Count == 0)
+                msg = new RetornoMsg("erro", "Registros não encontrados");
+            else
+                msg = new RetornoMsg("sucesso", "retorno enviado", turmas);
+
+            return new OkObjectResult(msg);
+        }
+        public async Task<IActionResult> ObterTurmasPorProfessor(string id)
+        {
+            RetornoMsg msg;
+            var turmas = await turmaRepositorio.ObterTurmasPorIdProfessor(id);
 
             if (turmas == null || turmas.Count == 0)
                 msg = new RetornoMsg("erro", "Registros não encontrados");

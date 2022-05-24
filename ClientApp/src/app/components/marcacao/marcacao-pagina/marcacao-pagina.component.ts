@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Aluno } from 'src/app/models/entidades/Aluno.model';
 import { Ponto } from 'src/app/models/entidades/Ponto.model';
 import { Turma } from 'src/app/models/entidades/Turma.model';
@@ -16,7 +16,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class MarcacaoPaginaComponent implements OnInit {
 
-  listaTurmas: Array<Turma> = [];
+  // listaTurmas: Array<Turma> = [];
   listaAlunos = new Array<Aluno>();
   listaPontos = new Array<Ponto>();
 
@@ -31,23 +31,19 @@ export class MarcacaoPaginaComponent implements OnInit {
     private pontoService: PontoService,
     private router: Router
   ) { 
-    this.usuarioService.usuario = new Usuario("idaluno1", "Lucas Vinicius");
+    // this.usuarioService.usuario = new Usuario("idaluno1", "Lucas Vinicius");
     this.usuario = usuarioService.obterUsuario(); 
+    this.turmaAtual = history.state.Turma;
     
-    turmaService.obterTurmasPorIdUsuario(this.usuario!.id).then(data => {
-      this.listaTurmas = data as Array<Turma>;
-    });
+    // turmaService.obterTurmasPorIdProfessor(this.usuario!.id).then(data => {
+    //   this.listaTurmas = data as Array<Turma>;
+    // });
+    this.obterAlunosTurma();
   }
 
   ngOnInit(): void {
 
   }
-
-
-  obterTurmasUsuario() {
-    return this.listaTurmas;
-  }
-
   obterListaAlunos(): Array<Aluno> {
     if (this.listaAlunos == undefined)
       return [];
@@ -62,8 +58,7 @@ export class MarcacaoPaginaComponent implements OnInit {
   obterListaPonto() { 
     return this.listaPontos;
   }
-  obterAlunosTurma(id: String){ 
-    this.turmaAtual = this.listaTurmas.find(value => value.id == id);
+  obterAlunosTurma() {
     this.alunoService.ObterListaAlunosPorId(this.turmaAtual!.alunos).then(data => {
       this.listaAlunos = data as Array<Aluno>;
     });;
@@ -71,7 +66,7 @@ export class MarcacaoPaginaComponent implements OnInit {
       this.listaPontos = data as Array<Ponto>;
     });;
   }
-  emitSelecao(aluno:Aluno) {
+  emitSelecao(aluno: Aluno) {
     this.router.navigateByUrl('/marcacaoLivro', { state: { Aluno: aluno, Turma: this.turmaAtual } });
   }
 }

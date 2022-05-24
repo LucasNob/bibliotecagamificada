@@ -5,5 +5,5 @@ export class Turma extends EntidadeBase{
     anoLetivo: number = 0;
     alunos: Array<String> = [];
     livros?: Array<String> = [];
-    // professor: String = "";
+    professor: String = "";
 }
