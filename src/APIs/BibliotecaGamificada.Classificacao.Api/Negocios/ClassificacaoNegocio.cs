@@ -15,7 +15,7 @@ namespace BibliotecaGamificada.Classificacao.Negocios
             this.classificacaoRepositorio = classificacaoRepositorio;
         }
 
-        public async Task<IActionResult> Obter()
+        public async Task<IActionResult> ObterPontos()
         {
             RetornoMsg msg;
             var classificacoes = await classificacaoRepositorio.Obter();
@@ -27,10 +27,10 @@ namespace BibliotecaGamificada.Classificacao.Negocios
             return new OkObjectResult(msg);
         }
 
-        internal async Task<IActionResult> ObterPorTurma(string id)
+        internal async Task<IActionResult> ObterPontosPorTurma(string id)
         {
             RetornoMsg msg;
-            var classificacoes = await classificacaoRepositorio.ObterPorIdTurma(id);
+            var classificacoes = await classificacaoRepositorio.ObterPorTurma(id);
             if (classificacoes == null)
                 msg = new RetornoMsg("erro", "Registros não encontrados");
             else
@@ -38,7 +38,7 @@ namespace BibliotecaGamificada.Classificacao.Negocios
 
             return new OkObjectResult(msg);
         }
-        public async Task<IActionResult> AtualizarPontuacao(PontoAtualizacao atualizacao)
+        public async Task<IActionResult> AtualizarPontoLivrosLidos(PontoAtualizacao atualizacao)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace BibliotecaGamificada.Classificacao.Negocios
                 ponto2.livrosLidos = atualizacao.livrosLidos;
                 ponto2.totalPontos += ponto.totalPontos + atualizacao.livrosLidos.Count - ponto.livrosLidos.Count;
 
-                await classificacaoRepositorio.Atualizar(ponto, ponto2);
+                await classificacaoRepositorio.AtualizarPontoLivrosLidos(ponto, ponto2);
             }
             catch (Exception e)
             {

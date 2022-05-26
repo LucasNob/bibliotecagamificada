@@ -17,18 +17,18 @@ public class ClassificacaoController : ControllerBase
     }
 
     [HttpGet, Route("obter")]
-    public async Task<IActionResult> ObterClassificacao()
+    public async Task<IActionResult> ObterPontos()
     {
-        return await classificacaoNegocio.Obter();
+        return await classificacaoNegocio.ObterPontos();
     }
     [HttpGet, Route("obterPorTurma/{id}")]
-    public async Task<IActionResult> ObterClassificacaoPorTurma([FromRoute] string id)
+    public async Task<IActionResult> ObterPontosPorTurma([FromRoute] string id)
     {
-        return await classificacaoNegocio.ObterPorTurma(id);
+        return await classificacaoNegocio.ObterPontosPorTurma(id);
     }
     [HttpPut, Route("atualizarPontuacao")]
-    public async Task<IActionResult> AtualizarPontuacao([FromBody] PontoAtualizacao livro)
+    public async Task<IActionResult> AtualizarPontoLivrosLidos([FromBody] PontoAtualizacao livro)
     {
-        return await classificacaoNegocio.AtualizarPontuacao(livro);
+        return await classificacaoNegocio.AtualizarPontoLivrosLidos(livro);
     }
 }

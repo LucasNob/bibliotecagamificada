@@ -18,12 +18,12 @@ public class TurmaController : ControllerBase
     [HttpGet, Route("obter")]
     public async Task<IActionResult> ObterTurmas()
     {
-        return await turmaNegocio.Obter();
+        return await turmaNegocio.ObterTurmas();
     }
     [HttpGet, Route("obterTurma/{id}")]
     public async Task<IActionResult> ObterTurma([FromRoute]string id)
     {
-        return await turmaNegocio.ObterPorId(id);
+        return await turmaNegocio.ObterTurmaPorId(id);
     }
     [HttpGet, Route("obterTurmasProfessor/{id}")]
     public async Task<IActionResult> ObterTurmasPorProfessor([FromRoute] string id)
