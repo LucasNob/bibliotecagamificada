@@ -21,13 +21,13 @@ public class LivroController : ControllerBase
     [HttpGet, Route("obter")]
     public async Task<IActionResult> ObterLivros()
     {
-        return await livroNegocio.Obter();
+        return await livroNegocio.ObterLivros();
     }
 
     [HttpGet, Route("obterLivro/{id}")]
-    public async Task<IActionResult> ObterTurma([FromRoute] string id)
+    public async Task<IActionResult> ObterLivro([FromRoute] string id)
     {
-        return await livroNegocio.ObterPorId(id);
+        return await livroNegocio.ObterLivroPorId(id);
     }
 
     [HttpGet, Route("obterPorInstituicao/{id}")]
@@ -54,7 +54,7 @@ public class LivroController : ControllerBase
         return await livroNegocio.ExcluirLivro(id);
     }
       [HttpPost, Route("obterLivrosPorLista")]
-    public async Task<IActionResult> ObterInstituicaoPorId([FromBody] List<string> ids)
+    public async Task<IActionResult> ObterLivrosPorListaId([FromBody] List<string> ids)
     {
         return await livroNegocio.ObterLivrosPorListaId(ids);
     }

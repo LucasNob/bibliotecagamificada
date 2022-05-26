@@ -16,7 +16,7 @@ namespace BibliotecaGamificada.Livros.Negocios
             this.livroRepositorio = livroRepositorio;
         }
 
-        public async Task<IActionResult> Obter()
+        public async Task<IActionResult> ObterLivros()
         {
             RetornoMsg msg;
             var livros = await livroRepositorio.Obter();
@@ -29,7 +29,7 @@ namespace BibliotecaGamificada.Livros.Negocios
             return new OkObjectResult(msg);
         }
 
-        internal async Task<IActionResult> ObterPorId(string id)
+        internal async Task<IActionResult> ObterLivroPorId(string id)
         {
             RetornoMsg msg;
             var livros = await livroRepositorio.ObterPorId(id);

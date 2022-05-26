@@ -17,7 +17,7 @@ namespace BibliotecaGamificada.Turma.Negocios
             this.pontoRepositorio = pontoRepositorio;
         }
 
-        public async Task<IActionResult> Obter()
+        public async Task<IActionResult> ObterTurmas()
         {
             RetornoMsg msg;
             var turmas = await turmaRepositorio.Obter();
@@ -28,16 +28,10 @@ namespace BibliotecaGamificada.Turma.Negocios
 
             return new OkObjectResult(msg);
         }
-
-        internal Task<IActionResult> ObterPorId()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IActionResult> ObterTurmasPorAluno(string id)
         {
             RetornoMsg msg;
-            var turmas = await turmaRepositorio.ObterTurmasPorIdAluno(id);
+            var turmas = await turmaRepositorio.ObterPorAluno(id);
 
             if (turmas == null || turmas.Count == 0)
                 msg = new RetornoMsg("erro", "Registros não encontrados");
@@ -49,7 +43,7 @@ namespace BibliotecaGamificada.Turma.Negocios
         public async Task<IActionResult> ObterTurmasPorProfessor(string id)
         {
             RetornoMsg msg;
-            var turmas = await turmaRepositorio.ObterTurmasPorIdProfessor(id);
+            var turmas = await turmaRepositorio.ObterPorProfessor(id);
 
             if (turmas == null || turmas.Count == 0)
                 msg = new RetornoMsg("erro", "Registros não encontrados");
@@ -59,10 +53,10 @@ namespace BibliotecaGamificada.Turma.Negocios
             return new OkObjectResult(msg);
         }
 
-        public async Task<IActionResult> ObterPorId(string id)
+        public async Task<IActionResult> ObterTurmaPorId(string id)
         {
             RetornoMsg msg;
-            var turma = await turmaRepositorio.ObterTurmaPorId(id);
+            var turma = await turmaRepositorio.ObterPorId(id);
             if (turma == null)
                 msg = new RetornoMsg("erro", "Registros não encontrados");
             else
@@ -70,9 +64,5 @@ namespace BibliotecaGamificada.Turma.Negocios
 
             return new OkObjectResult(msg);
         }
-        // internal Task<IActionResult> ObterPorTurma(string turma)
-        // {
-        //     var turmas;
-        // }
     }
 }
