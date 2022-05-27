@@ -16,10 +16,10 @@
             </div>
         </div>
         <div class="row my-4 alinhamento">
-            <div class="col-6">
-                <label for="genero">Genero</label>
+            <div class="col-md-6 col-12">
+                <label for="genero">Gênero</label>
                 <select class="form-select" id="genero" formControlName="genero" name="genero">
-                    <option selected>Genêro...</option>
+                    <option selected>Selecione um gênero</option>
                     <option *ngFor="let genero of listaGeneros()">{{genero}}</option>
                   </select>
             </div>
