@@ -22,7 +22,7 @@ builder.Services.AddTransient<TurmaRepositorio>();
 
 
 //configurar mongo
-builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
+// builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
 
 builder.Services.AddSingleton<IMongoClient>((s) =>
 {
