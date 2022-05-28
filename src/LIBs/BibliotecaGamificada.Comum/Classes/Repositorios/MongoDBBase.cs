@@ -24,7 +24,12 @@ namespace BibliotecaGamificada.Comum.Classes.Repositorio
             IOptions<MongoDBSettings> settings)
         {
             this.configuracao = configuracao;
-            this.database = clienteMongo.GetDatabase(settings.Value.nomeDatabase);
+            
+            var nomeDatabase = Environment.GetEnvironmentVariable("nomeDatabase");
+            if(nomeDatabase == null)
+                throw new Exception("Variavel de ambiente para nome de database nao encontrada");
+            
+            this.database = clienteMongo.GetDatabase(nomeDatabase);
             this.clienteMongo = clienteMongo;
             this.nomeColecao = nomeColecao;
             this.colecao = this.database.GetCollection<C>(nomeColecao);

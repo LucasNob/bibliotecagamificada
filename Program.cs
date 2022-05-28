@@ -40,7 +40,7 @@ builder.Services.AddTransient<AlunoRepositorio>();
 
 
 //configurar mongo
-builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
+// builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
 
 builder.Services.AddSingleton<IMongoClient>((s) =>
 {
