@@ -8,7 +8,8 @@
         </ng-template>
     </div>
     <div class="col-md-2 col-2">
-        <div *ngIf="img != null; else fotoPadrao">
+        <!-- TODO foto pode ser  "" -->
+        <div *ngIf="img != null; else fotoPadrao"> 
             <span><img src={{img}} alt="" height="50"></span>
         </div>
         <ng-template #fotoPadrao>

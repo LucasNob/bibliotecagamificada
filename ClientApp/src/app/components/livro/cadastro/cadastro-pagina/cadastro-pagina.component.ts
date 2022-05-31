@@ -85,13 +85,13 @@ export class CadastroPaginaComponent implements OnInit {
     let livro = this.listaLivros.find(m => m.id == id);
     this.formCadastro.get('titulo')!.setValue(livro?.titulo);
     this.formCadastro.get('autor')!.setValue(livro?.autor);
-    this.formCadastro.get('genero')!.setValue(livro?.genero);
+
+    this.formCadastro.get('genero')!.setValue(Genero[livro?.genero != undefined ? livro.genero : Genero.SemGenero]);
     this.formCadastro.get('capa')!.setValue(livro?.capa);
     this.edicao = id;
   }
 
   excluirLivro(id:String) {
-
     this.livroService.excluirLivro(id).then(data => {
       this.obterListaLivros();
     });
@@ -99,11 +99,14 @@ export class CadastroPaginaComponent implements OnInit {
 
   limparCampos() { 
     this.criarForm(new Livro());
+    this.edicao = "";
   }
 
   salvarLivro() {
     let livro = this.obterObjetoLivro();
-    this.livroService.editarLivro(livro);
+    this.livroService.editarLivro(livro).then(() =>
+      this.obterListaLivros()
+    );
     this.edicao = "";
   }
 

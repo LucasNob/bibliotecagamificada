@@ -61,7 +61,6 @@ export class LivroService {
         return new Promise(
             resolve => {
                 this.http.get<GetModelLista<Livro>>(this.baseUrl + 'v1/livro/obterPorInstituicao/'+id).subscribe(result => {
-                    //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
                     resolve(result.objeto);
                 }, error => console.error(error));
             }
@@ -71,7 +70,6 @@ export class LivroService {
         return new Promise(
             resolve => {
                 this.http.post<any>(this.baseUrl + 'v1/livro/cadastrarLivro/', livro).subscribe(result => {
-                    //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
                     resolve(result.objeto);
                 }, error => console.error(error));
             }
@@ -81,7 +79,6 @@ export class LivroService {
         return new Promise(
             resolve => {
                 this.http.put<any>(this.baseUrl + 'v1/livro/editarLivro/', livro).subscribe(result => {
-                    //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
                     resolve(result.objeto);
                 }, error => console.error(error));
             }
@@ -91,21 +88,10 @@ export class LivroService {
         return new Promise(
             resolve => {
                 this.http.delete<GetModelLista<Livro>>(this.baseUrl + 'v1/livro/excluirLivro/'+id).subscribe(result => {
-                    //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
                     resolve(result.objeto);
                 }, error => console.error(error));
             }
         )
     }
-
-    // public obterTurmaPorIdTurma(id: String): Turma {
-    //     let turma: Turma;    
-        
-    //     this.http.get<GetModelUnico<Turma>>(this.baseUrl + 'v1/turma/obterTurma/' + id).subscribe(result => {
-    //         turma = result.objeto!;
-    //     }, error => console.error(error));
-
-    //     return turma!;
-    // }
 }
   
