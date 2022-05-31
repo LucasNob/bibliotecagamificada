@@ -2,9 +2,9 @@ namespace BibliotecaGamificada.Livros.Comum.Enums
 {
     public enum Genero
     {
-        Romance = 1,
-        Cronica = 2,
-        Conto = 3,
+        Romance,
+        Cronica,
+        Conto,
         Poesia,
         Biografia,
         Aventura,
@@ -20,6 +20,7 @@ namespace BibliotecaGamificada.Livros.Comum.Enums
         Infantil,
         InfantoJuvenil,
         AutoAjuda,
-        Humor
+        Humor,
+        SemGenero
     }
 }
