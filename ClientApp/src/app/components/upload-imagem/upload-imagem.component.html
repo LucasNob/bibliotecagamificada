@@ -1,4 +1,4 @@
-<div class="col">
+<div class="col py-3">
     <div *ngIf="formatoInvalido">
         <span class="text-danger">Formato de arquivo invalido</span>
     </div>
@@ -6,12 +6,8 @@
         <span class="text-danger">Tamanho de arquivo superior a 1Mb</span>
     </div>
     
-    <label class="image-upload-container btn btn-bwm py-2">
-        <div class="row">
-            <img src='{{ObterImagem()}}' alt="" >
-        </div>
-        <div class="row">
-            <input #imageInput type="file" accept="image/*" (change)="processarArquivo(imageInput)">        
-        </div>
+    <label class="image-upload-container btn btn-bwm py-3">
+        <img src='{{ObterImagem()}}' alt="" width="195" height = "260">
+        <input hidden #imageInput type="file" accept="image/*" (change)="processarArquivo(imageInput)">
     </label>
 </div>
