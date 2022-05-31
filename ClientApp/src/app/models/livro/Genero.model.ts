@@ -1,7 +1,7 @@
 export enum Genero{
-    Romance=1,
-    Cronica=2,
-    Conto=3,
+    Romance,
+    Cronica,
+    Conto,
     Poesia,
     Biografia,
     Aventura,
@@ -17,5 +17,6 @@ export enum Genero{
     Infantil,
     InfantoJuvenil,
     AutoAjuda,
-    Humor
+    Humor,
+    SemGenero
 }
