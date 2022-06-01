@@ -58,5 +58,13 @@
 .tabela-cheia{
 background-color: #3464cc ;
 }
+
+.cabecalho{
+  color: #ecbc14;
+  border: #ecbc14;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

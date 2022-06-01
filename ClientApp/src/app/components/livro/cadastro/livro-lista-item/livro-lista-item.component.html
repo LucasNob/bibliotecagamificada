@@ -1,14 +1,22 @@
-<div class="row">
-    <div class="col-md text-center">
+<div class="row py-1">
+    <div class="col-md-2 col-3 text-center">
+        <div *ngIf="livro!.capa != null; else fotoPadrao"> 
+            <span><img src={{livro!.capa}} alt="" height="70" width="52"></span>
+        </div>
+        <ng-template #fotoPadrao>
+            <span><img src="../../../assets/images/default_capa.png" alt="" height="70" width="52"></span>
+        </ng-template>
+    </div>
+    <div class="col-md-4 col-5 text-center">
         <span class="tabela item">{{livro!.titulo}}</span>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-4 col-4 text-center">
         <span class="tabela item">{{livro!.autor}}</span>
     </div>
-    <div class="col-md-1 text-center">
+    <div class="col-md-1 col-6 text-center py-2">
         <span><button class="btn btn-warning w-75" (click)="Editar()"><mat-icon>edit</mat-icon><i class="bi bi-pencil" ></i></button></span>
     </div>
-    <div class="col-md-1 text-center">
+    <div class="col-md-1 col-6 text-center py-2">
         <span><button class="btn btn-danger w-75" (click)="Excluir()"><mat-icon>delete</mat-icon><i class="bi bi-trash" ></i></button></span>
     </div>
 </div>
