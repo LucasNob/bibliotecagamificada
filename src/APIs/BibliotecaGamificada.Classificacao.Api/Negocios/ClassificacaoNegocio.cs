@@ -26,8 +26,21 @@ namespace BibliotecaGamificada.Classificacao.Negocios
 
             return new OkObjectResult(msg);
         }
+        public async Task<IActionResult> ObterPontoAluno(string idTurma, string idAluno)
+        {
+            RetornoMsg msg;
+            var pontos = await classificacaoRepositorio.ObterPorAluno(idAluno);
+            var ponto = pontos.Find(p => p.turma == idTurma);
+            
+            if (ponto == null)
+                msg = new RetornoMsg("erro", "Registro não encontrados");
+            else
+                msg = new RetornoMsg("sucesso", "retorno enviado", ponto);
 
-        internal async Task<IActionResult> ObterPontosPorTurma(string id)
+            return new OkObjectResult(msg);
+        }
+
+        public async Task<IActionResult> ObterPontosPorTurma(string id)
         {
             RetornoMsg msg;
             var classificacoes = await classificacaoRepositorio.ObterPorTurma(id);
@@ -42,7 +55,9 @@ namespace BibliotecaGamificada.Classificacao.Negocios
         {
             try
             {
-                var ponto = await classificacaoRepositorio.ObterPorId(atualizacao.id);
+                // var ponto = await classificacaoRepositorio.ObterPorId(atualizacao.id);
+                var pontos = await classificacaoRepositorio.ObterPorAluno(atualizacao.idAluno);
+                var ponto = pontos.Find(p => p.turma == atualizacao.idTurma);
                 if (ponto == null)
                     throw new Exception("Registro não encontrado");
                 var ponto2 = new Ponto();
@@ -58,5 +73,6 @@ namespace BibliotecaGamificada.Classificacao.Negocios
             }
             return new OkObjectResult(new RetornoMsg("sucesso", "Livros Atualizados"));
         }
+
     }
 }

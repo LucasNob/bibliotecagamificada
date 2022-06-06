@@ -1,11 +1,13 @@
 
 export class PontoAtualizacao{
-    id: String;
+    idAluno: String;
+    idTurma: String;
     livrosLidos: Array<String>;
     totalPontos: number;
 
-  constructor(id:String, livrosLidos: Array<String>,totalPontos: number) {
-      this.id = id;
+  constructor(idAluno:String,idTurma:String, livrosLidos: Array<String>,totalPontos: number,) {
+      this.idAluno = idAluno;
+      this.idTurma = idTurma;
       this.livrosLidos = livrosLidos;
       this.totalPontos = totalPontos;
   }

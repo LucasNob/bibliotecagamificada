@@ -25,10 +25,21 @@ export class PontoService {
             }
         );
     }
+
     public atualizarPontuacao(atualizacao:PontoAtualizacao) {
         return new Promise(
             resolve => {
-                this.http.put<any>(this.baseUrl + 'v1/atualizarPontuacao/', atualizacao).subscribe(result => {
+                this.http.put<any>(this.baseUrl + 'v1/classificacao/atualizarPontuacao/', atualizacao).subscribe(result => {
+                    //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
+                    resolve(result.objeto);
+                }, error => console.error(error));
+            }
+        )
+    }
+    public obterPontoAluno(idTurma:String,idAluno:String) {
+        return new Promise(
+            resolve => {
+                this.http.get<any>(this.baseUrl + 'v1/classificacao/atualizarPontuacao/'+idTurma+'/'+idAluno).subscribe(result => {
                     //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
                     resolve(result.objeto);
                 }, error => console.error(error));

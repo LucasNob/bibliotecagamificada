@@ -67,6 +67,6 @@ export class MarcacaoPaginaComponent implements OnInit {
     });;
   }
   emitSelecao(aluno: Aluno) {
-    this.router.navigateByUrl('/marcacaoLivro', { state: { Aluno: aluno, Turma: this.turmaAtual } });
+    this.router.navigateByUrl('/marcacaoLivro', { state: { Aluno: aluno, Turma: this.turmaAtual} });
   }
 }
