@@ -22,11 +22,9 @@ export class LivroListaItemComponent implements OnInit {
   ngOnInit(): void {
   }
   Editar() {
-    console.log('editar' + this.livro?.id);
     this.editarEmitter.emit(this.livro?.id);
   }
   Excluir() {
-    console.log('excluir' + this.livro?.id);
     this.excluirEmitter.emit(this.livro?.id);
   }
 }

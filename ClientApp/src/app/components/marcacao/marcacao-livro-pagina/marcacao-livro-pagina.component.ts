@@ -35,7 +35,6 @@ export class MarcacaoLivroPaginaComponent implements OnInit {
       });;
   }
   obterListaLivros() { 
-    console.log(this.listaLivros)
     if (this.listaLivros == undefined)
       return [];
     return this.listaLivros;
@@ -49,7 +48,6 @@ export class MarcacaoLivroPaginaComponent implements OnInit {
   salvar() { 
     let atualizacao = new PontoAtualizacao("",this.listaLivrosMarcados!,0)
     this.pontoService.atualizarPontuacao(atualizacao).then(data => {
-      console.log(data);
     });
   }
 }

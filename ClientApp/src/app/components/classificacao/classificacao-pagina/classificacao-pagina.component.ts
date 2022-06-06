@@ -29,26 +29,16 @@ export class ClassificacaoPaginaComponent implements OnInit {
     private usuarioService: UsuarioService,
     private turmaService: TurmaService,
     private pontoService: PontoService,
-    private alunoServie: AlunoService,
+    private alunoService: AlunoService,
     private router:Router) {
     
-    // this.usuarioService.usuario = new Usuario("idaluno1", "Lucas Vinicius");
     this.turmaAtual = history.state.Turma;
     
     this.usuario = usuarioService.obterUsuario(); 
 
     this.obterClassificacaoTurma();
-
-    // turmaService.obterTurmasPorIdUsuario(this.usuario!.id).then(data => {
-    //   this.listaTurmas = data as Array<Turma>;
-    // });
   }
   ngOnInit(): void {
-    // console.log('on init')
-  }
-
-  obterTurmasUsuario() {
-    return this.listaTurmas;
   }
 
   obterClassificacaoTurma() {
@@ -56,7 +46,7 @@ export class ClassificacaoPaginaComponent implements OnInit {
     this.pontoService.obterClassificacaoPorIdTurma(this.turmaAtual?.id!).then(data => {
       this.listaPontos = data as Array<Ponto>;
     });
-    this.alunoServie.ObterListaAlunosPorId(this.turmaAtual?.alunos!).then(data => {
+    this.alunoService.ObterListaAlunosPorId(this.turmaAtual?.alunos!).then(data => {
       this.listaAlunos = data as Array<Aluno>;
     });
   }

@@ -21,25 +21,39 @@ export class ClassificacaoListaComponent implements OnInit {
   constructor( private alunoServie:AlunoService) { }
 
   ngOnInit(): void {
-    // this.listaClassificacao = [];
-    console.log(this.listaAlunos);
   }
+
   obterLista() {
     let listaClassificacao = new Array<ItemClassificacao>();
     let item = 4;
-      
-    if (this.listaPontos.length == 0 || this.listaAlunos.length == 0 )
+    
+    if (this.listaPontos.length == 0 || this.listaAlunos.length == 0)
       return listaClassificacao;
     
     this.listaPontos = this.listaPontos.sort((a: Ponto, b: Ponto) => (a.totalPontos <= b.totalPontos) ? 1 : -1);
-    let a = this.listaAlunos.find(a => a.id == this.listaPontos[0].aluno);
 
+    let listaA: Array<Aluno> = [];
+    let listaP: Array<Ponto> = [];
+
+    this.listaAlunos.forEach((aluno) => {
+      let p = this.listaPontos.find(p => p.aluno == aluno.id);
+      if (p != undefined) {
+        listaA.push(aluno);
+        listaP.push(p);
+      }
+      
+    })
+    let a = listaA.find(a => a.id == listaP[0].aluno);
+
+    if (listaA == undefined || listaA.length == 0)
+      return listaClassificacao;
+    
     if (a == undefined)
       return listaClassificacao;
     
     listaClassificacao.push(
       new ItemClassificacao(
-        this.listaPontos[0],
+        listaP[0],
         1,
         a.nome,
         a.foto,
@@ -47,14 +61,14 @@ export class ClassificacaoListaComponent implements OnInit {
       )
     )
     
-    for (let i = 1; i < this.listaPontos.length; i++){
+    for (let i = 1; i < listaP.length; i++){
 
-      let aluno = this.listaAlunos.find(a => a.id == this.listaPontos[i].aluno);
+      let aluno = listaA.find(a => a.id == listaP[i].aluno);
 
-      if (listaClassificacao[i - 1].ponto.totalPontos == this.listaPontos[i].totalPontos) {
+      if (listaClassificacao[i - 1].ponto.totalPontos == listaP[i].totalPontos) {
         listaClassificacao.push(
           new ItemClassificacao(
-            this.listaPontos[i],
+            listaP[i],
             item - 1,
             aluno?.nome!,
             aluno?.foto,
@@ -65,7 +79,7 @@ export class ClassificacaoListaComponent implements OnInit {
       else if (listaClassificacao[i - 1].premio == "../../../../assets/images/Ouro.png") {
         listaClassificacao.push(
           new ItemClassificacao(
-            this.listaPontos[i],
+            listaP[i],
             i + 1,
             aluno?.nome!,
             aluno?.foto,
@@ -76,7 +90,7 @@ export class ClassificacaoListaComponent implements OnInit {
       else if (listaClassificacao[i - 1].premio == "../../../../assets/images/Prata.png") {
         listaClassificacao.push(
           new ItemClassificacao(
-            this.listaPontos[i],
+            listaP[i],
             i + 1,
             aluno?.nome!,
             aluno?.foto,
@@ -87,7 +101,7 @@ export class ClassificacaoListaComponent implements OnInit {
       else{
         listaClassificacao.push(
           new ItemClassificacao(
-            this.listaPontos[i],
+            listaP[i],
             item++,
             aluno?.nome!,
             aluno?.foto,
