@@ -1,17 +1,21 @@
 <div class="table-resposive">
         <div class="tabela-cheia" *ngIf="obterLista().length > 0; else erro">
                 <div class="row py-2">
-                    <div class="col-md-8 text-center tabela cabecalho">Nome</div>
-                    <div class=" col-md-4 tabela cabecalho">Livros lidos</div>
+                    <div class="col-md-6 text-center tabela cabecalho">Nome</div>
+                    <div class=" col-md-2 tabela cabecalho">Livros lidos</div>
+                    <div class=" col-md-4 tabela cabecalho"></div>
                 </div>
             <div>
-                <div *ngFor="let aluno of obterLista()" (click)="selecionarAluno(aluno)">
+                <div *ngFor="let aluno of obterLista()" >
                     <div class="row py-1">
-                        <div class="col-md-8 text-center">
+                        <div class="col-md-6 text-center">
                             <span>{{aluno.nome}}</span>
                         </div>
-                        <div class="col-md-4 text-center">
+                        <div class="col-md-3 text-center">
                             <span>{{obterPontuacaoAluno(aluno)}}</span>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <button class="btn btn-primary" (click)="selecionarAluno(aluno)">Selecionar</button>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-upload-imagem',
@@ -11,7 +11,11 @@ export class UploadImagemComponent implements OnInit {
   
   tamanhoInvalido: boolean = false;
   formatoInvalido: boolean = false;
-  imagemAtual: any;
+  imagemNaoEncontrada: boolean = false;
+
+  @Input()
+  imagemAtual?: any;
+  
   constructor() { }
 
   ngOnInit(): void {
@@ -21,6 +25,7 @@ export class UploadImagemComponent implements OnInit {
   processarArquivo(arquivos: HTMLInputElement) {
     this.tamanhoInvalido = false;
     this.formatoInvalido = false;
+    this.imagemNaoEncontrada = false;
 
     let arquivo = arquivos.files?.item(0);
     let reader = new FileReader();
@@ -49,8 +54,32 @@ export class UploadImagemComponent implements OnInit {
     };
   }
   ObterImagem() {
-    if (this.imagemAtual == undefined)
+    this.tamanhoInvalido  = false;
+    this.formatoInvalido = false;
+    this.imagemNaoEncontrada = false;
+
+    if (this.imagemAtual == undefined || this.imagemAtual == "")
       return "../../../assets/images/default_capa.png"
     return this.imagemAtual;
   }
+  erroCarregar() { 
+    this.imagemNaoEncontrada = true;
+  }
+
+  // carregarPorUrl(url: string) {
+  //   var xhr = new XMLHttpRequest();
+  //   let imagem: any;
+  //   xhr.onload = function () {
+  //     var reader = new FileReader();
+  //     reader.onloadend = function () {
+  //       // callback(reader.result);
+  //       imagem = reader.result;
+  //     }
+  //     reader.readAsDataURL(xhr.response);
+  //   };
+  //   xhr.open('GET', url);
+  //   xhr.responseType = 'blob';
+  //   xhr.send();
+
+  // }
 }

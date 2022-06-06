@@ -4,9 +4,9 @@ import { Livro } from 'src/app/models/entidades/Livro.model';
 import { LivroCadastroModel } from 'src/app/models/entidades/LivroCadastro.model';
 import { Usuario } from 'src/app/models/entidades/Usuario.model';
 import { Genero } from 'src/app/models/livro/Genero.model';
+import { OGenero } from 'src/app/models/livro/OGenero.model';
 import { LivroService } from 'src/app/services/livro.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { LivroListaComponent } from '../livro-lista/livro-lista.component';
 
 @Component({
   selector: 'app-cadastro-pagina',
@@ -16,10 +16,12 @@ import { LivroListaComponent } from '../livro-lista/livro-lista.component';
 export class CadastroPaginaComponent implements OnInit {
 
   formCadastro!: FormGroup;
-  imgCarregada?: string;
   usuario?: Usuario;
   listaLivros: Array<Livro> = [];
   edicao: String = "";
+  imgCarregada?: string;
+  imagemAtual?: String ="";
+  estado: boolean = false;
 
   constructor(private livroService: LivroService,
     private usuarioService: UsuarioService,
@@ -38,7 +40,6 @@ export class CadastroPaginaComponent implements OnInit {
     let listaLivros: Array<Livro> = [];
     this.livroService.obterLivrosPorIdInstituicao(this.usuario?.id!).then(data => {
       this.listaLivros = data as Array<Livro>;
-      console.log(listaLivros);
     });
   }
   
@@ -58,20 +59,29 @@ export class CadastroPaginaComponent implements OnInit {
   }
 
   cadastrarLivro(v: any) {
-    let livro = this.obterObjetoLivro();
-    console.log(livro)
-    this.livroService.cadastrarLivro(livro).then(() =>
-      this.obterListaLivros()
-    );
+    // if (!this.formInvalido('autor') || !this.formInvalido('genero') || !this.formInvalido('tituto')) {
+    if (this.formCadastro.valid)
+    {
+      this.estado = true;
+      let livro = this.obterObjetoLivro();
+      this.livroService.cadastrarLivro(livro).then(() => {
+        this.obterListaLivros();
+        this.limparCampos();
+      }
+      ).finally(() => {
+        this.estado = false;
+      });
+    }
   }
 
   obterObjetoLivro() {
     // let genero:Genero = this.formCadastro.get('genero')!.value;
-    let genero = Genero[this.formCadastro.get('genero')!.value];
+    let num = OGenero.ObterNumero(this.formCadastro.get('genero')!.value);
+    let genero = Genero[num];
     let livro = new LivroCadastroModel(
       this.formCadastro.get('titulo')!.value,
       this.formCadastro.get('autor')!.value,
-      +genero,
+      num,
       this.usuario?.id!,
       this.imgCarregada
     );
@@ -86,8 +96,10 @@ export class CadastroPaginaComponent implements OnInit {
     this.formCadastro.get('titulo')!.setValue(livro?.titulo);
     this.formCadastro.get('autor')!.setValue(livro?.autor);
 
-    this.formCadastro.get('genero')!.setValue(Genero[livro?.genero != undefined ? livro.genero : Genero.SemGenero]);
+    this.formCadastro.get('genero')!.setValue(livro?.genero != undefined ? livro.genero : Genero.SemGenero);
     this.formCadastro.get('capa')!.setValue(livro?.capa);
+
+    this.imagemAtual = livro?.capa!;
     this.edicao = id;
   }
 
@@ -99,15 +111,26 @@ export class CadastroPaginaComponent implements OnInit {
 
   limparCampos() { 
     this.criarForm(new Livro());
+    this.imagemAtual = "";
     this.edicao = "";
   }
 
   salvarLivro() {
-    let livro = this.obterObjetoLivro();
-    this.livroService.editarLivro(livro).then(() =>
-      this.obterListaLivros()
-    );
-    this.edicao = "";
+    // if (!this.formInvalido('autor') || !this.formInvalido('genero') || !this.formInvalido('tituto'))
+    if (this.formCadastro.valid)
+    {
+      this.estado = true;
+      let livro = this.obterObjetoLivro();
+  
+      this.livroService.editarLivro(livro).then(() => {
+        this.obterListaLivros()
+        this.limparCampos()
+        }
+      ).finally(() => { 
+        this.estado = false;
+      });
+      this.edicao = "";
+    }
   }
 
   modoEdicao() {
@@ -115,6 +138,21 @@ export class CadastroPaginaComponent implements OnInit {
       return true
     }
     else return false;
+  }
+  estadoBotao() {
+    return this.formCadastro.valid
+  }
+
+  formInvalido(nome: any) { 
+    if (nome == "" || nome == undefined)
+      return true;
+    if (this.formCadastro != undefined)
+      if (this.formCadastro.get(nome)!.value == "" || this.formCadastro.get(nome)!.value == undefined)
+        return true;
+    return false;
+  }
+  ObterNomeGenero(genero: any) { 
+    return OGenero.ObterNome(+Genero[genero]);
   }
 }
 

@@ -36,7 +36,6 @@ export class LivroService {
         )
     }
     public obterListaLivros(ids: Array<String>) {
-        console.log(JSON.stringify(ids));
         return new Promise(
             resolve => {
                 this.http.post<GetModelLista<Livro>>(this.baseUrl + 'v1/livro/obterLivrosPorLista',ids).subscribe(result => {

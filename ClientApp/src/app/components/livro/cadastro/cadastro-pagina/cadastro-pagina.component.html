@@ -6,38 +6,41 @@
         <div class="row my-4">
             <div class="form-group">
                 <label for="titulo">Titulo</label>
-                <input type="text" class="form-control" id="titulo" name="titulo" formControlName="titulo" placeholder="Titulo do livro">
+                <input type="text" [ngClass]="formInvalido('titulo') ?'form-control is-invalid':'form-control'" id="titulo" name="titulo" formControlName="titulo" placeholder="Titulo do livro" aria-describedby="tituloInvalido" required>
+                <div id="tituloInvalido" class="invalid-feedback">Titulo Invalido.</div>
             </div>
         </div>
         <div class="row my-4">
             <div class="form-group">
                 <label for="Autor">Autor</label>
-                <input type="text" class="form-control" id="autor" name="autor" formControlName="autor" placeholder="Autor do livro">    
+                <input type="text" [ngClass]="formInvalido('autor') ?'form-control is-invalid':'form-control'" id="autor" name="autor" formControlName="autor" placeholder="Autor do livro" aria-describedby="autorInvalido" required> 
+                <div id="autorInvalido" class="invalid-feedback">Autor Invalido.</div>   
             </div>
         </div>
         <div class="row my-4 alinhamento">
             <div class="col-md-6 col-12">
                 <label for="genero">Gênero</label>
-                <select class="form-select" id="genero" formControlName="genero" name="genero">
+                <select [ngClass]="formInvalido('genero') ?'form-select is-invalid':'form-select'" id="genero" formControlName="genero" name="genero" aria-describedby="generoInvalido" required>
                     <option selected>Selecione um gênero</option>
-                    <option *ngFor="let genero of listaGeneros()">{{genero}}</option>
+                    <option *ngFor="let genero of listaGeneros()">{{ObterNomeGenero(genero)}}</option>
                   </select>
+                  <div id="generoInvalido" class="invalid-feedback">Gênero Invalido.</div>
             </div>
             <div class="col imagem">
-                <app-upload-imagem (img)="imgCarregada = $event"></app-upload-imagem>
+                <app-upload-imagem (img)="imgCarregada = $event" [imagemAtual]="imagemAtual"></app-upload-imagem>
             </div>
         </div>
         <div class="row" *ngIf="modoEdicao(); else cadastrar">
             <div class="cadastrar m-1">
-                <input class="btn btn-warning" value="Salvar" (click)="salvarLivro()">
+                <input class="btn btn-warning" value="Salvar" (click)="salvarLivro()" [disabled]="!estadoBotao()">
             </div>
             <div class="cadastrar m-1">
-                <input class="btn btn-success" value="Cancelar" (click)="limparCampos()">
+                <input class="btn btn-success" value="Cancelar" (click)="limparCampos() "[disabled]="!estadoBotao()">
             </div>
         </div>
         <ng-template #cadastrar>
             <div class="row cadastrar m-1">
-                <input type="submit" class="btn btn-success" value="Cadastrar">
+                <input type="submit" class="btn btn-success" value="Cadastrar" [disabled]="!estadoBotao()">
             </div>
         </ng-template>
     </div>

@@ -20,3 +20,5 @@ export enum Genero{
     Humor,
     SemGenero
 }
+
+
