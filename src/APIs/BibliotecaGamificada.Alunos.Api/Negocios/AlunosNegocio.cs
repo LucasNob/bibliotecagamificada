@@ -37,10 +37,10 @@ namespace BibliotecaGamificada.Alunos.Negocios
             return new OkObjectResult(msg);
         }
 
-        public async Task<IActionResult> ObterAlunoPorListaId(List<string> ids)
+        public async Task<IActionResult> ObterAlunosPorLista(List<string> id)
         {
             RetornoMsg msg;
-            var alunos = await alunoRepositorio.ObterPorListaId(ids);
+            var alunos = await alunoRepositorio.ObterPorLista(id);
             if (alunos == null || alunos.Count == 0 )
                 msg = new RetornoMsg("erro", "Registros não encontrados");
             else

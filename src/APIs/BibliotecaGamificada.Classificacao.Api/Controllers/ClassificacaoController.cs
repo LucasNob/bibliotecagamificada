@@ -32,8 +32,8 @@ public class ClassificacaoController : ControllerBase
         return await classificacaoNegocio.AtualizarPontoLivrosLidos(livro);
     }
     [HttpGet, Route("obterPontoAluno/{idTurma}/{idAluno}")]
-    public async Task<IActionResult> ObterPontoAluno([FromRoute] string idTurma,[FromRoute] string idAluno)
+    public async Task<IActionResult> ObterPontosPorAluno([FromRoute] string idTurma,[FromRoute] string idAluno)
     {
-        return await classificacaoNegocio.ObterPontoAluno(idTurma,idAluno);
+        return await classificacaoNegocio.ObterPontosPorAluno(idTurma,idAluno);
     }
 }

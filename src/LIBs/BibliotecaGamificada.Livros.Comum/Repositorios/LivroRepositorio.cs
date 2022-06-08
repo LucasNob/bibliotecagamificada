@@ -52,9 +52,9 @@ namespace BibliotecaGamificada.Livros.Comum.Repositorios
             await this.AtualizarDados(livro, atualizacao);
         }
 
-        public async Task<List<Livro>> ObterPorListaId(List<string> ids)
+        public async Task<List<Livro>> ObterPorLista(List<string> id)
         {
-            var filtro = Builders<Livro>.Filter.In(p => p.Id, ids);
+            var filtro = Builders<Livro>.Filter.In(p => p.Id, id);
             return await this.ObterListaDadosPorFiltro(filtro);
         }
     }

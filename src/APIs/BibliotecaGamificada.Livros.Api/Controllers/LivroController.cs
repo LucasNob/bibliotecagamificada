@@ -54,8 +54,8 @@ public class LivroController : ControllerBase
         return await livroNegocio.ExcluirLivro(id);
     }
       [HttpPost, Route("obterLivrosPorLista")]
-    public async Task<IActionResult> ObterLivrosPorListaId([FromBody] List<string> ids)
+    public async Task<IActionResult> ObterLivrosPorLista([FromBody] List<string> id)
     {
-        return await livroNegocio.ObterLivrosPorListaId(ids);
+        return await livroNegocio.ObterLivrosPorLista(id);
     }
 }
