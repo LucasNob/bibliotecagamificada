@@ -26,7 +26,7 @@ namespace BibliotecaGamificada.Classificacao.Negocios
 
             return new OkObjectResult(msg);
         }
-        public async Task<IActionResult> ObterPontoAluno(string idTurma, string idAluno)
+        public async Task<IActionResult> ObterPontosPorAluno(string idTurma, string idAluno)
         {
             RetornoMsg msg;
             var pontos = await classificacaoRepositorio.ObterPorAluno(idAluno);
@@ -55,7 +55,6 @@ namespace BibliotecaGamificada.Classificacao.Negocios
         {
             try
             {
-                // var ponto = await classificacaoRepositorio.ObterPorId(atualizacao.id);
                 var pontos = await classificacaoRepositorio.ObterPorAluno(atualizacao.idAluno);
                 var ponto = pontos.Find(p => p.turma == atualizacao.idTurma);
                 if (ponto == null)

@@ -79,10 +79,10 @@ namespace BibliotecaGamificada.Livros.Negocios
             return new OkObjectResult(new RetornoMsg("sucesso", "Livro Registrado"));
         }
 
-        public async Task<IActionResult> ObterLivrosPorListaId(List<string> ids)
+        public async Task<IActionResult> ObterLivrosPorLista(List<string> id)
         {
             RetornoMsg msg;
-            var livros = await livroRepositorio.ObterPorListaId(ids);
+            var livros = await livroRepositorio.ObterPorLista(id);
             if (livros == null || livros.Count == 0 )
                 msg = new RetornoMsg("erro", "Registros não encontrados");
             else

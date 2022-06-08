@@ -37,13 +37,12 @@ namespace BibliotecaGamificada.Alunos.Comum.Repositorios
         public async Task Excluir(string id)
         {
             var filtro = Builders<Aluno>.Filter.Eq(p => p.Id, id);
-            // await this.ExclusaoDado(id);
             await this.ExcluirDados(filtro);
         }
 
-        public async Task<List<Aluno>> ObterPorListaId(List<string> ids)
+        public async Task<List<Aluno>> ObterPorLista(List<string> id)
         {
-            var filtro = Builders<Aluno>.Filter.In(p => p.Id, ids);
+            var filtro = Builders<Aluno>.Filter.In(p => p.Id, id);
             return await this.ObterListaDadosPorFiltro(filtro);
         }
     }

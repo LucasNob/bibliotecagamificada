@@ -27,8 +27,8 @@ public class AlunosController : ControllerBase
         return await alunosNegocio.ObterAlunoPorId(id);
     }
     [HttpPost, Route("obterAlunosPorLista")]
-    public async Task<IActionResult> ObterAlunosPorLista([FromBody] List<string> ids)
+    public async Task<IActionResult> ObterAlunosPorLista([FromBody] List<string> id)
     {
-        return await alunosNegocio.ObterAlunoPorListaId(ids);
+        return await alunosNegocio.ObterAlunosPorLista(id);
     }
 }
