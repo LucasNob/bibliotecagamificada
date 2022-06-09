@@ -1,10 +1,8 @@
-<div class="row justify-content-center m-4">
-    <div class="col-6">
-        <div class="col" *ngIf="obterTurmaAtual() != undefined; else erroTurma">
+<div class="row justify-content-center">
+        <div class=" col-md-6 px-0" *ngIf="obterTurmaAtual() != undefined; else erroTurma">
             <div class="row py-3">
                 <span class="titulo">Alunos {{obterTurmaAtual()!.nome}}</span>
             </div>
-            <div class="row">
                 <app-marcacao-aluno-lista [listaAlunos]="obterListaAlunos()" [listaPonto]="obterListaPonto()" (selecaoEmitter)="emitSelecao($event)"></app-marcacao-aluno-lista>
             </div>
         </div>
@@ -13,7 +11,3 @@
                 <span>Nenhuma turma selecionada</span>
             </div>
         </ng-template>
-    </div>
-    <div class="col-8" *ngIf="obterAlunoAtual() != undefined">
-    </div>
-</div>
