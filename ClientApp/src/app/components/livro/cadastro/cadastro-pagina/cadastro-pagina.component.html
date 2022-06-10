@@ -5,16 +5,16 @@
         </div> 
         <div class="row my-4">
             <div class="form-group">
-                <label for="titulo">Titulo</label>
-                <input type="text" [ngClass]="formInvalido('titulo') ?'form-control is-invalid':'form-control'" id="titulo" name="titulo" formControlName="titulo" placeholder="Titulo do livro" aria-describedby="tituloInvalido" required>
-                <div id="tituloInvalido" class="invalid-feedback">Titulo Invalido.</div>
+                <label for="titulo">Título</label>
+                <input type="text" [ngClass]="formInvalido('titulo') ?'form-control is-invalid':'form-control'" id="titulo" name="titulo" formControlName="titulo" placeholder="Título do livro" aria-describedby="tituloInvalido" required>
+                <div id="tituloInvalido" class="invalid-feedback">Título Inválido.</div>
             </div>
         </div>
         <div class="row my-4">
             <div class="form-group">
                 <label for="Autor">Autor</label>
                 <input type="text" [ngClass]="formInvalido('autor') ?'form-control is-invalid':'form-control'" id="autor" name="autor" formControlName="autor" placeholder="Autor do livro" aria-describedby="autorInvalido" required> 
-                <div id="autorInvalido" class="invalid-feedback">Autor Invalido.</div>   
+                <div id="autorInvalido" class="invalid-feedback">Autor Inválido.</div>   
             </div>
         </div>
         <div class="row my-4 alinhamento">
@@ -24,7 +24,7 @@
                     <option selected>Selecione um gênero</option>
                     <option *ngFor="let genero of listaGeneros()">{{ObterNomeGenero(genero)}}</option>
                   </select>
-                  <div id="generoInvalido" class="invalid-feedback">Gênero Invalido.</div>
+                  <div id="generoInvalido" class="invalid-feedback">Gênero Inválido.</div>
             </div>
             <div class="col imagem">
                 <app-upload-imagem (img)="imgCarregada = $event" [imagemAtual]="imagemAtual"></app-upload-imagem>

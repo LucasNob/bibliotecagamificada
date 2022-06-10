@@ -1,18 +1,30 @@
-<div class="row justify-content-center m-4">
-    <div class="col-6">
+<div class="row justify-content-center">
+    <div class=" col-md-6 px-0">
+        <div class="row py-3">
+            <span class="titulo">Catálogo de Livros</span>
+        </div>
         <div class="table-resposive">
             <div class="tabela-cheia" *ngIf="obterListaLivros()!.length > 0; else erro">
                 <div class="row py-2">
-                    <div class="col-md-8 text-center tabela cabecalho">Nome do Livro</div>
-                    <div class=" col-md-4 text-center tabela cabecalho">Leu</div>
+                    <div class="col-md-2 col-2 text-center tabela cabecalho"></div>
+                    <div class="col-md-7 col-7 tabela cabecalho">Título</div>
+                    <div class=" col-md-3 col-3 text-center tabela cabecalho">Lido</div>
                 </div>
                 <div>
                     <div *ngFor="let livro of obterListaLivros()">
                         <div class="row py-1">
-                            <div class="col-md-8 text-center">
+                            <div class="col-md-2 col-2 text-center">
+                                <div *ngIf="livro!.capa != null; else fotoPadrao"> 
+                                    <span><img src={{livro!.capa}} alt="" height="70" width="50"></span>
+                                </div>
+                                <ng-template #fotoPadrao>
+                                    <span><img src="../../../assets/images/default_capa.png" alt="" height="70" width="50"></span>
+                                </ng-template>
+                            </div>
+                            <div class="col-md-7 col-7 tabela item">
                                 <span>{{livro.titulo}}</span>
                             </div>
-                            <div class="col-md-4 text-center">
+                            <div class="col-md-3 col-3 text-center">
                                 <span><input type="checkbox" (change)="check(livro.id)"></span>
                             </div>
                         </div>
@@ -20,11 +32,15 @@
                 </div>
             </div>
             <ng-template #erro>
-                <div class="alert alert-info" role="alert">
+                <div class="alert alert-info my-5" role="alert">
                     Lista de Livros vazia!
                 </div>
             </ng-template>
+            <div class="row justify-content-center py-4">
+                <div class="col-md-4 col-12">  
+                    <button class="btn-primary w-100" (click)="salvar()">Salvar</button>
+                </div>  
+            </div>
         </div>
-        <button class="btn btn-primary" (click)="salvar()">Salvar</button>
     </div>
 </div>
