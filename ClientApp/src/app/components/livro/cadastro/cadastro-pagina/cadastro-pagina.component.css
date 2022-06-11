@@ -21,6 +21,7 @@
   box-shadow: none !important;
 }
 
+
 .btn-danger {
   color: #fff;
   background-color: #bb2d3b;
@@ -45,10 +46,6 @@
 }
 
 
-.cadastrar{
-    width: fit-content;
-    align-content: space-between;
-}
 .alinhamento{
     align-items: center;
     height: 40;
