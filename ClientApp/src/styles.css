@@ -71,5 +71,13 @@ background-color: #3464cc ;
   font-size: 20px;
 }
 
+.bloco-card{
+  min-height: 400px;
+}
+
+.bloco-button{
+  min-height: 100px;
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
