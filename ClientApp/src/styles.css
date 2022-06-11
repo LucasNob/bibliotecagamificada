@@ -71,8 +71,11 @@ background-color: #3464cc ;
   font-size: 20px;
 }
 
-.bloco-card{
-  min-height: 400px;
+@media only screen and (min-width: 600px) {
+  .bloco-card{
+    min-height: 200px;
+    max-height: 400px;
+  }
 }
 
 .bloco-button{
