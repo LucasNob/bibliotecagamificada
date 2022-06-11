@@ -1,3 +1,4 @@
+<div class="container">
 <form [formGroup]="formCadastro" (ngSubmit)="cadastrarLivro(formCadastro.value)">    
     <div class="col-12">
         <div class="row titulo m-4">
@@ -30,20 +31,23 @@
                 <app-upload-imagem (img)="imgCarregada = $event" [imagemAtual]="imagemAtual"></app-upload-imagem>
             </div>
         </div>
-        <div class="row" *ngIf="modoEdicao(); else cadastrar">
-            <div class="cadastrar m-1">
-                <input class="btn btn-warning" value="Salvar" (click)="salvarLivro()" [disabled]="!estadoBotao()">
+        <div class="row justify-content-center" *ngIf="modoEdicao(); else cadastrar">
+            <div class="col-md-6 col-6">
+                <input class="btn btn-primary h-100 w-100 item" value="Salvar" (click)="salvarLivro()" [disabled]="!estadoBotao()">
             </div>
-            <div class="cadastrar m-1">
-                <input class="btn btn-success" value="Cancelar" (click)="limparCampos() "[disabled]="!estadoBotao()">
+            <div class="col-md-6 col-6">
+                <input class="btn btn-danger h-100 w-100 item" value="Cancelar" (click)="limparCampos() "[disabled]="!estadoBotao()">
             </div>
         </div>
         <ng-template #cadastrar>
-            <div class="row cadastrar m-1">
-                <input type="submit" class="btn btn-success" value="Cadastrar" [disabled]="!estadoBotao()">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-12">  
+                <input type="submit" class="btn btn-primary h-100 w-100 item" value="Cadastrar" [disabled]="!estadoBotao()">
+                </div>
             </div>
         </ng-template>
     </div>
 </form>
+ </div>
 <div class="row my-4"></div>
 <app-livro-lista [listaLivros]="listaLivros" (excluirEmitter)="excluirLivro($event)" (editarEmitter)="editarLivro($event)" ></app-livro-lista>
