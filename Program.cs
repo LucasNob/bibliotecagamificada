@@ -1,6 +1,5 @@
 using System.Security.Authentication;
 using BibliotecaGamificada.Classificacao.Negocios;
-using BibliotecaGamificada.Comum.Classes.Settings;
 using MongoDB.Driver;
 using BibliotecaGamificada.Pontos.Comum.Repositorios;
 using BibliotecaGamificada.Turma.Negocios;
@@ -11,12 +10,16 @@ using BibliotecaGamificada.Livros.Negocios;
 using BibliotecaGamificada.Livros.Comum.Repositorios;
 using BibliotecaGamificada.Alunos.Negocios;
 using BibliotecaGamificada.Alunos.Comum.Repositorios;
+using BibliotecaGamificada.Pontuacao.Negocios;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+
+//pontuacao
+builder.Services.AddTransient<PontuacaoNegocio>();
 
 //classificacao
 builder.Services.AddTransient<ClassificacaoNegocio>();
@@ -37,7 +40,6 @@ builder.Services.AddTransient<LivroRepositorio>();
 //aluno
 builder.Services.AddTransient<AlunosNegocio>();
 builder.Services.AddTransient<AlunoRepositorio>();
-
 
 //configurar mongo
 // builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
@@ -76,7 +78,7 @@ app.MapControllerRoute(name: "classificacao", pattern: "/v1/classificacao/{actio
 app.MapControllerRoute(name: "livro", pattern: "/v1/livro/{action=Index}/{id?}");
 app.MapControllerRoute(name: "instituicao", pattern: "/v1/instituicao/{action=Index}/{id?}");
 app.MapControllerRoute(name: "aluno", pattern: "/v1/aluno/{action=Index}/{id?}");
-
+app.MapControllerRoute(name: "pontuacao", pattern: "/v1/pontuacao/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html"); ;
 
