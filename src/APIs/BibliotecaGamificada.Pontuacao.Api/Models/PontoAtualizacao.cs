@@ -1,4 +1,4 @@
-namespace BibliotecaGamificada.Classificacao.Models
+namespace BibliotecaGamificada.Pontuacao.Models
 {
     public class PontoAtualizacao
     {

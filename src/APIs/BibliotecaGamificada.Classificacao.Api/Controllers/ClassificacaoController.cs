@@ -1,4 +1,3 @@
-using BibliotecaGamificada.Classificacao.Models;
 using BibliotecaGamificada.Classificacao.Negocios;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,11 +24,6 @@ public class ClassificacaoController : ControllerBase
     public async Task<IActionResult> ObterPontosPorTurma([FromRoute] string id)
     {
         return await classificacaoNegocio.ObterPontosPorTurma(id);
-    }
-    [HttpPut, Route("atualizarPontuacao")]
-    public async Task<IActionResult> AtualizarPontoLivrosLidos([FromBody] PontoAtualizacao livro)
-    {
-        return await classificacaoNegocio.AtualizarPontoLivrosLidos(livro);
     }
     [HttpGet, Route("obterPontoAluno/{idTurma}/{idAluno}")]
     public async Task<IActionResult> ObterPontosPorAluno([FromRoute] string idTurma,[FromRoute] string idAluno)

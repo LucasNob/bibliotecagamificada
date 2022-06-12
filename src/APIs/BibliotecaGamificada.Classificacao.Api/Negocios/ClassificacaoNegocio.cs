@@ -1,6 +1,4 @@
-using BibliotecaGamificada.Classificacao.Models;
 using BibliotecaGamificada.Comum.Classes.Models;
-using BibliotecaGamificada.Pontos.Comum.Entidades;
 using BibliotecaGamificada.Pontos.Comum.Repositorios;
 using Microsoft.AspNetCore.Mvc;
 
@@ -51,27 +49,5 @@ namespace BibliotecaGamificada.Classificacao.Negocios
 
             return new OkObjectResult(msg);
         }
-        public async Task<IActionResult> AtualizarPontoLivrosLidos(PontoAtualizacao atualizacao)
-        {
-            try
-            {
-                var pontos = await classificacaoRepositorio.ObterPorAluno(atualizacao.idAluno);
-                var ponto = pontos.Find(p => p.turma == atualizacao.idTurma);
-                if (ponto == null)
-                    throw new Exception("Registro não encontrado");
-                var ponto2 = new Ponto();
-
-                ponto2.livrosLidos = atualizacao.livrosLidos;
-                ponto2.totalPontos += ponto.totalPontos + atualizacao.livrosLidos.Count - ponto.livrosLidos.Count;
-
-                await classificacaoRepositorio.AtualizarPontoLivrosLidos(ponto, ponto2);
-            }
-            catch (Exception e)
-            {
-                return new OkObjectResult(new RetornoMsg("erro", "Registros não encontrados", e));
-            }
-            return new OkObjectResult(new RetornoMsg("sucesso", "Livros Atualizados"));
-        }
-
     }
 }

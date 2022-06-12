@@ -9,11 +9,11 @@
     </div>
     <div class="col-md-2 col-2">
         <!-- TODO foto pode ser  "" -->
-        <div *ngIf="img != null; else fotoPadrao"> 
-            <span><img src={{img}} alt="" height="50"></span>
+        <div *ngIf="img; else fotoPadrao"> 
+            <span><img src={{img}} alt="" height="50" width="50"></span>
         </div>
         <ng-template #fotoPadrao>
-            <span><img src="../../../../assets/images/default_avatar.png" alt="" height="50"></span>
+            <span><img src="../../../../assets/images/default_avatar.png" alt="" height="50" width="50"></span>
         </ng-template>
     </div>
     <div class="col-md-6 col-3">
