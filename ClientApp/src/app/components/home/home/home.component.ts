@@ -11,6 +11,9 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router,private usuarioService:UsuarioService) { }
   ngOnInit(): void {
   }
+  navegarComoInstituicao() {
+    this.router.navigateByUrl('/cadastrolivro');
+  }
   navegarComoProfessor() {
     this.usuarioService.novoUsuario("idProfessor1", "Prof. Vinicius", 2);
     this.router.navigateByUrl('/selecaoturma', { state: { Usuario: this.usuarioService.obterUsuario()} });
