@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 
 export class UsuarioService{
   
-  usuario: Usuario = new Usuario("idaluno1", "Lucas Vinicius", 3);
+  usuario: Usuario = new Usuario("idinstituicao1", "EMF Sueli da Silva Paula",1);
   
   constructor() {
   }

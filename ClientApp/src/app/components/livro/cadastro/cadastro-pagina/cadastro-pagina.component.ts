@@ -26,7 +26,7 @@ export class CadastroPaginaComponent implements OnInit {
   constructor(private livroService: LivroService,
     private usuarioService: UsuarioService,
     private formBuilder: FormBuilder){ 
-      this.usuarioService.usuario = new Usuario("idinstituicao1", "Instituicao1",1);
+      this.usuarioService.usuario = new Usuario("idinstituicao1", "EMF Sueli da Silva Paula",1);
     
       this.usuario = usuarioService.obterUsuario(); 
 
