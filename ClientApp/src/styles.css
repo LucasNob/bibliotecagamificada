@@ -41,6 +41,29 @@
   box-shadow: none !important;
 }
 
+.foto-perfil
+{
+border: 5px solid #1A3369;
+object-fit: cover;
+width: 65px;
+height: 65px;
+}
+
+.foto
+{
+object-fit: cover;
+width: 50px;
+height: 50px;
+}
+
+.capa
+{
+object-fit: cover;
+width: 52px;
+height: 70px;
+}
+
+
 .titulo
 {
  font-family: Titulo;
