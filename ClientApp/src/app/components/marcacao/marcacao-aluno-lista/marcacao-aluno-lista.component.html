@@ -11,10 +11,10 @@
                     <div class="row py-1">
                         <div class="col-md-2 col-2 text-center">
                             <div *ngIf="aluno!.foto; else fotoPadrao"> 
-                                <span><img src={{aluno!.foto}} alt="" height="50" width="50"></span>
+                                <span><img class="foto" src={{aluno!.foto}} alt=""></span>
                             </div>
                             <ng-template #fotoPadrao>
-                                <span><img src="../../../../assets/images/default_avatar.png" alt="" height="50" width="50"></span>
+                                <span><img class="foto" src="../../../../assets/images/default_avatar.png" alt=""></span>
                             </ng-template>
                         </div>
                         <div class="col-md-5 col-5 tabela item">

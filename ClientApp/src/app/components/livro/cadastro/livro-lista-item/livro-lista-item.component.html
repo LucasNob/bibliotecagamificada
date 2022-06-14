@@ -1,10 +1,10 @@
 <div class="row py-1">
     <div class="col-md-2 col-3 text-center">
         <div *ngIf="livro!.capa != null; else fotoPadrao"> 
-            <span><img src={{livro!.capa}} alt="" height="70" width="52"></span>
+            <span><img class="capa" src={{livro!.capa}} alt=""></span>
         </div>
         <ng-template #fotoPadrao>
-            <span><img src="../../../assets/images/default_capa.png" alt="" height="70" width="52"></span>
+            <span><img class="capa" src="../../../assets/images/default_capa.png" alt=""></span>
         </ng-template>
     </div>
     <div class="col-md-4 col-5 text-center">

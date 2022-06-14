@@ -15,11 +15,13 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl('/cadastrolivro');
   }
   navegarComoProfessor() {
-    this.usuarioService.novoUsuario("idProfessor1", "Prof. Vinicius", 2);
+    this.usuarioService.novoUsuario("idProfessor1", "Professora Giulia", 2, 
+   "https://laboro.edu.br/wp-content/uploads/professor-de-educacao-especial-1024x683.jpg");
     this.router.navigateByUrl('/selecaoturma', { state: { Usuario: this.usuarioService.obterUsuario()} });
   }
   navegarComoAluno() {
-    this.usuarioService.novoUsuario("idaluno1", "Aluno Felipe", 3);
+    this.usuarioService.novoUsuario("idaluno1", "Aluno Felipe", 3,
+    "https://cdn.pixabay.com/photo/2015/11/04/17/26/boy-1022996_960_720.jpg");
     this.router.navigateByUrl('/selecaoturma', { state: { Usuario: this.usuarioService.obterUsuario()} });
   }
 }
