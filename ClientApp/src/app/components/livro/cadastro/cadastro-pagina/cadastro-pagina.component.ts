@@ -60,7 +60,8 @@ export class CadastroPaginaComponent implements OnInit {
   }
 
   cadastrarLivro(v: any) {
-    // if (!this.formInvalido('autor') || !this.formInvalido('genero') || !this.formInvalido('tituto')) {
+      this.formCadastro.get('titulo')!.setValue(this.formCadastro.get('titulo')?.value.trim());
+      this.formCadastro.get('autor')!.setValue(this.formCadastro.get('autor')?.value.trim());
       if (this.formCadastro.valid && this.estado == false)
       {
       this.estado = true;
@@ -76,7 +77,6 @@ export class CadastroPaginaComponent implements OnInit {
   }
 
   obterObjetoLivro() {
-    // let genero:Genero = this.formCadastro.get('genero')!.value;
     let num = OGenero.ObterNumero(this.formCadastro.get('genero')!.value);
     let genero = Genero[num];
     let livro = new LivroCadastroModel(
@@ -120,7 +120,8 @@ export class CadastroPaginaComponent implements OnInit {
   }
 
   salvarLivro() {
-    // if (!this.formInvalido('autor') || !this.formInvalido('genero') || !this.formInvalido('tituto'))
+    this.formCadastro.get('titulo')!.setValue(this.formCadastro.get('titulo')?.value.trim());
+    this.formCadastro.get('autor')!.setValue(this.formCadastro.get('autor')?.value.trim());
     if (this.formCadastro.valid && this.estado == false)
     {
       this.estado = true;
