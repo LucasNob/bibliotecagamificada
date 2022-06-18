@@ -19,7 +19,7 @@ export class CadastroPaginaComponent implements OnInit {
   usuario?: Usuario;
   listaLivros: Array<Livro> = [];
   edicao: String = "";
-  imgCarregada?: string;
+  imgCarregada?: any;
   imagemAtual?: String ="";
   estado: boolean = false;
 
@@ -94,13 +94,15 @@ export class CadastroPaginaComponent implements OnInit {
 
   editarLivro(id: String) {
     let livro = this.listaLivros.find(m => m.id == id);
+    let genero = OGenero.ObterNome(livro?.genero!);
+
     this.formCadastro.get('titulo')!.setValue(livro?.titulo);
     this.formCadastro.get('autor')!.setValue(livro?.autor);
-
-    this.formCadastro.get('genero')!.setValue(livro?.genero != undefined ? livro.genero : Genero.SemGenero);
+    this.formCadastro.get('genero')!.setValue(genero != undefined ? genero : Genero.SemGenero);
     this.formCadastro.get('capa')!.setValue(livro?.capa);
 
     this.imagemAtual = livro?.capa!;
+    this.imgCarregada = livro?.capa!;
     this.edicao = id;
   }
 
@@ -113,16 +115,16 @@ export class CadastroPaginaComponent implements OnInit {
   limparCampos() { 
     this.criarForm(new Livro());
     this.imagemAtual = "";
+    // this.imgCarregada = "";
     this.edicao = "";
   }
 
   salvarLivro() {
     // if (!this.formInvalido('autor') || !this.formInvalido('genero') || !this.formInvalido('tituto'))
-    if (this.formCadastro.valid)
+    if (this.formCadastro.valid && this.estado == false)
     {
       this.estado = true;
       let livro = this.obterObjetoLivro();
-  
       this.livroService.editarLivro(livro).then(() => {
         this.obterListaLivros()
         this.limparCampos()
