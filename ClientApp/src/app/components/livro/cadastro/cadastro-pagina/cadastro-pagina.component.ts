@@ -61,8 +61,8 @@ export class CadastroPaginaComponent implements OnInit {
 
   cadastrarLivro(v: any) {
     // if (!this.formInvalido('autor') || !this.formInvalido('genero') || !this.formInvalido('tituto')) {
-    if (this.formCadastro.valid)
-    {
+      if (this.formCadastro.valid && this.estado == false)
+      {
       this.estado = true;
       let livro = this.obterObjetoLivro();
       this.livroService.cadastrarLivro(livro).then(() => {
