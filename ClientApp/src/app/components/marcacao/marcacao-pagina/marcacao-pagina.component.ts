@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Aluno } from 'src/app/models/entidades/Aluno.model';
 import { Ponto } from 'src/app/models/entidades/Ponto.model';
 import { Turma } from 'src/app/models/entidades/Turma.model';
@@ -29,16 +29,21 @@ export class MarcacaoPaginaComponent implements OnInit {
     private usuarioService: UsuarioService,
     private alunoService: AlunoService,
     private pontoService: PontoService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) { 
     // this.usuarioService.usuario = new Usuario("idaluno1", "Lucas Vinicius");
     this.usuario = usuarioService.obterUsuario(); 
-    this.turmaAtual = history.state.Turma;
+    
+    let url = this.activatedRoute.snapshot.url.join().split(',')
+    this.turmaService.obterTurmaPorIdTurma(url[1]).then(data => { 
+      this.turmaAtual = data as Turma;
+      this.obterAlunosTurma();
+    })
     
     // turmaService.obterTurmasPorIdProfessor(this.usuario!.id).then(data => {
     //   this.listaTurmas = data as Array<Turma>;
     // });
-    this.obterAlunosTurma();
   }
 
   ngOnInit(): void {

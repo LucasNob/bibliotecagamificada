@@ -29,10 +29,10 @@ import { SelecaoTurmaPaginaComponent } from './components/turma/selecao-turma/se
 //TODO: App routing module 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'listaclassificacao', component: ClassificacaoPaginaComponent },
+  { path: 'listaclassificacao/:id', component: ClassificacaoPaginaComponent },
   { path: 'selecaoturma', component: SelecaoTurmaPaginaComponent },
   { path: 'cadastrolivro', component: CadastroPaginaComponent },
-  { path: 'marcacao', component: MarcacaoPaginaComponent },
+  { path: 'marcacao/:id', component: MarcacaoPaginaComponent },
   { path: 'marcacaoLivro', component: MarcacaoLivroPaginaComponent},
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: '/not-found', pathMatch: 'full' }

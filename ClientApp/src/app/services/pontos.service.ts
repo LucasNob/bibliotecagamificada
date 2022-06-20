@@ -39,7 +39,7 @@ export class PontoService {
     public obterPontoAluno(idTurma:String,idAluno:String) {
         return new Promise(
             resolve => {
-                this.http.get<any>(this.baseUrl + 'v1/pontuacao/atualizarPontuacaoLivrosLidos/'+idTurma+'/'+idAluno).subscribe(result => {
+                this.http.get<any>(this.baseUrl + 'v1/classificacao/obterPontoAluno/'+idTurma+'/'+idAluno).subscribe(result => {
                     //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
                     resolve(result.objeto);
                 }, error => console.error(error));

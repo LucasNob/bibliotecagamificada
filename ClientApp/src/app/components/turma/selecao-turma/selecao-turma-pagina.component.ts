@@ -21,11 +21,11 @@ export class SelecaoTurmaPaginaComponent implements OnInit {
     private usuarioService: UsuarioService,
     private router: Router) {
     
-    this.usuario = usuarioService.obterUsuario(); 
+    this.usuario = usuarioService.obterUsuario();
     
     if(this.usuario != undefined)
     {
-      if (this.usuario.permissao==2)
+      if (this.usuario.permissao == 2)
       turmaService.obterTurmasPorIdProfessor(this.usuario!.id).then(data => {
         this.listaTurmas = data as Array<Turma>;
       });
@@ -41,7 +41,7 @@ export class SelecaoTurmaPaginaComponent implements OnInit {
 
   selecionarTurma(id: String) { 
     let turma = this.listaTurmas.find(value => value.id == id);
-    this.router.navigateByUrl('/listaclassificacao', { state: { Turma: turma} });
+    this.router.navigateByUrl('/listaclassificacao/'+turma!.id);
   }
   obterTurmasUsuario() {
     return this.listaTurmas;
