@@ -30,13 +30,17 @@ export class ClassificacaoPaginaComponent implements OnInit {
     private turmaService: TurmaService,
     private pontoService: PontoService,
     private alunoService: AlunoService,
-    private router:Router) {
-    
-    this.turmaAtual = history.state.Turma;
-    
+    private activatedRoute: ActivatedRoute,
+    private router: Router) {
+      
     this.usuario = usuarioService.obterUsuario(); 
-
-    this.obterClassificacaoTurma();
+    let url = this.activatedRoute.snapshot.url.join().split(',')
+    this.turmaService.obterTurmaPorIdTurma(url[1]).then(data => { 
+      this.turmaAtual = data as Turma;
+      this.obterClassificacaoTurma();
+    })
+    
+    // this.turmaAtual = history.state.Turma;
   }
   ngOnInit(): void {
   }
@@ -71,6 +75,6 @@ export class ClassificacaoPaginaComponent implements OnInit {
     return false;
   }
   navegarMarcacao() {
-    this.router.navigateByUrl('/marcacao',{ state: {Turma: this.turmaAtual} });
+    this.router.navigateByUrl('/marcacao/'+this.turmaAtual!.id);
   }
 }

@@ -7,8 +7,7 @@ import { Injectable } from '@angular/core';
 
 export class UsuarioService{
   
-  usuario: Usuario = new Usuario("idinstituicao1", "Anglo Sorocaba",1,
-  "https://pbs.twimg.com/profile_images/570291758630576128/x3lqZT5Z_400x400.png");
+  usuario: Usuario = new Usuario("idinstituicao1", "Anglo Sorocaba", 1,"https://pbs.twimg.com/profile_images/570291758630576128/x3lqZT5Z_400x400.png");
   
   constructor() {
   }
