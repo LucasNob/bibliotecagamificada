@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Livro } from 'src/app/models/entidades/Livro.model';
 import { LivroCadastroModel } from 'src/app/models/entidades/LivroCadastro.model';
@@ -25,12 +25,12 @@ export class CadastroPaginaComponent implements OnInit {
 
   constructor(private livroService: LivroService,
     private usuarioService: UsuarioService,
-    private formBuilder: FormBuilder){ 
+    private formBuilder: FormBuilder,
+  ) { 
       this.usuarioService.usuario =  new Usuario("idinstituicao1", "Anglo Sorocaba",1,
       "https://pbs.twimg.com/profile_images/570291758630576128/x3lqZT5Z_400x400.png");
     
       this.usuario = usuarioService.obterUsuario(); 
-
     }
     
     ngOnInit(): void { 
@@ -114,7 +114,7 @@ export class CadastroPaginaComponent implements OnInit {
 
   limparCampos() { 
     this.criarForm(new Livro());
-    this.imagemAtual = "";
+    this.imagemAtual = undefined;
     // this.imgCarregada = "";
     this.edicao = "";
   }
