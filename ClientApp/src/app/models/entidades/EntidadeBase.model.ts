@@ -1,7 +1,7 @@
 export class EntidadeBase{
     id: String = "";
-    dataCriacao: any;
-    dataAlteracao: any;
-    dataExclusao: any;
+    dataCriacao: Date = new Date();
+    dataAlteracao: Date = new Date();
+    dataExclusao?: Date = new Date();
     status: boolean = false;
 }

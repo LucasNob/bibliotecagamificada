@@ -1,0 +1,53 @@
+<div class="container">
+<form [formGroup]="formCadastro" (ngSubmit)="cadastrarLivro(formCadastro.value)">    
+    <div class="col-12">
+        <div class="row titulo m-4">
+            <span>Cadastro de Livros</span>
+        </div> 
+        <div class="row my-4">
+            <div class="form-group">
+                <label for="titulo">Título</label>
+                <input type="text" [ngClass]="formInvalido('titulo') ?'form-control is-invalid':'form-control'" id="titulo" name="titulo" formControlName="titulo" placeholder="Título do livro" aria-describedby="tituloInvalido" required>
+                <div id="tituloInvalido" class="invalid-feedback">Título Inválido.</div>
+            </div>
+        </div>
+        <div class="row my-4">
+            <div class="form-group">
+                <label for="Autor">Autor</label>
+                <input type="text" [ngClass]="formInvalido('autor') ?'form-control is-invalid':'form-control'" id="autor" name="autor" formControlName="autor" placeholder="Autor do livro" aria-describedby="autorInvalido" required> 
+                <div id="autorInvalido" class="invalid-feedback">Autor Inválido.</div>   
+            </div>
+        </div>
+        <div class="row my-4 alinhamento">
+            <div class="col-md-6 col-12">
+                <label for="genero">Gênero</label>
+                <select [ngClass]="formInvalido('genero') ?'form-select is-invalid':'form-select'" id="genero" formControlName="genero" name="genero" aria-describedby="generoInvalido" required>
+                    <option selected>Selecione um gênero</option>
+                    <option *ngFor="let genero of listaGeneros()">{{ObterNomeGenero(genero)}}</option>
+                  </select>
+                  <div id="generoInvalido" class="invalid-feedback">Gênero Inválido.</div>
+            </div>
+            <div class="col imagem">
+                <app-upload-imagem (img)="imgCarregada = $event" [imagemAtual]="imagemAtual"></app-upload-imagem>
+            </div>
+        </div>
+        <div class="row justify-content-center" *ngIf="modoEdicao(); else cadastrar">
+            <div class="col-md-6 col-6">
+                <input class="btn btn-primary h-100 w-100 item" value="Salvar" (click)="salvarLivro()" [disabled]="!estadoBotao()">
+            </div>
+            <div class="col-md-6 col-6">
+                <input class="btn btn-danger h-100 w-100 item" value="Cancelar" (click)="limparCampos() "[disabled]="!estadoBotao()">
+            </div>
+        </div>
+        <ng-template #cadastrar>
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-12">  
+                <input type="submit" class="btn btn-primary h-100 w-100 item" value="Cadastrar" [disabled]="!estadoBotao()">
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</form>
+ </div>
+<div class="row my-4"></div>
+<app-livro-lista [listaLivros]="listaLivros" (excluirEmitter)="excluirLivro($event)" (editarEmitter)="editarLivro($event)" ></app-livro-lista>

@@ -13,7 +13,7 @@ namespace BibliotecaGamificada.Classificacao.Negocios
             this.classificacaoRepositorio = classificacaoRepositorio;
         }
 
-        public async Task<IActionResult> Obter()
+        public async Task<IActionResult> ObterPontos()
         {
             RetornoMsg msg;
             var classificacoes = await classificacaoRepositorio.Obter();
@@ -24,11 +24,24 @@ namespace BibliotecaGamificada.Classificacao.Negocios
 
             return new OkObjectResult(msg);
         }
-
-        internal async Task<IActionResult> ObterPorTurma(string id)
+        public async Task<IActionResult> ObterPontosPorAluno(string idTurma, string idAluno)
         {
             RetornoMsg msg;
-            var classificacoes = await classificacaoRepositorio.ObterPorIdTurma(id);
+            var pontos = await classificacaoRepositorio.ObterPorAluno(idAluno);
+            var ponto = pontos.Find(p => p.turma == idTurma);
+            
+            if (ponto == null)
+                msg = new RetornoMsg("erro", "Registro não encontrados");
+            else
+                msg = new RetornoMsg("sucesso", "retorno enviado", ponto);
+
+            return new OkObjectResult(msg);
+        }
+
+        public async Task<IActionResult> ObterPontosPorTurma(string id)
+        {
+            RetornoMsg msg;
+            var classificacoes = await classificacaoRepositorio.ObterPorTurma(id);
             if (classificacoes == null)
                 msg = new RetornoMsg("erro", "Registros não encontrados");
             else

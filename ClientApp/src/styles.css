@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Provide sufficient contrast against white background */
-/* @import "bootstrap-icons/font/bootstrap-icons.css"; */
+/* @import 'https://fonts.googleapis.com/icon?family=Material+Icons'; */
 
 @font-face {
   font-family: Usuario;
@@ -41,6 +41,29 @@
   box-shadow: none !important;
 }
 
+.foto-perfil
+{
+border: 5px solid #1A3369;
+object-fit: cover;
+width: 65px;
+height: 65px;
+}
+
+.foto
+{
+object-fit: cover;
+width: 50px;
+height: 50px;
+}
+
+.capa
+{
+object-fit: cover;
+width: 52px;
+height: 70px;
+}
+
+
 .titulo
 {
  font-family: Titulo;
@@ -58,3 +81,29 @@
 .tabela-cheia{
 background-color: #3464cc ;
 }
+
+.cabecalho{
+  color: #ecbc14;
+  border: #ecbc14;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.item{
+  color: #FFFF;
+  font-size: 20px;
+}
+
+@media only screen and (min-width: 600px) {
+  .bloco-card{
+    min-height: 200px;
+    max-height: 400px;
+  }
+}
+
+.bloco-button{
+  min-height: 100px;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

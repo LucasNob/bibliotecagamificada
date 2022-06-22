@@ -22,10 +22,23 @@ namespace BibliotecaGamificada.Pontos.Comum.Repositorios
         {
             return await this.ObterDadosPorId(id);
         }
-        public async Task<List<Ponto>> ObterPorIdTurma(string id)
+        public async Task<List<Ponto>> ObterPorTurma(string id)
         {
             var filtro = Builders<Ponto>.Filter.Eq(p => p.turma, id);
             return await this.ObterListaDadosPorFiltro(filtro);
+        }
+         public async Task<List<Ponto>> ObterPorAluno(string id)
+        {
+            var filtro = Builders<Ponto>.Filter.Eq(p => p.aluno, id);
+            return await this.ObterListaDadosPorFiltro(filtro);
+        }
+        public async Task AtualizarPontoLivrosLidos(Ponto atual, Ponto novo){
+            var update = Builders<Ponto>.Update.Combine(
+                Builders<Ponto>.Update
+                .Set(x =>x.livrosLidos, novo.livrosLidos)
+                .Set(x => x.totalPontos,novo.totalPontos)
+            );
+            await this.AtualizarDados(atual,update);
         }
     }   
 }

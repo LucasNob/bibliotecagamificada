@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="row mt-4 backgroundcolor">
+        <div *ngIf="obterTurmasUsuario().length > 0; else erro">
+            <div class="row bloco-card">
+                <div class="col-md-6 col-12 py-4 px-4 bloco-card" *ngFor="let item of obterTurmasUsuario()">
+                    <button class="btn-primary h-100 w-100 item" (click)="selecionarTurma(item.id)">{{item.nome}}</button>
+                </div>
+            </div>
+        </div>
+        <ng-template #erro>
+            <div class="alert alert-warning my-3" role="alert">
+                <span>Lista de turmas não encontrada para o usuario {{usuario?.nome}}!</span>
+            </div>
+        </ng-template>
+    </div>
+</div>

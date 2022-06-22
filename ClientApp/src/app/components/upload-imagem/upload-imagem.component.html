@@ -1,0 +1,15 @@
+<div class="col py-3">
+    <div *ngIf="formatoInvalido" class="alert alert-danger" role="alert">
+        <span class="">Formato de arquivo Inválido</span>
+    </div>
+    <div *ngIf="tamanhoInvalido" class="alert alert-danger" role="alert">
+        <span class="">Tamanho de arquivo superior a 1Mb</span>
+    </div>
+    <div *ngIf="imagemNaoEncontrada" class="alert alert-danger" role="alert">
+        <span class="">Imagem não Encontrada</span>
+    </div>
+    <label class="image-upload-container btn btn-bwm py-3">
+        <img src='{{ObterImagem()}}' alt="" width="195" height = "260" (error)="erroCarregar()" onerror="this.src='../../../assets/images/default_capa.png'">
+        <input hidden #imageInput type="file" accept="image/*" (change)="processarArquivo(imageInput)">
+    </label>
+</div>

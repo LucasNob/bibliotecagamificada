@@ -1,29 +1,18 @@
-<div class="container">
-    <div class="row mt-4 backgroundcolor">
-        <div *ngIf="obterTurmasUsuario().length > 0; else erro">
-            <div class="row">
-                <div class="col-md-2 col-4" *ngFor="let item of obterTurmasUsuario()">
-                    <button class="btn-primary w-100" (click)="obterClassificacaoTurma(item.id)">{{item.nome}}</button>
-                </div>
-            </div>
-        </div>
-        <ng-template #erro>
-            <div class="alert alert-warning my-3" role="alert">
-                <span>Lista de turmas não encontrada para o aluno {{usuario?.nome}}!</span>
-            </div>
-        </ng-template>
-    </div>
-</div>
 <div class="row justify-content-center">
     <div class=" col-md-10 px-0" *ngIf="obterTurmaAtual() != undefined; else erroTurma">
         <div class="row py-3">
             <span class="titulo">Ranking {{obterTurmaAtual()!.nome}}</span>
         </div>
-            <app-classificacao-lista [listaPontos]="getListaPontos()"></app-classificacao-lista>
+        <app-classificacao-lista [listaPontos]="obterListaPontos()" [listaAlunos]="obterListaAlunos()"></app-classificacao-lista>
     </div>
 </div>
-    <ng-template #erroTurma>
-        <div class="alert alert-info col-8 my-5" role="alert">
-            <span>Nenhuma turma selecionada</span>
-        </div>
-    </ng-template>
+<ng-template #erroTurma>
+    <div class="alert alert-info col-8 my-5" role="alert">
+        <span>Nenhuma turma selecionada</span>
+    </div>
+</ng-template>
+<div class="row justify-content-center py-4 bloco-button" *ngIf="checarPermissaoMarcacaoLivro()">
+    <div class="col-md-4 col-12">  
+        <button class="btn-primary h-100 w-100 item" (click)="navegarMarcacao()">Marcação de Ponto por Livro</button>
+    </div>  
+</div>

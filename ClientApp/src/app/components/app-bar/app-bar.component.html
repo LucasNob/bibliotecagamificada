@@ -5,6 +5,13 @@
         </a>
     </div>
     <div class="col-md-5"></div>
-    <div class="col-md-2 col-2 d-flex justify-content-end usuario"> <img class="img-fluid rounded-circle foto" src="{{usuario.foto}}"width="70"></div>
-    <div class="col-md-2 col-10 align-self-right usuario"> {{usuario.nome}}</div>
+    <div class="col-md-2 col-2 d-flex justify-content-end usuario">
+        <div *ngIf="usuario!.foto; else fotoPadrao"> 
+            <img class="img-fluid rounded-circle foto-perfil" src="{{usuario.foto}}" alt="">
+        </div>
+        <ng-template #fotoPadrao>
+            <img class="img-fluid rounded-circle foto-perfil" src="../../../../assets/images/default_avatar.png" alt="">
+        </ng-template>
+    </div>
+    <div class="col-md-2 col-9 align-self-right usuario"> {{usuario.nome}}</div>
 </div>

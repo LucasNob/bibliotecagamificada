@@ -13,12 +13,24 @@ export class TurmaService {
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     }
 
-    public obterTurmasPorIdUsuario(id: String){
+    public obterTurmasPorIdAluno(id: String){
         let listaTurmas: Array<Turma> = [];
 
         return new Promise(
             resolve => {
-                this.http.get<GetModelLista<Turma>>(this.baseUrl + 'v1/turma/obterTurmasUsuario/' + id).subscribe(result => {
+                this.http.get<GetModelLista<Turma>>(this.baseUrl + 'v1/turma/obterTurmasAluno/' + id).subscribe(result => {
+                    //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
+                    resolve(result.objeto);
+                }, error => console.error(error));
+            }
+        )
+    }
+    public obterTurmasPorIdProfessor(id: String){
+        let listaTurmas: Array<Turma> = [];
+
+        return new Promise(
+            resolve => {
+                this.http.get<GetModelLista<Turma>>(this.baseUrl + 'v1/turma/obterTurmasProfessor/' + id).subscribe(result => {
                     //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
                     resolve(result.objeto);
                 }, error => console.error(error));
@@ -26,14 +38,14 @@ export class TurmaService {
         )
     }
 
-    public obterTurmaPorIdTurma(id: String): Turma {
-        let turma: Turma;    
-        
-        this.http.get<GetModelUnico<Turma>>(this.baseUrl + 'v1/turma/obterTurma/' + id).subscribe(result => {
-            turma = result.objeto!;
-        }, error => console.error(error));
-
-        return turma!;
+    public obterTurmaPorIdTurma(id: String) {
+        return new Promise(
+            resolve => {
+                this.http.get<GetModelLista<Turma>>(this.baseUrl + 'v1/turma/obterTurma/' + id).subscribe(result => {
+                    //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
+                    resolve(result.objeto);
+                }, error => console.error(error));
+            }
+        )
     }
 }
-  

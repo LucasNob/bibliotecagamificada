@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
+import { newArray } from '@angular/compiler/src/util';
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Aluno } from 'src/app/models/entidades/Aluno.model';
 import { Ponto } from 'src/app/models/entidades/Ponto.model';
 import { Turma } from 'src/app/models/entidades/Turma.model';
 import { Usuario } from 'src/app/models/entidades/Usuario.model';
+import { AlunoService } from 'src/app/services/aluno.service';
 import { PontoService } from 'src/app/services/pontos.service';
 import { TurmaService } from 'src/app/services/turma.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -15,53 +18,63 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class ClassificacaoPaginaComponent implements OnInit {
 
-  pontos = new Array<Ponto>();
-  turmaAtual?: Turma;
-  // pontosService: PontosService;
   listaTurmas: Array<Turma> = [];
+  listaAlunos: Array<Aluno> = [];
+  listaPontos = new Array<Ponto>();
   usuario?: Usuario;
+  turmaAtual?: Turma;
+  idTurma: String = "";
 
   constructor(
-    http: HttpClient, @Inject('BASE_URL') baseUrl: string,
-    private router: Router,
-    private route: ActivatedRoute,
     private usuarioService: UsuarioService,
     private turmaService: TurmaService,
-    private pontoService: PontoService) {
-
-    // let url = baseUrl + 'v1/classificacao/obterPorTurma/'
-    // let id="";
-    this.usuario = usuarioService.obterUsuario();
-
-    turmaService.obterTurmasPorIdUsuario(this.usuario.id).then(data => {
-      this.listaTurmas = data as Array<Turma>;
-    });
-
-    // this.route.paramMap.subscribe((params: ParamMap) => {
-    //   id = params.get('id')!;
-    //   url = url + id;
-    // });
+    private pontoService: PontoService,
+    private alunoService: AlunoService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router) {
+      
+    this.usuario = usuarioService.obterUsuario(); 
+    let url = this.activatedRoute.snapshot.url.join().split(',')
+    this.turmaService.obterTurmaPorIdTurma(url[1]).then(data => { 
+      this.turmaAtual = data as Turma;
+      this.obterClassificacaoTurma();
+    })
+    
+    // this.turmaAtual = history.state.Turma;
   }
   ngOnInit(): void {
-    // console.log('on init')
   }
 
-  obterTurmasUsuario() {
-    return this.listaTurmas;
-  }
-
-  getListaPontos(): Array<Ponto> {
-    return this.pontos;
-  }
-
-  obterClassificacaoTurma(id: String) {
-    this.turmaAtual = this.listaTurmas.find(value => value.id == id);
-    this.pontoService.obterClassificacaoPorIdTurma(id).then(data => {
-      this.pontos = data as Array<Ponto>;
+  obterClassificacaoTurma() {
+    // this.turmaAtual = this.listaTurmas.find(value => value.id == this.idTurma);
+    this.pontoService.obterClassificacaoPorIdTurma(this.turmaAtual?.id!).then(data => {
+      this.listaPontos = data as Array<Ponto>;
     });
+    this.alunoService.ObterListaAlunosPorId(this.turmaAtual?.alunos!).then(data => {
+      this.listaAlunos = data as Array<Aluno>;
+    });
+  }
+  obterListaAlunos(): Array<Aluno> { 
+    if (this.listaAlunos == undefined)
+      return new Array<Aluno>();
+    return this.listaAlunos;
+  }
+  
+  obterListaPontos(): Array<Ponto> {
+    if (this.listaPontos == undefined)
+      return new Array<Ponto>();
+    return this.listaPontos;
   }
 
   obterTurmaAtual() {
     return this.turmaAtual;
+  }
+  checarPermissaoMarcacaoLivro() {
+    if (this.usuarioService.ObterNivelPermissao() == 2)
+      return true;
+    return false;
+  }
+  navegarMarcacao() {
+    this.router.navigateByUrl('/marcacao/'+this.turmaAtual!.id);
   }
 }
