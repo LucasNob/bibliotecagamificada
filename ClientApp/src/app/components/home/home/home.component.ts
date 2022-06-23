@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
     // this.router.navigateByUrl('/selecaoturma', { state: { Usuario: this.usuarioService.obterUsuario()} });
   }
   navegarComoAluno() {
-    this.usuarioService.novoUsuario("idaluno1", "Aluno Felipe", 3,
+    this.usuarioService.novoUsuario("idaluno1", "Felipe", 3,
     "https://cdn.pixabay.com/photo/2015/11/04/17/26/boy-1022996_960_720.jpg");
     this.router.navigateByUrl('/selecaoturma');
     // this.router.navigateByUrl('/selecaoturma', { state: { Usuario: this.usuarioService.obterUsuario()} });
