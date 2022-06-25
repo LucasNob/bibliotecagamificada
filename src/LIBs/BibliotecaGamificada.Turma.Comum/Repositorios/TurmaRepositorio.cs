@@ -30,5 +30,41 @@ namespace BibliotecaGamificada.Turma.Comum.Entidades
             var filtro = Builders<Turma>.Filter.Eq(x => x.professor, id);
             return await this.ObterListaDadosPorFiltro(filtro);
         }
+        public async Task<string> Cadastrar(Turma turma)
+        {
+            return await this.InserirDados(turma);
+        }
+
+        public async Task Excluir(string id)
+        {
+            var filtro = Builders<Turma>.Filter.Eq(p => p.Id, id);
+            await this.ExcluirDados(filtro);
+        }
+
+        public async Task Editar(Turma turma)
+        {
+            var atualizacao = Builders<Turma>.Update.Combine(
+            Builders<Turma>.Update
+            .Set(x => x.nome, turma.nome)
+            .Set(x => x.anoLetivo, turma.anoLetivo)
+            );
+            await this.AtualizarDados(turma, atualizacao);
+        }
+        public async Task AtualizarLivros()
+        {
+           
+        }
+        public async Task AtualizarAlunos()
+        {
+           
+        }
+        public async Task RemoverAluno()
+        {
+           
+        }
+        public async Task RemoverLivro()
+        {
+           
+        }
     }
 }
