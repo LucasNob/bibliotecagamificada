@@ -50,21 +50,23 @@ namespace BibliotecaGamificada.Turma.Comum.Entidades
             );
             await this.AtualizarDados(turma, atualizacao);
         }
-        public async Task AtualizarLivros()
+        public async Task AtualizarLivros(Turma novo, Turma atual)
         {
-           
+            // Utilizado atualizar e remover
+             var update = Builders<Turma>.Update.Combine(
+                Builders<Turma>.Update
+                .Set(x =>x.livros, novo.livros)
+            );
+            await this.AtualizarDados(atual,update);
         }
-        public async Task AtualizarAlunos()
+        public async Task AtualizarAlunos(Turma novo, Turma atual)
         {
-           
-        }
-        public async Task RemoverAluno()
-        {
-           
-        }
-        public async Task RemoverLivro()
-        {
-           
+            // Utilizado atualizar e remover
+             var update = Builders<Turma>.Update.Combine(
+                Builders<Turma>.Update
+                .Set(x =>x.alunos, novo.alunos)
+            );
+            await this.AtualizarDados(atual,update);
         }
     }
 }

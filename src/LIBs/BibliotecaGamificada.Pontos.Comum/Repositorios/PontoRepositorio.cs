@@ -53,12 +53,18 @@ namespace BibliotecaGamificada.Pontos.Comum.Repositorios
         }
         public async Task ExcluirporAluno(string aluno, string turma)
         {
-
+            var filtro = Builders<Ponto>.Filter.Eq(p => p.aluno, aluno) & Builders<Ponto>.Filter.Eq(p => p.turma, turma);
+            await this.ExcluirDados(filtro);
         }
 
-         public async Task RemoverLivroLido()
+         public async Task RemoverLivroLido(Ponto atual, Ponto novo)
         {
-            
+            // Utilizado para remover em uma turma, remover em todos utilizar FOR
+            var update = Builders<Ponto>.Update.Combine(
+                Builders<Ponto>.Update
+                .Set(x =>x.livrosLidos, novo.livrosLidos)
+            );
+            await this.AtualizarDados(atual,update);
         }
 
 
