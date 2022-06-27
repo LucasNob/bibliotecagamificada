@@ -1,5 +1,4 @@
 using BibliotecaGamificada.Alunos.Negocios;
-using BibliotecaGamificada.Instituicoes.Negocios;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BibliotecaGamificada.Alunos.Controllers;
@@ -22,7 +21,7 @@ public class AlunosController : ControllerBase
         return await alunosNegocio.Obter();
     }
     [HttpGet, Route("obterAluno/{id}")]
-    public async Task<IActionResult> ObterInstituicaoPorId([FromRoute] string id)
+    public async Task<IActionResult> ObterAlunoPorId([FromRoute] string id)
     {
         return await alunosNegocio.ObterAlunoPorId(id);
     }

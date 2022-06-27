@@ -79,6 +79,7 @@ app.MapControllerRoute(name: "livro", pattern: "/v1/livro/{action=Index}/{id?}")
 app.MapControllerRoute(name: "instituicao", pattern: "/v1/instituicao/{action=Index}/{id?}");
 app.MapControllerRoute(name: "aluno", pattern: "/v1/aluno/{action=Index}/{id?}");
 app.MapControllerRoute(name: "pontuacao", pattern: "/v1/pontuacao/{action=Index}/{id?}");
+app.MapControllerRoute(name: "aluno", pattern: "/v1/professor/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html"); ;
 
