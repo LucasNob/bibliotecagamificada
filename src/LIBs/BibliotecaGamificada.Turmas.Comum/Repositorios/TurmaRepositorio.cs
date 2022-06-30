@@ -1,10 +1,11 @@
 using BibliotecaGamificada.Comum.Classes.Repositorio;
 using BibliotecaGamificada.Comum.Classes.Settings;
+using BibliotecaGamificada.Turmas.Comum.Entidades;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace BibliotecaGamificada.Turma.Comum.Entidades
+namespace BibliotecaGamificada.Turmas.Comum.Repositorios
 {
     public class TurmaRepositorio : MongoDBBase<Turma>
     {
@@ -30,6 +31,13 @@ namespace BibliotecaGamificada.Turma.Comum.Entidades
             var filtro = Builders<Turma>.Filter.Eq(x => x.professor, id);
             return await this.ObterListaDadosPorFiltro(filtro);
         }
+
+         public async Task<List<Turma>> ObterporInstituicao(string id)
+        {
+            var filtro = Builders<Turma>.Filter.Eq(x => x.instituicao, id);
+            return await this.ObterListaDadosPorFiltro(filtro);
+        }
+
         public async Task<string> Cadastrar(Turma turma)
         {
             return await this.InserirDados(turma);

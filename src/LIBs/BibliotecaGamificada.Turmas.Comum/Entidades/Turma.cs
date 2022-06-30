@@ -1,7 +1,7 @@
 
 using BibliotecaGamificada.Comum.Classes.Entidades;
 
-namespace BibliotecaGamificada.Turma.Comum.Entidades
+namespace BibliotecaGamificada.Turmas.Comum.Entidades
 {
     public class Turma : EntidadeRepositorioBase
     {

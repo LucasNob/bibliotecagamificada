@@ -30,4 +30,9 @@ public class AlunosController : ControllerBase
     {
         return await alunosNegocio.ObterAlunosPorLista(id);
     }
+    [HttpGet, Route("obterPorInstituicao/{id}")]
+    public async Task<IActionResult> ObterAlunoporInstituicao([FromRoute] string id)
+    {
+        return await alunosNegocio.ObterAlunoporInstituicao(id);
+    }
 }

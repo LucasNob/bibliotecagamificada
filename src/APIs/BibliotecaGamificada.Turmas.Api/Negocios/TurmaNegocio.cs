@@ -1,10 +1,9 @@
 using BibliotecaGamificada.Comum.Classes.Models;
-using BibliotecaGamificada.Pontos.Comum.Entidades;
 using BibliotecaGamificada.Pontos.Comum.Repositorios;
-using BibliotecaGamificada.Turma.Comum.Entidades;
+using BibliotecaGamificada.Turmas.Comum.Repositorios;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BibliotecaGamificada.Turma.Negocios
+namespace BibliotecaGamificada.Turmas.Negocios
 {
     public class TurmaNegocio
     {

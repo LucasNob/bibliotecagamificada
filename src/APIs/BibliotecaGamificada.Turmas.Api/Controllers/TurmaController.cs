@@ -1,7 +1,7 @@
-using BibliotecaGamificada.Turma.Negocios;
+using BibliotecaGamificada.Turmas.Negocios;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BibliotecaGamificada.Classificacao.Controllers;
+namespace BibliotecaGamificada.Turmas.Controllers;
 
 [ApiController]
 [Route("/v1/turma")]
