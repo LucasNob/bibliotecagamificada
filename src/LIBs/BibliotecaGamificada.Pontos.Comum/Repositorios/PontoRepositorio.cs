@@ -57,17 +57,19 @@ namespace BibliotecaGamificada.Pontos.Comum.Repositorios
             await this.ExcluirDados(filtro);
         }
 
-         public async Task RemoverLivroLido(Ponto atual, Ponto novo)
+        // public async Task RemoverLivroLido(Ponto atual, Ponto novo)
+        // {
+        //     // Utilizado para remover em uma turma, remover em todos utilizar FOR
+        //     var update = Builders<Ponto>.Update.Combine(Builders<Ponto>.Update
+        //         .Set(x =>x.livrosLidos, novo.livrosLidos)
+        //     );
+        //     await this.AtualizarDados(atual,update);
+        // }
+        
+        public async Task RemoverLivroLido(string idLivro)
         {
-            // Utilizado para remover em uma turma, remover em todos utilizar FOR
-            var update = Builders<Ponto>.Update.Combine(
-                Builders<Ponto>.Update
-                .Set(x =>x.livrosLidos, novo.livrosLidos)
-            );
-            await this.AtualizarDados(atual,update);
+            var update = Builders<Ponto>.Update.Pull(p => p.livrosLidos, idLivro);
+            await this.AtualizarMultiplosDados(new BsonDocument(),update);
         }
-
-
-
     }   
 }

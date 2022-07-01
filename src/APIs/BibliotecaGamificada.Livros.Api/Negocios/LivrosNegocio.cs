@@ -107,35 +107,9 @@ namespace BibliotecaGamificada.Livros.Negocios
 
                 //Somente para livros únicos por instituição
                 var turmas = await turmaRepositorio.Obter();
-                if(turmas != null && turmas.Count > 0)
-                {
-                        foreach (Turma turmaslivros in turmas)
-                        {
-                            if (turmaslivros.livros.Contains(id))
-                            {
-                                var atual = turmaslivros;
-                                turmaslivros.livros.Remove(id);
-                                var novo = turmaslivros;
-                                await turmaRepositorio.AtualizarLivros(atual, novo);
-                            }
-                            
-                        }
-                }
-                var pontos = await pontoRepositorio.Obter();
-                if(pontos != null && pontos.Count > 0)
-                {
-                        foreach (Ponto pontoslivros in pontos)
-                        {
-                            if (pontoslivros.livrosLidos.Contains(id))
-                            {
-                                var atual = pontoslivros;
-                                pontoslivros.livrosLidos.Remove(id);
-                                var novo = pontoslivros;
-                                await pontoRepositorio.RemoverLivroLido(atual, novo);
-                            }
-                           
-                        } 
-                }
+
+                await pontoRepositorio.RemoverLivroLido(id);
+                await turmaRepositorio.RemoverLivro(id);
             }
             catch
             {
