@@ -84,5 +84,21 @@ namespace BibliotecaGamificada.Turmas.Comum.Repositorios
             // await this.AtualizarMultiplosDados(filtro,update);
             await this.AtualizarMultiplosDados(new BsonDocument(),update);
         }
+         public async Task RemoverLivroPorTurma(string idTurma, string idLivro)
+        {
+            var update = Builders<Turma>.Update.Pull(p => p.livros, idLivro);
+            
+            var filtro = Builders<Turma>.Filter.Eq(x => x.Id, idTurma);
+
+            await this.AtualizarMultiplosDados(filtro,update);
+        }
+         public async Task RemoverAlunoPorTurma(string idTurma, string idAluno)
+        {
+            var update = Builders<Turma>.Update.Pull(p => p.alunos, idAluno);
+            
+            var filtro = Builders<Turma>.Filter.Eq(x => x.Id, idTurma);
+            
+            await this.AtualizarMultiplosDados(filtro,update);
+        }
     }
 }
