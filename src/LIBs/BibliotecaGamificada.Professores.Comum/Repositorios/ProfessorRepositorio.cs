@@ -19,7 +19,14 @@ namespace BibliotecaGamificada.Professores.Comum.Repositorios
 
         public async Task<Professor> ObterPorId(string id)
         {
-             return await this.ObterDadosPorId(id);
+            return await this.ObterDadosPorId(id);
         }
+
+        public async Task<List<Professor>> ObterPorInstituicao(string id)
+        {
+            var filtro = Builders<Professor>.Filter.Eq(p => p.instituicao, id);
+            return await this.ObterListaDadosPorFiltro(filtro);
+        }
+
     }
 }

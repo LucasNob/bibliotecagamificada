@@ -1,3 +1,4 @@
+using BibliotecaGamificada.Turmas.Api.Models;
 using BibliotecaGamificada.Turmas.Negocios;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,5 +35,35 @@ public class TurmaController : ControllerBase
     public async Task<IActionResult> ObterTurmasPorAluno([FromRoute] string id)
     {
         return await turmaNegocio.ObterTurmasPorAluno(id);
+    }
+    [HttpGet, Route("obterTurmasInstituicao/{id}")]
+    public async Task<IActionResult> ObterTurmasPorInstituicao([FromRoute] string id)
+    {
+        return await turmaNegocio.ObterTurmasPorInstituicao(id);
+    }
+    [HttpPost, Route("cadastrarTurma")]
+    public async Task<IActionResult> CadastrarTurma([FromBody] TurmaCadastroModel turma)
+    {
+        return await turmaNegocio.CadastrarTurma(turma);
+    }
+    [HttpPost, Route("editarTurma")]
+    public async Task<IActionResult> EditarTurma([FromBody] TurmaCadastroModel turma)
+    {
+        return await turmaNegocio.EditarTurma(turma);
+    }
+    [HttpDelete, Route("excluirTurma/{id}")]
+    public async Task<IActionResult> ExcluirTurma([FromRoute] string id)
+    {
+        return await turmaNegocio.ExcluirTurma(id);
+    }
+    [HttpPut, Route("removerAlunoTurma/{id}/{id}")]
+    public async Task<IActionResult> RemoverAlunoporTurma([FromRoute] string turma, string aluno)
+    {
+        return await turmaNegocio.RemoverAlunoporTurma(turma, aluno);
+    }
+    [HttpPut, Route("removerLivroTurma/{id}/{id}")]
+    public async Task<IActionResult> RemoverLivroporTurma([FromRoute] string turma, string livro)
+    {
+        return await turmaNegocio.RemoverLivroporTurma(turma, livro);
     }
 }

@@ -24,4 +24,9 @@ public class ProfessoresController : ControllerBase
     {
         return await professoresNegocio.ObterProfessorPorId(id);
     }
+    [HttpGet, Route("obterPorInstituicao/{id}")]
+    public async Task<IActionResult> ObterProfessorporInstituicao([FromRoute] string id)
+    {
+        return await professoresNegocio.ObterProfessorporInstituicao(id);
+    }
 }

@@ -36,5 +36,17 @@ namespace BibliotecaGamificada.Professores.Negocios
 
             return new OkObjectResult(msg);
         }
+
+        public async Task<IActionResult> ObterProfessorporInstituicao(string id)
+        {
+            RetornoMsg msg;
+            var professores = await professorRepositorio.ObterPorInstituicao(id);
+            if (professores == null)
+                msg = new RetornoMsg("erro", "Registros não encontrados");
+            else
+                msg = new RetornoMsg("sucesso", "retorno enviado", professores);
+
+            return new OkObjectResult(msg);
+        }
     }
 }

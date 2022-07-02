@@ -51,32 +51,22 @@ namespace BibliotecaGamificada.Pontos.Comum.Repositorios
             var filtro = Builders<Ponto>.Filter.Eq(p => p.turma, id);
             await this.ExcluirDados(filtro);
         }
-        public async Task ExcluirporAluno(string aluno, string turma)
+        public async Task ExcluirporAluno(string turma, string aluno)
         {
             var filtro = Builders<Ponto>.Filter.Eq(p => p.aluno, aluno) & Builders<Ponto>.Filter.Eq(p => p.turma, turma);
             await this.ExcluirDados(filtro);
         }
-
-        // public async Task RemoverLivroLido(Ponto atual, Ponto novo)
-        // {
-        //     // Utilizado para remover em uma turma, remover em todos utilizar FOR
-        //     var update = Builders<Ponto>.Update.Combine(Builders<Ponto>.Update
-        //         .Set(x =>x.livrosLidos, novo.livrosLidos)
-        //     );
-        //     await this.AtualizarDados(atual,update);
-        // }
         
         public async Task RemoverLivroLido(string idLivro)
         {
             var update = Builders<Ponto>.Update.Pull(p => p.livrosLidos, idLivro);
             await this.AtualizarMultiplosDados(new BsonDocument(),update);
         }
-         public async Task RemoverLivroLidoPorTurma(string idLivro,string idTurma)
+
+         public async Task RemoverLivroLidoPorTurma(string turma, string livro)
         {
-            var update = Builders<Ponto>.Update.Pull(p => p.livrosLidos, idLivro);
-            
-            var filtro = Builders<Ponto>.Filter.Eq(t => t.turma, idTurma);
-            // await this.AtualizarMultiplosDados(filtro,update);
+            var update = Builders<Ponto>.Update.Pull(p => p.livrosLidos, livro);
+            var filtro = Builders<Ponto>.Filter.Eq(t => t.turma, turma);
             await this.AtualizarMultiplosDados(filtro,update);
         }
     }   

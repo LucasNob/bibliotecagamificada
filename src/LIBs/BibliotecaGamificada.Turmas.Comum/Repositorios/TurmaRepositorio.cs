@@ -60,7 +60,6 @@ namespace BibliotecaGamificada.Turmas.Comum.Repositorios
         }
         public async Task AtualizarLivros(Turma novo, Turma atual)
         {
-            // Utilizado atualizar e remover
              var update = Builders<Turma>.Update.Combine(
                 Builders<Turma>.Update
                 .Set(x =>x.livros, novo.livros)
@@ -69,34 +68,30 @@ namespace BibliotecaGamificada.Turmas.Comum.Repositorios
         }
         public async Task AtualizarAlunos(Turma novo, Turma atual)
         {
-            // Utilizado atualizar e remover
              var update = Builders<Turma>.Update.Combine(
                 Builders<Turma>.Update
                 .Set(x =>x.alunos, novo.alunos)
             );
             await this.AtualizarDados(atual,update);
         }
-        public async Task RemoverLivro(string idLivro)
+        public async Task RemoverLivro(string id)
         {
-            var update = Builders<Turma>.Update.Pull(p => p.livros, idLivro);
-            
-            // var filtro = Builders<Turma>.Filter.Eq(x => x.instituicao, instituicao);
-            // await this.AtualizarMultiplosDados(filtro,update);
+            var update = Builders<Turma>.Update.Pull(p => p.livros, id);
             await this.AtualizarMultiplosDados(new BsonDocument(),update);
         }
-         public async Task RemoverLivroPorTurma(string idTurma, string idLivro)
+         public async Task RemoverLivroPorTurma(string turma, string livro)
         {
-            var update = Builders<Turma>.Update.Pull(p => p.livros, idLivro);
+            var update = Builders<Turma>.Update.Pull(p => p.livros, livro);
             
-            var filtro = Builders<Turma>.Filter.Eq(x => x.Id, idTurma);
+            var filtro = Builders<Turma>.Filter.Eq(x => x.Id, turma);
 
             await this.AtualizarMultiplosDados(filtro,update);
         }
-         public async Task RemoverAlunoPorTurma(string idTurma, string idAluno)
+         public async Task RemoverAlunoPorTurma(string turma, string aluno)
         {
-            var update = Builders<Turma>.Update.Pull(p => p.alunos, idAluno);
+            var update = Builders<Turma>.Update.Pull(p => p.alunos, aluno);
             
-            var filtro = Builders<Turma>.Filter.Eq(x => x.Id, idTurma);
+            var filtro = Builders<Turma>.Filter.Eq(x => x.Id, turma);
             
             await this.AtualizarMultiplosDados(filtro,update);
         }
