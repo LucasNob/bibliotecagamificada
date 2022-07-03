@@ -70,10 +70,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-// app.MapControllerRoute(name: "classificacaoController", pattern: "{controller}/{action=Index}/{id?}");
-// app.MapControllerRoute(name: "turmaController", pattern: "{controller}/{action=Index}/{id?}");
-
-app.MapControllerRoute(name: "turma", pattern: "/v1/turma/{action=Index}/{id?}");
+//Caso não seja o método correto de se aplicar alterar
+app.MapControllerRoute(name: "turma", pattern: "/v1/turma/{action=Index}/{id?}/{id2?}");
 app.MapControllerRoute(name: "classificacao", pattern: "/v1/classificacao/{action=Index}/{id?}");
 app.MapControllerRoute(name: "livro", pattern: "/v1/livro/{action=Index}/{id?}");
 app.MapControllerRoute(name: "instituicao", pattern: "/v1/instituicao/{action=Index}/{id?}");

@@ -56,14 +56,26 @@ public class TurmaController : ControllerBase
     {
         return await turmaNegocio.ExcluirTurma(id);
     }
-    [HttpPut, Route("removerAlunoTurma/{id}/{id}")]
+    //Caso não seja o método correto de se aplicar alterar
+    [HttpPut, Route("removerAlunoTurma/{id}/{id2}")]
     public async Task<IActionResult> RemoverAlunoporTurma([FromRoute] string turma, string aluno)
     {
         return await turmaNegocio.RemoverAlunoporTurma(turma, aluno);
     }
-    [HttpPut, Route("removerLivroTurma/{id}/{id}")]
+    //Caso não seja o método correto de se aplicar alterar
+    [HttpPut, Route("removerLivroTurma/{id}/{id2}")]
     public async Task<IActionResult> RemoverLivroporTurma([FromRoute] string turma, string livro)
     {
         return await turmaNegocio.RemoverLivroporTurma(turma, livro);
+    }
+    [HttpPut, Route("atualizarLivrosTurma")]
+    public async Task<IActionResult> AtualizarLivrosporTurma([FromBody] TurmaCadastroModel turma)
+    {
+        return await turmaNegocio.AtualizarLivrosporTurma(turma);
+    }
+    [HttpPut, Route("atualizarAlunosTurma")]
+    public async Task<IActionResult> AtualizarAlunosporTurma([FromBody] TurmaCadastroModel turma)
+    {
+        return await turmaNegocio.AtualizarAlunosporTurma(turma);
     }
 }

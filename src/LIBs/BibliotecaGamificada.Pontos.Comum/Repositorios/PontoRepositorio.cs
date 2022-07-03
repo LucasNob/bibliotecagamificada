@@ -63,7 +63,7 @@ namespace BibliotecaGamificada.Pontos.Comum.Repositorios
             await this.AtualizarMultiplosDados(new BsonDocument(),update);
         }
 
-         public async Task RemoverLivroLidoPorTurma(string turma, string livro)
+        public async Task RemoverLivroLidoPorTurma(string turma, string livro)
         {
             var update = Builders<Ponto>.Update.Pull(p => p.livrosLidos, livro);
             var filtro = Builders<Ponto>.Filter.Eq(t => t.turma, turma);

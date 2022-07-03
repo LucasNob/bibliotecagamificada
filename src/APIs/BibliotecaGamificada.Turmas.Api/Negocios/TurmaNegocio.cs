@@ -1,4 +1,5 @@
 using BibliotecaGamificada.Comum.Classes.Models;
+using BibliotecaGamificada.Pontos.Comum.Entidades;
 using BibliotecaGamificada.Pontos.Comum.Repositorios;
 using BibliotecaGamificada.Turmas.Api.Models;
 using BibliotecaGamificada.Turmas.Comum.Entidades;
@@ -83,7 +84,7 @@ namespace BibliotecaGamificada.Turmas.Negocios
         {
             try
             {
-                var t = new Turma(turma.nome, turma.anoLetivo, turma.professor, turma.alunos, turma.livros, turma.instituicao);
+                var t = new Turma(turma.nome, turma.anoLetivo, turma.professor, turma.instituicao, turma.alunos, turma.livros);
 
                 await turmaRepositorio.Cadastrar(t);
             }
@@ -93,6 +94,74 @@ namespace BibliotecaGamificada.Turmas.Negocios
             }
             return new OkObjectResult(new RetornoMsg("sucesso", "Turma Registrada"));
         }
+
+        public async Task<IActionResult> AtualizarLivrosporTurma(TurmaCadastroModel atualizacao)
+        {
+            try
+            {
+                //Caso ache necessário criar uma Model de Atualização para Turma
+                if(atualizacao.id != null)
+                {
+                    var atual = await turmaRepositorio.ObterPorId(atualizacao.id);
+                    var novo = new Turma();
+                    novo.livros = atualizacao.livros;
+                    await turmaRepositorio.AtualizarLivros(novo, atual);
+                }
+            }
+            catch (Exception e)
+            {
+                return new OkObjectResult(new RetornoMsg("erro", "Erro ao adicionar livros", e));
+            }
+            return new OkObjectResult(new RetornoMsg("sucesso", "Livros adicionados"));
+        }
+
+        public async Task<IActionResult> AtualizarAlunosporTurma(TurmaCadastroModel atualizacao)
+        {
+            try
+            {
+                //Caso ache necessário criar uma Model de Atualização para Turma
+                if(atualizacao.id != null)
+                {
+                    var atual = await turmaRepositorio.ObterPorId(atualizacao.id);
+                    var novo = new Turma();
+                    novo.alunos = atualizacao.alunos;
+
+                    var ponto = await pontoRepositorio.ObterPorTurma(atualizacao.id);
+                    var alunos = new List<string>();
+                    var novosalunos = new List<string>();
+
+                    //Copiar alunos de todos os pontos da turma
+                    foreach (Ponto alunosPonto in ponto)
+                    {
+                        alunos.Add(alunosPonto.aluno);
+                    }
+
+                    //Encontrar ALunos que não possuem ponto criado
+                    if (novo.alunos != null)
+                    {
+                        novosalunos = (List<string>)novo.alunos.Except(alunos);
+                    }
+                    
+                    //Para Novo Aluno Criar um Ponto Vazio
+                    if(novosalunos.Count != 0)
+                    {
+                        for(int i=0; i< novosalunos.Count; i++)
+                        {
+                            var novoPonto = new Ponto(novosalunos[i],atualizacao.id, new List<string>(), 0, atualizacao.instituicao);
+                            await pontoRepositorio.Cadastrar(novoPonto);
+                        }
+                    }                    
+                    await turmaRepositorio.AtualizarAlunos(novo, atual);
+                }
+            }
+            catch (Exception e)
+            {
+                return new OkObjectResult(new RetornoMsg("erro", "Erro ao adicionar livros", e));
+            }
+            return new OkObjectResult(new RetornoMsg("sucesso", "Livros adicionados"));
+        }
+
+
         public async Task<IActionResult> ExcluirTurma(string id)
         {
             try
@@ -112,7 +181,7 @@ namespace BibliotecaGamificada.Turmas.Negocios
         {
             try
             {
-                var t = new Turma(turma.nome, turma.anoLetivo, turma.professor, turma.alunos, turma.livros, turma.instituicao);
+                var t = new Turma(turma.nome, turma.anoLetivo, turma.professor, turma.instituicao, turma.alunos, turma.livros);
                 t.Id = turma.id;
                 await turmaRepositorio.Editar(t);
             }
@@ -136,7 +205,7 @@ namespace BibliotecaGamificada.Turmas.Negocios
             }
             return new OkObjectResult(new RetornoMsg("sucesso", "Aluno Removido"));
         }
-          public async Task<IActionResult> RemoverLivroporTurma(string turma, string livro)
+        public async Task<IActionResult> RemoverLivroporTurma(string turma, string livro)
         {
             try
             {

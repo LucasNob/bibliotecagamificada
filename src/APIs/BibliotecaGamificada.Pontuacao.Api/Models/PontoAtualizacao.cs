@@ -6,6 +6,7 @@ namespace BibliotecaGamificada.Pontuacao.Models
         public string idAluno { get; set; }
         public List<string> livrosLidos { get; set; }
         public double totalPontos { get; set; }
+        public string instituicao { get; set; }
 
         public PontoAtualizacao()
         {
@@ -13,6 +14,7 @@ namespace BibliotecaGamificada.Pontuacao.Models
             idAluno = "";
             this.livrosLidos = new List<string>();
             totalPontos = 0;
+            this.instituicao = "";
         }
     }
 }
