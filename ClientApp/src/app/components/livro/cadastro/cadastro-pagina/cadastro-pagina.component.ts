@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Livro } from 'src/app/models/entidades/Livro.model';
 import { LivroCadastroModel } from 'src/app/models/entidades/LivroCadastro.model';
@@ -115,7 +115,7 @@ export class CadastroPaginaComponent implements OnInit {
   limparCampos() { 
     this.criarForm(new Livro());
     this.imagemAtual = undefined;
-    // this.imgCarregada = "";
+    this.imgCarregada = "../../../assets/images/default_capa.png";
     this.edicao = "";
   }
 

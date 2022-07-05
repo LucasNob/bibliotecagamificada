@@ -120,11 +120,16 @@ namespace BibliotecaGamificada.Livros.Negocios
             string capa = "../../../assets/images/default_capa.png";
             try
             {
+                var livroAnterior = await livroRepositorio.ObterPorId(livro.id!);
+                
                 var bs = new AzureBlobStorage();
 
-                if (livro.capa != capa)
+                if (livro.capa != capa && livro.capa != livroAnterior.capa)
                 {
                     capa = await bs.UploadImagem(livro.capa!, "imagens");
+                }
+                else {
+                    capa = livro.capa!;
                 }
 
                 var l = new Livro(livro.titulo, livro.genero, livro.autor, capa, livro.instituicao);
