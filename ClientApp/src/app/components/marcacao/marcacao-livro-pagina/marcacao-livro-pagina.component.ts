@@ -30,6 +30,7 @@ export class MarcacaoLivroPaginaComponent implements OnInit {
   listaLivros?: Array<Livro> = [];
   listaLivrosLidos?: Array<Livro> = [];
   listaLivrosMarcados?: Array<String> = [];
+  listaLivrosMarcadosOriginal?: Array<String> = [];
 
   carregado = false;
 
@@ -50,6 +51,7 @@ export class MarcacaoLivroPaginaComponent implements OnInit {
           if (ponto.livrosLidos.includes(livro.id)) { 
             this.listaLivrosLidos?.push(livro);
             this.listaLivrosMarcados?.push(livro.id);
+            this.listaLivrosMarcadosOriginal?.push(livro.id);
           }
         })
         this.listaLivros = this.listaLivros?.filter( l => {
@@ -75,11 +77,22 @@ export class MarcacaoLivroPaginaComponent implements OnInit {
     this.listaLivrosLidos?.push(livro!);
     this.listaLivrosMarcados?.push(livro!.id);
   } 
+  uncheck(id: String) {
+    let livro = this.listaLivrosLidos?.find(l => l.id == id);
+    this.listaLivros?.push(livro!);
+    this.listaLivrosLidos?.splice(this.listaLivrosLidos.findIndex(l => l.id == id),1)
+    this.listaLivrosMarcados?.splice(this.listaLivrosMarcados.findIndex(l => l == id),1)
+  } 
   salvar() { 
     console.log(this.listaLivrosMarcados!)
     let atualizacao = new PontoAtualizacao(this.aluno?.id!,this.turma?.id!,this.listaLivrosMarcados!,0)
       this.pontoService.atualizarPontuacao(atualizacao).then(data => {
         this.location.back()
       });
+  }
+  mostrarBotaoVoltar(id: String) {
+    if (this.listaLivrosMarcadosOriginal?.includes(id))
+      return false;
+    return true;
   }
 }

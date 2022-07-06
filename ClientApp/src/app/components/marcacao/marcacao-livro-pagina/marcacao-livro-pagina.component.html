@@ -1,4 +1,4 @@
-<div class="row justify-content-center">
+<div class="row justify-content-center" *ngIf="carregado">
     <div class=" col-md-5 px-0">
         <div class="row py-3">
             <span class="titulo">Catálogo de Livros</span>
@@ -70,11 +70,9 @@
                                 <span>{{livro.titulo}}</span>
                             </div>
                             <div class="col-md-2 col-3 text-center">
-                                <!--TO DO Botão para voltar ao catálogo de livros
-                                <button class="btn btn-primary">
+                                <button class="btn btn-primary" (click)="uncheck(livro.id)" *ngIf="mostrarBotaoVoltar(livro.id)">
                                     <mat-icon>arrow_backward</mat-icon>
                                 </button>
-                                -->
                             </div>
                         </div>
                     </div>
