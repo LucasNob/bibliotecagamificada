@@ -70,7 +70,7 @@ export class ClassificacaoPaginaComponent implements OnInit {
     return this.turmaAtual;
   }
   checarPermissaoMarcacaoLivro() {
-    if (this.usuarioService.ObterNivelPermissao() == 2)
+    if (this.usuarioService.ObterNivelPermissao() == 1 || this.usuarioService.ObterNivelPermissao() == 2)
       return true;
     return false;
   }

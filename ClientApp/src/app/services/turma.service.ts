@@ -38,6 +38,19 @@ export class TurmaService {
         )
     }
 
+    public obterTurmasPorIdInstituicao(id: String){
+        let listaTurmas: Array<Turma> = [];
+
+        return new Promise(
+            resolve => {
+                this.http.get<GetModelLista<Turma>>(this.baseUrl + 'v1/turma/obterTurmasInstituicao/' + id).subscribe(result => {
+                    //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
+                    resolve(result.objeto);
+                }, error => console.error(error));
+            }
+        )
+    }
+
     public obterTurmaPorIdTurma(id: String) {
         return new Promise(
             resolve => {
