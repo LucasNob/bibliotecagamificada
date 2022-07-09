@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { newArray } from '@angular/compiler/src/util';
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Aluno } from 'src/app/models/entidades/Aluno.model';
 import { Ponto } from 'src/app/models/entidades/Ponto.model';
@@ -30,23 +30,20 @@ export class ClassificacaoPaginaComponent implements OnInit {
     private turmaService: TurmaService,
     private pontoService: PontoService,
     private alunoService: AlunoService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router) {
-      
-    this.usuario = usuarioService.obterUsuario(); 
+    private activatedRoute: ActivatedRoute,) {
+  }
+
+  ngOnInit(): void {
+    this.usuario = this.usuarioService.obterUsuario(); 
     let url = this.activatedRoute.snapshot.url.join().split(',')
     this.turmaService.obterTurmaPorIdTurma(url[1]).then(data => { 
       this.turmaAtual = data as Turma;
+      console.log(this.turmaAtual)
       this.obterClassificacaoTurma();
     })
-    
-    // this.turmaAtual = history.state.Turma;
-  }
-  ngOnInit(): void {
   }
 
   obterClassificacaoTurma() {
-    // this.turmaAtual = this.listaTurmas.find(value => value.id == this.idTurma);
     this.pontoService.obterClassificacaoPorIdTurma(this.turmaAtual?.id!).then(data => {
       this.listaPontos = data as Array<Ponto>;
     });
@@ -74,7 +71,7 @@ export class ClassificacaoPaginaComponent implements OnInit {
       return true;
     return false;
   }
-  navegarMarcacao() {
-    this.router.navigateByUrl('/marcacao/'+this.turmaAtual!.id);
-  }
+  // navegarMarcacao() {
+  //   this.router.navigateByUrl('/marcacao/'+this.turmaAtual!.id);
+  // }
 }

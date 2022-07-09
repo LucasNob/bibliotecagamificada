@@ -1,0 +1,9 @@
+.modalclass{
+
+    width: 100%
+}
+::ng-deep .custom-modal .modal-dialog{
+    max-width: 75%;
+    max-height: 75%;
+    background: #A4CDBE
+}

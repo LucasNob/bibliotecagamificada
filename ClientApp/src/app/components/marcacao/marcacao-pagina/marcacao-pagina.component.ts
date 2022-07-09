@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Aluno } from 'src/app/models/entidades/Aluno.model';
 import { Ponto } from 'src/app/models/entidades/Ponto.model';
@@ -14,40 +14,35 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   templateUrl: './marcacao-pagina.component.html',
   styleUrls: ['./marcacao-pagina.component.css']
 })
-export class MarcacaoPaginaComponent implements OnInit {
+export class MarcacaoPaginaComponent implements OnInit, OnChanges{
 
   // listaTurmas: Array<Turma> = [];
+
   listaAlunos = new Array<Aluno>();
   listaPontos = new Array<Ponto>();
 
   usuario?: Usuario;
-  turmaAtual?: Turma;
   alunoAtual?: Aluno;
+
+  @Input()
+  turmaAtual?: Turma;
+
+  @ViewChild('modal') modal: any;
   
   constructor(
-    private turmaService: TurmaService,
     private usuarioService: UsuarioService,
     private alunoService: AlunoService,
-    private pontoService: PontoService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) { 
-    // this.usuarioService.usuario = new Usuario("idaluno1", "Lucas Vinicius");
-    this.usuario = usuarioService.obterUsuario(); 
-    
-    let url = this.activatedRoute.snapshot.url.join().split(',')
-    this.turmaService.obterTurmaPorIdTurma(url[1]).then(data => { 
-      this.turmaAtual = data as Turma;
-      this.obterAlunosTurma();
-    })
-    
-    // turmaService.obterTurmasPorIdProfessor(this.usuario!.id).then(data => {
-    //   this.listaTurmas = data as Array<Turma>;
-    // });
+    private pontoService: PontoService) { 
+  }
+  
+  ngOnInit(): void {
+    this.usuario = this.usuarioService.obterUsuario();    
   }
 
-  ngOnInit(): void {
-
+  ngOnChanges() {
+    if (this.turmaAtual?.id) { 
+      this.obterAlunosTurma();
+    }
   }
   obterListaAlunos(): Array<Aluno> {
     if (this.listaAlunos == undefined)
@@ -66,12 +61,15 @@ export class MarcacaoPaginaComponent implements OnInit {
   obterAlunosTurma() {
     this.alunoService.ObterListaAlunosPorId(this.turmaAtual!.alunos).then(data => {
       this.listaAlunos = data as Array<Aluno>;
+      console.log(this.listaPontos)
     });;
     this.pontoService.obterClassificacaoPorIdTurma(this.turmaAtual!.id).then(data => {
       this.listaPontos = data as Array<Ponto>;
+      console.log(this.listaAlunos)
     });;
   }
   emitSelecao(aluno: Aluno) {
-    this.router.navigateByUrl('/marcacaoLivro', { state: { Aluno: aluno, Turma: this.turmaAtual} });
+    this.alunoAtual = aluno;
+    this.modal.mostrarModal(aluno,this.turmaAtual);
   }
 }
