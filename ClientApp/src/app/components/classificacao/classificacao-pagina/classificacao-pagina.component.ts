@@ -38,7 +38,6 @@ export class ClassificacaoPaginaComponent implements OnInit {
     let url = this.activatedRoute.snapshot.url.join().split(',')
     this.turmaService.obterTurmaPorIdTurma(url[1]).then(data => { 
       this.turmaAtual = data as Turma;
-      console.log(this.turmaAtual)
       this.obterClassificacaoTurma();
     })
   }

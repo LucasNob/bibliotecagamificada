@@ -61,11 +61,9 @@ export class MarcacaoPaginaComponent implements OnInit, OnChanges{
   obterAlunosTurma() {
     this.alunoService.ObterListaAlunosPorId(this.turmaAtual!.alunos).then(data => {
       this.listaAlunos = data as Array<Aluno>;
-      console.log(this.listaPontos)
     });;
     this.pontoService.obterClassificacaoPorIdTurma(this.turmaAtual!.id).then(data => {
       this.listaPontos = data as Array<Ponto>;
-      console.log(this.listaAlunos)
     });;
   }
   emitSelecao(aluno: Aluno) {
