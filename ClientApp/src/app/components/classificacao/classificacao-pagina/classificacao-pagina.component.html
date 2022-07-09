@@ -1,6 +1,4 @@
-<div class="col">
-    <div class="row">
-        <div class="row justify-content-center">
+<div class="row justify-content-center">
             <div class=" col-md-6 px-0" *ngIf="obterTurmaAtual() != undefined; else erroTurma">
                 <div class="row py-3">
                     <span class="titulo">Ranking {{obterTurmaAtual()!.nome}}</span>
@@ -14,8 +12,6 @@
                 <span>Nenhuma turma selecionada</span>
             </div>
         </ng-template>
-    </div>
-    <div class="row" *ngIf="checarPermissaoMarcacaoLivro()">
-        <app-marcacao-pagina [turmaAtual]="turmaAtual" [listaAlunos]="listaAlunos" [listaPontos]="listaPontos" (emitSalvo)="obterClassificacaoTurma()"></app-marcacao-pagina>
-    </div>
+<div *ngIf="checarPermissaoMarcacaoLivro()">
+    <app-marcacao-pagina [turmaAtual]="turmaAtual" [listaAlunos]="listaAlunos" [listaPontos]="listaPontos" (emitSalvo)="obterClassificacaoTurma()"></app-marcacao-pagina>
 </div>
