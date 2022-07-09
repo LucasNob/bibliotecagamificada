@@ -40,5 +40,34 @@ namespace BibliotecaGamificada.Pontos.Comum.Repositorios
             );
             await this.AtualizarDados(atual,update);
         }
+        
+        public async Task<string> Cadastrar(Ponto ponto)
+        {
+            return await this.InserirDados(ponto);
+        }
+
+        public async Task ExcluirporTurma(string id)
+        {
+            var filtro = Builders<Ponto>.Filter.Eq(p => p.turma, id);
+            await this.ExcluirDados(filtro);
+        }
+        public async Task ExcluirporAluno(string turma, string aluno)
+        {
+            var filtro = Builders<Ponto>.Filter.Eq(p => p.aluno, aluno) & Builders<Ponto>.Filter.Eq(p => p.turma, turma);
+            await this.ExcluirDados(filtro);
+        }
+        
+        public async Task RemoverLivroLido(string idLivro)
+        {
+            var update = Builders<Ponto>.Update.Pull(p => p.livrosLidos, idLivro);
+            await this.AtualizarMultiplosDados(new BsonDocument(),update);
+        }
+
+        public async Task RemoverLivroLidoPorTurma(string turma, string livro)
+        {
+            var update = Builders<Ponto>.Update.Pull(p => p.livrosLidos, livro);
+            var filtro = Builders<Ponto>.Filter.Eq(t => t.turma, turma);
+            await this.AtualizarMultiplosDados(filtro,update);
+        }
     }   
 }

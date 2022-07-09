@@ -1,5 +1,4 @@
 using BibliotecaGamificada.Livros.Api.Models;
-using BibliotecaGamificada.Livros.Comum.Entidades;
 using BibliotecaGamificada.Livros.Negocios;
 using Microsoft.AspNetCore.Mvc;
 

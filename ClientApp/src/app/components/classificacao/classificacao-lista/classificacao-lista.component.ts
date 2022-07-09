@@ -41,7 +41,6 @@ export class ClassificacaoListaComponent implements OnInit {
         listaA.push(aluno);
         listaP.push(p);
       }
-      
     })
     let a = listaA.find(a => a.id == listaP[0].aluno);
 

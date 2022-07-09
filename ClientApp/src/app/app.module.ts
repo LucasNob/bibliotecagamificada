@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -13,10 +14,12 @@ import { HomeComponent } from './components/home/home/home.component';
 import { CadastroPaginaComponent } from './components/livro/cadastro/cadastro-pagina/cadastro-pagina.component';
 import { LivroListaItemComponent } from './components/livro/cadastro/livro-lista-item/livro-lista-item.component';
 import { LivroListaComponent } from './components/livro/cadastro/livro-lista/livro-lista.component';
+import { LoadingOverlayComponent } from './components/loading-overlay/loading-overlay.component';
 import { MarcacaoAlunoListaComponent } from './components/marcacao/marcacao-aluno-lista/marcacao-aluno-lista.component';
 import { MarcacaoLivroPaginaComponent } from './components/marcacao/marcacao-livro-pagina/marcacao-livro-pagina.component';
 import { MarcacaoPaginaComponent } from './components/marcacao/marcacao-pagina/marcacao-pagina.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { SelecaoTurmaPaginaComponent } from './components/turma/selecao-turma/selecao-turma-pagina.component';
 import { UploadImagemComponent } from './components/upload-imagem/upload-imagem.component';
 import { AlunoService } from './services/aluno.service';
 import { LivroService } from './services/livro.service';
@@ -24,7 +27,6 @@ import { PontoService } from './services/pontos.service';
 import { TurmaService } from './services/turma.service';
 import { UsuarioService } from './services/usuario.service';
 import { MaterialModule } from './shared/modules/material/material.module';
-import { SelecaoTurmaPaginaComponent } from './components/turma/selecao-turma/selecao-turma-pagina.component';
 
 //TODO: App routing module 
 const appRoutes: Routes = [
@@ -58,11 +60,13 @@ const appRoutes: Routes = [
     MarcacaoLivroPaginaComponent,
     MarcacaoAlunoListaComponent,
     SelecaoTurmaPaginaComponent,
+    LoadingOverlayComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    CommonModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,

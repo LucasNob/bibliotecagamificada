@@ -1,6 +1,5 @@
 using BibliotecaGamificada.Comum.Classes.Entidades;
 using BibliotecaGamificada.Comum.Classes.Enums;
-using BibliotecaGamificada.Livros.Comum.Enums;
 
 namespace BibliotecaGamificada.Livros.Comum.Entidades
 {

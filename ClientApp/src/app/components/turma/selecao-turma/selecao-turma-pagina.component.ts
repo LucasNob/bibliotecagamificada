@@ -25,6 +25,10 @@ export class SelecaoTurmaPaginaComponent implements OnInit {
     
     if(this.usuario != undefined)
     {
+      if (this.usuario.permissao == 1)
+      turmaService.obterTurmasPorIdInstituicao(this.usuario!.id).then(data => {
+        this.listaTurmas = data as Array<Turma>;
+      });
       if (this.usuario.permissao == 2)
       turmaService.obterTurmasPorIdProfessor(this.usuario!.id).then(data => {
         this.listaTurmas = data as Array<Turma>;

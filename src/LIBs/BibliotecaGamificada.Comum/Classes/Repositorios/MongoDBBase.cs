@@ -113,5 +113,9 @@ namespace BibliotecaGamificada.Comum.Classes.Repositorio
 
             await this.colecao.UpdateOneAsync(filtro, updateDefinition);
         }
+        protected async Task AtualizarMultiplosDados(FilterDefinition<C>? filtro,UpdateDefinition<C> update)
+        {
+            var result = await this.colecao.UpdateManyAsync(filtro,update);
+        }
     }
 }

@@ -37,6 +37,18 @@ namespace BibliotecaGamificada.Alunos.Negocios
             return new OkObjectResult(msg);
         }
 
+        public async Task<IActionResult> ObterAlunoporInstituicao(string id)
+        {
+            RetornoMsg msg;
+            var alunos = await alunoRepositorio.ObterPorInstituicao(id);
+            if (alunos == null)
+                msg = new RetornoMsg("erro", "Registros não encontrados");
+            else
+                msg = new RetornoMsg("sucesso", "retorno enviado", alunos);
+
+            return new OkObjectResult(msg);
+        }
+
         public async Task<IActionResult> ObterAlunosPorLista(List<string> id)
         {
             RetornoMsg msg;
@@ -48,5 +60,6 @@ namespace BibliotecaGamificada.Alunos.Negocios
 
             return new OkObjectResult(msg);
         }
+      
     }
 }

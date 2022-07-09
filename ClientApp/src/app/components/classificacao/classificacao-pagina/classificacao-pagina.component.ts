@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { newArray } from '@angular/compiler/src/util';
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Aluno } from 'src/app/models/entidades/Aluno.model';
 import { Ponto } from 'src/app/models/entidades/Ponto.model';
@@ -16,7 +16,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   templateUrl: './classificacao-pagina.component.html',
   styleUrls: ['./classificacao-pagina.component.css']
 })
-export class ClassificacaoPaginaComponent implements OnInit {
+export class ClassificacaoPaginaComponent implements OnInit, OnChanges{
 
   listaTurmas: Array<Turma> = [];
   listaAlunos: Array<Aluno> = [];
@@ -31,27 +31,32 @@ export class ClassificacaoPaginaComponent implements OnInit {
     private pontoService: PontoService,
     private alunoService: AlunoService,
     private activatedRoute: ActivatedRoute,
-    private router: Router) {
-      
-    this.usuario = usuarioService.obterUsuario(); 
+    private cdRef: ChangeDetectorRef) {
+  }
+
+  ngOnInit(): void {
+    this.usuario = this.usuarioService.obterUsuario(); 
     let url = this.activatedRoute.snapshot.url.join().split(',')
     this.turmaService.obterTurmaPorIdTurma(url[1]).then(data => { 
       this.turmaAtual = data as Turma;
       this.obterClassificacaoTurma();
     })
-    
-    // this.turmaAtual = history.state.Turma;
   }
-  ngOnInit(): void {
+
+  ngOnChanges(): void {
+    if (this.turmaAtual?.id) {
+      this.obterClassificacaoTurma();
+    }
   }
 
   obterClassificacaoTurma() {
-    // this.turmaAtual = this.listaTurmas.find(value => value.id == this.idTurma);
     this.pontoService.obterClassificacaoPorIdTurma(this.turmaAtual?.id!).then(data => {
       this.listaPontos = data as Array<Ponto>;
+      this.cdRef.detectChanges();
     });
     this.alunoService.ObterListaAlunosPorId(this.turmaAtual?.alunos!).then(data => {
       this.listaAlunos = data as Array<Aluno>;
+      this.cdRef.detectChanges();
     });
   }
   obterListaAlunos(): Array<Aluno> { 
@@ -70,11 +75,8 @@ export class ClassificacaoPaginaComponent implements OnInit {
     return this.turmaAtual;
   }
   checarPermissaoMarcacaoLivro() {
-    if (this.usuarioService.ObterNivelPermissao() == 2)
+    if (this.usuarioService.ObterNivelPermissao() == 1 || this.usuarioService.ObterNivelPermissao() == 2)
       return true;
     return false;
-  }
-  navegarMarcacao() {
-    this.router.navigateByUrl('/marcacao/'+this.turmaAtual!.id);
   }
 }
