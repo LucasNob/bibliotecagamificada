@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { newArray } from '@angular/compiler/src/util';
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Aluno } from 'src/app/models/entidades/Aluno.model';
 import { Ponto } from 'src/app/models/entidades/Ponto.model';
@@ -16,7 +16,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   templateUrl: './classificacao-pagina.component.html',
   styleUrls: ['./classificacao-pagina.component.css']
 })
-export class ClassificacaoPaginaComponent implements OnInit {
+export class ClassificacaoPaginaComponent implements OnInit, OnChanges{
 
   listaTurmas: Array<Turma> = [];
   listaAlunos: Array<Aluno> = [];
@@ -30,7 +30,8 @@ export class ClassificacaoPaginaComponent implements OnInit {
     private turmaService: TurmaService,
     private pontoService: PontoService,
     private alunoService: AlunoService,
-    private activatedRoute: ActivatedRoute,) {
+    private activatedRoute: ActivatedRoute,
+    private cdRef: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -42,12 +43,20 @@ export class ClassificacaoPaginaComponent implements OnInit {
     })
   }
 
+  ngOnChanges(): void {
+    if (this.turmaAtual?.id) {
+      this.obterClassificacaoTurma();
+    }
+  }
+
   obterClassificacaoTurma() {
     this.pontoService.obterClassificacaoPorIdTurma(this.turmaAtual?.id!).then(data => {
       this.listaPontos = data as Array<Ponto>;
+      this.cdRef.detectChanges();
     });
     this.alunoService.ObterListaAlunosPorId(this.turmaAtual?.alunos!).then(data => {
       this.listaAlunos = data as Array<Aluno>;
+      this.cdRef.detectChanges();
     });
   }
   obterListaAlunos(): Array<Aluno> { 
@@ -70,7 +79,4 @@ export class ClassificacaoPaginaComponent implements OnInit {
       return true;
     return false;
   }
-  // navegarMarcacao() {
-  //   this.router.navigateByUrl('/marcacao/'+this.turmaAtual!.id);
-  // }
 }

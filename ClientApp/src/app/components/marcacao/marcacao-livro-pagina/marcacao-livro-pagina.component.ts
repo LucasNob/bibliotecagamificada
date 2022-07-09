@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { PontoAtualizacao } from 'src/app/models/classificacao/PontoAtualizacao.model';
@@ -70,7 +69,6 @@ export class MarcacaoLivroPaginaComponent implements OnInit {
   salvar() {
     let atualizacao = new PontoAtualizacao(this.aluno?.id!,this.turma?.id!,this.listaLivrosMarcados!,0)
       this.pontoService.atualizarPontuacao(atualizacao).then(data => {
-        // this.location.back()
         this.emitSalvar.emit(data);
         this.modalService.dismissAll();
       });
@@ -83,14 +81,10 @@ export class MarcacaoLivroPaginaComponent implements OnInit {
       // size: 'lg',
       windowClass: "custom-modal"
     };
-    this.carregado = false;
-    this.listaLivros = new Array<Livro>();
-    this.listaLivrosLidos = new Array<Livro>();
-    this.listaLivrosMarcados = new Array<String>();
-    this.listaLivrosMarcadosOriginal = new Array<String>();
+    this.reiniciar()
     this.aluno = aluno;
     this.turma = turma;
-
+    
     if (this.turma?.livros != undefined && this.turma.livros.length > 0)
     this.livroService.obterListaLivros(this.turma!.livros!).then(data => {
       this.listaLivros = data as Array<Livro>;
@@ -108,14 +102,22 @@ export class MarcacaoLivroPaginaComponent implements OnInit {
           return !this.listaLivrosMarcados!.includes(l.id);
         } );
         this.carregado = true;
-        })
+      })
     })
-
     this.modalService.open(this.contentModal, opcoes)
   }
+
   mostrarBotaoVoltar(id: String) {
     if (this.listaLivrosMarcadosOriginal?.includes(id))
       return false;
-    return true;
+      return true;
   }
-}
+
+  reiniciar() { 
+    this.carregado = false;
+    this.listaLivros = new Array<Livro>();
+    this.listaLivrosLidos = new Array<Livro>();
+    this.listaLivrosMarcados = new Array<String>();
+    this.listaLivrosMarcadosOriginal = new Array<String>();
+  }
+}  

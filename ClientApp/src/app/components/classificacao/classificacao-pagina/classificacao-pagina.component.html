@@ -16,6 +16,6 @@
         </ng-template>
     </div>
     <div class="row" *ngIf="checarPermissaoMarcacaoLivro()">
-        <app-marcacao-pagina [turmaAtual]="turmaAtual"></app-marcacao-pagina>
+        <app-marcacao-pagina [turmaAtual]="turmaAtual" [listaAlunos]="listaAlunos" [listaPontos]="listaPontos" (emitSalvo)="obterClassificacaoTurma()"></app-marcacao-pagina>
     </div>
 </div>
