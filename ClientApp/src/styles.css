@@ -18,6 +18,17 @@
   src: url(assets/fonts/SecularOne.ttf);
 }
 
+.navbar-brand{
+  margin: 10px;
+  font-family: Usuario;
+  font-weight: bold;
+  color: #A4CDBE !important;
+}
+
+.bg-light{
+  background-color: #FFFFFF !important;
+}
+
 .btn-primary {
   color: #fff;
   background-color: #E37623;
