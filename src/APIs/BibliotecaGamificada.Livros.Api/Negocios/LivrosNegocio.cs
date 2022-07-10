@@ -2,18 +2,24 @@ using BibliotecaGamificada.Comum.Classes.Models;
 using BibliotecaGamificada.Livros.Api.Models;
 using BibliotecaGamificada.Livros.Comum.Entidades;
 using BibliotecaGamificada.Livros.Comum.Repositorios;
+using BibliotecaGamificada.Pontos.Comum.Repositorios;
+using BibliotecaGamificada.Turmas.Comum.Repositorios;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace BibliotecaGamificada.Livros.Negocios
 {
     public class LivrosNegocio
     {
         private readonly LivroRepositorio livroRepositorio;
+        private readonly TurmaRepositorio turmaRepositorio;
 
-        public LivrosNegocio(LivroRepositorio livroRepositorio)
+        private readonly PontoRepositorio pontoRepositorio;
+
+        public LivrosNegocio(LivroRepositorio livroRepositorio, TurmaRepositorio turmaRepositorio, PontoRepositorio pontoRepositorio)
         {
             this.livroRepositorio = livroRepositorio;
+            this.turmaRepositorio = turmaRepositorio;
+            this.pontoRepositorio = pontoRepositorio;
         }
 
         public async Task<IActionResult> ObterLivros()
@@ -96,11 +102,16 @@ namespace BibliotecaGamificada.Livros.Negocios
             try
             {
                 await livroRepositorio.Excluir(id);
+                
+                //Somente para livros únicos por instituição
+                await pontoRepositorio.RemoverLivroLido(id);
+                await turmaRepositorio.RemoverLivro(id);
             }
             catch
             {
                 return new OkObjectResult(new RetornoMsg("erro", "Erro ao exluir"));
             }
+
             return new OkObjectResult(new RetornoMsg("sucesso", "Livro Excluido"));
         }
 
@@ -109,11 +120,16 @@ namespace BibliotecaGamificada.Livros.Negocios
             string capa = "../../../assets/images/default_capa.png";
             try
             {
+                var livroAnterior = await livroRepositorio.ObterPorId(livro.id!);
+                
                 var bs = new AzureBlobStorage();
 
-                if (livro.capa != capa)
+                if (livro.capa != capa && livro.capa != livroAnterior.capa)
                 {
                     capa = await bs.UploadImagem(livro.capa!, "imagens");
+                }
+                else {
+                    capa = livro.capa!;
                 }
 
                 var l = new Livro(livro.titulo, livro.genero, livro.autor, capa, livro.instituicao);

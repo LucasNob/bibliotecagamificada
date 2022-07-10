@@ -2,8 +2,8 @@ using System.Security.Authentication;
 using BibliotecaGamificada.Classificacao.Negocios;
 using MongoDB.Driver;
 using BibliotecaGamificada.Pontos.Comum.Repositorios;
-using BibliotecaGamificada.Turma.Negocios;
-using BibliotecaGamificada.Turma.Comum.Entidades;
+using BibliotecaGamificada.Turmas.Negocios;
+using BibliotecaGamificada.Turmas.Comum.Repositorios;
 using BibliotecaGamificada.Instituicoes.Negocios;
 using BibliotecaGamificada.Instituicoes.Comum.Repositorios;
 using BibliotecaGamificada.Livros.Negocios;
@@ -70,15 +70,14 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-// app.MapControllerRoute(name: "classificacaoController", pattern: "{controller}/{action=Index}/{id?}");
-// app.MapControllerRoute(name: "turmaController", pattern: "{controller}/{action=Index}/{id?}");
-
-app.MapControllerRoute(name: "turma", pattern: "/v1/turma/{action=Index}/{id?}");
+//Caso não seja o método correto de se aplicar alterar
+app.MapControllerRoute(name: "turma", pattern: "/v1/turma/{action=Index}/{id?}/{id2?}");
 app.MapControllerRoute(name: "classificacao", pattern: "/v1/classificacao/{action=Index}/{id?}");
 app.MapControllerRoute(name: "livro", pattern: "/v1/livro/{action=Index}/{id?}");
 app.MapControllerRoute(name: "instituicao", pattern: "/v1/instituicao/{action=Index}/{id?}");
 app.MapControllerRoute(name: "aluno", pattern: "/v1/aluno/{action=Index}/{id?}");
 app.MapControllerRoute(name: "pontuacao", pattern: "/v1/pontuacao/{action=Index}/{id?}");
+app.MapControllerRoute(name: "aluno", pattern: "/v1/professor/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html"); ;
 

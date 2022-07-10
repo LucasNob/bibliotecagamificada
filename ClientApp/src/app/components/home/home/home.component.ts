@@ -12,7 +12,9 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
   navegarComoInstituicao() {
-    this.router.navigateByUrl('/cadastrolivro');
+    this.usuarioService.novoUsuario("idinstituicao1", "Anglo Sorocaba", 1,"https://pbs.twimg.com/profile_images/570291758630576128/x3lqZT5Z_400x400.png");
+    this.router.navigateByUrl('/selecaoturma');
+     // this.router.navigateByUrl('/selecaoturma', { state: { Usuario: this.usuarioService.obterUsuario()} });
   }
   navegarComoProfessor() {
     this.usuarioService.novoUsuario("idProfessor1", "Professora Giulia", 2, "https://laboro.edu.br/wp-content/uploads/professor-de-educacao-especial-1024x683.jpg");

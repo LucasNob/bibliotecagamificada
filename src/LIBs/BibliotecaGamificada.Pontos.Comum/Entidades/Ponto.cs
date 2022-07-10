@@ -9,19 +9,22 @@ namespace BibliotecaGamificada.Pontos.Comum.Entidades
         public string turma { get; set; }
         public List<string> livrosLidos { get; set; }
         public double totalPontos { get; set; }
+        public string instituicao { get; set; }
 
-        public Ponto(string aluno, string turma, List<string> livrosLidos, double totalPontos)
+        public Ponto(string aluno, string turma, List<string> livrosLidos, double totalPontos, string instituicao)
         {
             this.aluno = aluno;
             this.turma = turma;
             this.livrosLidos = livrosLidos;
             this.totalPontos = totalPontos;
+            this.instituicao = instituicao;
         }
         public Ponto() {
             this.aluno = "";
             this.turma = "";
             this.livrosLidos = new List<string>();
             this.totalPontos = 0;
+            this.instituicao = "";
         }
     }
 }
