@@ -2,9 +2,8 @@
     <div class="tabela-cheia" *ngIf="obterLista().length > 0; else erro">
         <div class="row py-2">
             <div class="col-md-2 col-2 text-center tabela cabecalho"></div>
-            <div class="col-md-5 col-5 tabela cabecalho">Nome</div>
-            <div class=" col-md-3 col-2 text-center tabela cabecalho">Livros lidos</div>
-            <div class="col-md-2 col-3 tabela cabecalho" scope="col"></div>
+            <div class="col-md-4 col-2 tabela cabecalho">Nome</div>
+            <div class=" col-md-3 col-4 text-center tabela cabecalho">Livros lidos</div>
         </div>
         <div>
             <div *ngFor="let aluno of obterLista()">
@@ -17,15 +16,20 @@
                             <span><img class="foto" src="../../../../assets/images/default_avatar.png" alt=""></span>
                         </ng-template>
                     </div>
-                    <div class="col-md-5 col-5 tabela item">
+                    <div class="col-md-4 col-3 tabela item">
                         <span>{{aluno.nome}}</span>
                     </div>
                     <div class="col-md-3 col-2 text-center tabela item">
                         <span>{{obterPontuacaoAluno(aluno)}}</span>
                     </div>
-                    <div class="col-md-2 col-3 text-center">
+                    <div class="col-md-1 col-2 text-end">
                         <span><button class="btn btn-primary" (click)="selecionarAluno(aluno)">
                                 <mat-icon>bookmark_added</mat-icon>
+                            </button></span>
+                    </div>
+                    <div class="col-md-1 col-2 text-end">
+                        <span><button class="btn btn-primary" (click)="excluirAluno()">
+                                <mat-icon>delete</mat-icon>
                             </button></span>
                     </div>
                 </div>

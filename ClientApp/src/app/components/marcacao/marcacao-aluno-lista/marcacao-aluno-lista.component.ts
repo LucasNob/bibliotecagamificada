@@ -27,6 +27,10 @@ export class MarcacaoAlunoListaComponent implements OnInit {
   selecionarAluno(aluno: Aluno) {
     this.selecaoEmitter.emit(aluno);
   }
+  excluirAluno()
+  {
+    
+  }
   obterPontuacaoAluno(aluno: Aluno) {
     return this.listaPonto.find(m => m.aluno == aluno.id)?.livrosLidos.length;
   }
