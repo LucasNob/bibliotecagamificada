@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TurmaListaComponent } from './turma-lista.component';
 
-import { TurmaLivrosComponent } from './turma-livros.component';
 
-describe('TurmaLivrosComponent', () => {
-  let component: TurmaLivrosComponent;
-  let fixture: ComponentFixture<TurmaLivrosComponent>;
+describe('TurmaListaComponent', () => {
+  let component: TurmaListaComponent;
+  let fixture: ComponentFixture<TurmaListaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TurmaLivrosComponent ]
+      declarations: [ TurmaListaComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TurmaLivrosComponent);
+    fixture = TestBed.createComponent(TurmaListaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

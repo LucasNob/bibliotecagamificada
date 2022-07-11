@@ -1,0 +1,94 @@
+<div class="row justify-content-center" *ngIf="carregado">
+    <div class=" col-md-5 px-0">
+        <div class="row py-3">
+            <span class="titulo">Lista de Alunos</span>
+        </div>
+        <div class="table-resposive">
+            <div class="tabela-cheia" *ngIf="obterListaAlunos()!.length > 0; else erro">
+                <div class="row py-2">
+                    <div class="col-md-2 col-2 text-center tabela cabecalho"></div>
+                    <div class="col-md-8 col-8 tabela cabecalho">Nome</div>
+                    <div class=" col-md-2 col-3 text-center tabela cabecalho"></div>
+                </div>
+                <div>
+                    <div *ngFor="let aluno of obterListaAlunos()">
+                        <div class="row py-1">
+                            <div class="col-md-2 col-2 text-center">
+                                <div *ngIf="aluno!.foto != null; else fotoPadrao">
+                                    <span><img class="capa" src={{aluno!.foto}} alt=""></span>
+                                </div>
+                                <ng-template #fotoPadrao>
+                                    <span><img class="capa" src="../../../assets/images/default_capa.png" alt=""></span>
+                                </ng-template>
+                            </div>
+                            <div class="col-md-8 col-7 tabela item">
+                                <span>{{aluno.nome}}</span>
+                            </div>
+                            <div class="col-md-2 col-3 text-center">
+                                <button class="btn btn-primary" (click)="check(aluno.id)">
+                                    <mat-icon>arrow_forward</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-template #erro>
+                <div class="alert alert-info my-5" role="alert">
+                    Lista de alunos vazio!
+                </div>
+            </ng-template>
+        </div>
+    </div>
+    <div class=" col-md-1">
+    </div>
+    <div class=" col-md-5 px-0">
+        <div class="row py-3">
+            <span class="titulo">Alunos Adicionados</span>
+        </div>
+        <div class="table-resposive">
+            <div class="tabela-cheia" *ngIf="obterListaAlunosTurma()!.length > 0; else erroL">
+                <div class="row py-2">
+                    <div class="col-md-2 col-2 text-center tabela cabecalho"></div>
+                    <div class="col-md-8 col-8 tabela cabecalho">Nome</div>
+                    <div class=" col-md-2 col-3 text-center tabela cabecalho"></div>
+                </div>
+                <div>
+                    <div *ngFor="let aluno of obterListaAlunosTurma()">
+                        <div class="row py-1">
+                            <div class="col-md-2 col-2 text-center">
+                                <div *ngIf="aluno!.foto != null; else fotoPadrao">
+                                    <span><img class="capa" src={{aluno!.foto}} alt=""></span>
+                                </div>
+                                <ng-template #fotoPadrao>
+                                    <span>
+                                        <img class="capa" src="../../../assets/images/default_capa.png" alt="">
+                                    </span>
+                                </ng-template>
+                            </div>
+                            <div class="col-md-8 col-7 tabela item">
+                                <span>{{aluno.nome}}</span>
+                            </div>
+                            <div class="col-md-2 col-3 text-center">
+                                <button class="btn btn-primary" (click)="uncheck(aluno.id)"
+                                    *ngIf="mostrarBotaoVoltar(aluno.id)">
+                                    <mat-icon>arrow_backward</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-template #erroL>
+                <div class="alert alert-info my-5" role="alert">
+                    Catálogo de alunos adicionados vazio!
+                </div>
+            </ng-template>
+        </div>
+    </div>
+    <div class="row justify-content-center py-4 bloco-button">
+        <div class="col-md-4 col-12">
+            <button class="btn-primary h-100 w-100 item" (click)="salvar()">Salvar</button>
+        </div>
+    </div>
+</div>

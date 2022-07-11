@@ -31,7 +31,6 @@ import { PontoService } from './services/pontos.service';
 import { TurmaService } from './services/turma.service';
 import { UsuarioService } from './services/usuario.service';
 import { MaterialModule } from './shared/modules/material/material.module';
-import { TurmaLivrosComponent } from './components/turma/turma-livros/turma-livros.component';
 
 //TODO: App routing module 
 const appRoutes: Routes = [
@@ -67,9 +66,9 @@ const appRoutes: Routes = [
     MarcacaoLivroPaginaComponent,
     MarcacaoAlunoListaComponent,
     SelecaoTurmaPaginaComponent,
+    LoadingOverlayComponent,
     CadastroTurmaPaginaComponent,
     CadastroLivroPaginaComponent,
-    LoadingOverlayComponent,
     TurmaListaComponent,
     CadastroTurmaLivroPaginaComponent,
     CadastroTurmaAlunoPaginaComponent,

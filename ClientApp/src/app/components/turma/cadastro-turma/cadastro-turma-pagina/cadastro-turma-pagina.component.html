@@ -1,0 +1,49 @@
+<div class="container">
+    <form [formGroup]="formCadastro" (ngSubmit)="cadastrarTurma()">
+        <div class="col-10">
+            <div class="row titulo m-4">
+                <span>Cadastro de Turmas</span>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
+                    <label for="nome">Nome da Turma</label>
+                    <input type="text" [ngClass]="formInvalido('nome') ?'form-control is-invalid':'form-control'"
+                        id="nome" name="nome" formControlName="nome" placeholder="Nome da Turma"
+                        aria-describedby="nomeInvalido" required>
+                    <div id="nomeInvalido" class="invalid-feedback">Nome Inválido.</div>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
+                    <label for="anoLetivo">Ano</label>
+                    <input type="text" [ngClass]="formInvalido('anoLetivo') ?'form-control is-invalid':'form-control'"
+                        id="anoLetivo" name="anoLetivo" formControlName="anoLetivo" placeholder="Ano Letivo"
+                        aria-describedby="anoLetivoInvalido" required>
+                    <div id="anoLetivoInvalido" class="invalid-feedback">Ano Inválido.</div>
+                </div>
+            </div>
+            <div class="row justify-content-center" *ngIf="modoEdicao(); else cadastrar">
+                <div class="col-md-6 col-6">
+                    <input class="btn btn-primary h-100 w-100 item" value="Salvar" (click)="salvar()"
+                        [disabled]="!estadoBotao()">
+                </div>
+                <div class="col-md-6 col-6">
+                    <input class="btn btn-danger h-100 w-100 item" value="Cancelar" (click)="limparCampos() "
+                        [disabled]="!estadoBotao()">
+                </div>
+            </div>
+            <ng-template #cadastrar>
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-12">
+                        <input type="submit" class="btn btn-primary h-100 w-100 item" value="Cadastrar"
+                            [disabled]="!estadoBotao()">
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </form>
+</div>
+<div class="row my-4"></div>
+<app-turma-lista [listaTurma]="listaTurmas" (excluirEmitter)="excluirTurma($event)"
+    (editarEmitter)="editarTurma($event)">
+</app-turma-lista>
