@@ -15,17 +15,6 @@ export class LivroService {
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     }
 
-    // public obterTurmasPorIdUsuario(id: String): Array<Turma> {
-    //     let listaTurmas: Array<Turma> = [];
-        
-    //     this.http.get<GetModelLista<Turma>>(this.baseUrl + 'v1/turma/obterTurmasUsuario/' + id).subscribe(result => {
-    //         //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
-    //         listaTurmas = result.objeto;
-    //     }, error => console.error(error));
-      
-    //     return listaTurmas;
-    // }
-    
     public obterLivros(){
         return new Promise(
             resolve => {
@@ -54,9 +43,7 @@ export class LivroService {
             }
         )
     }
-    public obterLivrosPorIdInstituicao(id:String){
-        let listaLivro: Array<Livro> = [];
-
+    public obterLivrosPorIdInstituicao(id: String) {
         return new Promise(
             resolve => {
                 this.http.get<GetModelLista<Livro>>(this.baseUrl + 'v1/livro/obterPorInstituicao/'+id).subscribe(result => {

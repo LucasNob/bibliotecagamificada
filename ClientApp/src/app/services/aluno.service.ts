@@ -22,5 +22,14 @@ export class AlunoService {
             }
         )
     }
+    public ObterAlunosPorInstituicao(id:String){
+        return new Promise(
+            resolve => {
+                this.http.get<GetModelLista<Array<Aluno>>>(this.baseUrl + 'v1/aluno/obterPorInstituicao/'+id).subscribe(result => {
+                    resolve(result.objeto);
+                }, error => console.error(error));
+            }
+        )
+    }
 }
   

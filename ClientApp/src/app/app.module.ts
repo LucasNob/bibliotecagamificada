@@ -11,7 +11,7 @@ import { ClassificacaoListaItemComponent } from './components/classificacao/clas
 import { ClassificacaoListaComponent } from './components/classificacao/classificacao-lista/classificacao-lista.component';
 import { ClassificacaoPaginaComponent } from './components/classificacao/classificacao-pagina/classificacao-pagina.component';
 import { HomeComponent } from './components/home/home/home.component';
-import { CadastroPaginaComponent } from './components/livro/cadastro/cadastro-pagina/cadastro-pagina.component';
+import { CadastroLivroPaginaComponent } from './components/livro/cadastro/cadastro-livro-pagina/cadastro-livro-pagina.component';
 import { LivroListaItemComponent } from './components/livro/cadastro/livro-lista-item/livro-lista-item.component';
 import { LivroListaComponent } from './components/livro/cadastro/livro-lista/livro-lista.component';
 import { LoadingOverlayComponent } from './components/loading-overlay/loading-overlay.component';
@@ -19,6 +19,10 @@ import { MarcacaoAlunoListaComponent } from './components/marcacao/marcacao-alun
 import { MarcacaoLivroPaginaComponent } from './components/marcacao/marcacao-livro-pagina/marcacao-livro-pagina.component';
 import { MarcacaoPaginaComponent } from './components/marcacao/marcacao-pagina/marcacao-pagina.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { CadastroTurmaAlunoPaginaComponent } from './components/turma/cadastro-turma-aluno/cadastro-turma-aluno-pagina/cadastro-turma-aluno-pagina.component';
+import { CadastroTurmaLivroPaginaComponent } from './components/turma/cadastro-turma-livro/cadastro-turma-livro-pagina/cadastro-turma-livro-pagina.component';
+import { CadastroTurmaPaginaComponent } from './components/turma/cadastro-turma/cadastro-turma-pagina/cadastro-turma-pagina.component';
+import { TurmaListaComponent } from './components/turma/cadastro-turma/turma-lista/turma-lista.component';
 import { SelecaoTurmaPaginaComponent } from './components/turma/selecao-turma/selecao-turma-pagina.component';
 import { UploadImagemComponent } from './components/upload-imagem/upload-imagem.component';
 import { AlunoService } from './services/aluno.service';
@@ -34,7 +38,10 @@ const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'listaclassificacao/:id', component: ClassificacaoPaginaComponent },
   { path: 'selecaoturma', component: SelecaoTurmaPaginaComponent },
-  { path: 'cadastrolivro', component: CadastroPaginaComponent },
+  { path: 'cadastroturma', component: CadastroTurmaPaginaComponent },
+  { path: 'cadastroturmaaluno/:id', component: CadastroTurmaAlunoPaginaComponent },
+  { path: 'cadastroturmalivro/:id', component: CadastroTurmaLivroPaginaComponent },
+  { path: 'cadastrolivro', component: CadastroLivroPaginaComponent },
   { path: 'marcacao/:id', component: MarcacaoPaginaComponent },
   { path: 'marcacaoLivro', component: MarcacaoLivroPaginaComponent},
   { path: 'not-found', component: NotFoundComponent },
@@ -56,13 +63,16 @@ const appRoutes: Routes = [
     LivroListaComponent,
     LivroListaItemComponent,
     UploadImagemComponent,
-    CadastroPaginaComponent,
     MarcacaoPaginaComponent,
     MarcacaoLivroPaginaComponent,
     MarcacaoAlunoListaComponent,
     SelecaoTurmaPaginaComponent,
+    CadastroTurmaPaginaComponent,
+    CadastroLivroPaginaComponent,
     LoadingOverlayComponent,
-    TurmaLivrosComponent
+    TurmaListaComponent,
+    CadastroTurmaLivroPaginaComponent,
+    CadastroTurmaAlunoPaginaComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

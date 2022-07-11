@@ -46,7 +46,7 @@ public class TurmaController : ControllerBase
     {
         return await turmaNegocio.CadastrarTurma(turma);
     }
-    [HttpPost, Route("editarTurma")]
+    [HttpPut, Route("editarTurma")]
     public async Task<IActionResult> EditarTurma([FromBody] TurmaCadastroModel turma)
     {
         return await turmaNegocio.EditarTurma(turma);

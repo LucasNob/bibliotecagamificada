@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Usuario } from 'src/app/models/entidades/Usuario.model';
 
 
@@ -9,7 +10,8 @@ import { Usuario } from 'src/app/models/entidades/Usuario.model';
 })
 export class AppBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private activatedRoute: ActivatedRoute) { }
 
   @Input()
   usuario!: Usuario;

@@ -11,11 +11,19 @@ export class UsuarioService{
   
   constructor() {
   }
-  novoUsuario(id:String,nome:String,permissao:number,foto?:String) { 
-    this.usuario = new Usuario(id, nome, permissao, foto);
+  // novoUsuario(id:String,nome:String,permissao:number,foto?:String) { 
+    // this.usuario = new Usuario(id, nome, permissao, foto);
+  // }
+  novoUsuario(usuario: Usuario) { 
+    localStorage.setItem('usuario', JSON.stringify(usuario));
+    // this.usuario = usuario;
   }
 
   obterUsuario() {
+    let data = localStorage.getItem('usuario')
+    if (data)
+      return JSON.parse(data);
+    
     return this.usuario;
   }
   ObterNivelPermissao() {

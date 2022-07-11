@@ -6,4 +6,5 @@ export class Turma extends EntidadeBase{
     alunos: Array<String> = [];
     livros?: Array<String> = [];
     professor: String = "";
+    instituicao: String = "";
 }

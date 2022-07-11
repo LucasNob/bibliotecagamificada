@@ -139,7 +139,8 @@ namespace BibliotecaGamificada.Turmas.Negocios
                     //Encontrar ALunos que não possuem ponto criado
                     if (novo.alunos != null)
                     {
-                        novosalunos = (List<string>)novo.alunos.Except(alunos);
+                        var lista = novo.alunos;
+                        novosalunos = lista.Except(alunos).ToList();
                     }
                     
                     //Para Novo Aluno Criar um Ponto Vazio
