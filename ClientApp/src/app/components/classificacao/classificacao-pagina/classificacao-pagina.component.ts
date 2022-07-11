@@ -75,7 +75,9 @@ export class ClassificacaoPaginaComponent implements OnInit, OnChanges{
     return this.turmaAtual;
   }
   checarPermissaoMarcacaoLivro() {
-    if (this.usuarioService.ObterNivelPermissao() == 1 || this.usuarioService.ObterNivelPermissao() == 2)
+  // TO DO: Esse método só irá funcionar quanto houver nosso sistema de login
+   //if (this.usuarioService.ObterNivelPermissao() == 1 || this.usuarioService.ObterNivelPermissao() == 2)
+      if (this.usuario?.permissao == 1 || this.usuario?.permissao == 2)
       return true;
     return false;
   }
