@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
      // this.router.navigateByUrl('/selecaoturma', { state: { Usuario: this.usuarioService.obterUsuario()} });
   }
   navegarComoProfessor() {
-    const usuario = new Professor("idProfessor1", "Professora Giulia", 2, "https://laboro.edu.br/wp-content/uploads/professor-de-educacao-especial-1024x683.jpg")
+    const usuario = new Professor("idProfessor1", "Giulia", 2, "https://laboro.edu.br/wp-content/uploads/professor-de-educacao-especial-1024x683.jpg")
     usuario.instituicao = "idinstituicao1";
     this.usuarioService.novoUsuario(usuario);
     this.router.navigateByUrl('/selecaoturma');

@@ -2,7 +2,7 @@
     <div class="tabela-cheia" *ngIf="obterLista().length > 0; else erro">
                 <div class="row py-2">
                     <div class="col-md-3 col-4  text-center tabela cabecalho" scope="col">Nome</div>
-                    <div class="col-md-2 col-3  text-start tabela cabecalho" scope="col">Ano</div>
+                    <div class="col-md-2 col-3  text-center tabela cabecalho" scope="col">Ano Letivo</div>
                     <div class="col-md-4 col-5  text-start tabela cabecalho" scope="col">Professor</div>
                 </div>
                 <div>
@@ -11,7 +11,7 @@
                     <div class="col-md-3 col-4 text-center">
                         <span class="tabela item">{{item!.nome}}</span>
                     </div>
-                    <div class="col-md-2 col-3 text-start">
+                    <div class="col-md-2 col-3 text-center">
                         <span class="tabela item">{{item!.anoLetivo}}</span>
                     </div>
                     <div class="col-md-4 col-5 text-start">
