@@ -37,7 +37,7 @@ namespace BibliotecaGamificada.Alunos.Comum.Repositorios
         public async Task Excluir(string id)
         {
             var filtro = Builders<Aluno>.Filter.Eq(p => p.Id, id);
-            await this.ExcluirDados(filtro);
+            await this.ExcluirDado(filtro);
         }
 
         public async Task<List<Aluno>> ObterPorLista(List<string> id)

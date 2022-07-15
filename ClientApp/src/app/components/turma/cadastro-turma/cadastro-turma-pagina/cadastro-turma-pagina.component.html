@@ -2,7 +2,7 @@
     <form [formGroup]="formCadastro" (ngSubmit)="cadastrarTurma()">
         <div class="col-12">
             <div class="row titulo m-4">
-                <span>Cadastro de Turmas</span>
+                <span>Cadastro de Turmas - {{obterNome()}}</span>
             </div>
             <div class="row my-4">
                 <div class="form-group">
@@ -16,12 +16,21 @@
             <div class="row my-4">
                 <div class="form-group">
                     <label for="anoLetivo">Ano Letivo</label>
-                    <input type="text" [ngClass]="formInvalido('anoLetivo') ?'form-control is-invalid':'form-control'"
-                        id="anoLetivo" name="anoLetivo" formControlName="anoLetivo" placeholder="Ano Letivo"
-                        aria-describedby="anoLetivoInvalido" required>
+                    <input type="number" [ngClass]="formInvalido('anoLetivo') ?'form-control is-invalid':'form-control'"
+                    id="anoLetivo" max="2030" min="2000" name="anoLetivo" formControlName="anoLetivo" placeholder="{{obterAnoAtual()}}"
+                    aria-describedby="anoLetivoInvalido" required>
                     <div id="anoLetivoInvalido" class="invalid-feedback">Ano Inválido.</div>
                 </div>
             </div>
+            <!-- <div class="row my-4" *ngIf="instituicao"> //TODO 
+                <div class="form-group">
+                    <label for="professor">Professor da Turma</label>
+                    <input type="text" [ngClass]="formInvalido('nome') ?'form-control is-invalid':'form-control'"
+                        id="professor" name="professor" formControlName="nome" placeholder="Professor da Turma"
+                        aria-describedby="professorInvalido" required>
+                    <div id="professorInvalido" class="invalid-feedback">Professor Inválido.</div>
+                </div>
+            </div> -->
             <div class="row justify-content-center" *ngIf="modoEdicao(); else cadastrar">
                 <div class="col-md-6 col-6">
                     <input class="btn btn-primary h-100 w-100 item" value="Salvar" (click)="salvar()"

@@ -1,12 +1,13 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Aluno } from 'src/app/models/entidades/Aluno.model';
 import { Livro } from 'src/app/models/entidades/Livro.model';
 import { Ponto } from 'src/app/models/entidades/Ponto.model';
 import { Professor } from 'src/app/models/entidades/Professor.model';
 import { Turma } from 'src/app/models/entidades/Turma.model';
 import { TurmaCadastroModel } from 'src/app/models/entidades/TurmaCadastro.model';
+import { Usuario } from 'src/app/models/entidades/Usuario.model';
 import { LivroService } from 'src/app/services/livro.service';
 import { TurmaService } from 'src/app/services/turma.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -19,15 +20,23 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class CadastroTurmaLivroPaginaComponent implements OnInit {
 
-  usuario: Professor;
+  usuario: any;
 
   constructor(
     private livroService: LivroService,
     private usuarioService: UsuarioService,
     private turmaService: TurmaService,
     private location: Location,
-    private activatedRoute: ActivatedRoute) {
-    this.usuario = usuarioService.obterUsuario() as Professor;
+    private activatedRoute: ActivatedRoute,
+    private router: Router) {
+    // this.usuario = usuarioService.obterUsuario() as Professor;
+    let usuario = usuarioService.obterUsuario();
+      if (usuario?.permissao == 1)
+        this.usuario = usuario as Usuario; //TODO as instituicao
+      else if (usuario?.permissao == 2)
+        this.usuario = usuario as Professor;
+      else
+        this.router.navigateByUrl('#');
   }
   
   // @Input()

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Professor } from 'src/app/models/entidades/Professor.model';
 import { Turma } from 'src/app/models/entidades/Turma.model';
 import { TurmaCadastroModel } from 'src/app/models/entidades/TurmaCadastro.model';
+import { Usuario } from 'src/app/models/entidades/Usuario.model';
 import { TurmaService } from 'src/app/services/turma.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
@@ -15,7 +17,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class CadastroTurmaPaginaComponent implements OnInit {
 
   formCadastro!: FormGroup;
-  usuario?: Professor;
+  usuario?: any;
   listaTurmas: Array<Turma> = [];
   edicao: String = "";
   estado: boolean = false;
@@ -23,12 +25,15 @@ export class CadastroTurmaPaginaComponent implements OnInit {
   constructor(private turmaService: TurmaService,
     private usuarioService: UsuarioService,
     private formBuilder: FormBuilder,
+    private router: Router
   ) { 
-      // this.usuarioService.usuario =  new Usuario("idinstituicao1", "Anglo Sorocaba",1,
-      // "https://pbs.twimg.com/profile_images/570291758630576128/x3lqZT5Z_400x400.png");
-      
-      this.usuario = usuarioService.obterUsuario() as Professor; 
-    // this.obterLista();
+      let usuario = usuarioService.obterUsuario();
+      if (usuario?.permissao == 1)
+        this.usuario = usuario as Usuario; //TODO as instituicao
+      else if (usuario?.permissao == 2)
+        this.usuario = usuario as Professor;
+      else
+        this.router.navigateByUrl('#');
     }
     
   ngOnInit(): void { 
@@ -52,8 +57,6 @@ export class CadastroTurmaPaginaComponent implements OnInit {
 
   cadastrarTurma() {
       this.formCadastro.get('nome')!.setValue(this.formCadastro.get('nome')?.value.trim());
-      // this.formCadastro.get('anoLetivo')!.setValue(this.formCadastro.get('anoLetivo')?.value.trim());
-      //TODO tratar numero
       if (this.formCadastro.valid && this.estado == false)
       {
         this.estado = true;
@@ -72,7 +75,7 @@ export class CadastroTurmaPaginaComponent implements OnInit {
     let turma = new TurmaCadastroModel(
       this.formCadastro.get('nome')!.value,
       this.formCadastro.get('anoLetivo')!.value,
-      this.usuario?.instituicao!,
+      this.usuario?.permissao == 1 ? this.usuario.id : this.usuario?.instituicao!,
       this.usuario?.id!,
     );
     if (this.edicao != "")
@@ -136,5 +139,12 @@ export class CadastroTurmaPaginaComponent implements OnInit {
       if (this.formCadastro.get(nome)!.value == "" || this.formCadastro.get(nome)!.value == undefined)
         return true;
     return false;
+  }
+  obterAnoAtual() {
+    const data = new Date()
+    return data.getFullYear();
+  }
+  obterNome() {
+    return this.usuario.permissao == 1 ? this.usuario.nome : 'Prof. ' + this.usuario.nome;
   }
 }
