@@ -3,11 +3,11 @@ import { Ponto } from "../entidades/Ponto.model";
 export class ItemClassificacao{
   ponto: Ponto;
   colocacao: number;
-  premio?: String;
-  img?: String;
-  nome: String
+  premio?: string;
+  img?: string;
+  nome: string
     
-  constructor(ponto: Ponto, colocacao: number, nome:String, img?:String, premio?: String) {
+  constructor(ponto: Ponto, colocacao: number, nome:string, img?:string, premio?: string) {
     this.ponto = ponto;
     this.colocacao = colocacao;
     this.premio = premio;

@@ -4,6 +4,7 @@ import { Turma } from 'src/app/models/entidades/Turma.model';
 import { Usuario } from 'src/app/models/entidades/Usuario.model';
 import { TurmaService } from 'src/app/services/turma.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { AppBarService } from '../../app-bar/app-bar.service.';
 
 @Component({
   selector: 'app-selecao-turma-pagina',
@@ -18,6 +19,7 @@ export class SelecaoTurmaPaginaComponent implements OnInit {
   constructor(
     private turmaService: TurmaService,
     private usuarioService: UsuarioService,
+    private appbarService: AppBarService,
     private router: Router) {
     this.usuario = usuarioService.obterUsuario();
   }
@@ -26,12 +28,14 @@ export class SelecaoTurmaPaginaComponent implements OnInit {
     if(this.usuario != undefined)
     {
       if (this.usuario.permissao == 1)
-        this.turmaService.obterTurmasPorIdInstituicao(this.usuario!.id).then(data => {
-        this.listaTurmas = data as Array<Turma>;
-      });
-      if (this.usuario.permissao == 2)
+          this.turmaService.obterTurmasPorIdInstituicao(this.usuario!.id).then(data => {
+          this.listaTurmas = data as Array<Turma>;
+          this.iniciarAppbar();
+        });
+        if (this.usuario.permissao == 2)
         this.turmaService.obterTurmasPorIdProfessor(this.usuario!.id).then(data => {
-        this.listaTurmas = data as Array<Turma>;
+          this.listaTurmas = data as Array<Turma>;
+          this.iniciarAppbar();
       });
       if (this.usuario.permissao == 3)
         this.turmaService.obterTurmasPorIdAluno(this.usuario!.id).then(data => {
@@ -40,7 +44,12 @@ export class SelecaoTurmaPaginaComponent implements OnInit {
     }
   }
 
-  selecionarTurma(id: String) { 
+  iniciarAppbar() { 
+    this.appbarService.limparLinks();
+    this.appbarService.adcionarLinks('Cadastrar turmas', 'cadastroturma');
+  }
+
+  selecionarTurma(id: string) { 
     let turma = this.listaTurmas.find(value => value.id == id);
     this.router.navigateByUrl('/listaclassificacao/'+turma!.id);
   }

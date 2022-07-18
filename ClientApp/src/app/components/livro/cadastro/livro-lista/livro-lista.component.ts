@@ -12,10 +12,10 @@ export class LivroListaComponent implements OnInit {
   listaLivros: Array<Livro> = [];
 
   @Output()
-  excluirEmitter = new EventEmitter<String>();
+  excluirEmitter = new EventEmitter<string>();
   
   @Output()
-  editarEmitter = new EventEmitter<String>();
+  editarEmitter = new EventEmitter<string>();
 
   constructor() { }
 
@@ -24,10 +24,10 @@ export class LivroListaComponent implements OnInit {
   obterLista() {
     return this.listaLivros;
   }
-  emitExcluir(id: String) {
+  emitExcluir(id: string) {
     this.excluirEmitter.emit(id);
   }
-  emitEditar(id: String) {
+  emitEditar(id: string) {
     this.editarEmitter.emit(id);
   }
 }

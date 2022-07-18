@@ -17,7 +17,7 @@ export class TurmaService {
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private loading: LoadingOverlayService) {
     }
     
-    public obterTurmasPorIdAluno(id: String) {
+    public obterTurmasPorIdAluno(id: string) {
         this.loading.show();
         
         return new Promise(
@@ -29,7 +29,7 @@ export class TurmaService {
             }
         )
     }
-    public obterTurmasPorIdProfessor(id: String) {
+    public obterTurmasPorIdProfessor(id: string) {
         this.loading.show();
 
         return new Promise(
@@ -42,7 +42,7 @@ export class TurmaService {
         )
     }
         
-    public obterTurmasPorIdInstituicao(id: String){
+    public obterTurmasPorIdInstituicao(id: string){
         this.loading.show();
         
         return new Promise(
@@ -55,7 +55,7 @@ export class TurmaService {
         )
     }
             
-    public obterTurmaPorIdTurma(id: String) {
+    public obterTurmaPorIdTurma(id: string) {
         return new Promise(
             resolve => {
                 this.http.get<GetModelLista<Turma>>(this.baseUrl + this.path +'obterTurma/' + id).subscribe(result => {
@@ -74,7 +74,7 @@ export class TurmaService {
             }
         )
     }
-    public excluirTurma(id: String){
+    public excluirTurma(id: string){
         return new Promise(
             resolve => {
                 this.http.delete<GetModelLista<Turma>>(this.baseUrl + this.path + 'excluirTurma/'+id).subscribe(result => {
@@ -105,6 +105,24 @@ export class TurmaService {
         return new Promise(
             resolve => {
                 this.http.put<any>(this.baseUrl + this.path+ 'atualizarAlunosTurma/', turma).subscribe(result => {
+                    resolve(result.objeto);
+                }, error => console.error(error));
+            }
+        )
+    }
+    public removerAlunoTurma(turma:string,aluno:string) {
+        return new Promise(
+            resolve => {
+                this.http.put<any>(this.baseUrl + this.path+ 'removerAlunoTurma/'+turma+'/'+aluno,null).subscribe(result => {
+                    resolve(result.objeto);
+                }, error => console.error(error));
+            }
+        )
+    }
+    public removerLivroTurma(turma:string,livro:string) {
+        return new Promise(
+            resolve => {
+                this.http.put<any>(this.baseUrl + this.path+ 'removerLivroTurma/'+turma+'/'+livro, null).subscribe(result => {
                     resolve(result.objeto);
                 }, error => console.error(error));
             }

@@ -1,5 +1,5 @@
 export class GetModelUnico<T> {
-    status: String = "";
-    mensagem: String = "";
+    status: string = "";
+    mensagem: string = "";
     objeto?: T;
 }

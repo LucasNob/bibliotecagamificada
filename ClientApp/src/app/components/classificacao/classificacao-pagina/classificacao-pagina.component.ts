@@ -3,13 +3,16 @@ import { newArray } from '@angular/compiler/src/util';
 import { ChangeDetectorRef, Component, Inject, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Aluno } from 'src/app/models/entidades/Aluno.model';
+import { Livro } from 'src/app/models/entidades/Livro.model';
 import { Ponto } from 'src/app/models/entidades/Ponto.model';
 import { Turma } from 'src/app/models/entidades/Turma.model';
 import { Usuario } from 'src/app/models/entidades/Usuario.model';
 import { AlunoService } from 'src/app/services/aluno.service';
+import { LivroService } from 'src/app/services/livro.service';
 import { PontoService } from 'src/app/services/pontos.service';
 import { TurmaService } from 'src/app/services/turma.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { AppBarService } from '../../app-bar/app-bar.service.';
 
 @Component({
   selector: 'app-classificacao-pagina',
@@ -20,16 +23,19 @@ export class ClassificacaoPaginaComponent implements OnInit, OnChanges{
 
   listaTurmas: Array<Turma> = [];
   listaAlunos: Array<Aluno> = [];
+  listaLivros: Array<Livro> = [];
   listaPontos = new Array<Ponto>();
   usuario?: Usuario;
   turmaAtual?: Turma;
-  idTurma: String = "";
+  idTurma: string = "";
 
   constructor(
     private usuarioService: UsuarioService,
     private turmaService: TurmaService,
     private pontoService: PontoService,
     private alunoService: AlunoService,
+    private livroService: LivroService,
+    private appbarService:AppBarService,
     private activatedRoute: ActivatedRoute,
     private cdRef: ChangeDetectorRef) {
   }
@@ -40,13 +46,34 @@ export class ClassificacaoPaginaComponent implements OnInit, OnChanges{
     this.turmaService.obterTurmaPorIdTurma(url[1]).then(data => { 
       this.turmaAtual = data as Turma;
       this.obterClassificacaoTurma();
+      
+      if (this.usuario?.permissao == 1 || this.usuario?.permissao == 2) {
+        this.livroService.obterListaLivros(this.turmaAtual?.livros!).then(data => {
+          this.listaLivros = data as Array<Livro>;
+          this.cdRef.detectChanges();
+        });
+        this.iniciarAppbar();
+      }
     })
   }
 
   ngOnChanges(): void {
     if (this.turmaAtual?.id) {
       this.obterClassificacaoTurma();
+      if (this.usuario?.permissao == 1 || this.usuario?.permissao == 2) {
+        this.livroService.obterListaLivros(this.turmaAtual?.livros!).then(data => {
+          console.log(data)
+          this.listaLivros = data as Array<Livro>;
+          this.cdRef.detectChanges();
+        });
+      }
     }
+  }
+
+  iniciarAppbar() { 
+    this.appbarService.limparLinks();
+    this.appbarService.adcionarLinks('Adicionar alunos', 'cadastroturmaaluno/'+this.turmaAtual?.id);
+    this.appbarService.adcionarLinks('Adicionar livros', 'cadastroturmalivro/'+this.turmaAtual?.id);
   }
 
   obterClassificacaoTurma() {
@@ -59,6 +86,7 @@ export class ClassificacaoPaginaComponent implements OnInit, OnChanges{
       this.cdRef.detectChanges();
     });
   }
+
   obterListaAlunos(): Array<Aluno> { 
     if (this.listaAlunos == undefined)
       return new Array<Aluno>();
@@ -71,11 +99,28 @@ export class ClassificacaoPaginaComponent implements OnInit, OnChanges{
     return this.listaPontos;
   }
 
+  obterListaLivros(): Array<Livro> { 
+    if (this.listaLivros == undefined)
+      return new Array<Livro>();
+    return this.listaLivros;
+  }
+
+  excluirLivro(id:any) { 
+    this.turmaService.removerLivroTurma(this.turmaAtual!.id, id);
+    this.turmaAtual?.livros?.splice(this.turmaAtual.livros.findIndex(l => l == id),1)
+    this.ngOnChanges();
+  }
+  excluirAluno(id: any) {
+    this.turmaAtual?.alunos?.splice(this.turmaAtual.alunos.findIndex(a => a == id),1)
+    this.ngOnChanges();
+  }
+
   obterTurmaAtual() {
     return this.turmaAtual;
   }
+  
   checarPermissaoMarcacaoLivro() {
-  // TO DO: Esse método só irá funcionar quanto houver nosso sistema de login
+  // TODO: Esse método só irá funcionar quanto houver nosso sistema de login
    //if (this.usuarioService.ObterNivelPermissao() == 1 || this.usuarioService.ObterNivelPermissao() == 2)
       if (this.usuario?.permissao == 1 || this.usuario?.permissao == 2)
       return true;

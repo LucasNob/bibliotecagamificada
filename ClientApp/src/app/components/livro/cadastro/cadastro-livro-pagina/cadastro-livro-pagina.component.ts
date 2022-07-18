@@ -18,9 +18,9 @@ export class CadastroLivroPaginaComponent implements OnInit {
   formCadastro!: FormGroup;
   usuario?: Usuario;
   listaLivros: Array<Livro> = [];
-  edicao: String = "";
+  edicao: string = "";
   imgCarregada?: any;
-  imagemAtual?: String ="";
+  imagemAtual?: string ="";
   estado: boolean = false;
 
   constructor(private livroService: LivroService,
@@ -91,7 +91,7 @@ export class CadastroLivroPaginaComponent implements OnInit {
     return livro;
   }
 
-  editarLivro(id: String) {
+  editarLivro(id: string) {
     let livro = this.listaLivros.find(m => m.id == id);
     let genero = OGenero.ObterNome(livro?.genero!);
 
@@ -105,7 +105,7 @@ export class CadastroLivroPaginaComponent implements OnInit {
     this.edicao = id;
   }
 
-  excluirLivro(id:String) {
+  excluirLivro(id:string) {
     this.livroService.excluirLivro(id).then(data => {
       this.obterListaLivros();
     });

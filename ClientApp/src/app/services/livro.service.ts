@@ -24,7 +24,7 @@ export class LivroService {
             }
         )
     }
-    public obterListaLivros(ids: Array<String>) {
+    public obterListaLivros(ids: Array<string>) {
         return new Promise(
             resolve => {
                 this.http.post<GetModelLista<Livro>>(this.baseUrl + 'v1/livro/obterLivrosPorLista',ids).subscribe(result => {
@@ -34,7 +34,7 @@ export class LivroService {
         )
     }
 
-    public obterLivroPorId(id:String){
+    public obterLivroPorId(id:string){
         return new Promise(
             resolve => {
                 this.http.get<GetModelUnico<Livro>>(this.baseUrl + 'v1/livro/obterLivro/'+id).subscribe(result => {
@@ -43,7 +43,7 @@ export class LivroService {
             }
         )
     }
-    public obterLivrosPorIdInstituicao(id: String) {
+    public obterLivrosPorIdInstituicao(id: string) {
         return new Promise(
             resolve => {
                 this.http.get<GetModelLista<Livro>>(this.baseUrl + 'v1/livro/obterPorInstituicao/'+id).subscribe(result => {
@@ -70,7 +70,7 @@ export class LivroService {
             }
         )
     }
-    public excluirLivro(id: String){
+    public excluirLivro(id: string){
         return new Promise(
             resolve => {
                 this.http.delete<GetModelLista<Livro>>(this.baseUrl + 'v1/livro/excluirLivro/'+id).subscribe(result => {

@@ -43,8 +43,8 @@ export class CadastroTurmaAlunoPaginaComponent implements OnInit {
 
   listaAlunos?: Array<Aluno> = [];
   listaAlunosTurma?: Array<Aluno> = [];
-  listaAlunosMarcados?: Array<String> = [];
-  listaAlunosMarcadosOriginal?: Array<String> = [];
+  listaAlunosMarcados?: Array<string> = [];
+  listaAlunosMarcadosOriginal?: Array<string> = [];
 
   carregado = false;
 
@@ -95,13 +95,13 @@ export class CadastroTurmaAlunoPaginaComponent implements OnInit {
       return [];
     return this.listaAlunosTurma;
   }
-  check(id: String) {
+  check(id: string) {
     let aluno = this.listaAlunos?.find(l => l.id == id);
     this.listaAlunos?.splice(this.listaAlunos.findIndex(l => l.id == id),1)
     this.listaAlunosTurma?.push(aluno!);
     this.listaAlunosMarcados?.push(aluno!.id);
   } 
-  uncheck(id: String) {
+  uncheck(id: string) {
     let aluno = this.listaAlunosTurma?.find(l => l.id == id);
     this.listaAlunos?.push(aluno!);
     this.listaAlunosTurma?.splice(this.listaAlunosTurma.findIndex(l => l.id == id),1)
@@ -113,13 +113,14 @@ export class CadastroTurmaAlunoPaginaComponent implements OnInit {
     turma.alunos = this.listaAlunosMarcados!;
     
     this.turmaService.atualizarAlunosTurma(turma).then(() => { 
-      this.obter();
+      this.location.back()
+      // this.obter();
     });
     // this.turmaService.atualizarAlunosTurma(turma).then(data => { 
     //   //?
     // })
   }
-  mostrarBotaoVoltar(id: String) {
+  mostrarBotaoVoltar(id: string) {
     if (this.listaAlunosMarcadosOriginal?.includes(id))
       return false;
       return true;

@@ -1,11 +1,11 @@
 
 export class PontoAtualizacao{
-    idAluno: String;
-    idTurma: String;
-    livrosLidos: Array<String>;
+    idAluno: string;
+    idTurma: string;
+    livrosLidos: Array<string>;
     totalPontos: number;
 
-  constructor(idAluno:String,idTurma:String, livrosLidos: Array<String>,totalPontos: number,) {
+  constructor(idAluno:string,idTurma:string, livrosLidos: Array<string>,totalPontos: number,) {
       this.idAluno = idAluno;
       this.idTurma = idTurma;
       this.livrosLidos = livrosLidos;

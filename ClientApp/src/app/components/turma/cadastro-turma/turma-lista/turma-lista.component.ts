@@ -12,10 +12,10 @@ export class TurmaListaComponent implements OnInit {
   listaTurma: Array<Turma> = [];
 
   @Output()
-  excluirEmitter = new EventEmitter<String>();
+  excluirEmitter = new EventEmitter<string>();
   
   @Output()
-  editarEmitter = new EventEmitter<String>();
+  editarEmitter = new EventEmitter<string>();
 
   constructor() { }
 
@@ -26,10 +26,10 @@ export class TurmaListaComponent implements OnInit {
       return this.listaTurma;
     return [];
   }
-  Excluir(id: String) {
+  Excluir(id: string) {
     this.excluirEmitter.emit(id);
   }
-  Editar(id: String) {
+  Editar(id: string) {
     this.editarEmitter.emit(id);
   }
 }

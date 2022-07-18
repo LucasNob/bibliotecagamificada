@@ -4,9 +4,9 @@ import { EntidadeBase } from "./EntidadeBase.model";
 // export class Livro extends EntidadeBase{
     export class Livro extends EntidadeBase{
     
-    titulo: String = "";
-    autor: String = "";
-    capa?: String = "../../assets/default_capa.png";
+    titulo: string = "";
+    autor: string = "";
+    capa?: string = "../../assets/default_capa.png";
     genero?: Genero;
-    instituicao?: String = ""; 
+    instituicao?: string = ""; 
 }

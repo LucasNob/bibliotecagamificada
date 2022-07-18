@@ -1,6 +1,6 @@
 import { Usuario } from "./Usuario.model";
 
 export class Aluno extends Usuario{
-    instituicao: String = "";
+    instituicao: string = "";
     dataNascimento: number = Date.now();
 }

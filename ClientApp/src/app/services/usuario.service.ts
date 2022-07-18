@@ -11,7 +11,7 @@ export class UsuarioService{
   
   constructor() {
   }
-  // novoUsuario(id:String,nome:String,permissao:number,foto?:String) { 
+  // novoUsuario(id:string,nome:string,permissao:number,foto?:string) { 
     // this.usuario = new Usuario(id, nome, permissao, foto);
   // }
   novoUsuario(usuario: Usuario) { 

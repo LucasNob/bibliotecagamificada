@@ -45,8 +45,8 @@ export class CadastroTurmaLivroPaginaComponent implements OnInit {
   ponto?: Ponto;
   listaLivros?: Array<Livro> = [];
   listaLivrosTurma?: Array<Livro> = [];
-  listaLivrosMarcados?: Array<String> = [];
-  listaLivrosMarcadosOriginal?: Array<String> = [];
+  listaLivrosMarcados?: Array<string> = [];
+  listaLivrosMarcadosOriginal?: Array<string> = [];
 
   carregado = false;
 
@@ -97,13 +97,13 @@ export class CadastroTurmaLivroPaginaComponent implements OnInit {
       return [];
     return this.listaLivrosTurma;
   }
-  check(id: String) {
+  check(id: string) {
     let livro = this.listaLivros?.find(l => l.id == id);
     this.listaLivros?.splice(this.listaLivros.findIndex(l => l.id == id),1)
     this.listaLivrosTurma?.push(livro!);
     this.listaLivrosMarcados?.push(livro!.id);
   } 
-  uncheck(id: String) {
+  uncheck(id: string) {
     let livro = this.listaLivrosTurma?.find(l => l.id == id);
     this.listaLivros?.push(livro!);
     this.listaLivrosTurma?.splice(this.listaLivrosTurma.findIndex(l => l.id == id),1)
@@ -114,10 +114,11 @@ export class CadastroTurmaLivroPaginaComponent implements OnInit {
     turma.id = this.turma?.id;
     turma.livros = this.listaLivrosMarcados!;
     this.turmaService.atualizarLivrosTurma(turma).then(data => {
-      this.obter();
+      // this.obter();
+      this.location.back()
     })
   }
-  mostrarBotaoVoltar(id: String) {
+  mostrarBotaoVoltar(id: string) {
     if (this.listaLivrosMarcadosOriginal?.includes(id))
       return false;
       return true;

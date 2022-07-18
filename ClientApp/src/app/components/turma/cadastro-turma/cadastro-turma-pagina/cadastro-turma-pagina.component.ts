@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AppBarService } from 'src/app/components/app-bar/app-bar.service.';
 import { Professor } from 'src/app/models/entidades/Professor.model';
 import { Turma } from 'src/app/models/entidades/Turma.model';
 import { TurmaCadastroModel } from 'src/app/models/entidades/TurmaCadastro.model';
@@ -19,27 +20,38 @@ export class CadastroTurmaPaginaComponent implements OnInit {
   formCadastro!: FormGroup;
   usuario?: any;
   listaTurmas: Array<Turma> = [];
-  edicao: String = "";
+  edicao: string = "";
   estado: boolean = false;
 
   constructor(private turmaService: TurmaService,
     private usuarioService: UsuarioService,
+    private appbarService: AppBarService,
     private formBuilder: FormBuilder,
-    private router: Router
-  ) { 
+    private router: Router,
+  )
+  { 
       let usuario = usuarioService.obterUsuario();
-      if (usuario?.permissao == 1)
-        this.usuario = usuario as Usuario; //TODO as instituicao
-      else if (usuario?.permissao == 2)
-        this.usuario = usuario as Professor;
+    if (usuario?.permissao == 1) {
+      this.usuario = usuario as Usuario; //TODO as instituicao
+      this.iniciarAppbar();
+      }
+    else if (usuario?.permissao == 2) {
+      this.usuario = usuario as Professor;
+      this.iniciarAppbar();
+    }
       else
         this.router.navigateByUrl('#');
-    }
-    
+  }
+
   ngOnInit(): void { 
     this.criarForm(new Turma());
     this.obterLista();
   }
+
+  iniciarAppbar() { 
+    this.appbarService.limparLinks();
+  }
+
   obterLista() {
     this.turmaService.obterTurmasPorIdProfessor(this.usuario?.id!).then(data => {
       this.listaTurmas = data as Array<Turma>;
@@ -84,7 +96,7 @@ export class CadastroTurmaPaginaComponent implements OnInit {
     return turma;
   }
 
-  editarTurma(id: String) {
+  editarTurma(id: string) {
     let turma = this.listaTurmas.find(m => m.id == id);
    
     this.formCadastro.get('nome')!.setValue(turma?.nome);
@@ -92,7 +104,7 @@ export class CadastroTurmaPaginaComponent implements OnInit {
     this.edicao = id;
   }
 
-  excluirTurma(id:String) {
+  excluirTurma(id:string) {
     this.turmaService.excluirTurma(id).then(data => {
       this.obterLista();
     });

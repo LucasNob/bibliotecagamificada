@@ -1,14 +1,14 @@
 
 export class TurmaCadastroModel{
-    id?: String = "";
-    nome: String = "";
+    id?: string = "";
+    nome: string = "";
     anoLetivo: number= 2022;
-    instituicao: String = "";
-    professor: String = "";
-    livros: Array<String>;
-    alunos: Array<String>;
+    instituicao: string = "";
+    professor: string = "";
+    livros: Array<string>;
+    alunos: Array<string>;
     
-    constructor(nome: String, anoLetivo: number, instituicao: String, professor: String) {
+    constructor(nome: string, anoLetivo: number, instituicao: string, professor: string) {
         this.nome = nome;
         this.anoLetivo = anoLetivo;
         this.instituicao = instituicao;

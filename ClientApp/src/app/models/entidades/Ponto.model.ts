@@ -2,8 +2,8 @@ import { Aluno } from "./Aluno.model";
 import { EntidadeBase } from "./EntidadeBase.model";
 
 export class Ponto extends EntidadeBase{
-    turma: String = "";
-    aluno: String ="";
-    livrosLidos: Array<String> = [];
+    turma: string = "";
+    aluno: string ="";
+    livrosLidos: Array<string> = [];
     totalPontos: number = 0;
 }

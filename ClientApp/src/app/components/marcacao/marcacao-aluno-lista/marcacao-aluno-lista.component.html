@@ -28,9 +28,11 @@
                             </button></span>
                     </div>
                     <div class="col-md-1 col-2 text-end">
-                        <span><button class="btn btn-primary" (click)="excluirAluno()">
+                        <span>
+                            <button class="btn btn-primary" (click)="selecionarAlunoExcluir(aluno)">
                                 <mat-icon>delete</mat-icon>
-                            </button></span>
+                            </button>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -42,3 +44,24 @@
         </div>
     </ng-template>
 </div>
+
+<ng-template #content>
+    <div class="md-flex" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Confirmar Exclusão</h4>
+            </div>
+            <div class="modal-body">
+                <p>Deseja mesmo excluir o aluno {{alunoSelecionado!.nome}}?</p>
+                <div class="row">
+                    <div class="col-1">
+                        <button type="button" class="btn btn-primary" (click)="excluirAluno(alunoSelecionado!.id)">Excluir</button>
+                    </div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-primary" (click)="esconderModal()">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
