@@ -32,7 +32,9 @@ export class TurmaLivrosComponent implements OnInit {
   }
 
   obterLista(): Array<Livro> {
-    return this.listaLivros;
+    if (this.listaLivros)
+      return this.listaLivros;
+    return [];
   }
 
   excluirLivro(id:string){

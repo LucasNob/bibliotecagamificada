@@ -19,7 +19,7 @@ import { AppBarService } from '../../app-bar/app-bar.service.';
   templateUrl: './classificacao-pagina.component.html',
   styleUrls: ['./classificacao-pagina.component.css']
 })
-export class ClassificacaoPaginaComponent implements OnInit, OnChanges{
+export class ClassificacaoPaginaComponent implements OnInit{
 
   listaTurmas: Array<Turma> = [];
   listaAlunos: Array<Aluno> = [];
@@ -57,19 +57,6 @@ export class ClassificacaoPaginaComponent implements OnInit, OnChanges{
     })
   }
 
-  ngOnChanges(): void {
-    if (this.turmaAtual?.id) {
-      this.obterClassificacaoTurma();
-      if (this.usuario?.permissao == 1 || this.usuario?.permissao == 2) {
-        this.livroService.obterListaLivros(this.turmaAtual?.livros!).then(data => {
-          console.log(data)
-          this.listaLivros = data as Array<Livro>;
-          this.cdRef.detectChanges();
-        });
-      }
-    }
-  }
-
   iniciarAppbar() { 
     this.appbarService.limparLinks();
     this.appbarService.adcionarLinks('Adicionar alunos', 'cadastroturmaaluno/'+this.turmaAtual?.id);
@@ -80,11 +67,21 @@ export class ClassificacaoPaginaComponent implements OnInit, OnChanges{
     this.pontoService.obterClassificacaoPorIdTurma(this.turmaAtual?.id!).then(data => {
       this.listaPontos = data as Array<Ponto>;
       this.cdRef.detectChanges();
+    }).then(()=>{
+      this.alunoService.ObterListaAlunosPorId(this.turmaAtual?.alunos!).then(data => {
+        this.listaAlunos = data as Array<Aluno>;
+        this.cdRef.detectChanges();
+      }).then(()=>{
+        if (this.turmaAtual?.id) 
+          if (this.usuario?.permissao == 1 || this.usuario?.permissao == 2) {
+            this.livroService.obterListaLivros(this.turmaAtual?.livros!).then(data => {
+              this.listaLivros = data as Array<Livro>;
+              this.cdRef.detectChanges();
+            });
+          }
+      });
     });
-    this.alunoService.ObterListaAlunosPorId(this.turmaAtual?.alunos!).then(data => {
-      this.listaAlunos = data as Array<Aluno>;
-      this.cdRef.detectChanges();
-    });
+
   }
 
   obterListaAlunos(): Array<Aluno> { 
@@ -108,11 +105,11 @@ export class ClassificacaoPaginaComponent implements OnInit, OnChanges{
   excluirLivro(id:any) { 
     this.turmaService.removerLivroTurma(this.turmaAtual!.id, id);
     this.turmaAtual?.livros?.splice(this.turmaAtual.livros.findIndex(l => l == id),1)
-    this.ngOnChanges();
+    this.obterClassificacaoTurma();
   }
   excluirAluno(id: any) {
     this.turmaAtual?.alunos?.splice(this.turmaAtual.alunos.findIndex(a => a == id),1)
-    this.ngOnChanges();
+    this.obterClassificacaoTurma();
   }
 
   obterTurmaAtual() {
