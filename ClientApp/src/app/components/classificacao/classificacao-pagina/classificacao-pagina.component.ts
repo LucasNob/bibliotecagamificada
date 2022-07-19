@@ -59,8 +59,13 @@ export class ClassificacaoPaginaComponent implements OnInit{
 
   iniciarAppbar() { 
     this.appbarService.limparLinks();
-    this.appbarService.adcionarLinks('Adicionar alunos', 'cadastroturmaaluno/'+this.turmaAtual?.id);
-    this.appbarService.adcionarLinks('Adicionar livros', 'cadastroturmalivro/'+this.turmaAtual?.id);
+    this.appbarService.adicionarLinks('Cadastrar turmas', 'cadastroturma');
+    if (this.usuario?.permissao == 1)
+    {
+      this.appbarService.adicionarLinks('Cadastrar livros', 'cadastrolivro');
+    }
+    this.appbarService.adicionarLinks('Adicionar alunos', 'cadastroturmaaluno/'+this.turmaAtual?.id);
+    this.appbarService.adicionarLinks('Adicionar livros', 'cadastroturmalivro/'+this.turmaAtual?.id);
   }
 
   obterClassificacaoTurma() {

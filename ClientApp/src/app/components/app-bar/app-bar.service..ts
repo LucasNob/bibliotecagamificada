@@ -16,7 +16,7 @@ export class AppBarService {
   constructor() {
     this.itens = [];
   }
-  adcionarLinks(nome: string,link: string) {
+  adicionarLinks(nome: string,link: string) {
     this.itens.push(new Link(nome, link));
     this.itensChange.next(this.itens);
   }
@@ -34,7 +34,5 @@ class Link {
   constructor(nome:string, link:string) {
     this.nome = nome;
     this.link = link;
-    //icone?
-    //link?
   }
 }

@@ -16,11 +16,6 @@
     <div class="col-md-2 col-9 align-self-right usuario"> {{usuario.nome}}</div>
 
     <nav class="navbar navbar-expand-lg bg-light" *ngIf="usuario!.permissao!=3">
-        <!-- <a class="navbar-brand" href="cadastroturma">Cadastrar turmas</a> -->
-        <!-- <a *ngIf="usuario!.permissao==1"class="navbar-brand" href="cadastrolivro">Cadastrar livros</a> -->
-        <!-- Os itens abaixo só devem aparecer na tela de rotas-->
-        <!-- <a class="navbar-brand" href="cadastroturmaaluno">Adicionar alunos</a> -->
-        <!-- <a class="navbar-brand" href="cadastroturmalivro">Adicionar livros</a> -->
         <div *ngFor="let item of links">
             <a class="navbar-brand" href="{{item.link}}">{{item.nome}}</a>
         </div>

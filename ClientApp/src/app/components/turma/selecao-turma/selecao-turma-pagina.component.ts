@@ -46,7 +46,9 @@ export class SelecaoTurmaPaginaComponent implements OnInit {
 
   iniciarAppbar() { 
     this.appbarService.limparLinks();
-    this.appbarService.adcionarLinks('Cadastrar turmas', 'cadastroturma');
+    this.appbarService.adicionarLinks('Cadastrar turmas', 'cadastroturma');
+    if (this.usuario?.permissao == 1)
+    this.appbarService.adicionarLinks('Cadastrar livros', 'cadastrolivro');
   }
 
   selecionarTurma(id: string) { 
