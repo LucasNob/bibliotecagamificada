@@ -44,3 +44,24 @@
   outline: none !important;
   box-shadow: none !important;
 }
+.p-background{
+  background-color: #1A3369;
+  margin-top: 1pt;
+  color:white;
+}
+
+::ng-deep .custom-modal .modal-dialog{
+  max-width: 100%;
+  max-height: 100%;
+}
+
+@media only screen and (min-width: 600px) {
+::ng-deep .custom-modal .modal-dialog{
+  max-width: 80%;
+  max-height: 80%;
+}
+} 
+
+::ng-deep .modal-content {
+background-color: #A4CDBE !important;
+}

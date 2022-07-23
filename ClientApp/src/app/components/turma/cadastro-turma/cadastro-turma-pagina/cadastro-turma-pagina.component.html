@@ -17,20 +17,37 @@
                 <div class="form-group">
                     <label for="anoLetivo">Ano Letivo</label>
                     <input type="number" [ngClass]="formInvalido('anoLetivo') ?'form-control is-invalid':'form-control'"
-                    id="anoLetivo" max="2030" min="2000" name="anoLetivo" formControlName="anoLetivo" placeholder="{{obterAnoAtual()}}"
-                    aria-describedby="anoLetivoInvalido" required>
+                        id="anoLetivo" max="2030" min="2000" name="anoLetivo" formControlName="anoLetivo"
+                        placeholder="{{obterAnoAtual()}}" aria-describedby="anoLetivoInvalido" required>
                     <div id="anoLetivoInvalido" class="invalid-feedback">Ano Inválido.</div>
                 </div>
             </div>
-            <!-- <div class="row my-4" *ngIf="instituicao"> //TODO 
-                <div class="form-group">
-                    <label for="professor">Professor da Turma</label>
-                    <input type="text" [ngClass]="formInvalido('nome') ?'form-control is-invalid':'form-control'"
-                        id="professor" name="professor" formControlName="nome" placeholder="Professor da Turma"
-                        aria-describedby="professorInvalido" required>
-                    <div id="professorInvalido" class="invalid-feedback">Professor Inválido.</div>
+            <label for="professor">Professor da Turma</label>
+            <div class="row my-4">
+                <div class="row m-1 text-center p-background p-2 justify-content-center ">
+                    <div class="col" *ngIf="professorSelecionado != undefined">
+                        <div class="row">
+                            <div class="col">
+                                <div *ngIf="professorSelecionado!.foto; else fotoPadrao">
+                                    <span><img class="foto" src={{professorSelecionado!.foto}} alt=""></span>
+                                </div>
+                                <ng-template #fotoPadrao>
+                                    <span><img class="foto" src="../../../../assets/images/default_avatar.png"
+                                            alt=""></span>
+                                </ng-template>
+                            </div>
+                            <div class="col-md-7 col-8 tabela item">
+                                <span>{{professorSelecionado.nome}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-4">
+                        <input class="btn btn-primary h-100 w-100 item" value="Selecionar Professor"
+                            (click)="abrirSelecaoProfessor()">
+                    </div>
                 </div>
-            </div> -->
+                <div id="professorInvalido" class="invalid-feedback">Professor Inválido.</div>
+            </div>
             <div class="row justify-content-center" *ngIf="modoEdicao(); else cadastrar">
                 <div class="col-md-6 col-6">
                     <input class="btn btn-primary h-100 w-100 item" value="Salvar" (click)="salvar()"
@@ -56,3 +73,55 @@
 <app-turma-lista [listaTurma]="listaTurmas" (excluirEmitter)="excluirTurma($event)"
     (editarEmitter)="editarTurma($event)">
 </app-turma-lista>
+
+<ng-template #content>
+    <div class="row justify-content-center">
+        <div class=" col-md-7 col-12 px-0">
+            <div class="row py-3">
+                <span class="titulo">Professores da Instituição</span>
+            </div>
+            <div class="table-resposive">
+                <div class="tabela-cheia" *ngIf="obterListaProfessores()!=undefined && obterListaProfessores()!.length > 0; else erro">
+                    <div class="row py-2">
+                        <div class="col-md-2 col-2 text-end tabela cabecalho"></div>
+                        <div class="col-md-5 col-5 tabela cabecalho">Nome</div>
+                        <div class=" col-md-5 col-5 text-center tabela cabecalho"></div>
+                    </div>
+                    <div>
+                        <div *ngFor="let professor of obterListaProfessores()">
+                            <div class="row py-1">
+                                <div class="col-md-2 col-2 text-end">
+                                    <div *ngIf="professor!.foto != null; else fotoPadrao">
+                                        <span><img class="capa" src={{professor!.foto}} alt=""></span>
+                                    </div>
+                                    <ng-template #fotoPadrao>
+                                        <span><img class="foto" src="../../../assets/images/default_avatar.png"
+                                                alt=""></span>
+                                    </ng-template>
+                                </div>
+                                <div class="col-md-5 col-5 tabela item">
+                                    <span>{{professor.nome}}</span>
+                                </div>
+                                <div class="col-md-5 col-5 text-center">
+                                    <input class="btn btn-primary w-50" value="Selecionar"
+                                    (click)="professorSelecionado = professor; modalService.dismissAll()">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ng-template #erro>
+                    <div class="alert alert-info my-5" role="alert">
+                        Lista de professores vazia!
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center py-4 bloco-button">
+            <div class="col-md-4 col-12">
+                <button class="btn-primary h-100 w-100 item" (click)="modalService.dismissAll()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
