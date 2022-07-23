@@ -55,6 +55,7 @@ namespace BibliotecaGamificada.Turmas.Comum.Repositorios
             Builders<Turma>.Update
             .Set(x => x.nome, turma.nome)
             .Set(x => x.anoLetivo, turma.anoLetivo)
+            .Set(x => x.professor, turma.professor)
             );
             await this.AtualizarDados(turma, atualizacao);
         }

@@ -114,6 +114,7 @@ export class CadastroTurmaPaginaComponent implements OnInit {
 
     this.formCadastro.get('nome')!.setValue(turma?.nome);
     this.formCadastro.get('anoLetivo')!.setValue(turma?.anoLetivo);
+    this.formCadastro.get('professor')!.setValue(turma?.professor);
     this.edicao = id;
   }
 
