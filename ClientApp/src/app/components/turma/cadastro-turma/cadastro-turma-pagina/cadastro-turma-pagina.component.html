@@ -17,20 +17,24 @@
                 <div class="form-group">
                     <label for="anoLetivo">Ano Letivo</label>
                     <input type="number" [ngClass]="formInvalido('anoLetivo') ?'form-control is-invalid':'form-control'"
-                    id="anoLetivo" max="2030" min="2000" name="anoLetivo" formControlName="anoLetivo" placeholder="{{obterAnoAtual()}}"
-                    aria-describedby="anoLetivoInvalido" required>
+                        id="anoLetivo" max="2030" min="2000" name="anoLetivo" formControlName="anoLetivo"
+                        placeholder="{{obterAnoAtual()}}" aria-describedby="anoLetivoInvalido" required>
                     <div id="anoLetivoInvalido" class="invalid-feedback">Ano Inválido.</div>
                 </div>
             </div>
-            <!-- <div class="row my-4" *ngIf="instituicao"> //TODO 
-                <div class="form-group">
-                    <label for="professor">Professor da Turma</label>
-                    <input type="text" [ngClass]="formInvalido('nome') ?'form-control is-invalid':'form-control'"
-                        id="professor" name="professor" formControlName="nome" placeholder="Professor da Turma"
-                        aria-describedby="professorInvalido" required>
-                    <div id="professorInvalido" class="invalid-feedback">Professor Inválido.</div>
+            <div *ngIf="usuario!=undefined && usuario.permissao == 1">
+                <div class="row my-4">
+                    <div class="col-md-6 col-12">
+                        <label for="professor">Professor</label>
+                        <select [ngClass]="formInvalido('professor') ?'form-select is-invalid':'form-select'" id="professor"
+                            formControlName="professor" name="professor" aria-describedby="professorInvalido" required>
+                            <option disabled selected>Selecione um Professor</option>
+                            <option *ngFor="let professor of obterListaProfessores()" [value]="professor.id">{{professor.nome}}</option>
+                        </select>
+                        <div id="professorInvalido" class="invalid-feedback">Professor Inválido.</div>
+                    </div>
                 </div>
-            </div> -->
+            </div>
             <div class="row justify-content-center" *ngIf="modoEdicao(); else cadastrar">
                 <div class="col-md-6 col-6">
                     <input class="btn btn-primary h-100 w-100 item" value="Salvar" (click)="salvar()"
@@ -53,6 +57,6 @@
     </form>
 </div>
 <div class="row my-4"></div>
-<app-turma-lista [listaTurma]="listaTurmas" (excluirEmitter)="excluirTurma($event)"
+<app-turma-lista [listaTurma]="listaTurmas" [listaProfessor]="listaProfessores" (excluirEmitter)="excluirTurma($event)"
     (editarEmitter)="editarTurma($event)">
 </app-turma-lista>

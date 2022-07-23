@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Professor } from 'src/app/models/entidades/Professor.model';
 import { Turma } from 'src/app/models/entidades/Turma.model';
 
 @Component({
@@ -10,6 +11,9 @@ export class TurmaListaComponent implements OnInit {
   
   @Input()
   listaTurma: Array<Turma> = [];
+
+  @Input()
+  listaProfessor: Array<Professor> = [];
 
   @Output()
   excluirEmitter = new EventEmitter<string>();
@@ -31,5 +35,11 @@ export class TurmaListaComponent implements OnInit {
   }
   Editar(id: string) {
     this.editarEmitter.emit(id);
+  }
+  obterNomeProfessor(id:string) {
+    let professor = this.listaProfessor.find(p => p.id == id)
+    if (professor)
+      return professor.nome;
+    return '';
   }
 }

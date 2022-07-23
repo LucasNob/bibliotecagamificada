@@ -58,7 +58,7 @@ export class CadastroTurmaAlunoPaginaComponent implements OnInit {
       if (this.turma == undefined)
         this.location.back()
     
-        this.alunoService.ObterAlunosPorInstituicao(this.usuario.instituicao).then(data => {
+        this.alunoService.ObterAlunosPorInstituicao(this.usuario.permissao == 1? this.usuario.id: this.usuario.instituicao).then(data => {
           
           this.listaAlunos = data as Array<Aluno>;
         if (this.turma?.alunos != undefined && this.turma.alunos.length > 0)
