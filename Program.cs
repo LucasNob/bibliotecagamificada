@@ -11,8 +11,6 @@ using BibliotecaGamificada.Livros.Comum.Repositorios;
 using BibliotecaGamificada.Alunos.Negocios;
 using BibliotecaGamificada.Alunos.Comum.Repositorios;
 using BibliotecaGamificada.Pontuacao.Negocios;
-using BibliotecaGamificada.Professores.Negocios;
-using BibliotecaGamificada.Professores.Comum.Repositorios;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,10 +40,6 @@ builder.Services.AddTransient<LivroRepositorio>();
 //aluno
 builder.Services.AddTransient<AlunosNegocio>();
 builder.Services.AddTransient<AlunoRepositorio>();
-
-//professor
-builder.Services.AddTransient<ProfessoresNegocio>();
-builder.Services.AddTransient<ProfessorRepositorio>();
 
 //configurar mongo
 // builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));

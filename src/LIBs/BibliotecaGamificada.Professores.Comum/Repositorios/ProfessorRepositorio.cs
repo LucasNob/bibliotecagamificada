@@ -1,4 +1,3 @@
-using BibliotecaGamificada.Comum.Classes.Enums;
 using BibliotecaGamificada.Comum.Classes.Repositorio;
 using BibliotecaGamificada.Comum.Classes.Settings;
 using BibliotecaGamificada.Professores.Comum.Entidades;
@@ -25,8 +24,7 @@ namespace BibliotecaGamificada.Professores.Comum.Repositorios
 
         public async Task<List<Professor>> ObterPorInstituicao(string id)
         {
-            var filtro = Builders<Professor>.Filter.And(Builders<Professor>.Filter.Eq(p => p.instituicao, id),
-            Builders<Professor>.Filter.Eq(p => p.permissao, Permissao.professor));
+            var filtro = Builders<Professor>.Filter.Eq(p => p.instituicao, id);
             return await this.ObterListaDadosPorFiltro(filtro);
         }
 

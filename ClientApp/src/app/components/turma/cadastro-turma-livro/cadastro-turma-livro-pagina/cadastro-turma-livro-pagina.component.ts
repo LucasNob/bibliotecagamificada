@@ -32,7 +32,7 @@ export class CadastroTurmaLivroPaginaComponent implements OnInit {
     // this.usuario = usuarioService.obterUsuario() as Professor;
     let usuario = usuarioService.obterUsuario();
       if (usuario?.permissao == 1)
-        this.usuario = usuario as Usuario;
+        this.usuario = usuario as Usuario; //TODO as instituicao
       else if (usuario?.permissao == 2)
         this.usuario = usuario as Professor;
       else
@@ -60,7 +60,7 @@ export class CadastroTurmaLivroPaginaComponent implements OnInit {
       if (this.turma == undefined)
         this.location.back()
     
-        this.livroService.obterLivrosPorIdInstituicao(this.usuario.permissao == 1? this.usuario.id: this.usuario.instituicao).then(data => {
+        this.livroService.obterLivrosPorIdInstituicao(this.usuario.instituicao).then(data => {
           
           this.listaLivros = data as Array<Livro>;
           
