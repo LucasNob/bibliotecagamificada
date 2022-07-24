@@ -24,6 +24,7 @@ export class TurmaListaComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.listaProfessor)
   }
   obterLista() {
     if (this.listaTurma)

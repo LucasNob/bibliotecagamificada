@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Livro } from 'src/app/models/entidades/Livro.model';
 import { LivroCadastroModel } from 'src/app/models/entidades/LivroCadastro.model';
@@ -20,12 +20,13 @@ export class CadastroLivroPaginaComponent implements OnInit {
   listaLivros: Array<Livro> = [];
   edicao: string = "";
   imgCarregada?: any;
-  imagemAtual?: string ="";
+  imagemAtual?: string ="../../../assets/images/default_capa.png";
   estado: boolean = false;
 
   constructor(private livroService: LivroService,
     private usuarioService: UsuarioService,
     private formBuilder: FormBuilder,
+    private cdRef: ChangeDetectorRef
   ) { 
       this.usuarioService.usuario =  new Usuario("idinstituicao1", "Anglo Sorocaba",1,
       "https://pbs.twimg.com/profile_images/570291758630576128/x3lqZT5Z_400x400.png");
@@ -67,10 +68,11 @@ export class CadastroLivroPaginaComponent implements OnInit {
       let livro = this.obterObjetoLivro();
       this.livroService.cadastrarLivro(livro).then(() => {
         this.obterListaLivros();
-        this.limparCampos();
       }
       ).finally(() => {
         this.estado = false;
+        this.limparCampos();
+        this.cdRef.detectChanges();
       });
     }
   }
@@ -113,9 +115,10 @@ export class CadastroLivroPaginaComponent implements OnInit {
 
   limparCampos() { 
     this.criarForm(new Livro());
-    this.imagemAtual = undefined;
-    this.imgCarregada = "../../../assets/images/default_capa.png";
+    this.imgCarregada = '';
+    this.imagemAtual = Object.assign(this.imgCarregada);
     this.edicao = "";
+    this.cdRef.detectChanges();
   }
 
   salvarLivro() {

@@ -42,6 +42,9 @@ export class CadastroTurmaPaginaComponent implements OnInit {
       }
     else if (usuario?.permissao == 2) {
       this.usuario = usuario as Professor;
+      this.professorService.ObterListaProfessoresPorIdInstitucicao(this.usuario.instituicao).then(res => { 
+        this.listaProfessores = res as Array<Professor>;
+      });
       this.iniciarAppbar();
     }
       else
@@ -75,11 +78,11 @@ export class CadastroTurmaPaginaComponent implements OnInit {
       {
         nome: [turma.nome],
         anoLetivo: [turma.anoLetivo],
-        professor: [turma.professor]
+        professor: [this.usuario.permissao == 2 ? this.usuario.id : turma.professor]
       }
     );
   }
-
+  
   cadastrarTurma() {
       this.formCadastro.get('nome')!.setValue(this.formCadastro.get('nome')?.value.trim());
       if (this.formCadastro.valid && this.estado == false)
@@ -147,7 +150,7 @@ export class CadastroTurmaPaginaComponent implements OnInit {
   }
   modoEdicao() {
     if (this.edicao != "") {
-      return true
+      return true;
     }
     else return false;
   }
