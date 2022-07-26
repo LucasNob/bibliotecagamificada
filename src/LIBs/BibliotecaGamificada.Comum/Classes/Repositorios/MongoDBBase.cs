@@ -67,7 +67,7 @@ namespace BibliotecaGamificada.Comum.Classes.Repositorio
             return await this.colecao.Find(filtro).ToListAsync<C>();
         }
         /// <summary>
-        /// Inserir dados de um modelo C
+        /// Inserir dados de um modelo
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -98,13 +98,23 @@ namespace BibliotecaGamificada.Comum.Classes.Repositorio
             await this.colecao.UpdateOneAsync(filtroPorId, builder);
         }
         /// <summary>
-        /// Exclui os dados da base, dados ficam indisponiveis
+        /// Exclui um unico registro da base por filtro, dados ficam indisponiveis
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="filtro">filtro</param>
+        /// <returns></returns>
+        protected async Task ExcluirDado(FilterDefinition<C> filtro, CancellationToken cancellationToken = default)
+        {
+            await this.colecao.DeleteOneAsync(filtro, cancellationToken);
+        }
+        /// <summary>
+        /// Exclui multiplos registros da base por filtro, dados ficam indisponives
+        /// </summary>
+        /// <param name="filtro">filtro</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         protected async Task ExcluirDados(FilterDefinition<C> filtro, CancellationToken cancellationToken = default)
         {
-            await this.colecao.DeleteOneAsync(filtro, cancellationToken);
+            await this.colecao.DeleteManyAsync(filtro, cancellationToken);
         }
 
         protected async Task AtualizarDados(C model, UpdateDefinition<C> updateDefinition)

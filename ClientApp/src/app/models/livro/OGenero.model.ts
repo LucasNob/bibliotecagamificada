@@ -1,7 +1,7 @@
 
 export class OGenero
 {
-    static ObterNome(index:number ): String {
+    static ObterNome(index:number ): string {
         switch (index) {
             case 0:
                 return "Romance";
@@ -47,7 +47,7 @@ export class OGenero
                 return "Sem Genero"
         }
     }
-    static ObterNumero(nome:String ): number {
+    static ObterNumero(nome:string ): number {
         switch (nome) {
             case "Romance":
                 return 0;

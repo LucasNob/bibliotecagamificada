@@ -1,0 +1,62 @@
+<div class="container">
+    <form [formGroup]="formCadastro" (ngSubmit)="cadastrarTurma()">
+        <div class="col-12">
+            <div class="row titulo m-4">
+                <span>Cadastro de Turmas - {{obterNome()}}</span>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
+                    <label for="nome">Nome da Turma</label>
+                    <input type="text" [ngClass]="formInvalido('nome') ?'form-control is-invalid':'form-control'"
+                        id="nome" name="nome" formControlName="nome" placeholder="Nome da Turma"
+                        aria-describedby="nomeInvalido" required>
+                    <div id="nomeInvalido" class="invalid-feedback">Nome Inválido.</div>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
+                    <label for="anoLetivo">Ano Letivo</label>
+                    <input type="number" [ngClass]="formInvalido('anoLetivo') ?'form-control is-invalid':'form-control'"
+                        id="anoLetivo" max="2030" min="2000" name="anoLetivo" formControlName="anoLetivo"
+                        placeholder="{{obterAnoAtual()}}" aria-describedby="anoLetivoInvalido" required>
+                    <div id="anoLetivoInvalido" class="invalid-feedback">Ano Inválido.</div>
+                </div>
+            </div>
+            <div *ngIf="usuario!=undefined && usuario.permissao == 1">
+                <div class="row my-4">
+                    <div class="col-md-6 col-12">
+                        <label for="professor">Professor</label>
+                        <select [ngClass]="formInvalido('professor') ?'form-select is-invalid':'form-select'" id="professor"
+                            formControlName="professor" name="professor" aria-describedby="professorInvalido" required>
+                            <option disabled selected>Selecione um Professor</option>
+                            <option *ngFor="let professor of obterListaProfessores()" [value]="professor.id">{{professor.nome}}</option>
+                        </select>
+                        <div id="professorInvalido" class="invalid-feedback">Professor Inválido.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center" *ngIf="modoEdicao(); else cadastrar">
+                <div class="col-md-6 col-6">
+                    <input class="btn btn-primary h-100 w-100 item" value="Salvar" (click)="salvar()"
+                        [disabled]="!estadoBotao()">
+                </div>
+                <div class="col-md-6 col-6">
+                    <input class="btn btn-danger h-100 w-100 item" value="Cancelar" (click)="limparCampos() "
+                        [disabled]="!estadoBotao()">
+                </div>
+            </div>
+            <ng-template #cadastrar>
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-12">
+                        <input type="submit" class="btn btn-primary h-100 w-100 item" value="Cadastrar"
+                            [disabled]="!estadoBotao()">
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </form>
+</div>
+<div class="row my-4"></div>
+<app-turma-lista [listaTurma]="listaTurmas" [listaProfessor]="listaProfessores" (excluirEmitter)="excluirTurma($event)"
+    (editarEmitter)="editarTurma($event)">
+</app-turma-lista>

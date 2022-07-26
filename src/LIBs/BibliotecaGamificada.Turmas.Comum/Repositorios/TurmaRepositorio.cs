@@ -46,7 +46,7 @@ namespace BibliotecaGamificada.Turmas.Comum.Repositorios
         public async Task Excluir(string id)
         {
             var filtro = Builders<Turma>.Filter.Eq(p => p.Id, id);
-            await this.ExcluirDados(filtro);
+            await this.ExcluirDado(filtro);
         }
 
         public async Task Editar(Turma turma)
@@ -55,6 +55,7 @@ namespace BibliotecaGamificada.Turmas.Comum.Repositorios
             Builders<Turma>.Update
             .Set(x => x.nome, turma.nome)
             .Set(x => x.anoLetivo, turma.anoLetivo)
+            .Set(x => x.professor, turma.professor)
             );
             await this.AtualizarDados(turma, atualizacao);
         }
