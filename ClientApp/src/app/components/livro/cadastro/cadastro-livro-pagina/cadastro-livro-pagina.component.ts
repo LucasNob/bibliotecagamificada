@@ -20,7 +20,7 @@ export class CadastroLivroPaginaComponent implements OnInit {
   listaLivros: Array<Livro> = [];
   edicao: string = "";
   imgCarregada?: any;
-  imagemAtual?: string ="../../../assets/images/default_capa.png";
+  imagemAtual?: String = "../../../assets/images/default_capa.png";
   estado: boolean = false;
 
   constructor(private livroService: LivroService,
@@ -115,8 +115,9 @@ export class CadastroLivroPaginaComponent implements OnInit {
 
   limparCampos() { 
     this.criarForm(new Livro());
-    this.imgCarregada = '';
-    this.imagemAtual = Object.assign(this.imgCarregada);
+    const str: String = "../../../assets/images/default_capa.png";
+    this.imgCarregada = undefined;
+    this.imagemAtual = Object.assign(str);
     this.edicao = "";
     this.cdRef.detectChanges();
   }

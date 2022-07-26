@@ -31,17 +31,17 @@ export class ClassificacaoListaComponent implements OnInit {
       return listaClassificacao;
     
     this.listaPontos = this.listaPontos.sort((a: Ponto, b: Ponto) => (a.totalPontos <= b.totalPontos) ? 1 : -1);
-
     let listaA: Array<Aluno> = [];
     let listaP: Array<Ponto> = [];
-
-    this.listaAlunos.forEach((aluno) => {
-      let p = this.listaPontos.find(p => p.aluno == aluno.id);
-      if (p != undefined) {
-        listaA.push(aluno);
-        listaP.push(p);
+    
+    this.listaPontos.forEach((ponto) => {
+      let a = this.listaAlunos.find(p => p.id == ponto.aluno);
+      if (a != undefined) {
+        listaA.push(a);
+        listaP.push(ponto);
       }
-    })
+    });
+    
     let a = listaA.find(a => a.id == listaP[0].aluno);
 
     if (listaA == undefined || listaA.length == 0)

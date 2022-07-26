@@ -14,14 +14,13 @@ export class UploadImagemComponent implements OnInit,OnChanges {
   imagemNaoEncontrada: boolean = false;
 
   @Input()
-  imagemAtual?: any;
+  imagemAtual?: String;
   
   constructor() { }
 
   ngOnInit(): void {
   }
   ngOnChanges(): void {
-    console.log(this.imagemAtual)
   }
 
   test:string = "";
@@ -49,7 +48,7 @@ export class UploadImagemComponent implements OnInit,OnChanges {
 
     reader.onload = () => {
       this.img.emit(reader.result);
-      this.imagemAtual = reader.result;
+      this.imagemAtual = reader.result as String;
     };
     
     reader.onerror = function (error) {
