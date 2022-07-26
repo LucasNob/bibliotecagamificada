@@ -4,7 +4,7 @@
             <span class="titulo">Alunos da {{obterTurmaAtual()!.nome}}</span>
         </div>
         <app-marcacao-aluno-lista [listaAlunos]="obterListaAlunos()" [listaPonto]="obterListaPonto()"
-            (selecaoEmitter)="emitSelecao($event)"></app-marcacao-aluno-lista>
+            (selecaoEmitter)="emitSelecao($event)" (excluirEmitter)="excluirAluno($event)"></app-marcacao-aluno-lista>
     </div>
 </div>
 <ng-template #erroTurma>

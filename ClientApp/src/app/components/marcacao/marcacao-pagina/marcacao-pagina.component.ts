@@ -5,6 +5,7 @@ import { Turma } from 'src/app/models/entidades/Turma.model';
 import { Usuario } from 'src/app/models/entidades/Usuario.model';
 import { AlunoService } from 'src/app/services/aluno.service';
 import { PontoService } from 'src/app/services/pontos.service';
+import { TurmaService } from 'src/app/services/turma.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -12,7 +13,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   templateUrl: './marcacao-pagina.component.html',
   styleUrls: ['./marcacao-pagina.component.css']
 })
-export class MarcacaoPaginaComponent implements OnInit, OnChanges{
+export class MarcacaoPaginaComponent implements OnInit{
 
   // listaTurmas: Array<Turma> = [];
   @Input()
@@ -28,11 +29,14 @@ export class MarcacaoPaginaComponent implements OnInit, OnChanges{
 
   @Output()
   emitSalvo = new EventEmitter<any>();
+  @Output()
+  emitExclusao = new EventEmitter<any>();
 
   @ViewChild('modal') modal: any;
   
   constructor(
     private usuarioService: UsuarioService,
+    private turmaService: TurmaService,
     private cdRef: ChangeDetectorRef) { 
   }
   
@@ -40,22 +44,18 @@ export class MarcacaoPaginaComponent implements OnInit, OnChanges{
     this.usuario = this.usuarioService.obterUsuario();    
   }
 
-  ngOnChanges() {
-    // this.cdRef.detectChanges();
-  }
-
   obterListaAlunos(): Array<Aluno> {
 
     let listaA: Array<Aluno> = [];
     let listaP: Array<Ponto> = [];
-
-    this.listaAlunos.forEach((aluno) => {
-      let p = this.listaPontos.find(p => p.aluno == aluno.id);
-      if (p != undefined) {
-        listaA.push(aluno);
-        listaP.push(p);
-      }
-    })
+    if(this.listaAlunos)
+      this.listaAlunos.forEach((aluno) => {
+        let p = this.listaPontos.find(p => p.aluno == aluno.id);
+        if (p != undefined) {
+          listaA.push(aluno);
+          listaP.push(p);
+        }
+      })
 
     let a = listaA.find(a => a.id == listaP[0].aluno);
 
@@ -79,17 +79,17 @@ export class MarcacaoPaginaComponent implements OnInit, OnChanges{
   obterListaPonto() { 
     return this.listaPontos;
   }
-  // obterAlunosTurma() {
-  //   this.alunoService.ObterListaAlunosPorId(this.turmaAtual!.alunos).then(data => {
-  //     this.listaAlunos = data as Array<Aluno>;
-  //   });;
-  //   this.pontoService.obterClassificacaoPorIdTurma(this.turmaAtual!.id).then(data => {
-  //     this.listaPontos = data as Array<Ponto>;
-  //   });;
-  // }
   emitSelecao(aluno: Aluno) {
     this.alunoAtual = aluno;
     this.modal.mostrarModal(aluno,this.turmaAtual);
+  }
+  excluirAluno(id: any) {
+      this.turmaService.removerAlunoTurma(this.turmaAtual!.id, id);
+      // this.turmaAtual?.alunos?.splice(this.turmaAtual.alunos.findIndex(a => a == id),1)
+      // this.listaAlunos?.splice(this.listaAlunos.findIndex(a => a == id),1)
+      this.emitExclusao.emit(id);
+      // emitExcluir()
+      // this.obterListaAlunos();
   }
   emitSalvar(event:any) { 
     // this.obterAlunosTurma();

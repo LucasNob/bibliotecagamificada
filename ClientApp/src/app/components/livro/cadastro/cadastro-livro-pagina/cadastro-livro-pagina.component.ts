@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Livro } from 'src/app/models/entidades/Livro.model';
 import { LivroCadastroModel } from 'src/app/models/entidades/LivroCadastro.model';
@@ -9,23 +9,24 @@ import { LivroService } from 'src/app/services/livro.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
-  selector: 'app-cadastro-pagina',
-  templateUrl: './cadastro-pagina.component.html',
-  styleUrls: ['./cadastro-pagina.component.css']
+  selector: 'app-cadastro-livro-pagina',
+  templateUrl: './cadastro-livro-pagina.component.html',
+  styleUrls: ['./cadastro-livro-pagina.component.css']
 })
-export class CadastroPaginaComponent implements OnInit {
+export class CadastroLivroPaginaComponent implements OnInit {
 
   formCadastro!: FormGroup;
   usuario?: Usuario;
   listaLivros: Array<Livro> = [];
-  edicao: String = "";
+  edicao: string = "";
   imgCarregada?: any;
-  imagemAtual?: String ="";
+  imagemAtual?: String = "../../../assets/images/default_capa.png";
   estado: boolean = false;
 
   constructor(private livroService: LivroService,
     private usuarioService: UsuarioService,
     private formBuilder: FormBuilder,
+    private cdRef: ChangeDetectorRef
   ) { 
       this.usuarioService.usuario =  new Usuario("idinstituicao1", "Anglo Sorocaba",1,
       "https://pbs.twimg.com/profile_images/570291758630576128/x3lqZT5Z_400x400.png");
@@ -38,7 +39,6 @@ export class CadastroPaginaComponent implements OnInit {
       this.criarForm(new Livro());
   }
   obterListaLivros() {
-    let listaLivros: Array<Livro> = [];
     this.livroService.obterLivrosPorIdInstituicao(this.usuario?.id!).then(data => {
       this.listaLivros = data as Array<Livro>;
     });
@@ -68,10 +68,11 @@ export class CadastroPaginaComponent implements OnInit {
       let livro = this.obterObjetoLivro();
       this.livroService.cadastrarLivro(livro).then(() => {
         this.obterListaLivros();
-        this.limparCampos();
       }
       ).finally(() => {
         this.estado = false;
+        this.limparCampos();
+        this.cdRef.detectChanges();
       });
     }
   }
@@ -92,7 +93,7 @@ export class CadastroPaginaComponent implements OnInit {
     return livro;
   }
 
-  editarLivro(id: String) {
+  editarLivro(id: string) {
     let livro = this.listaLivros.find(m => m.id == id);
     let genero = OGenero.ObterNome(livro?.genero!);
 
@@ -106,7 +107,7 @@ export class CadastroPaginaComponent implements OnInit {
     this.edicao = id;
   }
 
-  excluirLivro(id:String) {
+  excluirLivro(id:string) {
     this.livroService.excluirLivro(id).then(data => {
       this.obterListaLivros();
     });
@@ -114,9 +115,11 @@ export class CadastroPaginaComponent implements OnInit {
 
   limparCampos() { 
     this.criarForm(new Livro());
-    this.imagemAtual = undefined;
-    this.imgCarregada = "../../../assets/images/default_capa.png";
+    const str: String = "../../../assets/images/default_capa.png";
+    this.imgCarregada = undefined;
+    this.imagemAtual = Object.assign(str);
     this.edicao = "";
+    this.cdRef.detectChanges();
   }
 
   salvarLivro() {

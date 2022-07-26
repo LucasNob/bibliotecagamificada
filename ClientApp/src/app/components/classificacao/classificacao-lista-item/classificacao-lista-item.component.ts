@@ -12,13 +12,13 @@ export class ClassificacaoListaItemComponent implements OnInit {
   @Input()
   ponto!: Ponto;
   @Input()
-  premio?:String;
+  premio?:string;
   @Input()
   colocacao!: number;
   @Input()
-  img!: String;
+  img!: string;
   @Input()
-  nome!: String;
+  nome!: string;
 
   constructor() { }
 

@@ -1,5 +1,5 @@
 export class GetModelLista<T> {
-    status: String = "";
-    mensagem: String = "";
+    status: string = "";
+    mensagem: string = "";
     objeto: Array<T> = new Array<T>();
 }

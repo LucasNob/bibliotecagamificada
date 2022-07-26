@@ -14,10 +14,10 @@ export class LivroListaItemComponent implements OnInit {
   livro?:Livro;
 
   @Output()
-  excluirEmitter = new EventEmitter<String>();
+  excluirEmitter = new EventEmitter<string>();
   
   @Output()
-  editarEmitter = new EventEmitter<String>();
+  editarEmitter = new EventEmitter<string>();
 
   ngOnInit(): void {
   }

@@ -13,10 +13,19 @@ export class AlunoService {
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     }
 
-    public ObterListaAlunosPorId(listaId:Array<String>){
+    public ObterListaAlunosPorId(listaId:Array<string>){
         return new Promise(
             resolve => {
                 this.http.post<GetModelLista<Array<Aluno>>>(this.baseUrl + 'v1/aluno/obterAlunosPorLista/',listaId).subscribe(result => {
+                    resolve(result.objeto);
+                }, error => console.error(error));
+            }
+        )
+    }
+    public ObterAlunosPorInstituicao(id:string){
+        return new Promise(
+            resolve => {
+                this.http.get<GetModelLista<Array<Aluno>>>(this.baseUrl + 'v1/aluno/obterPorInstituicao/'+id).subscribe(result => {
                     resolve(result.objeto);
                 }, error => console.error(error));
             }

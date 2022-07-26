@@ -1,3 +1,4 @@
+using BibliotecaGamificada.Comum.Classes.Enums;
 using BibliotecaGamificada.Comum.Classes.Repositorio;
 using BibliotecaGamificada.Comum.Classes.Settings;
 using BibliotecaGamificada.Livros.Comum.Entidades;
@@ -25,7 +26,8 @@ namespace BibliotecaGamificada.Alunos.Comum.Repositorios
 
         public async Task<List<Aluno>> ObterPorInstituicao(string id)
         {
-            var filtro = Builders<Aluno>.Filter.Eq(p => p.instituicao, id);
+            var filtro = Builders<Aluno>.Filter.And(Builders<Aluno>.Filter.Eq(p => p.instituicao, id),
+                Builders<Aluno>.Filter.Eq(p => p.permissao, Permissao.aluno));
             return await this.ObterListaDadosPorFiltro(filtro);
         }
 
@@ -37,7 +39,7 @@ namespace BibliotecaGamificada.Alunos.Comum.Repositorios
         public async Task Excluir(string id)
         {
             var filtro = Builders<Aluno>.Filter.Eq(p => p.Id, id);
-            await this.ExcluirDados(filtro);
+            await this.ExcluirDado(filtro);
         }
 
         public async Task<List<Aluno>> ObterPorLista(List<string> id)

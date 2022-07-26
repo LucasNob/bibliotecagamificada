@@ -1,0 +1,94 @@
+<div class="row justify-content-center" *ngIf="carregado">
+    <div class=" col-md-5 px-0">
+        <div class="row py-3">
+            <span class="titulo">Catálogo de Livros</span>
+        </div>
+        <div class="table-resposive">
+            <div class="tabela-cheia" *ngIf="obterListaLivros()!.length > 0; else erro">
+                <div class="row py-2">
+                    <div class="col-md-2 col-2 text-center tabela cabecalho"></div>
+                    <div class="col-md-8 col-8 tabela cabecalho">Título</div>
+                    <div class=" col-md-2 col-3 text-center tabela cabecalho"></div>
+                </div>
+                <div>
+                    <div *ngFor="let livro of obterListaLivros()">
+                        <div class="row py-1">
+                            <div class="col-md-2 col-2 text-center">
+                                <div *ngIf="livro!.capa != null; else fotoPadrao">
+                                    <span><img class="capa" src={{livro!.capa}} alt=""></span>
+                                </div>
+                                <ng-template #fotoPadrao>
+                                    <span><img class="capa" src="../../../assets/images/default_capa.png" alt=""></span>
+                                </ng-template>
+                            </div>
+                            <div class="col-md-8 col-7 tabela item">
+                                <span>{{livro.titulo}}</span>
+                            </div>
+                            <div class="col-md-2 col-3 text-center">
+                                <button class="btn btn-primary" (click)="check(livro.id)">
+                                    <mat-icon>arrow_forward</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-template #erro>
+                <div class="alert alert-info my-5" role="alert">
+                    Catálogo de livros vazio!
+                </div>
+            </ng-template>
+        </div>
+    </div>
+    <div class=" col-md-1">
+    </div>
+    <div class=" col-md-5 px-0">
+        <div class="row py-3">
+            <span class="titulo">Livros da turma</span>
+        </div>
+        <div class="table-resposive">
+            <div class="tabela-cheia" *ngIf="obterListaLivrosTurma()!.length > 0; else erroL">
+                <div class="row py-2">
+                    <div class="col-md-2 col-2 text-center tabela cabecalho"></div>
+                    <div class="col-md-8 col-8 tabela cabecalho">Título</div>
+                    <div class=" col-md-2 col-3 text-center tabela cabecalho"></div>
+                </div>
+                <div>
+                    <div *ngFor="let livro of obterListaLivrosTurma()">
+                        <div class="row py-1">
+                            <div class="col-md-2 col-2 text-center">
+                                <div *ngIf="livro!.capa != null; else fotoPadrao">
+                                    <span><img class="capa" src={{livro!.capa}} alt=""></span>
+                                </div>
+                                <ng-template #fotoPadrao>
+                                    <span>
+                                        <img class="capa" src="../../../assets/images/default_capa.png" alt="">
+                                    </span>
+                                </ng-template>
+                            </div>
+                            <div class="col-md-8 col-7 tabela item">
+                                <span>{{livro.titulo}}</span>
+                            </div>
+                            <div class="col-md-2 col-3 text-center">
+                                <button class="btn btn-primary" (click)="uncheck(livro.id)"
+                                    *ngIf="mostrarBotaoVoltar(livro.id)">
+                                    <mat-icon>arrow_backward</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-template #erroL>
+                <div class="alert alert-info my-5" role="alert">
+                    Catálogo de livros lidos vazio!
+                </div>
+            </ng-template>
+        </div>
+    </div>
+    <div class="row justify-content-center py-4 bloco-button">
+        <div class="col-md-4 col-12">
+            <button class="btn-primary h-100 w-100 item" (click)="salvar()">Salvar</button>
+        </div>
+    </div>
+</div>

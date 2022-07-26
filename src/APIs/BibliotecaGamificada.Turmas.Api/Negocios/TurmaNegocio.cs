@@ -26,7 +26,10 @@ namespace BibliotecaGamificada.Turmas.Negocios
             if (turmas == null || turmas.Count == 0)
                 msg = new RetornoMsg("erro", "Registros não encontrados");
             else
-                msg = new RetornoMsg("sucesso", "retorno enviado", turmas);
+            {
+                var turmasOrdenadas = turmas.OrderByDescending(t => t.anoLetivo).ToList();
+                msg = new RetornoMsg("sucesso", "retorno enviado", turmasOrdenadas);
+            }
 
             return new OkObjectResult(msg);
         }
@@ -38,7 +41,10 @@ namespace BibliotecaGamificada.Turmas.Negocios
             if (turmas == null || turmas.Count == 0)
                 msg = new RetornoMsg("erro", "Registros não encontrados");
             else
-                msg = new RetornoMsg("sucesso", "retorno enviado", turmas);
+            {
+                var turmasOrdenadas = turmas.OrderByDescending(t => t.anoLetivo).ToList();
+                msg = new RetornoMsg("sucesso", "retorno enviado", turmasOrdenadas);
+            }
 
             return new OkObjectResult(msg);
         }
@@ -50,7 +56,10 @@ namespace BibliotecaGamificada.Turmas.Negocios
             if (turmas == null || turmas.Count == 0)
                 msg = new RetornoMsg("erro", "Registros não encontrados");
             else
-                msg = new RetornoMsg("sucesso", "retorno enviado", turmas);
+            {
+                var turmasOrdenadas = turmas.OrderByDescending(t => t.anoLetivo).ToList();
+                msg = new RetornoMsg("sucesso", "retorno enviado", turmasOrdenadas);
+            }
 
             return new OkObjectResult(msg);
         }
@@ -59,12 +68,15 @@ namespace BibliotecaGamificada.Turmas.Negocios
         {
             RetornoMsg msg;
             var turmas = await turmaRepositorio.ObterporInstituicao(id);
-
+            
             if (turmas == null || turmas.Count == 0)
                 msg = new RetornoMsg("erro", "Registros não encontrados");
             else
-                msg = new RetornoMsg("sucesso", "retorno enviado", turmas);
-
+            {
+                var turmasOrdenadas = turmas.OrderByDescending(t => t.anoLetivo).ToList();
+                msg = new RetornoMsg("sucesso", "retorno enviado", turmasOrdenadas);
+            }
+                
             return new OkObjectResult(msg);
         }
 
@@ -139,7 +151,8 @@ namespace BibliotecaGamificada.Turmas.Negocios
                     //Encontrar ALunos que não possuem ponto criado
                     if (novo.alunos != null)
                     {
-                        novosalunos = (List<string>)novo.alunos.Except(alunos);
+                        var lista = novo.alunos;
+                        novosalunos = lista.Except(alunos).ToList();
                     }
                     
                     //Para Novo Aluno Criar um Ponto Vazio

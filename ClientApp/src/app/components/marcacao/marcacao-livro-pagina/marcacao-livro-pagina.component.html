@@ -1,5 +1,5 @@
 <ng-template #content>
-        <div class="row justify-content-center" *ngIf="carregado">
+        <div class="row justify-content-center" *ngIf="carregado;else erroNaoEncontrado">
             <div class=" col-md-5 col-10 px-0">
                 <div class="row py-3">
                     <span class="titulo">Catálogo de Livros</span>
@@ -93,4 +93,9 @@
                 </div>
             </div>
         </div>
+        <ng-template #erroNaoEncontrado>
+            <div class="alert alert-info my-5" role="alert">
+                Livros não encontrados!
+            </div>
+        </ng-template>
 </ng-template>

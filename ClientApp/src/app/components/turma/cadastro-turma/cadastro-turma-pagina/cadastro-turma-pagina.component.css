@@ -1,0 +1,46 @@
+.btn-primary {
+  color: #fff;
+  background-color: #E37623;
+  border: solid #E37623;
+  border-radius: 3px;
+  font-family: Usuario;
+  font-weight: bold;
+}
+.btn-primary:hover
+{
+  background-color: #c5671f;
+  border: solid #c5671f;
+  outline: none !important;
+  box-shadow: none;
+}
+
+.btn-primary:focus{
+  background-color: #c5671f;
+  border: solid #c5671f;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+
+.btn-danger {
+  color: #fff;
+  background-color: #bb2d3b;
+  border: solid #bb2d3b;
+  border-radius: 3px;
+  font-family: Usuario;
+  font-weight: bold;
+}
+.btn-danger:hover
+{
+  background-color: #bb2d3b;
+  border: solid #bb2d3b;
+  outline: none !important;
+  box-shadow: none;
+}
+
+.btn-danger:focus{
+  background-color: #bb2d3b;
+  border: solid #bb2d3b;
+  outline: none !important;
+  box-shadow: none !important;
+}

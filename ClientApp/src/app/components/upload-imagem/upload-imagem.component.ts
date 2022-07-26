@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-upload-imagem',
   templateUrl: './upload-imagem.component.html',
   styleUrls: ['./upload-imagem.component.css']
 })
-export class UploadImagemComponent implements OnInit {
+export class UploadImagemComponent implements OnInit,OnChanges {
   
   @Output() img = new EventEmitter<any>();
   
@@ -14,11 +14,13 @@ export class UploadImagemComponent implements OnInit {
   imagemNaoEncontrada: boolean = false;
 
   @Input()
-  imagemAtual?: any;
+  imagemAtual?: String;
   
   constructor() { }
 
   ngOnInit(): void {
+  }
+  ngOnChanges(): void {
   }
 
   test:string = "";
@@ -46,7 +48,7 @@ export class UploadImagemComponent implements OnInit {
 
     reader.onload = () => {
       this.img.emit(reader.result);
-      this.imagemAtual = reader.result;
+      this.imagemAtual = reader.result as String;
     };
     
     reader.onerror = function (error) {
@@ -57,9 +59,8 @@ export class UploadImagemComponent implements OnInit {
     this.tamanhoInvalido  = false;
     this.formatoInvalido = false;
     this.imagemNaoEncontrada = false;
-
     if (this.imagemAtual == undefined || this.imagemAtual == "")
-      return "../../../assets/images/default_capa.png"
+      return "../../../assets/images/default_capa.png";
     return this.imagemAtual;
   }
   erroCarregar() { 

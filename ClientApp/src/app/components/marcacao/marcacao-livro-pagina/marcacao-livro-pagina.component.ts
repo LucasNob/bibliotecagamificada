@@ -37,8 +37,8 @@ export class MarcacaoLivroPaginaComponent implements OnInit {
   ponto?: Ponto;
   listaLivros?: Array<Livro> = [];
   listaLivrosLidos?: Array<Livro> = [];
-  listaLivrosMarcados?: Array<String> = [];
-  listaLivrosMarcadosOriginal?: Array<String> = [];
+  listaLivrosMarcados?: Array<string> = [];
+  listaLivrosMarcadosOriginal?: Array<string> = [];
 
   carregado = false;
 
@@ -54,13 +54,13 @@ export class MarcacaoLivroPaginaComponent implements OnInit {
       return [];
     return this.listaLivrosLidos;
   }
-  check(id: String) {
+  check(id: string) {
     let livro = this.listaLivros?.find(l => l.id == id);
     this.listaLivros?.splice(this.listaLivros.findIndex(l => l.id == id),1)
     this.listaLivrosLidos?.push(livro!);
     this.listaLivrosMarcados?.push(livro!.id);
   } 
-  uncheck(id: String) {
+  uncheck(id: string) {
     let livro = this.listaLivrosLidos?.find(l => l.id == id);
     this.listaLivros?.push(livro!);
     this.listaLivrosLidos?.splice(this.listaLivrosLidos.findIndex(l => l.id == id),1)
@@ -107,7 +107,7 @@ export class MarcacaoLivroPaginaComponent implements OnInit {
     this.modalService.open(this.contentModal, opcoes)
   }
 
-  mostrarBotaoVoltar(id: String) {
+  mostrarBotaoVoltar(id: string) {
     if (this.listaLivrosMarcadosOriginal?.includes(id))
       return false;
       return true;
@@ -117,7 +117,7 @@ export class MarcacaoLivroPaginaComponent implements OnInit {
     this.carregado = false;
     this.listaLivros = new Array<Livro>();
     this.listaLivrosLidos = new Array<Livro>();
-    this.listaLivrosMarcados = new Array<String>();
-    this.listaLivrosMarcadosOriginal = new Array<String>();
+    this.listaLivrosMarcados = new Array<string>();
+    this.listaLivrosMarcadosOriginal = new Array<string>();
   }
 }  

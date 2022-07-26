@@ -13,7 +13,7 @@ export class PontoService {
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     }
 
-    public obterClassificacaoPorIdTurma(id: String){
+    public obterClassificacaoPorIdTurma(id: string){
         let listaPontos: Array<Ponto> = [];
 
         return new Promise(
@@ -36,7 +36,7 @@ export class PontoService {
             }
         )
     }
-    public obterPontoAluno(idTurma:String,idAluno:String) {
+    public obterPontoAluno(idTurma:string,idAluno:string) {
         return new Promise(
             resolve => {
                 this.http.get<any>(this.baseUrl + 'v1/classificacao/obterPontoAluno/'+idTurma+'/'+idAluno).subscribe(result => {
