@@ -80,6 +80,12 @@ namespace BibliotecaGamificada.Turmas.Comum.Repositorios
             var update = Builders<Turma>.Update.Pull(p => p.livros, id);
             await this.AtualizarMultiplosDados(new BsonDocument(),update);
         }
+
+        public async Task RemoverAluno(string id)
+        {
+            var update = Builders<Turma>.Update.Pull(p => p.alunos, id);
+            await this.AtualizarMultiplosDados(new BsonDocument(),update);
+        }
          public async Task RemoverLivroPorTurma(string turma, string livro)
         {
             var update = Builders<Turma>.Update.Pull(p => p.livros, livro);

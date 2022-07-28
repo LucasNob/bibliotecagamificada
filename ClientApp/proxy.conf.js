@@ -9,6 +9,7 @@ const PROXY_CONFIG = [
   { context: ["/v1/instituicao",], target: target, secure: false },
   { context: ["/v1/livro",], target: target, secure: false },
   { context: ["/v1/aluno",],target: target,secure: false},
+  { context: ["/v1/usuario",], target: target, secure: false },
   { context: ["/v1/pontuacao",],target: target,secure: false},
   { context: ["/v1/professor",],target: target,secure: false},
 ]

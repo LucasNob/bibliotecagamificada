@@ -210,7 +210,7 @@ namespace BibliotecaGamificada.Turmas.Negocios
             try
             {
                 await turmaRepositorio.RemoverAlunoPorTurma(turma, aluno);
-                await pontoRepositorio.ExcluirporAluno(turma, aluno);
+                await pontoRepositorio.ExcluirporAlunoTurma(turma, aluno);
             }
             catch (Exception e)
             {

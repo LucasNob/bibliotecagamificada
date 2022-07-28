@@ -13,6 +13,7 @@ using BibliotecaGamificada.Alunos.Comum.Repositorios;
 using BibliotecaGamificada.Pontuacao.Negocios;
 using BibliotecaGamificada.Professores.Negocios;
 using BibliotecaGamificada.Professores.Comum.Repositorios;
+using BibliotecaGamificada.Usuario.Negocios;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,9 +24,13 @@ builder.Services.AddControllersWithViews();
 //pontuacao
 builder.Services.AddTransient<PontuacaoNegocio>();
 
+
 //classificacao
 builder.Services.AddTransient<ClassificacaoNegocio>();
 builder.Services.AddTransient<PontoRepositorio>();
+
+//usuario
+builder.Services.AddTransient<UsuarioNegocio>();
 
 //turma
 builder.Services.AddTransient<TurmaNegocio>();
@@ -84,6 +89,7 @@ app.MapControllerRoute(name: "instituicao", pattern: "/v1/instituicao/{action=In
 app.MapControllerRoute(name: "aluno", pattern: "/v1/aluno/{action=Index}/{id?}");
 app.MapControllerRoute(name: "pontuacao", pattern: "/v1/pontuacao/{action=Index}/{id?}");
 app.MapControllerRoute(name: "aluno", pattern: "/v1/professor/{action=Index}/{id?}");
+app.MapControllerRoute(name: "usuario", pattern: "/v1/usuario/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html"); ;
 
