@@ -39,9 +39,8 @@ export class AuthService {
     usuarioLogado(): boolean {
         const user = JSON.parse(localStorage.getItem('user')!); //auth
         const usuario = JSON.parse(localStorage.getItem('usuario')!); //dados
-        console.log(user)
-        console.log(usuario)
-        return user !== null && user.emailVerified !== false && usuario !== null ? true : false;
+        // return user !== null && user.emailVerified !== false && usuario !== null ? true : false;//TODO: uncomment
+        return user !== null && usuario !== null ? true : false;
     }
 
     enviarEmailVerificacao(navegarVerificacao = true) {
