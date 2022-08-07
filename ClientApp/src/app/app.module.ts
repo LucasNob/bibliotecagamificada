@@ -5,7 +5,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
+import { AlunoListaComponent } from './components/aluno/cadastro-aluno/aluno-lista/aluno-lista.component';
+import { CadastroAlunoPaginaComponent } from './components/aluno/cadastro-aluno/cadastro-aluno-pagina/cadastro-aluno-pagina.component';
 import { AppBarComponent } from './components/app-bar/app-bar.component';
 import { ClassificacaoListaItemComponent } from './components/classificacao/classificacao-lista-item/classificacao-lista-item.component';
 import { ClassificacaoListaComponent } from './components/classificacao/classificacao-lista/classificacao-lista.component';
@@ -15,6 +18,8 @@ import { CadastroLivroPaginaComponent } from './components/livro/cadastro/cadast
 import { LivroListaItemComponent } from './components/livro/cadastro/livro-lista-item/livro-lista-item.component';
 import { LivroListaComponent } from './components/livro/cadastro/livro-lista/livro-lista.component';
 import { LoadingOverlayComponent } from './components/loading-overlay/loading-overlay.component';
+import { LoginPaginaComponent } from './components/login/login-pagina/login-pagina.component';
+import { VerificarEmailPaginaComponent } from './components/login/verificar-email-pagina/verificar-email-pagina.component';
 import { MarcacaoAlunoListaComponent } from './components/marcacao/marcacao-aluno-lista/marcacao-aluno-lista.component';
 import { MarcacaoLivroPaginaComponent } from './components/marcacao/marcacao-livro-pagina/marcacao-livro-pagina.component';
 import { MarcacaoPaginaComponent } from './components/marcacao/marcacao-pagina/marcacao-pagina.component';
@@ -24,26 +29,36 @@ import { CadastroTurmaLivroPaginaComponent } from './components/turma/cadastro-t
 import { CadastroTurmaPaginaComponent } from './components/turma/cadastro-turma/cadastro-turma-pagina/cadastro-turma-pagina.component';
 import { TurmaListaComponent } from './components/turma/cadastro-turma/turma-lista/turma-lista.component';
 import { SelecaoTurmaPaginaComponent } from './components/turma/selecao-turma/selecao-turma-pagina.component';
+import { TurmaLivrosComponent } from './components/turma/turma-livros/turma-livros.component';
 import { UploadImagemComponent } from './components/upload-imagem/upload-imagem.component';
 import { AlunoService } from './services/aluno.service';
+import { AuthService } from './services/auth.service';
 import { LivroService } from './services/livro.service';
 import { PontoService } from './services/pontos.service';
 import { TurmaService } from './services/turma.service';
 import { UsuarioService } from './services/usuario.service';
+import { AuthGuard } from './shared/guard/auth.guard';
 import { MaterialModule } from './shared/modules/material/material.module';
-import { TurmaLivrosComponent } from './components/turma/turma-livros/turma-livros.component';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
-//TODO: App routing module 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'listaclassificacao/:id', component: ClassificacaoPaginaComponent },
-  { path: 'selecaoturma', component: SelecaoTurmaPaginaComponent },
-  { path: 'cadastroturma', component: CadastroTurmaPaginaComponent },
-  { path: 'cadastroturmaaluno/:id', component: CadastroTurmaAlunoPaginaComponent },
-  { path: 'cadastroturmalivro/:id', component: CadastroTurmaLivroPaginaComponent },
-  { path: 'cadastrolivro', component: CadastroLivroPaginaComponent },
-  { path: 'marcacao/:id', component: MarcacaoPaginaComponent },
-  { path: 'marcacaoLivro', component: MarcacaoLivroPaginaComponent},
+  { path: '', component: HomeComponent, canActivate: [AuthGuard]},
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+  { path: 'listaclassificacao/:id', component: ClassificacaoPaginaComponent, canActivate: [AuthGuard] },
+  { path: 'selecaoturma', component: SelecaoTurmaPaginaComponent, canActivate: [AuthGuard] },
+  { path: 'cadastroturma', component: CadastroTurmaPaginaComponent, canActivate: [AuthGuard] },
+  { path: 'cadastroturmaaluno/:id', component: CadastroTurmaAlunoPaginaComponent, canActivate: [AuthGuard] },
+  { path: 'cadastroturmalivro/:id', component: CadastroTurmaLivroPaginaComponent, canActivate: [AuthGuard] },
+  { path: 'cadastrolivro', component: CadastroLivroPaginaComponent, canActivate: [AuthGuard] },
+  { path: 'cadastroaluno', component: CadastroAlunoPaginaComponent, canActivate: [AuthGuard] },
+  { path: 'marcacao/:id', component: MarcacaoPaginaComponent, canActivate: [AuthGuard] },
+  { path: 'marcacaoLivro', component: MarcacaoLivroPaginaComponent, canActivate: [AuthGuard]},
+  { path: 'login', component: LoginPaginaComponent},
+  { path: 'verificar-email', component: VerificarEmailPaginaComponent},
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: '/not-found', pathMatch: 'full' }
 ];
@@ -70,13 +85,22 @@ const appRoutes: Routes = [
     LoadingOverlayComponent,
     CadastroTurmaPaginaComponent,
     CadastroLivroPaginaComponent,
+    AlunoListaComponent,
+    CadastroAlunoPaginaComponent,
     TurmaListaComponent,
     CadastroTurmaLivroPaginaComponent,
     CadastroTurmaAlunoPaginaComponent,
     TurmaLivrosComponent,
+    LoginPaginaComponent,
+    VerificarEmailPaginaComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
     HttpClientModule,
     FormsModule,
     CommonModule,
@@ -85,7 +109,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     MaterialModule
   ],
-  providers: [UsuarioService, TurmaService, PontoService, LivroService,AlunoService],
+  providers: [UsuarioService, TurmaService, PontoService, LivroService, AlunoService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

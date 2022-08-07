@@ -5,6 +5,7 @@ import { LivroCadastroModel } from 'src/app/models/entidades/LivroCadastro.model
 import { Usuario } from 'src/app/models/entidades/Usuario.model';
 import { Genero } from 'src/app/models/livro/Genero.model';
 import { OGenero } from 'src/app/models/livro/OGenero.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { LivroService } from 'src/app/services/livro.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
@@ -24,14 +25,14 @@ export class CadastroLivroPaginaComponent implements OnInit {
   estado: boolean = false;
 
   constructor(private livroService: LivroService,
-    private usuarioService: UsuarioService,
+    private authService: AuthService,
     private formBuilder: FormBuilder,
     private cdRef: ChangeDetectorRef
   ) { 
-      this.usuarioService.usuario =  new Usuario("idinstituicao1", "Anglo Sorocaba",1,
-      "https://pbs.twimg.com/profile_images/570291758630576128/x3lqZT5Z_400x400.png");
+      // this.authService.usuario =  new Usuario("idinstituicao1", "Anglo Sorocaba",1,
+      // "https://pbs.twimg.com/profile_images/570291758630576128/x3lqZT5Z_400x400.png");
     
-      this.usuario = usuarioService.obterUsuario(); 
+      this.usuario = authService.obterDadosUsuario(); 
     }
     
     ngOnInit(): void { 
@@ -112,7 +113,7 @@ export class CadastroLivroPaginaComponent implements OnInit {
       this.obterListaLivros();
     });
   }
-
+ 
   limparCampos() { 
     this.criarForm(new Livro());
     const str: String = "../../../assets/images/default_capa.png";

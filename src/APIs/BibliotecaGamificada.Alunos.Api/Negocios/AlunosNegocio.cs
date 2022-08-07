@@ -81,7 +81,7 @@ namespace BibliotecaGamificada.Alunos.Negocios
                     foto = await bs.UploadImagem(aluno.foto!, "imagens");
                 }
 
-                var a = new Aluno(aluno.dataNascimento, aluno.instituicao, aluno.senha, aluno.nome, aluno.email, foto, aluno.permissao);
+                var a = new Aluno(aluno.dataNascimento, aluno.instituicao, aluno.nome, aluno.email, foto, aluno.permissao);
 
                 await alunoRepositorio.Cadastrar(a);
             }
@@ -125,7 +125,7 @@ namespace BibliotecaGamificada.Alunos.Negocios
                     foto = aluno.foto!;
                 }
 
-                var a = new Aluno(aluno.dataNascimento, aluno.instituicao, aluno.senha, aluno.nome, aluno.email, foto, aluno.permissao);
+                var a = new Aluno(aluno.dataNascimento, aluno.instituicao, aluno.nome, aluno.email, foto, aluno.permissao);
                 a.Id = aluno.id;
                 await alunoRepositorio.Editar(a);
             }

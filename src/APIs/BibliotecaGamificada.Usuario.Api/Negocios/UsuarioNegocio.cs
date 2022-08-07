@@ -1,31 +1,27 @@
 using Microsoft.AspNetCore.Mvc;
+using BibliotecaGamificada.Usuario.Comum.Repositorios;
 using BibliotecaGamificada.Comum.Classes.Models;
 
 namespace BibliotecaGamificada.Usuario.Negocios
 {
     public class UsuarioNegocio
     {
-
-        public UsuarioNegocio()
+        private UsuarioRepositorio usuarioRepositorio;
+        public UsuarioNegocio(UsuarioRepositorio usuarioRepositorio)
         {
-        
-        }
-        
-        public async Task<IActionResult> Login()
-        {
-            return new OkObjectResult(new RetornoMsg("sucesso", "Código Executado"));
+            this.usuarioRepositorio = usuarioRepositorio;
         }
 
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> obterPorEmail(string email)
         {
-            return new OkObjectResult(new RetornoMsg("sucesso", "Código Executado"));
-        }
+            RetornoMsg msg;
+            var usuarios = await usuarioRepositorio.ObterPorEmail(email);
+            if (usuarios == null || usuarios.Count ==0)
+                msg = new RetornoMsg("erro", "Registros não encontrados");
+            else
+                msg = new RetornoMsg("sucesso", "retorno enviado", usuarios[0]);
 
-        public async Task<IActionResult> AlterarSenha()
-        {
-            return new OkObjectResult(new RetornoMsg("sucesso", "Código Executado"));
+            return new OkObjectResult(msg);
         }
-
-      
     }
 }

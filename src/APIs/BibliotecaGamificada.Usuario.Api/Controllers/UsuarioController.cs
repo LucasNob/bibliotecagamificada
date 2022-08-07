@@ -14,4 +14,9 @@ public class UsuarioController : ControllerBase
         this.usuarioNegocio = usuarioNegocio;
         _logger = logger;
     }
+    [HttpGet, Route("obterUsuario/{email}")]
+    public async Task<IActionResult> ObterInstituicaoPorId([FromRoute] string email)
+    {
+        return await usuarioNegocio.obterPorEmail(email);
+    }
 }

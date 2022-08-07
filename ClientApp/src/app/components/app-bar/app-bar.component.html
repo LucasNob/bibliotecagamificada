@@ -1,19 +1,22 @@
-<div class="row align-items-center background">
+<div class="row align-items-center background" *ngIf="usuarioLogado()">
     <div class="col-md-3 col-12">
         <a href="/">
-            <img class="img-fluid mx-auto d-block" src="../../../../assets/images/logo_name.png" alt="GameTeca" width="200">
+            <img class="img-fluid mx-auto d-block" src="../../../../assets/images/logo_name.png" alt="GameTeca"
+                width="200">
         </a>
     </div>
     <div class="col-md-5"></div>
     <div class="col-md-2 col-2 d-flex justify-content-end usuario">
-        <div *ngIf="usuario!.foto; else fotoPadrao"> 
+        <div *ngIf="usuario!.foto; else fotoPadrao">
             <img class="img-fluid rounded-circle foto-perfil" src="{{usuario.foto}}" alt="">
         </div>
         <ng-template #fotoPadrao>
             <img class="img-fluid rounded-circle foto-perfil" src="../../../../assets/images/default_avatar.png" alt="">
         </ng-template>
     </div>
-    <div class="col-md-2 col-9 align-self-right usuario"> {{usuario.nome}}</div>
+    <div class="col-md-2 col-9 align-self-right usuario"> {{usuario.nome}}
+        <mat-icon class="align-self-center" role="button" (click)="logout()">logout</mat-icon>
+    </div>
 
     <nav class="navbar navbar-expand-lg bg-light" *ngIf="usuario!.permissao!=3">
         <div *ngFor="let item of links">
