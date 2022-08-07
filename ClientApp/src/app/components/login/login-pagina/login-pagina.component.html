@@ -1,16 +1,18 @@
-<div class="container alinhamento">
+<div class="row py-5"></div>
+<div class="container justify-content-center alinhamento">
     <form [formGroup]="form">
-        <div class="col-12">
-            <div class="row titulo m-4">
-                <!-- <span>Login</span> -->
-                <img src="../../../../assets/images/logo_name.png" class="imagem" alt="">
+        <div class="col-md-12 col-12">
+            <div class="row titulo my-2">
+                <div class="col-md-12 col-12 py-3">
+                <img class="img-fluid mx-auto d-block"src="../../../../assets/images/logo_name.png" alt="" width="300">
+                </div>
             </div>
             <div class="row my-4">
                 <div class="alert alert-info" role="alert" *ngIf="erro">
                     <span>{{erro}}</span>
                 </div>
                 <div class="form-group">
-                    <label for="email">E-mail</label>
+                    <label for="email" class="formulario">E-mail</label>
                     <input type="email" [ngClass]="validarEmail() ?'form-control is-invalid':'form-control'" id="email"
                         name="email" formControlName="email" placeholder="E-mail" aria-describedby="emailInvalido"
                         required>
@@ -19,7 +21,7 @@
             </div>
             <div class="row my-4">
                 <div class="form-group">
-                    <label for="Senha">Senha</label>
+                    <label for="Senha" class="formulario">Senha</label>
                     <input type="password" [ngClass]="validarSenha() ?'form-control is-invalid':'form-control'"
                         id="senha" name="senha" formControlName="senha" placeholder="Senha"
                         aria-describedby="autorInvalido" required>
@@ -27,30 +29,35 @@
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div class="col-md-12 col-12">
+                <div class="col-md-8 col-12">
                     <input type="" class="btn btn-primary h-100 w-100 item" value="Entrar"
                         [disabled]="!estadoBotao()" (click)="login()">
                 </div>
             </div>
             <div class="row my-5">
-                <div class="col-md-6 col-12 cadastrar">
+                <div class="col-md-6 col-6 text-start opcoes">
                     <span role="button" (click)="cadastrar()">Cadastre-se</span>
                 </div>
-                <div class="col-md-6 col-12 redefinirSenha">
+                <div class="col-md-6 col-6 text-end opcoes">
                     <span role="button" (click)="abrirRedefinirSenha()">Redefinir Senha</span>
                 </div>
             </div>
         </div>
         <ng-template #content>
-            <!-- <span class="informe">Redefinir Senha</span> -->
-            <span class="informe">Informe seu E-mail cadastrado</span>
-            <div class="form-group p-5">
-                <label for="emailRedenifinir">E-mail</label>
+            <div class="col-md-12 col-12 px-4 py-2">
+                <span class="opcoes">Informe seu E-mail cadastrado</span>
+            </div>
+            <div class="form-group px-4 py-1">
+                <label for="emailRedenifinir" class="formulario">E-mail</label>
                 <input type="email" [ngClass]="validarEmailRedenifir() ?'form-control is-invalid':'form-control'" id="emailRedenifinir"
                     name="emailRedenifinir" formControlName="emailRedenifinir" placeholder="E-mail" aria-describedby="emailRedenifinirInvalido">
                 <div id="emailRedefinirInvalido" class="invalid-feedback">E-mail Inválido.</div>
             </div>
-            <button class="btn btn-primary m-5" [disabled]="validarEmailRedenifir()" (click)="redefinirSenha()">Redefinir Senha</button>
+            <div class="row justify-content-center">
+            <div class="col-md-8 col-10 py-2">
+            <button class="btn btn-primary h-100 w-100 item" [disabled]="validarEmailRedenifir()" (click)="redefinirSenha()">Redefinir Senha</button>
+            </div>
+        </div>
         </ng-template>
     </form>
 </div>

@@ -1,33 +1,44 @@
-.background{
-    background-color: #1F9F7D;
-    color: #E37623;
-}
-.backgroundlista{
-    background-color: #A4CDBE;
-}
 .alinhamento{
-    /* text-align: center; */
-    /* align-self: center; */
-    /* min-width: 50%; */
-    max-width: 50%;
+    border-radius: 4px;
     background-color: white;
 }
-.imagem{
-    /* max-width: 300px; */
-    text-align: center;
+
+@media only screen and (min-width: 600px) {
+    .alinhamento{
+        max-width: 40%;
+    }
 }
-.redefinirSenha{
-    text-align: right;
-    padding: 2%;
-}
-.cadastrar{
-    padding: 2%;
-    /* text-align: right; */
-}
-.informe{
-    text-align: center;
-    font-size: xx-large;
-    
+
+.btn-primary {
+    color: #fff;
+    background-color: #E37623;
+    border: solid #E37623;
+    border-radius: 3px;
     font-family: Usuario;
     font-weight: bold;
+}
+.btn-primary:hover
+{
+    background-color: #c5671f;
+    border: solid #c5671f;
+    outline: none !important;
+    box-shadow: none;
+}
+  
+.btn-primary:focus{
+    background-color: #c5671f;
+    border: solid #c5671f;
+    outline: none !important;
+    box-shadow: none !important;
+}
+.formulario{
+    font-family: Usuario;
+    font-weight: bold;
+    color: #1C9474;
+}
+.opcoes{
+    font-family: Usuario;
+    font-weight: bold;
+    font-size: large;
+    color: #1C9474;
 }
