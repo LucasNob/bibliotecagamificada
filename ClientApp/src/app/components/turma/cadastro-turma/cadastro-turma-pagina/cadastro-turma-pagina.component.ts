@@ -33,7 +33,7 @@ export class CadastroTurmaPaginaComponent implements OnInit {
     private professorService: ProfessorService,
   )
   { 
-      let usuario = authService.obterDadosUsuario();
+    let usuario = authService.obterDadosUsuario();
     if (usuario?.permissao == 1) {
       this.usuario = usuario as Usuario;
       this.professorService.ObterListaProfessoresPorIdInstitucicao(this.usuario.id).then(res => { 
@@ -107,6 +107,7 @@ export class CadastroTurmaPaginaComponent implements OnInit {
       this.usuario?.permissao == 1 ? this.usuario.id : this.usuario?.instituicao!,
       this.usuario?.permissao == 1 ? this.formCadastro.get('professor')!.value : this.usuario?.id!,
     );
+    console.log(turma)
     if (this.edicao != "")
       turma.id = this.edicao;
     

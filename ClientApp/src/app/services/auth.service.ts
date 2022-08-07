@@ -17,6 +17,7 @@ export class AuthService {
                 JSON.parse(localStorage.getItem('user')!);
             } else {
                 localStorage.setItem('user', 'null');
+                localStorage.setItem('usuario', 'null');
                 JSON.parse(localStorage.getItem('user')!);
             }
         });
@@ -117,6 +118,7 @@ export class AuthService {
     }
     obterDadosUsuario() {
         let data = localStorage.getItem('usuario')
+        console.log(data)
         if(data)
             return JSON.parse(data);
         return null;
@@ -125,6 +127,7 @@ export class AuthService {
     SignOut() {
         return this.afAuth.signOut().then(() => {
             localStorage.removeItem('user');
+            localStorage.removeItem('usuario');
             this.router.navigate(['login']);
         });
     }
