@@ -67,20 +67,19 @@ export class AuthService {
             window.alert(error.message);
         });
     }
-    // criarUsuario(email: string, password: string) {
-
-    //     return this.afAuth.currentUser.then((u:any) => {
-    //         let original = u;
-    //         return this.afAuth.createUserWithEmailAndPassword(email, password).then((result) => {
-    //             this.SetUserData(result.user);
-    //             return this.enviarEmailVerificacao(false).then(() => {
-    //                 this.afAuth.updateCurrentUser(original);
-    //             });
-    //         }).catch((error) => {
-    //             window.alert(error.message);
-    //         });
-    //     });
-    // } 
+    criarUsuario(email: string, password: string) {
+        return this.afAuth.currentUser.then((u:any) => {
+            let original = u;
+            return this.afAuth.createUserWithEmailAndPassword(email, password).then((result) => {
+                this.SetUserData(result.user);
+                return this.enviarEmailVerificacao(false).then(() => {
+                    this.afAuth.updateCurrentUser(original);
+                });
+            }).catch((error) => {
+                window.alert(error.message);
+            });
+        });
+    } 
 
     signIn(email: string, password: string) {
         return this.afAuth.signInWithEmailAndPassword(email, password).then((result) => {
@@ -95,9 +94,6 @@ export class AuthService {
             // window.alert(error.message);
             window.alert('Usuário não encontrado');
         });
-    }
-    excluirLogin() {
-        // return this.afAuth.delete
     }
 
     SetUserData(user: any) {

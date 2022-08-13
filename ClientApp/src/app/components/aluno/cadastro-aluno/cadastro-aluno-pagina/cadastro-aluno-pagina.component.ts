@@ -79,7 +79,7 @@ export class CadastroAlunoPaginaComponent implements OnInit {
       {
         this.estado = true;
         let aluno = this.obterObjeto();
-        this.authService.signUp(aluno.email, '12341234', false).then(res => {
+        this.authService.criarUsuario(aluno.email, '12341234').then(res => {
           this.authService.redefinirSenha(aluno.email);
           this.alunoService.cadastrarAluno(aluno).then(() => {
             this.obterLista();
@@ -116,10 +116,14 @@ export class CadastroAlunoPaginaComponent implements OnInit {
     this.imgCarregada = aluno?.foto!;
   }
 
-  excluirAluno(id:string) {
-    this.alunoService.excluirAluno(id).then(() => {
-      this.obterLista();
-    });
+  excluirAluno(id: string) {
+    const aluno = this.listaAlunos.find(a => a.id == id);
+    if (aluno) {
+      // this.authService.excluirLogin(aluno.email)
+      this.alunoService.excluirAluno(id).then(() => {
+        this.obterLista();
+      });
+    }
   }
 
   limparCampos() { 
@@ -132,21 +136,20 @@ export class CadastroAlunoPaginaComponent implements OnInit {
   }
 
   salvar() {
-    //TODO rever ao mudar o email o cadastro deve ser excluido e refeito
     this.formCadastro.get('nome')!.setValue(this.formCadastro.get('nome')?.value.trim());
     this.formCadastro.get('email')!.setValue(this.formCadastro.get('email')?.value.trim());
     if (this.formCadastro.valid && this.estado == false)
     {
       this.estado = true;
       let aluno = this.obterObjeto();
-      this.alunoService.editarAluno(aluno).then(() => {
-        this.obterLista()
-        this.limparCampos()
-        }
-      ).finally(() => { 
-        this.estado = false;
-      });
-      this.edicao = "";
+        this.alunoService.editarAluno(aluno).then(() => {
+          this.obterLista()
+          this.limparCampos()
+          }
+        ).finally(() => { 
+          this.estado = false;
+        });
+        this.edicao = "";
     }
   }
   modoEdicao() {

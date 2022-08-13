@@ -15,6 +15,7 @@ using BibliotecaGamificada.Professores.Negocios;
 using BibliotecaGamificada.Professores.Comum.Repositorios;
 using BibliotecaGamificada.Usuario.Negocios;
 using BibliotecaGamificada.Usuario.Comum.Repositorios;
+using BibliotecaGamificada.Comum.Classes.Firebase;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +57,7 @@ builder.Services.AddTransient<UsuarioRepositorio>();
 //configurar mongo
 // builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
 
+builder.Services.AddSingleton<FireBaseComum>();
 builder.Services.AddSingleton<IMongoClient>((s) =>
 {
     var stringConexaoCosmoDB = Environment.GetEnvironmentVariable("dbConnectionString");

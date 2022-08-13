@@ -5,6 +5,7 @@ using BibliotecaGamificada.Alunos.Api.Models;
 using BibliotecaGamificada.Livros.Comum.Entidades;
 using BibliotecaGamificada.Pontos.Comum.Repositorios;
 using BibliotecaGamificada.Turmas.Comum.Repositorios;
+using BibliotecaGamificada.Comum.Classes.Firebase;
 
 namespace BibliotecaGamificada.Alunos.Negocios
 {
@@ -13,9 +14,11 @@ namespace BibliotecaGamificada.Alunos.Negocios
         private readonly AlunoRepositorio alunoRepositorio;
         private readonly PontoRepositorio pontoRepositorio;
         private readonly TurmaRepositorio turmaRepositorio;
+        private readonly FireBaseComum firebase;
 
-        public AlunosNegocio(AlunoRepositorio alunoRepositorio, PontoRepositorio pontoRepositorio, TurmaRepositorio turmaRepositorio)
+        public AlunosNegocio(AlunoRepositorio alunoRepositorio, PontoRepositorio pontoRepositorio, TurmaRepositorio turmaRepositorio, FireBaseComum firebase)
         {
+            this.firebase = firebase;
             this.alunoRepositorio = alunoRepositorio;
             this.pontoRepositorio = pontoRepositorio;
             this.turmaRepositorio = turmaRepositorio;
@@ -61,7 +64,7 @@ namespace BibliotecaGamificada.Alunos.Negocios
         {
             RetornoMsg msg;
             var alunos = await alunoRepositorio.ObterPorLista(id);
-            if (alunos == null || alunos.Count == 0 )
+            if (alunos == null || alunos.Count == 0)
                 msg = new RetornoMsg("erro", "Registros não encontrados");
             else
                 msg = new RetornoMsg("sucesso", "retorno enviado", alunos);
@@ -96,6 +99,9 @@ namespace BibliotecaGamificada.Alunos.Negocios
         {
             try
             {
+                var aluno = await alunoRepositorio.ObterPorId(id);
+                if (aluno.email != null)
+                    await firebase.RemoverUsuario(aluno.email);
                 await alunoRepositorio.Excluir(id);
                 await pontoRepositorio.ExcluirporAluno(id);
                 await turmaRepositorio.RemoverAluno(id);
@@ -111,17 +117,22 @@ namespace BibliotecaGamificada.Alunos.Negocios
         public async Task<IActionResult> EditarAluno(AlunoCadastroModel aluno)
         {
             string foto = "../../../assets/images/default_avatar.png";
+            var bs = new AzureBlobStorage();
             try
             {
                 var alunoAnterior = await alunoRepositorio.ObterPorId(aluno.id!);
-                
-                var bs = new AzureBlobStorage();
+
+                if (alunoAnterior.email != aluno.email)
+                {
+                    await firebase.AtulizarEmailUsuario(alunoAnterior.email, aluno.email);
+                }
 
                 if (aluno.foto != foto && aluno.foto != alunoAnterior.foto)
                 {
                     foto = await bs.UploadImagem(aluno.foto!, "imagens");
                 }
-                else {
+                else
+                {
                     foto = aluno.foto!;
                 }
 
@@ -136,6 +147,6 @@ namespace BibliotecaGamificada.Alunos.Negocios
             return new OkObjectResult(new RetornoMsg("sucesso", "Aluno editado"));
         }
 
-      
+
     }
 }
