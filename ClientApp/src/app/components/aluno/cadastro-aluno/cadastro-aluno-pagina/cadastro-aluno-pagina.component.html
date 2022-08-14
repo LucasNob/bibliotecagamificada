@@ -24,6 +24,15 @@
             </div>
             <div class="row my-4">
                 <div class="form-group">
+                    <label for="">Data nascimento</label>
+                    <input type="date" [ngClass]="dataValida() ?'form-control is-invalid':'form-control'"
+                        id="dataNascimento" name="email" formControlName="dataNascimento"
+                        aria-describedby="dataNascimentoInvalido"  value="{{obterDataAtual()}}" required>
+                    <div id="dataNascimentoInvalido" class="invalid-feedback">Data Inválida.</div>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
                     <div class="col imagem">
                         <app-upload-imagem (img)="imgCarregada = $event" [imagemAtual]="imagemAtual"></app-upload-imagem>
                     </div>

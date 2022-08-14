@@ -3,6 +3,7 @@
 using System.Linq.Expressions;
 using System.Threading.Channels;
 using BibliotecaGamificada.Comum.Classes.Entidades;
+using BibliotecaGamificada.Comum.Classes.Enums;
 using BibliotecaGamificada.Comum.Classes.Settings;
 using FirebaseAdmin;
 using FirebaseAdmin.Auth;
@@ -22,16 +23,14 @@ namespace BibliotecaGamificada.Comum.Classes.Firebase
             this.configuracao = configuracao;
             this.log = log;
 
-            // var credenciais = Environment.GetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS");
             var conf = configuracao.GetSection("Firebase").Value;
             if (conf == null)
-                throw new Exception("Variavel de ambiente para credenciais do google nao encontrada");
+                throw new Exception("Variavel para credenciais do google nao encontrada");
             var credenciais = GoogleCredential.FromJson(conf);
             
             this.firebaseInstance = this.ObterApp(credenciais);
         }
         private FirebaseAuth ObterApp(GoogleCredential credenciais, string nome = "default"){
-            // var credential = GoogleCredential.FromJson(Environment.GetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS"));
             var app = FirebaseApp.Create(new AppOptions(){Credential = credenciais},nome);
             var firebaseInstance = FirebaseAuth.GetAuth(app);
             return firebaseInstance;
@@ -59,9 +58,22 @@ namespace BibliotecaGamificada.Comum.Classes.Firebase
                 log.LogError("Erro ao mudar email usuario: " + e.Message);
             }
         }
-        public async Task<UserRecord> ObterUsuario(string email){
+        public async Task<UserRecord> ObterUsuario(string email)
+        {
             return await firebaseInstance.GetUserByEmailAsync(email);
         }
-
+        public async Task DefinirPermissaoUsuario(string email,Permissao permissao){
+            try{
+                var usuario = await ObterUsuario(email);
+                var data = new Dictionary<string, object>()
+                {
+                    { "permisaso", permissao },
+                };
+                await firebaseInstance.SetCustomUserClaimsAsync(usuario.Uid, data);
+            }
+            catch(Exception e){
+                log.LogError("Erro ao atualizar usuario: " + e.Message);
+            }
+        }
     }
 }

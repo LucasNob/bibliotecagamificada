@@ -1,3 +1,4 @@
+import { ThisReceiver } from '@angular/compiler';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -7,7 +8,6 @@ import { AlunoCadastroModel } from 'src/app/models/entidades/AlunoCadastro.model
 import { Usuario } from 'src/app/models/entidades/Usuario.model';
 import { AlunoService } from 'src/app/services/aluno.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-cadastro-aluno-pagina',
@@ -67,7 +67,8 @@ export class CadastroAlunoPaginaComponent implements OnInit {
         nome: [aluno.nome],
         email: [aluno.email],
         instituicao: [this.usuario.id],
-        foto: [aluno.foto]
+        foto: [aluno.foto],
+        dataNascimento:[aluno.dataNascimento]
       }
     );
   }
@@ -96,7 +97,7 @@ export class CadastroAlunoPaginaComponent implements OnInit {
       this.formCadastro.get('nome')!.value,
       this.formCadastro.get('email')!.value,
       this.usuario?.permissao == 1 ? this.usuario.id : this.usuario?.instituicao!,
-      new Date(),
+      this.formCadastro.get('dataNascimento')!.value as Date,
       this.imgCarregada
     );
     if (this.edicao != "")
@@ -107,9 +108,10 @@ export class CadastroAlunoPaginaComponent implements OnInit {
 
   editarAluno(id: string) {
     let aluno = this.listaAlunos.find(m => m.id == id);
-
+    let data = new Date(aluno?.dataNascimento as Date);
     this.formCadastro.get('nome')!.setValue(aluno?.nome);
     this.formCadastro.get('email')!.setValue(aluno?.email);
+    this.formCadastro.get('dataNascimento')!.setValue(data.toISOString().split('T')[0]);
     this.edicao = id;
 
     this.imagemAtual = aluno?.foto!;
@@ -159,7 +161,7 @@ export class CadastroAlunoPaginaComponent implements OnInit {
     else return false;
   }
   estadoBotao() {
-    if (!this.formCadastro.get('nome')?.value)
+    if (!this.formCadastro.get('nome')?.value || this.emailValido() || this.dataValida())
       return false;
     return this.formCadastro.valid;
   }
@@ -180,9 +182,29 @@ export class CadastroAlunoPaginaComponent implements OnInit {
     }
     return true;
   }
+  dataValida() {
+    const d = this.formCadastro.get('dataNascimento')?.value;
+    if (typeof d == 'string') {
+      let data = d.split('-');
+      if (
+        Number(data[0]) <= 1900 ||
+        Number(data[0]) > this.obterAnoAtual() ||
+        Number(data[1]) < 1 ||
+        Number(data[1]) > 12||
+        Number(data[2]) > 32 ||
+        Number(data[2]) < 1 
+      )
+        return true;
+    } 
+    return false;
+  }
   obterAnoAtual() {
     const data = new Date()
     return data.getFullYear();
+  }
+  obterDataAtual() {
+    const data = new Date()
+    return data.toDateString();
   }
   obterNome() {
     return this.usuario.nome;

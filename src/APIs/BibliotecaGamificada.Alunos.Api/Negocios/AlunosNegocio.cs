@@ -6,6 +6,7 @@ using BibliotecaGamificada.Livros.Comum.Entidades;
 using BibliotecaGamificada.Pontos.Comum.Repositorios;
 using BibliotecaGamificada.Turmas.Comum.Repositorios;
 using BibliotecaGamificada.Comum.Classes.Firebase;
+using BibliotecaGamificada.Comum.Classes.Enums;
 
 namespace BibliotecaGamificada.Alunos.Negocios
 {
@@ -85,7 +86,7 @@ namespace BibliotecaGamificada.Alunos.Negocios
                 }
 
                 var a = new Aluno(aluno.dataNascimento, aluno.instituicao, aluno.nome, aluno.email, foto, aluno.permissao);
-
+                await firebase.DefinirPermissaoUsuario(aluno.email, Permissao.aluno);
                 await alunoRepositorio.Cadastrar(a);
             }
             catch (Exception e)

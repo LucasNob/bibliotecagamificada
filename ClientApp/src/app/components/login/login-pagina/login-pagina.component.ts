@@ -45,7 +45,7 @@ export class LoginPaginaComponent implements OnInit {
   validarEmailRedenifir() {
     if (this.form.get('emailRedenifinir')) {
       const email = this.form.get('emailRedenifinir')!.value;
-      console.log(email)
+      // console.log(email)
       if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
         return false;
     }

@@ -2,6 +2,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from "@angular/router";
+import { Usuario } from '../models/entidades/Usuario.model';
 import { UsuarioService } from './usuario.service';
 
 @Injectable({
@@ -72,6 +73,7 @@ export class AuthService {
             let original = u;
             return this.afAuth.createUserWithEmailAndPassword(email, password).then((result) => {
                 this.SetUserData(result.user);
+                // result.user
                 return this.enviarEmailVerificacao(false).then(() => {
                     this.afAuth.updateCurrentUser(original);
                 });
@@ -95,9 +97,28 @@ export class AuthService {
             window.alert('Usuário não encontrado');
         });
     }
+    
+    usuarioAluno() {
+        const usuario = JSON.parse(localStorage.getItem('usuario')!);
+        if (usuario.permissao == 3)
+            return true;
+        return false;
+    }
+    usuarioInstituicao() {
+        const usuario = JSON.parse(localStorage.getItem('usuario')!);
+        if (usuario.permissao == 1)
+        return true;
+        return false;
+    }
+    usuarioProfessor() {
+        const usuario = JSON.parse(localStorage.getItem('usuario')!);
+        if (usuario.permissao == 2)
+            return true;
+        return false;
+    }
 
     SetUserData(user: any) {
-        console.log(user);
+        // console.log(user);
         // const userRef: AngularFirestoreDocument<any> = this.afs.doc(
         //   `users/${user.uid}`
         // );
@@ -114,7 +135,7 @@ export class AuthService {
     }
     obterDadosUsuario() {
         let data = localStorage.getItem('usuario')
-        console.log(data)
+        // console.log(data)
         if(data)
             return JSON.parse(data);
         return null;
