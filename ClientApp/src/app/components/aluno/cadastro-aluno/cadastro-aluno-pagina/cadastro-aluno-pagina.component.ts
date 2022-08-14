@@ -1,4 +1,3 @@
-import { ThisReceiver } from '@angular/compiler';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -82,7 +81,7 @@ export class CadastroAlunoPaginaComponent implements OnInit {
         let aluno = this.obterObjeto();
         this.authService.criarUsuario(aluno.email, '12341234').then(res => {
           if (res) {
-            this.authService.redefinirSenha(aluno.email);
+            this.authService.redefinirSenha(aluno.email,'E-mail para cadastro de senha enviado.');
             this.alunoService.cadastrarAluno(aluno).then(() => {
               this.obterLista();
               this.limparCampos();

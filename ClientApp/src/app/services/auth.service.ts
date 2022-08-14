@@ -51,9 +51,9 @@ export class AuthService {
             this.router.navigate(['verificar-email']);//TODO
         });
     }
-    redefinirSenha(email:string) {
+    redefinirSenha(email: string, customstr = 'E-mail de recuperação enviado.') {
         return this.afAuth.sendPasswordResetEmail(email).then(res => {
-            window.alert('E-mail de recuperação enviado.');
+            window.alert(customstr);
         }).catch(error => {
             // window.alert(error.message);
             window.alert('E-mail invalido.');
@@ -74,10 +74,10 @@ export class AuthService {
             return this.afAuth.createUserWithEmailAndPassword(email, password).then((result) => {
                 this.SetUserData(result.user);
                 // result.user
-                return this.enviarEmailVerificacao(false).then(() => {
+                // return this.enviarEmailVerificacao(false).then(() => {
                     this.afAuth.updateCurrentUser(original);
                     return true;
-                });
+                // });
             }).catch((error) => {
                 window.alert(error.message);
                 return false;
