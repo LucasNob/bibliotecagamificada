@@ -81,11 +81,13 @@ export class CadastroAlunoPaginaComponent implements OnInit {
         this.estado = true;
         let aluno = this.obterObjeto();
         this.authService.criarUsuario(aluno.email, '12341234').then(res => {
-          this.authService.redefinirSenha(aluno.email);
-          this.alunoService.cadastrarAluno(aluno).then(() => {
-            this.obterLista();
-            this.limparCampos();
-          });
+          if (res) {
+            this.authService.redefinirSenha(aluno.email);
+            this.alunoService.cadastrarAluno(aluno).then(() => {
+              this.obterLista();
+              this.limparCampos();
+            });
+          }
         }).finally(() => {
           this.estado = false;
         });
@@ -161,7 +163,10 @@ export class CadastroAlunoPaginaComponent implements OnInit {
     else return false;
   }
   estadoBotao() {
-    if (!this.formCadastro.get('nome')?.value || this.emailValido() || this.dataValida())
+    // console.log(!this.formCadastro.get('nome')?.value)
+    // console.log(this.emailValido())
+    // console.log(!this.dataValida())
+    if (!this.formCadastro.get('nome')?.value || this.emailValido() || !this.dataValida())
       return false;
     return this.formCadastro.valid;
   }
@@ -194,7 +199,8 @@ export class CadastroAlunoPaginaComponent implements OnInit {
         Number(data[2]) > 32 ||
         Number(data[2]) < 1 
       )
-        return true;
+        return false;
+      return true;
     } 
     return false;
   }

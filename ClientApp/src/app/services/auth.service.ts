@@ -76,9 +76,11 @@ export class AuthService {
                 // result.user
                 return this.enviarEmailVerificacao(false).then(() => {
                     this.afAuth.updateCurrentUser(original);
+                    return true;
                 });
             }).catch((error) => {
                 window.alert(error.message);
+                return false;
             });
         });
     } 
@@ -97,7 +99,7 @@ export class AuthService {
             window.alert('Usuário não encontrado');
         });
     }
-    
+
     usuarioAluno() {
         const usuario = JSON.parse(localStorage.getItem('usuario')!);
         if (usuario.permissao == 3)

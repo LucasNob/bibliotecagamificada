@@ -7,6 +7,7 @@ using BibliotecaGamificada.Pontos.Comum.Repositorios;
 using BibliotecaGamificada.Turmas.Comum.Repositorios;
 using BibliotecaGamificada.Comum.Classes.Firebase;
 using BibliotecaGamificada.Comum.Classes.Enums;
+using BibliotecaGamificada.Usuario.Comum.Repositorios;
 
 namespace BibliotecaGamificada.Alunos.Negocios
 {
@@ -15,14 +16,16 @@ namespace BibliotecaGamificada.Alunos.Negocios
         private readonly AlunoRepositorio alunoRepositorio;
         private readonly PontoRepositorio pontoRepositorio;
         private readonly TurmaRepositorio turmaRepositorio;
+        private readonly UsuarioRepositorio usuarioRepositorio;
         private readonly FireBaseComum firebase;
 
-        public AlunosNegocio(AlunoRepositorio alunoRepositorio, PontoRepositorio pontoRepositorio, TurmaRepositorio turmaRepositorio, FireBaseComum firebase)
+        public AlunosNegocio(UsuarioRepositorio usuarioRepositorio, AlunoRepositorio alunoRepositorio, PontoRepositorio pontoRepositorio, TurmaRepositorio turmaRepositorio, FireBaseComum firebase)
         {
             this.firebase = firebase;
             this.alunoRepositorio = alunoRepositorio;
             this.pontoRepositorio = pontoRepositorio;
             this.turmaRepositorio = turmaRepositorio;
+            this.usuarioRepositorio = usuarioRepositorio;
         }
 
         public async Task<IActionResult> Obter()
@@ -122,6 +125,11 @@ namespace BibliotecaGamificada.Alunos.Negocios
             try
             {
                 var alunoAnterior = await alunoRepositorio.ObterPorId(aluno.id!);
+                var buscaEmail = await usuarioRepositorio.ObterPorEmail(aluno.email);
+
+                if(buscaEmail.Count()>0){
+                    return new OkObjectResult(new RetornoMsg("erro", "Email ja é utilizado"));
+                }
 
                 if (alunoAnterior.email != aluno.email)
                 {
