@@ -1,5 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AppBarService } from 'src/app/components/app-bar/app-bar.service.';
 import { Livro } from 'src/app/models/entidades/Livro.model';
 import { LivroCadastroModel } from 'src/app/models/entidades/LivroCadastro.model';
 import { Usuario } from 'src/app/models/entidades/Usuario.model';
@@ -27,14 +29,28 @@ export class CadastroLivroPaginaComponent implements OnInit {
   constructor(private livroService: LivroService,
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private router: Router,
+    private appbarService: AppBarService,
   ) { 
       // this.authService.usuario =  new Usuario("idinstituicao1", "Anglo Sorocaba",1,
       // "https://pbs.twimg.com/profile_images/570291758630576128/x3lqZT5Z_400x400.png");
-    
-      this.usuario = authService.obterDadosUsuario(); 
+
+      let usuario = authService.obterDadosUsuario();
+      if (usuario?.permissao == 1) {
+        this.usuario = usuario as Usuario;
+        this.iniciarAppbar();
+      }
+      // else if (usuario?.permissao == 2) {
+      //   this.usuario = usuario as Professor;
+      //   this.iniciarAppbar();
+      // }
+      else
+        this.router.navigateByUrl('#');
     }
-    
+    iniciarAppbar() { 
+      this.appbarService.limparLinks();
+    }
     ngOnInit(): void { 
       this.obterListaLivros();
       this.criarForm(new Livro());
