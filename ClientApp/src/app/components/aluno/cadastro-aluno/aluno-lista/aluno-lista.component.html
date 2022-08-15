@@ -1,0 +1,42 @@
+<div class="table-resposive">
+    <div class="tabela-cheia" *ngIf="obterLista().length > 0; else erro">
+                <div class="row py-2">
+                    <div class="col-md-2 col-3  text-center tabela cabecalho" scope="col">Foto</div>
+                    <div class="col-md-4 col-4 text-center tabela cabecalho" scope="col">Nome</div>
+                    <div class="col-md-4 col-5 text-center tabela cabecalho" scope="col">Email</div>
+                    <div class="col-md-1 col-1  text-center tabela cabecalho" scope="col"></div>
+                    <div class="col-md-1 col-1  text-center tabela cabecalho" scope="col"></div>
+                </div>
+                <div>
+            <div *ngFor="let item of obterLista()">
+                <div class="row py-1">
+                    <div class="col-md-2 col-3 text-center">
+                        <div *ngIf="item!.foto; else fotoPadrao">
+                            <span><img class="capa" src={{item!.foto}} alt=""></span>
+                        </div>
+                        <ng-template #fotoPadrao>
+                            <span><img class="capa" src="../../../../assets/images/default_avatar.png" alt=""></span>
+                        </ng-template>
+                    </div>
+                    <div class="col-md-4 col-4 text-center">
+                        <span class="tabela item text-break">{{item!.nome}}</span>
+                    </div>
+                    <div class="col-md-4 col-5 text-center">
+                        <span class="tabela item text-break">{{item!.email}}</span>
+                    </div>
+                    <div class="col-md-1 col-6 text-center py-2">
+                        <span><button class="btn btn-warning w-75" (click)="Editar(item.id)"><mat-icon>edit</mat-icon><i class="bi bi-pencil" ></i></button></span>
+                    </div>
+                    <div class="col-md-1 col-6 text-center py-2">
+                        <span><button class="btn btn-danger w-75" (click)="Excluir(item.id)"><mat-icon>delete</mat-icon><i class="bi bi-trash" ></i></button></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #erro>
+        <div class="alert alert-info" role="alert">
+           <span>Lista de Alunos vazia!</span>
+        </div>
+    </ng-template>
+</div>

@@ -45,11 +45,10 @@
   box-shadow: none !important;
 }
 
-
 .alinhamento{
-    align-items: center;
-    height: 40;
+  align-items: center;
+  height: 40;
 }
 .imagem{
-    text-align: center;
+  text-align: center;
 }

@@ -6,6 +6,7 @@ import { Professor } from 'src/app/models/entidades/Professor.model';
 import { Turma } from 'src/app/models/entidades/Turma.model';
 import { TurmaCadastroModel } from 'src/app/models/entidades/TurmaCadastro.model';
 import { Usuario } from 'src/app/models/entidades/Usuario.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { ProfessorService } from 'src/app/services/professor.service';
 import { TurmaService } from 'src/app/services/turma.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -25,14 +26,14 @@ export class CadastroTurmaPaginaComponent implements OnInit {
   estado: boolean = false;
 
   constructor(private turmaService: TurmaService,
-    private usuarioService: UsuarioService,
+    private authService: AuthService,
     private appbarService: AppBarService,
     private formBuilder: FormBuilder,
     private router: Router,
     private professorService: ProfessorService,
   )
   { 
-      let usuario = usuarioService.obterUsuario();
+    let usuario = authService.obterDadosUsuario();
     if (usuario?.permissao == 1) {
       this.usuario = usuario as Usuario;
       this.professorService.ObterListaProfessoresPorIdInstitucicao(this.usuario.id).then(res => { 
@@ -106,6 +107,7 @@ export class CadastroTurmaPaginaComponent implements OnInit {
       this.usuario?.permissao == 1 ? this.usuario.id : this.usuario?.instituicao!,
       this.usuario?.permissao == 1 ? this.formCadastro.get('professor')!.value : this.usuario?.id!,
     );
+    // console.log(turma)
     if (this.edicao != "")
       turma.id = this.edicao;
     

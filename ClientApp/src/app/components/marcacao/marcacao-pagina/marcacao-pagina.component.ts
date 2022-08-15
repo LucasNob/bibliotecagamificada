@@ -4,6 +4,7 @@ import { Ponto } from 'src/app/models/entidades/Ponto.model';
 import { Turma } from 'src/app/models/entidades/Turma.model';
 import { Usuario } from 'src/app/models/entidades/Usuario.model';
 import { AlunoService } from 'src/app/services/aluno.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { PontoService } from 'src/app/services/pontos.service';
 import { TurmaService } from 'src/app/services/turma.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -35,13 +36,13 @@ export class MarcacaoPaginaComponent implements OnInit{
   @ViewChild('modal') modal: any;
   
   constructor(
-    private usuarioService: UsuarioService,
+    private authService: AuthService,
     private turmaService: TurmaService,
     private cdRef: ChangeDetectorRef) { 
   }
   
   ngOnInit(): void {
-    this.usuario = this.usuarioService.obterUsuario();    
+    this.usuario = this.authService.obterDadosUsuario();    
   }
 
   obterListaAlunos(): Array<Aluno> {

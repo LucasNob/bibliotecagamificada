@@ -1,0 +1,44 @@
+.alinhamento{
+    border-radius: 4px;
+    background-color: white;
+}
+
+@media only screen and (min-width: 600px) {
+    .alinhamento{
+        max-width: 40%;
+    }
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #E37623;
+    border: solid #E37623;
+    border-radius: 3px;
+    font-family: Usuario;
+    font-weight: bold;
+}
+.btn-primary:hover
+{
+    background-color: #c5671f;
+    border: solid #c5671f;
+    outline: none !important;
+    box-shadow: none;
+}
+  
+.btn-primary:focus{
+    background-color: #c5671f;
+    border: solid #c5671f;
+    outline: none !important;
+    box-shadow: none !important;
+}
+.formulario{
+    font-family: Usuario;
+    font-weight: bold;
+    color: #1C9474;
+}
+.opcoes{
+    font-family: Usuario;
+    font-weight: bold;
+    font-size: large;
+    color: #1C9474;
+}

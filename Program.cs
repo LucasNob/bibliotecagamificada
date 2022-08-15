@@ -13,6 +13,9 @@ using BibliotecaGamificada.Alunos.Comum.Repositorios;
 using BibliotecaGamificada.Pontuacao.Negocios;
 using BibliotecaGamificada.Professores.Negocios;
 using BibliotecaGamificada.Professores.Comum.Repositorios;
+using BibliotecaGamificada.Usuario.Negocios;
+using BibliotecaGamificada.Usuario.Comum.Repositorios;
+using BibliotecaGamificada.Comum.Classes.Firebase;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,9 +50,14 @@ builder.Services.AddTransient<AlunoRepositorio>();
 builder.Services.AddTransient<ProfessoresNegocio>();
 builder.Services.AddTransient<ProfessorRepositorio>();
 
+//usuario
+builder.Services.AddTransient<UsuarioNegocio>();
+builder.Services.AddTransient<UsuarioRepositorio>();
+
 //configurar mongo
 // builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
 
+builder.Services.AddSingleton<FireBaseComum>();
 builder.Services.AddSingleton<IMongoClient>((s) =>
 {
     var stringConexaoCosmoDB = Environment.GetEnvironmentVariable("dbConnectionString");
@@ -84,6 +92,7 @@ app.MapControllerRoute(name: "instituicao", pattern: "/v1/instituicao/{action=In
 app.MapControllerRoute(name: "aluno", pattern: "/v1/aluno/{action=Index}/{id?}");
 app.MapControllerRoute(name: "pontuacao", pattern: "/v1/pontuacao/{action=Index}/{id?}");
 app.MapControllerRoute(name: "aluno", pattern: "/v1/professor/{action=Index}/{id?}");
+app.MapControllerRoute(name: "usuario", pattern: "/v1/usuario/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html"); ;
 

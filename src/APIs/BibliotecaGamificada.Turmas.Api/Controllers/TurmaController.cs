@@ -56,13 +56,11 @@ public class TurmaController : ControllerBase
     {
         return await turmaNegocio.ExcluirTurma(id);
     }
-    //Caso não seja o método correto de se aplicar alterar
     [HttpPut, Route("removerAlunoTurma/{turma}/{aluno}")]
     public async Task<IActionResult> RemoverAlunoporTurma([FromRoute] string turma, string aluno)
     {
         return await turmaNegocio.RemoverAlunoporTurma(turma, aluno);
     }
-    //Caso não seja o método correto de se aplicar alterar
     [HttpPut, Route("removerLivroTurma/{turma}/{livro}")]
     public async Task<IActionResult> RemoverLivroporTurma([FromRoute] string turma, string livro)
     {

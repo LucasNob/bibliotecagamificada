@@ -1,12 +1,16 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { PontoAtualizacao } from 'src/app/models/classificacao/PontoAtualizacao.model';
 import { Aluno } from 'src/app/models/entidades/Aluno.model';
 import { Livro } from 'src/app/models/entidades/Livro.model';
 import { Ponto } from 'src/app/models/entidades/Ponto.model';
 import { Turma } from 'src/app/models/entidades/Turma.model';
+import { Usuario } from 'src/app/models/entidades/Usuario.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { LivroService } from 'src/app/services/livro.service';
 import { PontoService } from 'src/app/services/pontos.service';
+import { AppBarService } from '../../app-bar/app-bar.service.';
 
 
 @Component({
@@ -19,7 +23,28 @@ export class MarcacaoLivroPaginaComponent implements OnInit {
   constructor(
     private livroService: LivroService,
     private pontoService: PontoService,
-    private modalService: NgbModal) { }
+    private appbarService: AppBarService,
+    private router: Router,
+    private authService: AuthService,
+    private modalService: NgbModal) {
+      let usuario = authService.obterDadosUsuario();
+    if (usuario?.permissao == 1) {
+      // this.iniciarAppbar();
+    } else 
+    if (usuario?.permissao == 2) {
+      // this.iniciarAppbar();
+    }
+    // else if (usuario?.permissao == 2) {
+    //   this.usuario = usuario as Professor;
+    //   this.iniciarAppbar();
+    // }
+    else
+      this.router.navigateByUrl('#');
+    
+  }
+  iniciarAppbar() { 
+    this.appbarService.limparLinks();
+  }
 
   @Input()
   aluno?: Aluno;
@@ -32,7 +57,6 @@ export class MarcacaoLivroPaginaComponent implements OnInit {
   
   @ViewChild('content')
   contentModal: any;
-
 
   ponto?: Ponto;
   listaLivros?: Array<Livro> = [];

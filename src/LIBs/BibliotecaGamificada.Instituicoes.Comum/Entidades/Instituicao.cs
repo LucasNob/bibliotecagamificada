@@ -11,7 +11,7 @@ namespace BibliotecaGamificada.Instituicoes.Comum.Entidades
         public string endereco {get; set;}
         public int numero {get; set;}
 
-    public Instituicao (List<GrauEscolaridade> grauEscolaridade, int cep, string endereco, int numero,string senha, string nome, string email, string foto, Permissao permissao): base(senha, nome, email, foto, permissao)
+    public Instituicao (List<GrauEscolaridade> grauEscolaridade, int cep, string endereco, int numero, string nome, string email, string foto, Permissao permissao): base(nome, email, foto, permissao)
     {
         this.grauEscolaridade = grauEscolaridade;
         this.cep = cep;

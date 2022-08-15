@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Turma } from 'src/app/models/entidades/Turma.model';
 import { Usuario } from 'src/app/models/entidades/Usuario.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { TurmaService } from 'src/app/services/turma.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { AppBarService } from '../../app-bar/app-bar.service.';
@@ -18,10 +19,10 @@ export class SelecaoTurmaPaginaComponent implements OnInit {
 
   constructor(
     private turmaService: TurmaService,
-    private usuarioService: UsuarioService,
+    private authService: AuthService,
     private appbarService: AppBarService,
     private router: Router) {
-    this.usuario = usuarioService.obterUsuario();
+    this.usuario = authService.obterDadosUsuario();
   }
 
   ngOnInit(): void {
@@ -47,8 +48,10 @@ export class SelecaoTurmaPaginaComponent implements OnInit {
   iniciarAppbar() { 
     this.appbarService.limparLinks();
     this.appbarService.adicionarLinks('Cadastrar turmas', 'cadastroturma');
-    if (this.usuario?.permissao == 1)
-    this.appbarService.adicionarLinks('Cadastrar livros', 'cadastrolivro');
+    if (this.usuario?.permissao == 1) {
+      this.appbarService.adicionarLinks('Cadastrar livros', 'cadastrolivro');
+      this.appbarService.adicionarLinks('Cadastrar alunos', 'cadastroaluno');
+    }
   }
 
   selecionarTurma(id: string) { 

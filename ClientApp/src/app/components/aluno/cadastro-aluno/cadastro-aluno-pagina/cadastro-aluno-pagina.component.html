@@ -1,0 +1,65 @@
+<div class="container">
+    <form [formGroup]="formCadastro" (ngSubmit)="cadastrarAluno()">
+        <div class="col-12">
+            <div class="row titulo m-4">
+                <span>Cadastro de Alunos - {{obterNome()}}</span>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" [ngClass]="formInvalido('nome') ?'form-control is-invalid':'form-control'"
+                        id="nome" name="nome" formControlName="nome" placeholder="Nome do Aluno"
+                        aria-describedby="nomeInvalido" required>
+                    <div id="nomeInvalido" class="invalid-feedback">Nome Inválido.</div>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" [ngClass]="emailValido() ?'form-control is-invalid':'form-control'"
+                        id="email" name="email" formControlName="email" placeholder="Email"
+                        aria-describedby="emailInvalido" required>
+                    <div id="emailInvalido" class="invalid-feedback">Email Inválido.</div>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
+                    <label for="dataNascimento">Data nascimento</label>
+                    <input type="date" [ngClass]="!dataValida() ?'form-control is-invalid':'form-control'"
+                        id="dataNascimento" name="email" formControlName="dataNascimento"
+                        aria-describedby="dataNascimentoInvalido"  value="{{obterDataAtual()}}" required>
+                    <div id="dataNascimentoInvalido" class="invalid-feedback">Data Inválida.</div>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
+                    <div class="col imagem">
+                        <app-upload-imagem (img)="imgCarregada = $event" [imagemAtual]="imagemAtual"></app-upload-imagem>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center" *ngIf="modoEdicao(); else cadastrar">
+                <div class="col-md-6 col-6">
+                    <input class="btn btn-primary h-100 w-100 item" value="Salvar" (click)="salvar()"
+                        [disabled]="!estadoBotao()">
+                </div>
+                <div class="col-md-6 col-6">
+                    <input class="btn btn-danger h-100 w-100 item" value="Cancelar" (click)="limparCampos() "
+                        [disabled]="!estadoBotao()">
+                </div>
+            </div>
+            <ng-template #cadastrar>
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-12">
+                        <input type="submit" class="btn btn-primary h-100 w-100 item" value="Cadastrar"
+                            [disabled]="!estadoBotao()">
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </form>
+</div>
+<div class="row my-4"></div>
+<app-aluno-lista [listaAluno]="listaAlunos" (excluirEmitter)="excluirAluno($event)"
+    (editarEmitter)="editarAluno($event)">
+</app-aluno-lista>

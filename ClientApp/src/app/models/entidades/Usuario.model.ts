@@ -3,6 +3,7 @@ export class Usuario{
     nome: string = "";
     foto: string = "../../assets/images/default_avatar.png";
     permissao: number = 3; //TODO criar enum
+    email: string = "";
     constructor(id: string, nome: string, permissao: number, foto?: string) {
         this.id = id;
         this.nome = nome;
