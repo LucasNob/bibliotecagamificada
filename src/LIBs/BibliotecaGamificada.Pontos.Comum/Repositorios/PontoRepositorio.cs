@@ -51,7 +51,14 @@ namespace BibliotecaGamificada.Pontos.Comum.Repositorios
             var filtro = Builders<Ponto>.Filter.Eq(p => p.turma, id);
             await this.ExcluirDados(filtro);
         }
-        public async Task ExcluirporAluno(string turma, string aluno)
+        
+        public async Task ExcluirporAluno(string id)
+        {
+            var filtro = Builders<Ponto>.Filter.Eq(p => p.aluno, id);
+            await this.ExcluirDados(filtro);
+        }
+        
+        public async Task ExcluirporAlunoTurma(string turma, string aluno)
         {
             var filtro = Builders<Ponto>.Filter.Eq(p => p.aluno, aluno) & Builders<Ponto>.Filter.Eq(p => p.turma, turma);
             await this.ExcluirDado(filtro);

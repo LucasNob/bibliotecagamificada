@@ -8,6 +8,7 @@ import { Professor } from 'src/app/models/entidades/Professor.model';
 import { Turma } from 'src/app/models/entidades/Turma.model';
 import { TurmaCadastroModel } from 'src/app/models/entidades/TurmaCadastro.model';
 import { Usuario } from 'src/app/models/entidades/Usuario.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { LivroService } from 'src/app/services/livro.service';
 import { TurmaService } from 'src/app/services/turma.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -24,13 +25,12 @@ export class CadastroTurmaLivroPaginaComponent implements OnInit {
 
   constructor(
     private livroService: LivroService,
-    private usuarioService: UsuarioService,
+    private authService: AuthService,
     private turmaService: TurmaService,
     private location: Location,
     private activatedRoute: ActivatedRoute,
     private router: Router) {
-    // this.usuario = usuarioService.obterUsuario() as Professor;
-    let usuario = usuarioService.obterUsuario();
+    let usuario = authService.obterDadosUsuario();
       if (usuario?.permissao == 1)
         this.usuario = usuario as Usuario;
       else if (usuario?.permissao == 2)

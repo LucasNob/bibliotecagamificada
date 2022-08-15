@@ -12,10 +12,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="MongoDB.Driver" Version="2.16.1" /> 
+    <PackageReference Include="MongoDB.Driver" Version="2.15"/> 
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="6.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-    <PackageReference Include="Azure.Storage.Blobs" Version="12.11.0" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.11.0"/>
+    <PackageReference Include="FirebaseAdmin" Version="2.3.0" />
   </ItemGroup>
   <!-- Projects  imports -->
   <ItemGroup>

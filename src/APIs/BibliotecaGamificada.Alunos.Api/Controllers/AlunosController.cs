@@ -1,3 +1,4 @@
+using BibliotecaGamificada.Alunos.Api.Models;
 using BibliotecaGamificada.Alunos.Negocios;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,5 +35,22 @@ public class AlunosController : ControllerBase
     public async Task<IActionResult> ObterAlunoporInstituicao([FromRoute] string id)
     {
         return await alunosNegocio.ObterAlunoporInstituicao(id);
+    }
+    [HttpPost, Route("cadastrarAluno")]
+    public async Task<IActionResult> CadastrarAluno([FromBody] AlunoCadastroModel aluno)
+    {
+        return await alunosNegocio.CadastrarAluno(aluno);
+    }
+
+    [HttpPut, Route("editarAluno")]
+    public async Task<IActionResult> EditarAluno([FromBody] AlunoCadastroModel aluno)
+    {
+        return await alunosNegocio.EditarAluno(aluno);
+    }
+
+    [HttpDelete, Route("excluirAluno/{id}")]
+    public async Task<IActionResult> ExcluirAluno([FromRoute] string id)
+    {
+        return await alunosNegocio.ExcluirAluno(id);
     }
 }

@@ -8,6 +8,7 @@ import { Ponto } from 'src/app/models/entidades/Ponto.model';
 import { Turma } from 'src/app/models/entidades/Turma.model';
 import { Usuario } from 'src/app/models/entidades/Usuario.model';
 import { AlunoService } from 'src/app/services/aluno.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { LivroService } from 'src/app/services/livro.service';
 import { PontoService } from 'src/app/services/pontos.service';
 import { TurmaService } from 'src/app/services/turma.service';
@@ -30,18 +31,18 @@ export class ClassificacaoPaginaComponent implements OnInit{
   idTurma: string = "";
 
   constructor(
-    private usuarioService: UsuarioService,
     private turmaService: TurmaService,
     private pontoService: PontoService,
     private alunoService: AlunoService,
     private livroService: LivroService,
     private appbarService:AppBarService,
     private activatedRoute: ActivatedRoute,
+    private authService: AuthService,
     private cdRef: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
-    this.usuario = this.usuarioService.obterUsuario(); 
+    this.usuario = this.authService.obterDadosUsuario(); 
     let url = this.activatedRoute.snapshot.url.join().split(',')
     this.turmaService.obterTurmaPorIdTurma(url[1]).then(data => { 
       this.turmaAtual = data as Turma;
@@ -63,6 +64,7 @@ export class ClassificacaoPaginaComponent implements OnInit{
     if (this.usuario?.permissao == 1)
     {
       this.appbarService.adicionarLinks('Cadastrar livros', 'cadastrolivro');
+      this.appbarService.adicionarLinks('Cadastrar alunos', 'cadastroaluno');
     }
     this.appbarService.adicionarLinks('Adicionar alunos', 'cadastroturmaaluno/'+this.turmaAtual?.id);
     this.appbarService.adicionarLinks('Adicionar livros', 'cadastroturmalivro/'+this.turmaAtual?.id);
@@ -86,7 +88,6 @@ export class ClassificacaoPaginaComponent implements OnInit{
           }
       });
     });
-
   }
 
   obterListaAlunos(): Array<Aluno> { 
@@ -122,9 +123,7 @@ export class ClassificacaoPaginaComponent implements OnInit{
   }
   
   checarPermissaoMarcacaoLivro() {
-  // TODO: Esse método só irá funcionar quanto houver nosso sistema de login
-   //if (this.usuarioService.ObterNivelPermissao() == 1 || this.usuarioService.ObterNivelPermissao() == 2)
-      if (this.usuario?.permissao == 1 || this.usuario?.permissao == 2)
+  if (this.usuario?.permissao == 1 || this.usuario?.permissao == 2)
       return true;
     return false;
   }

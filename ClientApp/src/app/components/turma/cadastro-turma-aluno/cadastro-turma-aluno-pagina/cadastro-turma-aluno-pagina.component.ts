@@ -7,8 +7,8 @@ import { Turma } from 'src/app/models/entidades/Turma.model';
 import { TurmaCadastroModel } from 'src/app/models/entidades/TurmaCadastro.model';
 import { Usuario } from 'src/app/models/entidades/Usuario.model';
 import { AlunoService } from 'src/app/services/aluno.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { TurmaService } from 'src/app/services/turma.service';
-import { UsuarioService } from 'src/app/services/usuario.service';
 
 
 @Component({
@@ -21,15 +21,15 @@ export class CadastroTurmaAlunoPaginaComponent implements OnInit {
   usuario: any;
 
   constructor(
-    private usuarioService: UsuarioService,
+    private authService: AuthService,
     private turmaService: TurmaService,
     private alunoService: AlunoService,
     private location: Location,
     private activatedRoute: ActivatedRoute,
     private router: Router)
   {
-    this.usuario = usuarioService.obterUsuario() as Professor;
-    let usuario = usuarioService.obterUsuario();
+    this.usuario = authService.obterDadosUsuario() as Professor;
+    let usuario = authService.obterDadosUsuario();
       if (usuario?.permissao == 1)
         this.usuario = usuario as Usuario; //TODO as instituicao
       else if (usuario?.permissao == 2)
