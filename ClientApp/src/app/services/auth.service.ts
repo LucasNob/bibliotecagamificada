@@ -34,7 +34,7 @@ export class AuthService {
             this.SetUserData(result.user);
           })
           .catch((error) => {
-            window.alert('Usuário não encontrado');
+            window.alert('Usuário ou senha inválida');
           });
     }
 
