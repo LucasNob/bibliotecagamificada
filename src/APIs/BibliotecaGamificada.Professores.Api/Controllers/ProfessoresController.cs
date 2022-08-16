@@ -1,3 +1,4 @@
+using BibliotecaGamificada.Professores.Api.Models;
 using BibliotecaGamificada.Professores.Negocios;
 using Microsoft.AspNetCore.Mvc;
 namespace BibliotecaGamificada.Professores.Controllers;
@@ -28,5 +29,22 @@ public class ProfessoresController : ControllerBase
     public async Task<IActionResult> ObterProfessorporInstituicao([FromRoute] string id)
     {
         return await professoresNegocio.ObterProfessorporInstituicao(id);
+    }
+    [HttpPost, Route("cadastrarProfessor")]
+    public async Task<IActionResult> CadastrarProfessor([FromBody] ProfessorCadastroModel professor)
+    {
+        return await professoresNegocio.CadastrarProfessor(professor);
+    }
+
+    [HttpPut, Route("editarProfessor")]
+    public async Task<IActionResult> EditarProfessor([FromBody] ProfessorCadastroModel professor)
+    {
+        return await professoresNegocio.EditarProfessor(professor);
+    }
+
+    [HttpDelete, Route("excluirProfessor/{id}")]
+    public async Task<IActionResult> ExcluirProfessor([FromRoute] string id)
+    {
+        return await professoresNegocio.ExcluirProfessor(id);
     }
 }
