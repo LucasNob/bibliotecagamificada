@@ -124,10 +124,11 @@ namespace BibliotecaGamificada.Professores.Negocios
                 var buscaEmail = await usuarioRepositorio.ObterPorEmail(professor.email);
 
                 if(buscaEmail.Count()>0 || buscaEmail == null){
+                    if (professorAnterior.email != professor.email)
                     return new OkObjectResult(new RetornoMsg("erro", "Email ja é utilizado"));
                 }
 
-                if (professorAnterior.email != professorAnterior.email)
+                if (professorAnterior.email != professor.email)
                 {
                     await firebase.AtualizarEmailUsuario(professorAnterior.email, professor.email);
                 }

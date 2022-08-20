@@ -25,8 +25,8 @@
             <div class="row my-4">
                 <div class="form-group">
                     <label for="telefone">Telefone</label>
-                    <input type="tel" [ngClass]="!telefoneValido() ?'form-control is-invalid':'form-control'"
-                        id="telefone" name="telefone" formControlName="telefone" placeholder="Telefone"
+                    <input type="tel" [ngClass]="telefoneValido() ?'form-control is-invalid':'form-control'"
+                        id="telefone" name="telefone" formControlName="telefone" placeholder="(xx)xxxx-xxxx"
                         aria-describedby="telefoneInvalido" required>
                     <div id="telefoneInvalido" class="invalid-feedback">Telefone Inválido.</div>
                 </div>

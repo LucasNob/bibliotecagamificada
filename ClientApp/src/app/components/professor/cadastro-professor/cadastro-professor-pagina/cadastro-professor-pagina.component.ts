@@ -157,7 +157,7 @@ modoEdicao() {
 }
 
 estadoBotao() {
-  if (!this.formCadastro.get('nome')?.value || this.emailValido() || !this.telefoneValido())
+  if (!this.formCadastro.get('nome')?.value || this.emailValido() || this.telefoneValido())
     return false;
   return this.formCadastro.valid;
 }
@@ -181,9 +181,12 @@ emailValido() {
 }
 
 telefoneValido() {
-  //To do - Validação do formato do telefone
-  const d = this.formCadastro.get('telefone')?.value;
-    return true;
+  if (this.formCadastro.get('telefone')) {
+  const t = this.formCadastro.get('telefone')?.value;
+  if (/^\([1-9]{2}\)[0-9]{4,5}-[0-9]{4}$/.test(t))
+  return false;
+  }
+  return true;
 }
 
 obterNome() {
