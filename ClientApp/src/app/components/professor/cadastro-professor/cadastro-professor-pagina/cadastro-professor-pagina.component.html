@@ -1,1 +1,65 @@
-<p>cadastro-professor-pagina works!</p>
+<div class="container">
+    <form [formGroup]="formCadastro" (ngSubmit)="cadastrarProfessor()">
+        <div class="col-12">
+            <div class="row titulo m-4">
+                <span>Cadastro de Professores - {{obterNome()}}</span>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" [ngClass]="formInvalido('nome') ?'form-control is-invalid':'form-control'"
+                        id="nome" name="nome" formControlName="nome" placeholder="Nome do Professor"
+                        aria-describedby="nomeInvalido" required>
+                    <div id="nomeInvalido" class="invalid-feedback">Nome Inválido.</div>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" [ngClass]="emailValido() ?'form-control is-invalid':'form-control'"
+                        id="email" name="email" formControlName="email" placeholder="Email"
+                        aria-describedby="emailInvalido" required>
+                    <div id="emailInvalido" class="invalid-feedback">Email Inválido.</div>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
+                    <label for="telefone">Telefone</label>
+                    <input type="tel" [ngClass]="!telefoneValido() ?'form-control is-invalid':'form-control'"
+                        id="telefone" name="telefone" formControlName="telefone" placeholder="Telefone"
+                        aria-describedby="telefoneInvalido" required>
+                    <div id="telefoneInvalido" class="invalid-feedback">Telefone Inválido.</div>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
+                    <div class="col imagem">
+                        <app-upload-imagem (img)="imgCarregada = $event" [imagemAtual]="imagemAtual"></app-upload-imagem>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center" *ngIf="modoEdicao(); else cadastrar">
+                <div class="col-md-6 col-6">
+                    <input class="btn btn-primary h-100 w-100 item" value="Salvar" (click)="salvar()"
+                        [disabled]="!estadoBotao()">
+                </div>
+                <div class="col-md-6 col-6">
+                    <input class="btn btn-danger h-100 w-100 item" value="Cancelar" (click)="limparCampos() "
+                        [disabled]="!estadoBotao()">
+                </div>
+            </div>
+            <ng-template #cadastrar>
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-12">
+                        <input type="submit" class="btn btn-primary h-100 w-100 item" value="Cadastrar"
+                            [disabled]="!estadoBotao()">
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </form>
+</div>
+<div class="row my-4"></div>
+<app-professor-lista [listaProfessor]="listaProfessores" (excluirEmitter)="excluirProfessor($event)"
+    (editarEmitter)="editarProfessor($event)">
+</app-professor-lista>
