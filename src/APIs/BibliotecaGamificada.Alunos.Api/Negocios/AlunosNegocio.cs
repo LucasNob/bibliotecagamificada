@@ -127,13 +127,14 @@ namespace BibliotecaGamificada.Alunos.Negocios
                 var alunoAnterior = await alunoRepositorio.ObterPorId(aluno.id!);
                 var buscaEmail = await usuarioRepositorio.ObterPorEmail(aluno.email);
 
-                if(buscaEmail.Count()>0){
+                if(buscaEmail.Count()>0 || buscaEmail == null){
+                    if (alunoAnterior.email != aluno.email)
                     return new OkObjectResult(new RetornoMsg("erro", "Email ja é utilizado"));
                 }
 
                 if (alunoAnterior.email != aluno.email)
                 {
-                    await firebase.AtulizarEmailUsuario(alunoAnterior.email, aluno.email);
+                    await firebase.AtualizarEmailUsuario(alunoAnterior.email, aluno.email);
                 }
 
                 if (aluno.foto != foto && aluno.foto != alunoAnterior.foto)

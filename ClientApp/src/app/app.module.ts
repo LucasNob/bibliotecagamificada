@@ -31,11 +31,14 @@ import { TurmaListaComponent } from './components/turma/cadastro-turma/turma-lis
 import { SelecaoTurmaPaginaComponent } from './components/turma/selecao-turma/selecao-turma-pagina.component';
 import { TurmaLivrosComponent } from './components/turma/turma-livros/turma-livros.component';
 import { UploadImagemComponent } from './components/upload-imagem/upload-imagem.component';
+import { CadastroProfessorPaginaComponent } from './components/professor/cadastro-professor/cadastro-professor-pagina/cadastro-professor-pagina.component';
+import { ProfessorListaComponent } from './components/professor/cadastro-professor/professor-lista/professor-lista.component';
 import { AlunoService } from './services/aluno.service';
 import { AuthService } from './services/auth.service';
 import { LivroService } from './services/livro.service';
 import { PontoService } from './services/pontos.service';
 import { TurmaService } from './services/turma.service';
+import { ProfessorService } from './services/professor.service';
 import { UsuarioService } from './services/usuario.service';
 import { AuthGuard } from './shared/guard/auth.guard';
 import { MaterialModule } from './shared/modules/material/material.module';
@@ -55,6 +58,7 @@ const appRoutes: Routes = [
   { path: 'cadastroturmalivro/:id', component: CadastroTurmaLivroPaginaComponent, canActivate: [AuthGuard] },
   { path: 'cadastrolivro', component: CadastroLivroPaginaComponent, canActivate: [AuthGuard] },
   { path: 'cadastroaluno', component: CadastroAlunoPaginaComponent, canActivate: [AuthGuard] },
+  { path: 'cadastroprofessor', component: CadastroProfessorPaginaComponent, canActivate: [AuthGuard] },
   // { path: 'marcacao/:id', component: MarcacaoPaginaComponent, canActivate: [AuthGuard] },
   // { path: 'marcacaoLivro', component: MarcacaoLivroPaginaComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginPaginaComponent},
@@ -93,6 +97,8 @@ const appRoutes: Routes = [
     TurmaLivrosComponent,
     LoginPaginaComponent,
     VerificarEmailPaginaComponent,
+    CadastroProfessorPaginaComponent,
+    ProfessorListaComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -109,7 +115,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     MaterialModule
   ],
-  providers: [UsuarioService, TurmaService, PontoService, LivroService, AlunoService, AuthService],
+  providers: [UsuarioService, TurmaService, PontoService, LivroService, AlunoService,ProfessorService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

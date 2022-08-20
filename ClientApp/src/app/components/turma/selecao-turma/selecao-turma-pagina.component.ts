@@ -51,6 +51,7 @@ export class SelecaoTurmaPaginaComponent implements OnInit {
     if (this.usuario?.permissao == 1) {
       this.appbarService.adicionarLinks('Cadastrar livros', 'cadastrolivro');
       this.appbarService.adicionarLinks('Cadastrar alunos', 'cadastroaluno');
+      this.appbarService.adicionarLinks('Cadastrar professores', 'cadastroprofessor');
     }
   }
 
