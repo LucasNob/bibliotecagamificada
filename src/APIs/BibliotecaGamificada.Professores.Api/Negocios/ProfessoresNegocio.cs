@@ -99,9 +99,9 @@ namespace BibliotecaGamificada.Professores.Negocios
                 var turmasProfessor = await turmaRepositorio.ObterPorProfessor(id);
                 if(turmasProfessor != null && turmasProfessor.Count()>0)
                 {
-                    foreach(Turma listaturmas in turmasProfessor)
+                    foreach(Turma turma in turmasProfessor)
                     {
-                        await pontoRepositorio.ExcluirporTurma(listaturmas.Id!);
+                        await pontoRepositorio.ExcluirporTurma(turma.Id!);
                     }
                 }
                 await turmaRepositorio.ExcluirporProfessor(id);
