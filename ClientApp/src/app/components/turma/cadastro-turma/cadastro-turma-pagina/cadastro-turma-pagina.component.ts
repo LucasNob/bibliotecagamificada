@@ -36,14 +36,14 @@ export class CadastroTurmaPaginaComponent implements OnInit {
     let usuario = authService.obterDadosUsuario();
     if (usuario?.permissao == 1) {
       this.usuario = usuario as Usuario;
-      this.professorService.ObterListaProfessoresPorIdInstitucicao(this.usuario.id).then(res => { 
+      this.professorService.ObterProfessoresPorInstituicao(this.usuario.id).then(res => { 
         this.listaProfessores = res as Array<Professor>;
       });
       this.iniciarAppbar();
       }
     else if (usuario?.permissao == 2) {
       this.usuario = usuario as Professor;
-      this.professorService.ObterListaProfessoresPorIdInstitucicao(this.usuario.instituicao).then(res => { 
+      this.professorService.ObterProfessoresPorInstituicao(this.usuario.instituicao).then(res => { 
         this.listaProfessores = res as Array<Professor>;
       });
       this.iniciarAppbar();

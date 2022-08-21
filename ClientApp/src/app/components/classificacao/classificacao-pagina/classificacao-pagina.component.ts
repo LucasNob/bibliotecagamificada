@@ -65,6 +65,7 @@ export class ClassificacaoPaginaComponent implements OnInit{
     {
       this.appbarService.adicionarLinks('Cadastrar livros', 'cadastrolivro');
       this.appbarService.adicionarLinks('Cadastrar alunos', 'cadastroaluno');
+      this.appbarService.adicionarLinks('Cadastrar professores', 'cadastroprofessor');
     }
     this.appbarService.adicionarLinks('Adicionar alunos', 'cadastroturmaaluno/'+this.turmaAtual?.id);
     this.appbarService.adicionarLinks('Adicionar livros', 'cadastroturmalivro/'+this.turmaAtual?.id);

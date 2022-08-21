@@ -30,5 +30,28 @@ namespace BibliotecaGamificada.Professores.Comum.Repositorios
             return await this.ObterListaDadosPorFiltro(filtro);
         }
 
+        public async Task<string> Cadastrar(Professor professor)
+        {
+            return await this.InserirDados(professor);
+        }
+
+        public async Task Excluir(string id)
+        {
+            var filtro = Builders<Professor>.Filter.Eq(p => p.Id, id);
+            await this.ExcluirDado(filtro);
+        }
+
+        public async Task Editar(Professor professor)
+        {
+            var atualizacao = Builders<Professor>.Update.Combine(
+            Builders<Professor>.Update
+            .Set(x => x.nome, professor.nome)
+            .Set(x => x.email, professor.email)
+            .Set(x => x.foto, professor.foto)
+            .Set(x => x.telefone, professor.telefone)
+            );
+            await this.AtualizarDados(professor, atualizacao);
+        }
+
     }
 }

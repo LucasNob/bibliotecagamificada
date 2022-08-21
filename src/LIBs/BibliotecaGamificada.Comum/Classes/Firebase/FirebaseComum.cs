@@ -44,7 +44,7 @@ namespace BibliotecaGamificada.Comum.Classes.Firebase
                 log.LogError("Erro ao excluir usuario: " + e.Message);
             }
         }
-        public async Task AtulizarEmailUsuario(string emailAtual, string emailNovo){
+        public async Task AtualizarEmailUsuario(string emailAtual, string emailNovo){
             try{
                 var usuario = await ObterUsuario(emailAtual);
                 UserRecordArgs args = new UserRecordArgs()
