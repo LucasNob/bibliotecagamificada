@@ -41,6 +41,12 @@ namespace BibliotecaGamificada.Professores.Comum.Repositorios
             await this.ExcluirDado(filtro);
         }
 
+        public async Task ExcluirporInstituicao(string id)
+        {
+            var filtro = Builders<Professor>.Filter.Eq(p => p.instituicao, id);
+            await this.ExcluirDados(filtro);
+        }
+
         public async Task Editar(Professor professor)
         {
             var atualizacao = Builders<Professor>.Update.Combine(

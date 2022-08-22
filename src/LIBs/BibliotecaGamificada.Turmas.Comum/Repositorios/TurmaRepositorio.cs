@@ -49,6 +49,12 @@ namespace BibliotecaGamificada.Turmas.Comum.Repositorios
             await this.ExcluirDado(filtro);
         }
 
+        public async Task ExcluirporInstituicao(string id)
+        {
+            var filtro = Builders<Turma>.Filter.Eq(p => p.instituicao, id);
+            await this.ExcluirDados(filtro);
+        }
+
         public async Task ExcluirporProfessor(string id)
         {
             var filtro = Builders<Turma>.Filter.Eq(p => p.professor, id);
