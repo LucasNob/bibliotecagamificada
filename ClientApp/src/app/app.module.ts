@@ -33,12 +33,15 @@ import { TurmaLivrosComponent } from './components/turma/turma-livros/turma-livr
 import { UploadImagemComponent } from './components/upload-imagem/upload-imagem.component';
 import { CadastroProfessorPaginaComponent } from './components/professor/cadastro-professor/cadastro-professor-pagina/cadastro-professor-pagina.component';
 import { ProfessorListaComponent } from './components/professor/cadastro-professor/professor-lista/professor-lista.component';
+import { CadastroUsuarioPaginaComponent } from './components/login/cadastro-usuario-pagina/cadastro-usuario-pagina.component';
+import { PerfilUsuarioPaginaComponent } from './components/perfil-usuario-pagina/perfil-usuario-pagina.component';
 import { AlunoService } from './services/aluno.service';
 import { AuthService } from './services/auth.service';
 import { LivroService } from './services/livro.service';
 import { PontoService } from './services/pontos.service';
 import { TurmaService } from './services/turma.service';
 import { ProfessorService } from './services/professor.service';
+import { InstituicaoService } from './services/instituicao.service';
 import { UsuarioService } from './services/usuario.service';
 import { AuthGuard } from './shared/guard/auth.guard';
 import { MaterialModule } from './shared/modules/material/material.module';
@@ -52,16 +55,15 @@ const appRoutes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'listaclassificacao/:id', component: ClassificacaoPaginaComponent, canActivate: [AuthGuard] },
-  // { path: 'selecaoturma', component: SelecaoTurmaPaginaComponent, canActivate: [AuthGuard] },
   { path: 'cadastroturma', component: CadastroTurmaPaginaComponent, canActivate: [AuthGuard] },
   { path: 'cadastroturmaaluno/:id', component: CadastroTurmaAlunoPaginaComponent, canActivate: [AuthGuard] },
   { path: 'cadastroturmalivro/:id', component: CadastroTurmaLivroPaginaComponent, canActivate: [AuthGuard] },
   { path: 'cadastrolivro', component: CadastroLivroPaginaComponent, canActivate: [AuthGuard] },
   { path: 'cadastroaluno', component: CadastroAlunoPaginaComponent, canActivate: [AuthGuard] },
   { path: 'cadastroprofessor', component: CadastroProfessorPaginaComponent, canActivate: [AuthGuard] },
-  // { path: 'marcacao/:id', component: MarcacaoPaginaComponent, canActivate: [AuthGuard] },
-  // { path: 'marcacaoLivro', component: MarcacaoLivroPaginaComponent, canActivate: [AuthGuard]},
+  { path: 'perfilusuario', component: PerfilUsuarioPaginaComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginPaginaComponent},
+  { path: 'cadastrousuario', component: CadastroUsuarioPaginaComponent},
   { path: 'verificar-email', component: VerificarEmailPaginaComponent},
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: '/not-found', pathMatch: 'full' }
@@ -99,6 +101,8 @@ const appRoutes: Routes = [
     VerificarEmailPaginaComponent,
     CadastroProfessorPaginaComponent,
     ProfessorListaComponent,
+    CadastroUsuarioPaginaComponent,
+    PerfilUsuarioPaginaComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -115,7 +119,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     MaterialModule
   ],
-  providers: [UsuarioService, TurmaService, PontoService, LivroService, AlunoService,ProfessorService, AuthService],
+  providers: [UsuarioService, TurmaService, PontoService, LivroService, AlunoService,ProfessorService, InstituicaoService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

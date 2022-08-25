@@ -78,9 +78,6 @@ export class LoginPaginaComponent implements OnInit {
   abrirRedefinirSenha() {
     
     const opcoes: NgbModalOptions = {
-      // backdrop: 'static',
-      // keyboard: false,
-      // size: 'lg',
       windowClass: "custom-modal"
     };
     
