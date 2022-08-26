@@ -1,1 +1,74 @@
-<p>cadastro-usuario-pagina works!</p>
+<div class="container">
+    <form [formGroup]="formCadastro" (ngSubmit)="cadastrarInstituicao()">
+        <div class="col-12">
+            <div class="row titulo m-4">
+                <span>Cadastre sua instituição</span>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" [ngClass]="formInvalido('nome') ?'form-control is-invalid':'form-control'"
+                        id="nome" name="nome" formControlName="nome" placeholder="Nome da instituição"
+                        aria-describedby="nomeInvalido" required>
+                    <div id="nomeInvalido" class="invalid-feedback">Nome Inválido.</div>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" [ngClass]="emailValido() ?'form-control is-invalid':'form-control'"
+                        id="email" name="email" formControlName="email" placeholder="Email"
+                        aria-describedby="emailInvalido" required>
+                    <div id="emailInvalido" class="invalid-feedback">Email Inválido.</div>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
+                    <label for="cep">CEP</label>
+                    <input type="text" [ngClass]="cepValido() ?'form-control is-invalid':'form-control'"
+                        id="cep" name="cep" formControlName="cep" placeholder="Digite um cep válido"
+                        aria-describedby="cepInvalido" required>
+                    <div id="cepInvalido" class="invalid-feedback">CEP Inválido.</div>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
+                    <label for="endereco">Endereço</label>
+                    <input type="text" [ngClass]="formInvalido('endereco') ?'form-control is-invalid':'form-control'"
+                        id="endereco" name="endereco" formControlName="endereco" placeholder="Endereço da instituição"
+                        aria-describedby="enderecoInvalido" required>
+                    <div id="enderecoInvalido" class="invalid-feedback">Endereço Inválido.</div>
+                </div>
+            </div>
+            <div class="row alinhamento">
+            <div class="col-md-6 col-12">
+                <div class="form-group">
+                    <label for="grauescolaridade">Grau de Escolaridade</label>
+                    <label class="form-control listaGE">
+                        <input type="checkbox" name="checkbox" />
+                        Checkbox 1
+                        <input type="checkbox" name="checkbox" />
+                        Checkbox 2
+                        <input type="checkbox" name="checkbox" />
+                        Checkbox 3
+                        <input type="checkbox" name="checkbox" />
+                        Checkbox 4
+                      </label>                                           
+                </div>
+            </div>
+                <div class="col imagem">
+                    <app-upload-imagem (img)="imgCarregada = $event" [imagemAtual]="imagemAtual"></app-upload-imagem>
+                </div>
+            </div>
+            <div class="row my-4">
+
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-12">
+                    <input type="submit" class="btn btn-primary h-100 w-100 item" value="Cadastrar"
+                        [disabled]="!estadoBotao()">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

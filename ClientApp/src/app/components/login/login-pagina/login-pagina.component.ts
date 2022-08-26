@@ -52,7 +52,6 @@ export class LoginPaginaComponent implements OnInit {
     return true;
   }
   validarSenha() {
-    //TODO validar
     return false;
   }
   login() {
@@ -73,7 +72,7 @@ export class LoginPaginaComponent implements OnInit {
     return this.form.valid;
   }
   cadastrar() {
-    //navegar tela cadastro
+    this.router.navigate(['/cadastrousuario'])
   }
   abrirRedefinirSenha() {
     
