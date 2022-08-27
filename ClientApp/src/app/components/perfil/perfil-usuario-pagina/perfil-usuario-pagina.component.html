@@ -1,8 +1,8 @@
 <div class="container">
-    <form [formGroup]="formCadastro" (ngSubmit)="cadastrarInstituicao()">
+    <form [formGroup]="formCadastro">
         <div class="col-12">
             <div class="row titulo m-4">
-                <span>Cadastre sua instituição</span>
+                <span>Meu Perfil</span>
             </div>
             <div class="row my-4">
                 <div class="form-group">
@@ -61,8 +61,12 @@
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div class="col-md-6 col-12">
-                    <input type="submit" class="btn btn-primary h-100 w-100 item" value="Cadastrar"
+                <div class="col-md-6 col-6">
+                    <input class="btn btn-primary h-100 w-100 item" value="Salvar" (click)="salvar()"
+                        [disabled]="!estadoBotao()">
+                </div>
+                <div class="col-md-6 col-6">
+                    <input class="btn btn-danger h-100 w-100 item" value="Excluir" (click)="excluir() "
                         [disabled]="!estadoBotao()">
                 </div>
             </div>

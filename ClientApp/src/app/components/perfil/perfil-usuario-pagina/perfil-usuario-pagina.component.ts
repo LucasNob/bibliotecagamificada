@@ -2,32 +2,45 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Instituicao } from 'src/app/models/entidades/Instituicao.model';
+import { Usuario } from 'src/app/models/entidades/Usuario.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { InstituicaoService } from 'src/app/services/instituicao.service';
+import { AppBarService } from '../../app-bar/app-bar.service.';
 
 @Component({
-  selector: 'app-cadastro-usuario-pagina',
-  templateUrl: './cadastro-usuario-pagina.component.html',
-  styleUrls: ['./cadastro-usuario-pagina.component.css']
+  selector: 'app-perfil-usuario-pagina',
+  templateUrl: './perfil-usuario-pagina.component.html',
+  styleUrls: ['./perfil-usuario-pagina.component.css']
 })
-export class CadastroUsuarioPaginaComponent implements OnInit {
+export class PerfilUsuarioPaginaComponent implements OnInit {
   formCadastro!: FormGroup;
+  usuario?: any;
   imgCarregada?: any;
   imagemAtual?: String = "../../../assets/images/default_avatar.png";
 
   constructor(
     private instituicaoService: InstituicaoService,
+    private appbarService: AppBarService,
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private cdRef: ChangeDetectorRef
-  ) { }
+    private cdRef: ChangeDetectorRef) 
+    {
+    let usuario = authService.obterDadosUsuario();
+    if (usuario?.permissao == 1) {
+      this.usuario = usuario as Usuario;
+      this.iniciarAppbar();
+    }
+    else
+      this.router.navigateByUrl('#');
+    }
 
   ngOnInit(): void {
-    if (this.authService.usuarioLogado())
-    this.router.navigate(['/']);
-    
     this.criarForm(new Instituicao("","",1,undefined));
+  }
+
+  iniciarAppbar() { 
+    this.appbarService.limparLinks();
   }
 
   criarForm(instituicao: Instituicao) {
@@ -41,9 +54,6 @@ export class CadastroUsuarioPaginaComponent implements OnInit {
         endereco:[instituicao.endereco]
       }
     );
-  }
-
-  cadastrarInstituicao() {
   }
 
   estadoBotao() {
@@ -73,6 +83,12 @@ export class CadastroUsuarioPaginaComponent implements OnInit {
   cepValido()
   {
     return true;
+  }
+  
+  salvar() {
+  }
+
+  excluir() {
   }
   
   

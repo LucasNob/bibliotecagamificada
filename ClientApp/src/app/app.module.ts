@@ -34,7 +34,7 @@ import { UploadImagemComponent } from './components/upload-imagem/upload-imagem.
 import { CadastroProfessorPaginaComponent } from './components/professor/cadastro-professor/cadastro-professor-pagina/cadastro-professor-pagina.component';
 import { ProfessorListaComponent } from './components/professor/cadastro-professor/professor-lista/professor-lista.component';
 import { CadastroUsuarioPaginaComponent } from './components/login/cadastro-usuario-pagina/cadastro-usuario-pagina.component';
-import { PerfilUsuarioPaginaComponent } from './components/perfil-usuario-pagina/perfil-usuario-pagina.component';
+import { PerfilUsuarioPaginaComponent } from './components/perfil/perfil-usuario-pagina/perfil-usuario-pagina.component';
 import { AlunoService } from './services/aluno.service';
 import { AuthService } from './services/auth.service';
 import { LivroService } from './services/livro.service';
