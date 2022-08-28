@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Instituicao } from 'src/app/models/entidades/Instituicao.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { InstituicaoService } from 'src/app/services/instituicao.service';
+import { CepService } from 'src/app/services/viacep/cep.service';
 
 @Component({
   selector: 'app-cadastro-usuario-pagina',
@@ -19,6 +20,7 @@ export class CadastroUsuarioPaginaComponent implements OnInit {
     private instituicaoService: InstituicaoService,
     private formBuilder: FormBuilder,
     private authService: AuthService,
+    private cepService: CepService,
     private router: Router,
     private cdRef: ChangeDetectorRef
   ) { }
@@ -75,5 +77,20 @@ export class CadastroUsuarioPaginaComponent implements OnInit {
     return true;
   }
   
+  consultaCep()
+  {
+    if (this.cepValido()){
+      const cep = this.formCadastro.get('cep')!.value;
+      this.cepService.buscar(cep).subscribe((dados)=> this.preencheEndereco(dados))
+    }
+  }
+
+  preencheEndereco(dados: any)
+  {
+    this.formCadastro.setValue({
+      cep: dados.cep,
+      endereco: dados.logradouro + ', ' + dados.bairro + ', ' + dados.localidade + ',' + dados.uf
+    });
+  }
   
 }
