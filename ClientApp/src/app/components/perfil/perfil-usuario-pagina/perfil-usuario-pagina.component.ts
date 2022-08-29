@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Instituicao } from 'src/app/models/entidades/Instituicao.model';
 import { Usuario } from 'src/app/models/entidades/Usuario.model';
+import { GrauEscolaridade } from 'src/app/models/livro/GrauEscolaridade.model';
+import { OGrauEscolaridade } from 'src/app/models/livro/OGrauEscolaridade.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { InstituicaoService } from 'src/app/services/instituicao.service';
 import { AppBarService } from '../../app-bar/app-bar.service.';
@@ -91,5 +93,13 @@ export class PerfilUsuarioPaginaComponent implements OnInit {
   excluir() {
   }
   
+  listaGrauEscolaridade() {
+    const ge = Object.keys(GrauEscolaridade).filter((v) => isNaN(Number(v)));
+    return ge;
+  }
+
+  ObterNomeGrauEscolaridade(ge: any) { 
+    return OGrauEscolaridade.ObterNome(+GrauEscolaridade[ge]);
+  }
   
 }

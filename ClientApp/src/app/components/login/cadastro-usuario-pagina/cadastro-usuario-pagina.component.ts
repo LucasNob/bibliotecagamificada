@@ -2,6 +2,8 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Instituicao } from 'src/app/models/entidades/Instituicao.model';
+import { GrauEscolaridade } from 'src/app/models/livro/GrauEscolaridade.model';
+import { OGrauEscolaridade } from 'src/app/models/livro/OGrauEscolaridade.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { InstituicaoService } from 'src/app/services/instituicao.service';
 import { CepService } from 'src/app/services/viacep/cep.service';
@@ -93,4 +95,13 @@ export class CadastroUsuarioPaginaComponent implements OnInit {
     });
   }
   
+  listaGrauEscolaridade() {
+    const ge = Object.keys(GrauEscolaridade).filter((v) => isNaN(Number(v)));
+    return ge;
+  }
+
+  ObterNomeGrauEscolaridade(ge: any) { 
+    return OGrauEscolaridade.ObterNome(+GrauEscolaridade[ge]);
+  }
+
 }
