@@ -32,9 +32,15 @@ namespace BibliotecaGamificada.Turmas.Comum.Repositorios
             return await this.ObterListaDadosPorFiltro(filtro);
         }
 
-         public async Task<List<Turma>> ObterporInstituicao(string id)
+        public async Task<List<Turma>> ObterporInstituicao(string id)
         {
             var filtro = Builders<Turma>.Filter.Eq(x => x.instituicao, id);
+            return await this.ObterListaDadosPorFiltro(filtro);
+        }
+
+        public async Task<List<Turma>> ObterporAno(int anoLetivo)
+        {
+            var filtro = Builders<Turma>.Filter.Eq(x => x.anoLetivo, anoLetivo);
             return await this.ObterListaDadosPorFiltro(filtro);
         }
 
