@@ -2,6 +2,8 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Instituicao } from 'src/app/models/entidades/Instituicao.model';
+import { InstituicaoCadastroModel } from 'src/app/models/entidades/InstituicaoCadastro.model';
+import { Genero } from 'src/app/models/livro/Genero.model';
 import { GrauEscolaridade } from 'src/app/models/livro/GrauEscolaridade.model';
 import { OGrauEscolaridade } from 'src/app/models/livro/OGrauEscolaridade.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -17,6 +19,8 @@ export class CadastroUsuarioPaginaComponent implements OnInit {
   formCadastro!: FormGroup;
   imgCarregada?: any;
   imagemAtual?: String = "../../../assets/images/default_avatar.png";
+  estado = false;
+  escolaridadeLista: Array<any> = [];
 
   constructor(
     private instituicaoService: InstituicaoService,
@@ -35,6 +39,7 @@ export class CadastroUsuarioPaginaComponent implements OnInit {
   }
 
   criarForm(instituicao: Instituicao) {
+    this.escolaridadeLista = instituicao.grauescolaridade;
     this.formCadastro = this.formBuilder.group(
       {
         nome: [instituicao.nome],
@@ -48,10 +53,33 @@ export class CadastroUsuarioPaginaComponent implements OnInit {
   }
 
   cadastrarInstituicao() {
+    this.formCadastro.get('nome')!.setValue(this.formCadastro.get('nome')?.value.trim());
+    console.log(this.formCadastro.value)
+    if (this.formCadastro.valid && this.estado == false){
+        let instituicao = new InstituicaoCadastroModel(
+          this.formCadastro.get('nome')!.value,
+          this.formCadastro.get('email')!.value,
+          this.formCadastro.get('grauescolaridade')!.value,
+          this.formCadastro.get('cep')!.value,
+          this.formCadastro.get('endereco')!.value,
+          this.imgCarregada
+      );
+      this.estado = true;
+      this.authService.signUp(this.formCadastro.get('email')!.value, '12341234',false).then(res => {
+        this.instituicaoService.cadastrarInstituicao(instituicao).then(ret => {
+          this.router.navigate(['/verificar-email'])
+        }
+        ).finally(() => {
+          this.estado = false;
+          this.authService.SignOut();
+          this.cdRef.detectChanges();
+        });
+      })
+    }
   }
 
   estadoBotao() {
-    if (!this.formCadastro.get('nome')?.value || this.emailValido() || this.cepValido())
+    if (!this.formCadastro.get('nome')?.value || this.emailValido() || this.cepValido() || this.estado)
       return false;
     return this.formCadastro.valid;
   }
@@ -74,16 +102,20 @@ export class CadastroUsuarioPaginaComponent implements OnInit {
     return true;
   }
   
-  cepValido()
-  {
-    return true;
+  cepValido(){
+    const pattern = /^[0-9]{5}-?[0-9]{3}$/;
+    return !pattern.test(this.formCadastro.get('cep')!.value);
   }
   
-  consultaCep()
-  {
-    if (this.cepValido()){
+  consultaCep(){
+    if (!this.cepValido()){
       const cep = this.formCadastro.get('cep')!.value;
-      this.cepService.buscar(cep).subscribe((dados)=> this.preencheEndereco(dados))
+      this.cepService.buscar(cep).subscribe(dados => {
+        const d = dados as any;
+        if (d && d['erro']!='true') {
+          this.preencheEndereco(dados)
+        }
+      })
     }
   }
 
@@ -91,13 +123,27 @@ export class CadastroUsuarioPaginaComponent implements OnInit {
   {
     this.formCadastro.setValue({
       cep: dados.cep,
-      endereco: dados.logradouro + ', ' + dados.bairro + ', ' + dados.localidade + ',' + dados.uf
+      endereco: dados.logradouro + ', ' + dados.bairro + ', ' + dados.localidade + ',' + dados.uf,
+      nome: this.formCadastro.get('nome')!.value,
+      email: this.formCadastro.get('email')!.value,
+      foto: this.formCadastro.get('foto')!.value,
+      grauescolaridade:this.formCadastro.get('grauescolaridade')!.value,
     });
   }
   
   listaGrauEscolaridade() {
-    const ge = Object.keys(GrauEscolaridade).filter((v) => isNaN(Number(v)));
-    return ge;
+    const list: Array<string> = [];
+    for (let item in GrauEscolaridade) {
+      !isNaN(+item) ? list.push(OGrauEscolaridade.ObterNome(+item)) : null;
+    }
+    return list;
+  }
+
+  adicionarEscolaridade(esc: any) {
+    const num = OGrauEscolaridade.ObterNumero(esc);
+    !this.escolaridadeLista.includes(num) ? this.escolaridadeLista.push(num) :
+    this.escolaridadeLista.splice(this.escolaridadeLista.findIndex(e=> e == num), 1);
+    this.formCadastro.get('grauescolaridade')?.setValue(this.escolaridadeLista);
   }
 
   ObterNomeGrauEscolaridade(ge: any) { 

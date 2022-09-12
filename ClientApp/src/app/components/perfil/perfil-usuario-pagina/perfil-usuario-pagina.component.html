@@ -25,7 +25,7 @@
             <div class="row my-4">
                 <div class="form-group">
                     <label for="cep">CEP</label>
-                    <input type="text" [ngClass]="cepValido() ?'form-control is-invalid':'form-control'"
+                    <input type="text" [ngClass]="cepValido() ?'form-control is-invalid':'form-control'" (blur)="consultaCep()"
                         id="cep" name="cep" formControlName="cep" placeholder="Digite um cep válido"
                         aria-describedby="cepInvalido" required>
                     <div id="cepInvalido" class="invalid-feedback">CEP Inválido.</div>
@@ -44,16 +44,14 @@
             <div class="col-md-6 col-12">
                 <div class="form-group">
                     <label for="grauescolaridade">Grau de Escolaridade</label>
-                    <label class="form-control listaGE">
-                        <input type="checkbox" name="checkbox" />
-                        Checkbox 1
-                        <input type="checkbox" name="checkbox" />
-                        Checkbox 2
-                        <input type="checkbox" name="checkbox" />
-                        Checkbox 3
-                        <input type="checkbox" name="checkbox" />
-                        Checkbox 4
-                      </label>                                           
+                    <div class="form-control listaGE" id="grauescolaridade">
+                        <div *ngFor="let item of listaGrauEscolaridade(); let i = index">
+                                <input type="checkbox" [id]="'checkbox'+i" (click)="adicionarEscolaridade(item)"/>
+                                <span class="m-2">
+                                    {{item}}
+                                </span>
+                        </div>
+                      </div>                                  
                 </div>
             </div>
                 <div class="col imagem">
@@ -66,10 +64,20 @@
                         [disabled]="!estadoBotao()">
                 </div>
                 <div class="col-md-6 col-6">
-                    <input class="btn btn-danger h-100 w-100 item" value="Excluir" (click)="excluir() "
+                    <input class="btn btn-danger h-100 w-100 item" value="Excluir" (click)="abrirExcluir() "
                         [disabled]="!estadoBotao()">
                 </div>
             </div>
         </div>
     </form>
+    <ng-template #content>
+        <div class="col-md-12 col-12 px-4 py-2">
+            <span class="opcoes">Tem certeza que deseja excluir a conta? Esta ação não pode ser desfeita.</span>
+        </div>
+        <div class="row justify-content-center">
+        <div class="col-md-8 col-10 py-2">
+        <button class="btn btn-primary h-100 w-100 item" (click)="excluir()">Excluir conta</button>
+        </div>
+    </div>
+    </ng-template>
 </div>

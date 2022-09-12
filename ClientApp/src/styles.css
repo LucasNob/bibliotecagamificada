@@ -131,9 +131,9 @@ background-color: #3464cc ;
   font-weight: bold;
   color: #1A3369;
   line-height: 1.1;
-  display: grid;
-  grid-template-columns: 1em auto;
-  gap: 0.5em;
+  display: grid; 
+  /* grid-template-columns: 1em auto; */
+  /* gap: 0.5em; */
   margin-top: 0.5em;
 }
 
@@ -145,7 +145,7 @@ height: 1.15em;
 border: 0.15em solid currentColor;
 border-radius: 0.15em;
 transform: translateY(-0.075em);
-display: grid;
+/* display: grid; */
 place-content: center;
 }
 

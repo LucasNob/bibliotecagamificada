@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {  Router } from '@angular/router';
 import { Usuario } from 'src/app/models/entidades/Usuario.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -15,7 +15,8 @@ export class AppBarComponent implements OnInit,OnDestroy {
   constructor(
     private appBarService: AppBarService,
     private router: Router,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private cdRef: ChangeDetectorRef) { }
 
   @Input()
   usuario!: Usuario;
@@ -25,6 +26,7 @@ export class AppBarComponent implements OnInit,OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.appBarService.itensChange.subscribe(res => {
+      console.log(res)
       this.links = res;
     })
   }
@@ -49,6 +51,8 @@ export class AppBarComponent implements OnInit,OnDestroy {
 
   perfil() {
     this.appBarService.limparLinks();
+    this.links = this.appBarService.obterLinks();
+    this.cdRef.detectChanges();
     this.router.navigate(['perfilusuario']);
   }
 }

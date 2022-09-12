@@ -76,7 +76,7 @@ namespace BibliotecaGamificada.Instituicoes.Negocios
                     foto = await bs.UploadImagem(instituicao.foto!, "imagens");
                 }
 
-                var i = new Instituicao(instituicao.grauEscolaridade, instituicao.cep, instituicao.endereco, instituicao.nome, instituicao.email, foto, instituicao.permissao);
+                var i = new Instituicao(instituicao.grauEscolaridade, instituicao.cep, instituicao.endereco, instituicao.nome, instituicao.email, foto, Permissao.instituicao);
                 await firebase.DefinirPermissaoUsuario(instituicao.email, Permissao.instituicao);
                 await instituicaoRepositorio.Cadastrar(i);
             }

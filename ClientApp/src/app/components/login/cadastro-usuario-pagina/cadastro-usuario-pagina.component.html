@@ -25,7 +25,7 @@
             <div class="row my-4">
                 <div class="form-group">
                     <label for="cep">CEP</label>
-                    <input type="text" [ngClass]="cepValido() ?'form-control is-invalid':'form-control'" (blur)="consultaCep()"
+                    <input type="text" [ngClass]="cepValido() ?'form-control is-invalid':'form-control'" (blur)="consultaCep()" [value]="null"
                         id="cep" name="cep" formControlName="cep" placeholder="Digite um cep válido"
                         aria-describedby="cepInvalido" required>
                     <div id="cepInvalido" class="invalid-feedback">CEP Inválido.</div>
@@ -44,16 +44,14 @@
             <div class="col-md-6 col-12">
                 <div class="form-group">
                     <label for="grauescolaridade">Grau de Escolaridade</label>
-                    <label class="form-control listaGE">
-                        <input type="checkbox" name="checkbox" />
-                        Checkbox 1
-                        <input type="checkbox" name="checkbox" />
-                        Checkbox 2
-                        <input type="checkbox" name="checkbox" />
-                        Checkbox 3
-                        <input type="checkbox" name="checkbox" />
-                        Checkbox 4
-                      </label>                                           
+                    <div class="form-control listaGE" id="grauescolaridade">
+                        <div *ngFor="let item of listaGrauEscolaridade(); let i = index">
+                                <input type="checkbox" [id]="'checkbox'" (click)="adicionarEscolaridade(item)"/>
+                                <span class="m-2">
+                                    {{item}}
+                                </span>
+                        </div>
+                      </div>                                           
                 </div>
             </div>
                 <div class="col imagem">

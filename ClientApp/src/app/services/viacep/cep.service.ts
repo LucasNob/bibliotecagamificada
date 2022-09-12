@@ -10,6 +10,7 @@ export class CepService {
 
   buscar(cep: string)
   {
+    console.log(cep)
     return this.httpClient.get(`https://viacep.com.br/ws/${cep}/json/`)
   }
 }
