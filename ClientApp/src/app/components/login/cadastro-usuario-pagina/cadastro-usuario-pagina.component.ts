@@ -54,7 +54,6 @@ export class CadastroUsuarioPaginaComponent implements OnInit {
 
   cadastrarInstituicao() {
     this.formCadastro.get('nome')!.setValue(this.formCadastro.get('nome')?.value.trim());
-    console.log(this.formCadastro.value)
     if (this.formCadastro.valid && this.estado == false){
         let instituicao = new InstituicaoCadastroModel(
           this.formCadastro.get('nome')!.value,

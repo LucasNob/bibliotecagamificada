@@ -26,7 +26,6 @@ export class AppBarComponent implements OnInit,OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.appBarService.itensChange.subscribe(res => {
-      console.log(res)
       this.links = res;
     })
   }

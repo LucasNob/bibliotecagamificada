@@ -107,7 +107,6 @@ export class CadastroTurmaPaginaComponent implements OnInit {
       this.usuario?.permissao == 1 ? this.usuario.id : this.usuario?.instituicao!,
       this.usuario?.permissao == 1 ? this.formCadastro.get('professor')!.value : this.usuario?.id!,
     );
-    // console.log(turma)
     if (this.edicao != "")
       turma.id = this.edicao;
     

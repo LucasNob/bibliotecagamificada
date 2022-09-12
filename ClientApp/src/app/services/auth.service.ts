@@ -120,7 +120,6 @@ export class AuthService {
     }
 
     SetUserData(user: any) {
-        // console.log(user);
         // const userRef: AngularFirestoreDocument<any> = this.afs.doc(
         //   `users/${user.uid}`
         // );
@@ -137,7 +136,6 @@ export class AuthService {
     }
     obterDadosUsuario() {
         let data = localStorage.getItem('usuario')
-        // console.log(data)
         if(data)
             return JSON.parse(data);
         return null;

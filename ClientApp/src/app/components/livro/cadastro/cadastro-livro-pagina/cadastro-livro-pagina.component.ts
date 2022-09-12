@@ -69,7 +69,6 @@ export class CadastroLivroPaginaComponent implements OnInit {
   }
   listaGeneros() {
     const generos = Object.keys(Genero).filter((v) => isNaN(Number(v)));
-    console.log(generos)
     return generos;
   }
 

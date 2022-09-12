@@ -134,7 +134,6 @@ export class PerfilUsuarioPaginaComponent implements OnInit, AfterViewInit {
         this.formCadastro.get('endereco')!.value,
         this.imgCarregada
       );
-      console.log(this.imgCarregada)
       instituicao.id = this.usuario.id;
       this.estado = true;
       this.instituicaoService.editarInstituicao(instituicao).then(ret => {
@@ -205,8 +204,6 @@ export class PerfilUsuarioPaginaComponent implements OnInit, AfterViewInit {
       this.escolaridadeLista.splice(this.escolaridadeLista.findIndex(e => e == num), 1);
     
       this.formCadastro.get('grauescolaridade')?.setValue(this.escolaridadeLista);
-      console.log(this.formCadastro.get('grauescolaridade')?.value)
-      console.log(this.escolaridadeLista)
   }
 
   ObterNomeGrauEscolaridade(ge: any) { 
