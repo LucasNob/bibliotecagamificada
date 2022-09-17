@@ -64,7 +64,8 @@ export class CadastroUsuarioPaginaComponent implements OnInit {
           this.imgCarregada
       );
       this.estado = true;
-      this.authService.signUp(this.formCadastro.get('email')!.value, '12341234',false).then(res => {
+      this.authService.criarUsuario(this.formCadastro.get('email')!.value, '12341234').then(res => {
+        this.authService.redefinirSenha(instituicao.email,'E-mail para cadastro de senha enviado.');
         this.instituicaoService.cadastrarInstituicao(instituicao).then(ret => {
           this.router.navigate(['/verificar-email'])
         }
@@ -118,8 +119,7 @@ export class CadastroUsuarioPaginaComponent implements OnInit {
     }
   }
 
-  preencheEndereco(dados: any)
-  {
+  preencheEndereco(dados: any){
     this.formCadastro.setValue({
       cep: dados.cep,
       endereco: dados.logradouro + ', ' + dados.bairro + ', ' + dados.localidade + ',' + dados.uf,
