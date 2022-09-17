@@ -95,7 +95,7 @@ export class PerfilUsuarioPaginaComponent implements OnInit, AfterViewInit {
   }
 
   estadoBotao() {
-    if (!this.formCadastro.get('nome')?.value || this.emailValido() || this.cepValido() || this.estado)
+    if (!this.formCadastro.get('nome')?.value || this.emailValido() || this.cepValido() || this.estado || this.escolaridadeLista.length < 1)
       return false;
     return this.formCadastro.valid;
   }
