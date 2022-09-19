@@ -137,17 +137,17 @@ export class PerfilUsuarioPaginaComponent implements OnInit, AfterViewInit {
       instituicao.id = this.usuario.id;
       this.estado = true;
       this.instituicaoService.editarInstituicao(instituicao).then(ret => {
-        if (this.emailAtual != instituicao.email)
-          this.router.navigate(['/verificar-email'])
-        else
+        if (ret) {
+          if (this.emailAtual != instituicao.email) {
+            this.router.navigate(['/verificar-email'])
+            this.authService.SignOut();
+          }
+          else
           window.location.reload();
-      }
-      ).finally(() => {
+        }
         this.estado = false;
-        if (this.emailAtual != instituicao.email)
-          this.authService.SignOut();
         this.cdRef.detectChanges();
-      });
+      })
     }
   }
 

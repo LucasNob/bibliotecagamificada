@@ -1,4 +1,5 @@
 using BibliotecaGamificada.Alunos.Comum.Repositorios;
+using BibliotecaGamificada.Alunos.Negocios;
 using BibliotecaGamificada.Comum.Classes.Enums;
 using BibliotecaGamificada.Comum.Classes.Firebase;
 using BibliotecaGamificada.Comum.Classes.Models;
@@ -27,7 +28,14 @@ namespace BibliotecaGamificada.Instituicoes.Negocios
         private readonly TurmaRepositorio turmaRepositorio;
         private readonly FireBaseComum firebase;
 
-        public InstituicoesNegocio(UsuarioRepositorio usuarioRepositorio,InstituicaoRepositorio instituicaoRepositorio, ProfessorRepositorio professorRepositorio, AlunoRepositorio alunoRepositorio, LivroRepositorio livroRepositorio, PontoRepositorio pontoRepositorio, TurmaRepositorio turmaRepositorio, FireBaseComum firebase)
+        public InstituicoesNegocio(UsuarioRepositorio usuarioRepositorio,
+                                   InstituicaoRepositorio instituicaoRepositorio,
+                                   ProfessorRepositorio professorRepositorio,
+                                   AlunoRepositorio alunoRepositorio,
+                                   LivroRepositorio livroRepositorio,
+                                   PontoRepositorio pontoRepositorio,
+                                   TurmaRepositorio turmaRepositorio,
+                                   FireBaseComum firebase)
         {
             this.firebase = firebase;
             this.instituicaoRepositorio= instituicaoRepositorio;
@@ -37,7 +45,6 @@ namespace BibliotecaGamificada.Instituicoes.Negocios
             this.pontoRepositorio = pontoRepositorio;
             this.turmaRepositorio = turmaRepositorio;
             this.usuarioRepositorio = usuarioRepositorio;
-            
         }
 
         public async Task<IActionResult> Obter()
@@ -92,11 +99,12 @@ namespace BibliotecaGamificada.Instituicoes.Negocios
             try
             {
                 var instituicao = await instituicaoRepositorio.ObterPorId(id);
+                var professoresInstituicao = await professorRepositorio.ObterPorInstituicao(id);
+                var alunosInstituicao = await alunoRepositorio.ObterPorInstituicao(id);
+                
                 if (instituicao.email != null)
                     await firebase.RemoverUsuario(instituicao.email);
-                await instituicaoRepositorio.Excluir(id);
 
-                var professoresInstituicao = await professorRepositorio.ObterPorInstituicao(id);
                 if(professoresInstituicao != null && professoresInstituicao.Count()>0)
                 {
                     foreach(Professor professor in professoresInstituicao)
@@ -105,9 +113,7 @@ namespace BibliotecaGamificada.Instituicoes.Negocios
                         await firebase.RemoverUsuario(professor.email);
                     }
                 }
-                await professorRepositorio.ExcluirporInstituicao(id);
 
-                var alunosInstituicao = await alunoRepositorio.ObterPorInstituicao(id);
                 if(alunosInstituicao != null && alunosInstituicao.Count()>0)
                 {
                     foreach(Aluno aluno in alunosInstituicao)
@@ -116,8 +122,10 @@ namespace BibliotecaGamificada.Instituicoes.Negocios
                         await firebase.RemoverUsuario(aluno.email);
                     }
                 }
-                await alunoRepositorio.ExcluirporInstituicao(id);
 
+                await instituicaoRepositorio.Excluir(id);
+                await professorRepositorio.ExcluirporInstituicao(id);
+                await alunoRepositorio.ExcluirporInstituicao(id);
                 await livroRepositorio.ExcluirporInstituicao(id);
                 await turmaRepositorio.ExcluirporInstituicao(id);
                 await pontoRepositorio.ExcluirporInstituicao(id);
@@ -162,9 +170,9 @@ namespace BibliotecaGamificada.Instituicoes.Negocios
                 i.Id = instituicao.id;
                 await instituicaoRepositorio.Editar(i);
             }
-            catch
+            catch(Exception e)
             {
-                return new OkObjectResult(new RetornoMsg("erro", "Erro ao editar"));
+                return new OkObjectResult(new RetornoMsg("erro", "Erro: "+e.Message));
             }
             return new OkObjectResult(new RetornoMsg("sucesso", "Instituicao editada"));
         }

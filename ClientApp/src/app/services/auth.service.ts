@@ -73,13 +73,17 @@ export class AuthService {
             let original = u;
             return this.afAuth.createUserWithEmailAndPassword(email, password).then((result) => {
                 this.SetUserData(result.user);
-                // result.user
-                // return this.enviarEmailVerificacao(false).then(() => {
                     this.afAuth.updateCurrentUser(original);
                     return true;
-                // });
             }).catch((error) => {
-                window.alert(error.message);
+                switch (error.code) {
+                    case 'auth/email-already-in-use':
+                        window.alert('Email já está sendo utilizado.');
+                        break;
+                    default:
+                        window.alert(error.message);
+                        break;
+                }
                 return false;
             });
         });
@@ -93,9 +97,7 @@ export class AuthService {
                     window.location.reload();
                 });
             });
-            // this.SetUserData(result.user);
           }).catch((error) => {
-            // window.alert(error.message);
             window.alert('Usuário ou Senha Inválida');
         });
     }
@@ -133,6 +135,10 @@ export class AuthService {
         // return userRef.set(userData, {
         //   merge: true,
         // });
+    }
+
+    emailExistente(email: string) {
+        // this.afAuth.
     }
     obterDadosUsuario() {
         let data = localStorage.getItem('usuario')

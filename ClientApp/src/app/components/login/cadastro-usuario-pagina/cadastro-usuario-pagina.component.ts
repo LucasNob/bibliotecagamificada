@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Instituicao } from 'src/app/models/entidades/Instituicao.model';
 import { InstituicaoCadastroModel } from 'src/app/models/entidades/InstituicaoCadastro.model';
-import { Genero } from 'src/app/models/livro/Genero.model';
 import { GrauEscolaridade } from 'src/app/models/livro/GrauEscolaridade.model';
 import { OGrauEscolaridade } from 'src/app/models/livro/OGrauEscolaridade.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -65,15 +64,20 @@ export class CadastroUsuarioPaginaComponent implements OnInit {
       );
       this.estado = true;
       this.authService.criarUsuario(this.formCadastro.get('email')!.value, '12341234').then(res => {
-        this.authService.redefinirSenha(instituicao.email,'E-mail para cadastro de senha enviado.');
-        this.instituicaoService.cadastrarInstituicao(instituicao).then(ret => {
-          this.router.navigate(['/verificar-email'])
+        if (res) {
+          this.authService.redefinirSenha(instituicao.email,'E-mail para cadastro de senha enviado.');
+          this.instituicaoService.cadastrarInstituicao(instituicao).then(ret => {
+            this.router.navigate(['/verificar-email']);
+          }).finally(() => {
+            this.estado = false;
+            this.authService.SignOut();
+            this.cdRef.detectChanges();
+          });
         }
-        ).finally(() => {
+        else {
           this.estado = false;
-          this.authService.SignOut();
           this.cdRef.detectChanges();
-        });
+        }
       })
     }
   }

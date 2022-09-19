@@ -37,7 +37,13 @@ import { GetModelUnico } from "../models/GetModelUnico.model";
         return new Promise(
             resolve => {
                 this.http.put<any>(this.baseUrl + 'v1/instituicao/editarInstituicao/', instituicao).subscribe(result => {
-                    resolve(result.objeto);
+                    if (result.status == 'erro') {
+                        window.alert(result.mensagem)
+                        throw new Error(result.mensagem);
+                    }
+                    else {
+                        resolve(result.objeto);
+                    }
                 }, error => console.error(error));
             }
         )
