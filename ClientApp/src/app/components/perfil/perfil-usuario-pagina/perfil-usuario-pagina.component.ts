@@ -142,8 +142,9 @@ export class PerfilUsuarioPaginaComponent implements OnInit, AfterViewInit {
             this.router.navigate(['/verificar-email'])
             this.authService.SignOut();
           }
-          else
-          window.location.reload();
+          else {
+            this.authService.atualizarUsuario(instituicao.email);
+          }
         }
         this.estado = false;
         this.cdRef.detectChanges();

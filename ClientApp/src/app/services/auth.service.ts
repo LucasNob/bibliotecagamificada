@@ -136,7 +136,14 @@ export class AuthService {
         //   merge: true,
         // });
     }
-
+    atualizarUsuario(email: string) {
+        this.usuarioService.obterUsuarioPorEmail(email).then(res => {
+            localStorage.removeItem('user');
+            localStorage.removeItem('usuario');
+            localStorage.setItem('usuario', JSON.stringify(res));
+            window.location.reload();
+        });
+    }
     emailExistente(email: string) {
         // this.afAuth.
     }
