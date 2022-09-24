@@ -42,7 +42,7 @@ import { GetModelUnico } from "../models/GetModelUnico.model";
                         throw new Error(result.mensagem);
                     }
                     else {
-                        resolve(result.objeto);
+                        resolve(true);
                     }
                 }, error => console.error(error));
             }
