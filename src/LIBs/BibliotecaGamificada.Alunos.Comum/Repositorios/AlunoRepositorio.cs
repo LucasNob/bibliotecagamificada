@@ -47,6 +47,13 @@ namespace BibliotecaGamificada.Alunos.Comum.Repositorios
             var filtro = Builders<Aluno>.Filter.Eq(p => p.Id, id);
             await this.ExcluirDado(filtro);
         }
+
+        public async Task ExcluirporInstituicao(string id)
+        {
+            var filtro = Builders<Aluno>.Filter.Eq(p => p.instituicao, id);
+            await this.ExcluirDados(filtro);
+        }
+
         public async Task Editar(Aluno aluno)
         {
             var atualizacao = Builders<Aluno>.Update.Combine(

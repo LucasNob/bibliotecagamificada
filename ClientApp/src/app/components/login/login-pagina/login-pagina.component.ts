@@ -45,14 +45,12 @@ export class LoginPaginaComponent implements OnInit {
   validarEmailRedenifir() {
     if (this.form.get('emailRedenifinir')) {
       const email = this.form.get('emailRedenifinir')!.value;
-      // console.log(email)
       if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
         return false;
     }
     return true;
   }
   validarSenha() {
-    //TODO validar
     return false;
   }
   login() {
@@ -73,14 +71,11 @@ export class LoginPaginaComponent implements OnInit {
     return this.form.valid;
   }
   cadastrar() {
-    //navegar tela cadastro
+    this.router.navigate(['/cadastrousuario'])
   }
   abrirRedefinirSenha() {
     
     const opcoes: NgbModalOptions = {
-      // backdrop: 'static',
-      // keyboard: false,
-      // size: 'lg',
       windowClass: "custom-modal"
     };
     

@@ -40,6 +40,12 @@ namespace BibliotecaGamificada.Livros.Comum.Repositorios
             await this.ExcluirDado(filtro);
         }
 
+        public async Task ExcluirporInstituicao(string id)
+        {
+            var filtro = Builders<Livro>.Filter.Eq(p => p.instituicao, id);
+            await this.ExcluirDados(filtro);
+        }
+
         public async Task Editar(Livro livro)
         {
             var atualizacao = Builders<Livro>.Update.Combine(

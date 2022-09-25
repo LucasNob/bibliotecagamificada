@@ -116,5 +116,42 @@ background-color: #3464cc ;
   min-height: 100px;
 }
 
+.alinhamento{
+  align-items: center;
+  height: 40;
+}
+
+.imagem{
+  text-align: center;
+}
+
+.listaGE {
+  font-family: Usuario;
+  font-size: large;
+  font-weight: bold;
+  color: #1A3369;
+  line-height: 1.1;
+  display: grid; 
+  margin-top: 0.5em;
+}
+
+input[type="checkbox"] {
+margin: 0;
+font: inherit;
+width: 1.15em;
+height: 1.15em;
+border: 0.15em solid currentColor;
+border-radius: 0.15em;
+transform: translateY(-0.075em);
+place-content: center;
+}
+
+.opcoes{
+  font-family: Usuario;
+  font-weight: bold;
+  font-size: large;
+  color: #1C9474;
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

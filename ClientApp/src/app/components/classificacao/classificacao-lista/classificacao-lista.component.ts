@@ -31,6 +31,7 @@ export class ClassificacaoListaComponent implements OnInit {
       return listaClassificacao;
     
     this.listaPontos = this.listaPontos.sort((a: Ponto, b: Ponto) => (a.totalPontos <= b.totalPontos) ? 1 : -1);
+    
     let listaA: Array<Aluno> = [];
     let listaP: Array<Ponto> = [];
     
