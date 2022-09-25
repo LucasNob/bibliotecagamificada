@@ -52,6 +52,30 @@
   box-shadow: none !important;
 }
 
+.btn-secondary {
+  color: #fff;
+  background-color: #233D6E;
+  border: solid #233D6E;
+  border-radius: 3px;
+  font-family: Usuario;
+  font-weight: bold;
+}
+.btn-secondary:hover
+{
+  background-color: #1A3369;
+  border: solid #1A3369;
+  outline: none !important;
+  box-shadow: none;
+}
+
+.btn-secondary:focus{
+  background-color: #1A3369;
+  border: solid #1A3369;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+
 .foto-perfil
 {
 border: 5px solid #1A3369;
