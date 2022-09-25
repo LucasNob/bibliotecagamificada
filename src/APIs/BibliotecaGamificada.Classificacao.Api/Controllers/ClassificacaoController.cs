@@ -30,4 +30,10 @@ public class ClassificacaoController : ControllerBase
     {
         return await classificacaoNegocio.ObterPontosPorAluno(idTurma,idAluno);
     }
+
+    [HttpGet, Route("ObterRankingGlobal/{ano}")]
+    public async Task<IActionResult> ObterRankingGlobal([FromRoute] int anoletivo)
+    {
+        return await classificacaoNegocio.ObterRankingGlobal(anoletivo);
+    }
 }

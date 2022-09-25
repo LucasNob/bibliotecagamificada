@@ -41,10 +41,6 @@ export class CadastroLivroPaginaComponent implements OnInit {
         this.usuario = usuario as Usuario;
         this.iniciarAppbar();
       }
-      // else if (usuario?.permissao == 2) {
-      //   this.usuario = usuario as Professor;
-      //   this.iniciarAppbar();
-      // }
       else
         this.router.navigateByUrl('#');
     }

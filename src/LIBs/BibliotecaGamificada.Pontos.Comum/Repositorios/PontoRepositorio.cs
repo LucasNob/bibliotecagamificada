@@ -27,11 +27,18 @@ namespace BibliotecaGamificada.Pontos.Comum.Repositorios
             var filtro = Builders<Ponto>.Filter.Eq(p => p.turma, id);
             return await this.ObterListaDadosPorFiltro(filtro);
         }
-         public async Task<List<Ponto>> ObterPorAluno(string id)
+        public async Task<List<Ponto>> ObterPorAluno(string id)
         {
             var filtro = Builders<Ponto>.Filter.Eq(p => p.aluno, id);
             return await this.ObterListaDadosPorFiltro(filtro);
         }
+
+        public async Task<List<Ponto>> ObterporInstituicao(string id)
+        {
+            var filtro = Builders<Ponto>.Filter.Eq(x => x.instituicao, id);
+            return await this.ObterListaDadosPorFiltro(filtro);
+        }
+
         public async Task AtualizarPontoLivrosLidos(Ponto atual, Ponto novo){
             var update = Builders<Ponto>.Update.Combine(
                 Builders<Ponto>.Update
@@ -49,6 +56,12 @@ namespace BibliotecaGamificada.Pontos.Comum.Repositorios
         public async Task ExcluirporTurma(string id)
         {
             var filtro = Builders<Ponto>.Filter.Eq(p => p.turma, id);
+            await this.ExcluirDados(filtro);
+        }
+
+        public async Task ExcluirporInstituicao(string id)
+        {
+            var filtro = Builders<Ponto>.Filter.Eq(p => p.instituicao, id);
             await this.ExcluirDados(filtro);
         }
         

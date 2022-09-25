@@ -73,13 +73,17 @@ export class AuthService {
             let original = u;
             return this.afAuth.createUserWithEmailAndPassword(email, password).then((result) => {
                 this.SetUserData(result.user);
-                // result.user
-                // return this.enviarEmailVerificacao(false).then(() => {
                     this.afAuth.updateCurrentUser(original);
                     return true;
-                // });
             }).catch((error) => {
-                window.alert(error.message);
+                switch (error.code) {
+                    case 'auth/email-already-in-use':
+                        window.alert('Email já está sendo utilizado.');
+                        break;
+                    default:
+                        window.alert(error.message);
+                        break;
+                }
                 return false;
             });
         });
@@ -93,9 +97,7 @@ export class AuthService {
                     window.location.reload();
                 });
             });
-            // this.SetUserData(result.user);
           }).catch((error) => {
-            // window.alert(error.message);
             window.alert('Usuário ou Senha Inválida');
         });
     }
@@ -120,7 +122,6 @@ export class AuthService {
     }
 
     SetUserData(user: any) {
-        // console.log(user);
         // const userRef: AngularFirestoreDocument<any> = this.afs.doc(
         //   `users/${user.uid}`
         // );
@@ -135,9 +136,19 @@ export class AuthService {
         //   merge: true,
         // });
     }
+    atualizarUsuario(email: string) {
+        this.usuarioService.obterUsuarioPorEmail(email).then(res => {
+            // localStorage.removeItem('user');
+            localStorage.removeItem('usuario');
+            localStorage.setItem('usuario', JSON.stringify(res));
+            window.location.reload();
+        });
+    }
+    emailExistente(email: string) {
+        // this.afAuth.
+    }
     obterDadosUsuario() {
         let data = localStorage.getItem('usuario')
-        // console.log(data)
         if(data)
             return JSON.parse(data);
         return null;
