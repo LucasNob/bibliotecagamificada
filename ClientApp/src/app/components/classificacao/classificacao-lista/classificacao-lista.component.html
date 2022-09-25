@@ -1,11 +1,11 @@
 <div class="table-resposive">
     <div class="tabela-cheia" *ngIf="obterLista().length > 0; else erro">
-            <div class="row py-2">
-                <div class="col-md-2 col-3 text-center tabela cabecalho">Posição</div>
-                <div class=" col-md-2 col-2 tabela cabecalho"></div>
-                <div class=" col-md-6 col-3 tabela cabecalho">Nome</div>
-                <div class="col-md-2 col-4 text-start tabela cabecalho">Pontos</div>
-            </div>
+        <div class="row py-2">
+            <div class="col-md-2 col-3 text-center tabela cabecalho">Posição</div>
+            <div class=" col-md-2 col-2 tabela cabecalho"></div>
+            <div class=" col-md-6 col-3 tabela cabecalho">Nome</div>
+            <div class="col-md-2 col-4 text-start tabela cabecalho">Pontos</div>
+        </div>
         <div>
             <div *ngFor="let item of obterLista()">
                 <app-classificacao-lista-item [ponto]="item.ponto" [colocacao]="item.colocacao" [premio]="item.premio" [img]="item.img!" [nome]="item.nome!">
