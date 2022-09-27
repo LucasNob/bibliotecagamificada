@@ -1,19 +1,21 @@
 <div class="container">
     <div class="row mt-4 backgroundcolor">
-        <div class="row bloco-card">    
-            <div class="col-md-6 col-12 py-4 px-4 bloco-card">
-                <button class="btn-secondary h-100 w-100 item" (click)="classificacaoglobal()">Ranking Global</button>
-            </div>
-        <!--
-            <div class="col-md-6 col-12 py-4 px-4 bloco-card">
-                <button class="btn-secondary h-100 w-100 item">Ranking Escolar</button>
-            </div>
-        -->
-        </div>
         <div *ngIf="obterTurmasUsuario() && obterTurmasUsuario().length > 0; else erro">
             <div class="row bloco-card">
+                <div class="col-md-6 col-12 py-4 px-4 bloco-card">
+                    <button class="btn-secondary h-100 w-100 item" (click)="classificacaoglobal()">Ranking
+                        Global</button>
+                </div>
+                <!--
+                <div class="col-md-6 col-12 py-4 px-4 bloco-card">
+                    <button class="btn-secondary h-100 w-100 item">Ranking Escolar</button>
+                </div>
+                -->
+            </div>
+            <div class="row bloco-card">
                 <div class="col-md-6 col-12 py-4 px-4 bloco-card" *ngFor="let item of obterTurmasUsuario()">
-                    <button class="btn-primary h-100 w-100 item" (click)="selecionarTurma(item.id)">{{item.nome}}</button>
+                    <button class="btn-primary h-100 w-100 item"
+                        (click)="selecionarTurma(item.id)">{{item.nome}}</button>
                 </div>
             </div>
         </div>

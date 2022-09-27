@@ -12,7 +12,7 @@ import { AppBarService } from '../../app-bar/app-bar.service.';
   templateUrl: './classificacao-global-pagina.component.html',
   styleUrls: ['./classificacao-global-pagina.component.css']
 })
-export class ClassificacaoGlobalPaginaComponent implements OnInit{
+export class ClassificacaoGlobalPaginaComponent implements OnInit {
 
   listaPontos = new Array<PontoClassificacaoGlobal>();
   classificacaoGlobal = new Array<ItemClassificacaoGlobal>();
@@ -21,23 +21,23 @@ export class ClassificacaoGlobalPaginaComponent implements OnInit{
 
   constructor(
     private pontoService: PontoService,
-    private appbarService:AppBarService,
+    private appbarService: AppBarService,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     private cdRef: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
-    this.usuario = this.authService.obterDadosUsuario(); 
+    this.usuario = this.authService.obterDadosUsuario();
     let url = this.activatedRoute.snapshot.url.join().split(',')
-      
+
     if (this.usuario?.permissao == 1 || this.usuario?.permissao == 2) {
       this.iniciarAppbar();
     }
     this.obterClassificacaoGlobal();
   }
 
-  iniciarAppbar() { 
+  iniciarAppbar() {
     this.appbarService.limparLinks();
   }
 
@@ -51,11 +51,11 @@ export class ClassificacaoGlobalPaginaComponent implements OnInit{
   obterLista() {
     let listaClassificacao = new Array<ItemClassificacaoGlobal>();
     let item = 4;
-    
+
     this.listaPontos = this.listaPontos.sort((a: PontoClassificacaoGlobal, b: PontoClassificacaoGlobal) => (a.quantidadePontos <= b.quantidadePontos) ? 1 : -1);
-    
+
     let listaP = this.listaPontos;
-    
+
     listaClassificacao.push(
       new ItemClassificacaoGlobal(
         listaP[0].quantidadePontos,
@@ -65,8 +65,8 @@ export class ClassificacaoGlobalPaginaComponent implements OnInit{
         "../../../../assets/images/Ouro.png",
       )
     )
-    
-    for (let i = 1; i < listaP.length; i++){
+
+    for (let i = 1; i < listaP.length; i++) {
 
       if (listaClassificacao[i - 1].pontos == listaP[i].quantidadePontos) {
         listaClassificacao.push(
@@ -101,7 +101,7 @@ export class ClassificacaoGlobalPaginaComponent implements OnInit{
           )
         );
       }
-      else{
+      else {
         listaClassificacao.push(
           new ItemClassificacaoGlobal(
             listaP[i].quantidadePontos,
