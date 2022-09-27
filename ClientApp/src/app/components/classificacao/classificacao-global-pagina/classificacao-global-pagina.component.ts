@@ -15,7 +15,8 @@ import { AppBarService } from '../../app-bar/app-bar.service.';
 export class ClassificacaoGlobalPaginaComponent implements OnInit{
 
   listaPontos = new Array<PontoClassificacaoGlobal>();
-  classificacaoGlobal= new Array<ItemClassificacaoGlobal>(); 
+  classificacaoGlobal = new Array<ItemClassificacaoGlobal>();
+  ano = new Date().getFullYear();
   usuario?: Usuario;
 
   constructor(
@@ -53,7 +54,6 @@ export class ClassificacaoGlobalPaginaComponent implements OnInit{
     
     this.listaPontos = this.listaPontos.sort((a: PontoClassificacaoGlobal, b: PontoClassificacaoGlobal) => (a.quantidadePontos <= b.quantidadePontos) ? 1 : -1);
     
-    console.log(this.listaPontos)
     let listaP = this.listaPontos;
     
     listaClassificacao.push(
