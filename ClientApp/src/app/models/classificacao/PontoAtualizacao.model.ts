@@ -1,5 +1,5 @@
-
 export class PontoAtualizacao{
+
     idAluno: string;
     idTurma: string;
     livrosLidos: Array<string>;

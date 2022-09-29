@@ -14,12 +14,18 @@ export class PontoService {
     }
 
     public obterClassificacaoPorIdTurma(id: string){
-        let listaPontos: Array<Ponto> = [];
-
         return new Promise(
             resolve => {
                 this.http.get<GetModelLista<Ponto>>(this.baseUrl + 'v1/classificacao/obterPorTurma/' + id).subscribe(result => {
-                    //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
+                    resolve(result.objeto);
+                }, error => console.error(error));
+            }
+        );
+    }
+    public obterClassificacaoGlobal(ano: number){
+        return new Promise(
+            resolve => {
+                this.http.get<GetModelLista<Ponto>>(this.baseUrl + 'v1/classificacao/ObterRankingGlobal/' + ano).subscribe(result => {
                     resolve(result.objeto);
                 }, error => console.error(error));
             }
@@ -30,7 +36,6 @@ export class PontoService {
         return new Promise(
             resolve => {
                 this.http.put<any>(this.baseUrl + 'v1/pontuacao/atualizarPontuacaoLivrosLidos/', atualizacao).subscribe(result => {
-                    //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
                     resolve(result.objeto);
                 }, error => console.error(error));
             }
@@ -40,7 +45,6 @@ export class PontoService {
         return new Promise(
             resolve => {
                 this.http.get<any>(this.baseUrl + 'v1/classificacao/obterPontoAluno/'+idTurma+'/'+idAluno).subscribe(result => {
-                    //TODO: Tratamento erro -> retornar ao front  uma mensagem de erro ao invez de uma turma
                     resolve(result.objeto);
                 }, error => console.error(error));
             }

@@ -62,4 +62,7 @@ export class SelecaoTurmaPaginaComponent implements OnInit {
   obterTurmasUsuario() {
     return this.listaTurmas;
   }
+  classificacaoglobal() {
+    this.router.navigate(['classificacaoglobal'])
+  }
 }

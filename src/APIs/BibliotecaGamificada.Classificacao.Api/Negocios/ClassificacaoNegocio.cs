@@ -89,9 +89,9 @@ namespace BibliotecaGamificada.Classificacao.Negocios
                             double quantidadePontos = 0;
                             foreach(Ponto ponto in pontosInstituicao)
                             {
-                                quantidadePontos += ponto.totalPontos;
+                                if(turmasAnoLetivo.FindIndex(e => e.Id == ponto.turma) != -1)
+                                    quantidadePontos += ponto.totalPontos;
                             }
-
                             var instituicao = await instituicaoRepositorio.ObterPorId(id);
                             var pontoRankingGlobal = new RankingGlobal(quantidadePontos,instituicao);
                             pontosRankingGlobal.Add(pontoRankingGlobal);
