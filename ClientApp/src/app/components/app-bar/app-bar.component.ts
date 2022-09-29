@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import {  Router } from '@angular/router';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { Usuario } from 'src/app/models/entidades/Usuario.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppBarService } from './app-bar.service.';
@@ -10,24 +10,27 @@ import { AppBarService } from './app-bar.service.';
   templateUrl: './app-bar.component.html',
   styleUrls: ['./app-bar.component.css']
 })
-export class AppBarComponent implements OnInit,OnDestroy {
+export class AppBarComponent implements OnInit,OnDestroy,OnChanges {
 
   constructor(
     private appBarService: AppBarService,
     private router: Router,
     private authService: AuthService,
     private cdRef: ChangeDetectorRef) { }
-
+    
   @Input()
   usuario!: Usuario;
-
+  
   links: any;
   subscription: any;
-
+  
   ngOnInit(): void {
     this.subscription = this.appBarService.itensChange.subscribe(res => {
       this.links = res;
     })
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.links = this.appBarService.obterLinks();
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
