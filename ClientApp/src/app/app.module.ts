@@ -13,6 +13,7 @@ import { AppBarComponent } from './components/app-bar/app-bar.component';
 import { ClassificacaoListaItemComponent } from './components/classificacao/classificacao-lista-item/classificacao-lista-item.component';
 import { ClassificacaoListaComponent } from './components/classificacao/classificacao-lista/classificacao-lista.component';
 import { ClassificacaoPaginaComponent } from './components/classificacao/classificacao-pagina/classificacao-pagina.component';
+import { ClassificacaoGlobalPaginaComponent } from './components/classificacao/classificacao-global-pagina/classificacao-global-pagina.component';
 import { HomeComponent } from './components/home/home/home.component';
 import { CadastroLivroPaginaComponent } from './components/livro/cadastro/cadastro-livro-pagina/cadastro-livro-pagina.component';
 import { LivroListaItemComponent } from './components/livro/cadastro/livro-lista-item/livro-lista-item.component';
@@ -55,6 +56,7 @@ const appRoutes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'listaclassificacao/:id', component: ClassificacaoPaginaComponent, canActivate: [AuthGuard] },
+  { path: 'classificacaoglobal', component: ClassificacaoGlobalPaginaComponent, canActivate: [AuthGuard] },
   { path: 'cadastroturma', component: CadastroTurmaPaginaComponent, canActivate: [AuthGuard] },
   { path: 'cadastroturmaaluno/:id', component: CadastroTurmaAlunoPaginaComponent, canActivate: [AuthGuard] },
   { path: 'cadastroturmalivro/:id', component: CadastroTurmaLivroPaginaComponent, canActivate: [AuthGuard] },
@@ -78,6 +80,7 @@ const appRoutes: Routes = [
     NotFoundComponent,
     HomeComponent,
     ClassificacaoPaginaComponent,
+    ClassificacaoGlobalPaginaComponent,
     AppBarComponent,
     ClassificacaoListaComponent,
     ClassificacaoListaItemComponent,

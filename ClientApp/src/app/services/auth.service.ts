@@ -2,7 +2,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from "@angular/router";
-import { Usuario } from '../models/entidades/Usuario.model';
 import { UsuarioService } from './usuario.service';
 
 @Injectable({
@@ -55,7 +54,6 @@ export class AuthService {
         return this.afAuth.sendPasswordResetEmail(email).then(res => {
             window.alert(customstr);
         }).catch(error => {
-            // window.alert(error.message);
             window.alert('E-mail invalido.');
         });
     }
@@ -122,31 +120,16 @@ export class AuthService {
     }
 
     SetUserData(user: any) {
-        // const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-        //   `users/${user.uid}`
-        // );
-        // const userData: User = {
-        //   uid: user.uid,
-        //   email: user.email,
-        //   displayName: user.displayName,
-        //   photoURL: user.photoURL,
-        //   emailVerified: user.emailVerified,
-        // };
-        // return userRef.set(userData, {
-        //   merge: true,
-        // });
     }
+
     atualizarUsuario(email: string) {
         this.usuarioService.obterUsuarioPorEmail(email).then(res => {
-            // localStorage.removeItem('user');
             localStorage.removeItem('usuario');
             localStorage.setItem('usuario', JSON.stringify(res));
             window.location.reload();
         });
     }
-    emailExistente(email: string) {
-        // this.afAuth.
-    }
+
     obterDadosUsuario() {
         let data = localStorage.getItem('usuario')
         if(data)
