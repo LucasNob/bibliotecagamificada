@@ -1,21 +1,23 @@
 <div class="table-resposive">
     <div class="tabela-cheia" *ngIf="obterLista().length > 0; else erro">
-                <div class="row py-2">
-                    <div class="col-md-2 col-3  text-center tabela cabecalho" scope="col">Capa</div>
-                    <div class="col-md-4 col-5  text-center tabela cabecalho" scope="col">Título</div>
-                    <div class="col-md-4 col-4  text-center tabela cabecalho" scope="col">Autor</div>
-                    <div class="col-md-1 col-1  text-center tabela cabecalho" scope="col"></div>
-                    <div class="col-md-1 col-1  text-center tabela cabecalho" scope="col"></div>
-                </div>
-                <div>
+        <div class="row py-2">
+            <div class="col-md-2 col-3  text-center tabela cabecalho" scope="col">Capa</div>
+            <div class="col-md-4 col-5  text-center tabela cabecalho" scope="col">Título</div>
+            <div class="col-md-3 col-4  text-center tabela cabecalho" scope="col">Autor</div>
+            <div class="col-md-1 col-1  text-center tabela cabecalho" scope="col"></div>
+            <div class="col-md-1 col-1  text-center tabela cabecalho" scope="col"></div>
+            <div class="col-md-1 col-1  text-center tabela cabecalho" scope="col"></div>
+        </div>
+        <div>
             <div *ngFor="let item of obterLista()">
-                <app-livro-lista-item [livro]="item" (excluirEmitter)="emitExcluir($event)" (editarEmitter)="emitEditar($event)"></app-livro-lista-item>
+                <app-livro-lista-item [livro]="item" (excluirEmitter)="emitExcluir($event)"
+                    (editarEmitter)="emitEditar($event)"></app-livro-lista-item>
             </div>
         </div>
     </div>
     <ng-template #erro>
         <div class="alert alert-info" role="alert">
-           <span>Lista de Livros vazia!</span>
+            <span>Lista de Livros vazia!</span>
         </div>
     </ng-template>
 </div>

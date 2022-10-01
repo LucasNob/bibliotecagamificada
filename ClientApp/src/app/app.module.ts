@@ -51,22 +51,24 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { CadastroQuizComponent } from './components/livro/cadastro/cadastro-quiz/cadastro-quiz.component';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuard]},
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'listaclassificacao/:id', component: ClassificacaoPaginaComponent, canActivate: [AuthGuard] },
   { path: 'classificacaoglobal', component: ClassificacaoGlobalPaginaComponent, canActivate: [AuthGuard] },
   { path: 'cadastroturma', component: CadastroTurmaPaginaComponent, canActivate: [AuthGuard] },
   { path: 'cadastroturmaaluno/:id', component: CadastroTurmaAlunoPaginaComponent, canActivate: [AuthGuard] },
   { path: 'cadastroturmalivro/:id', component: CadastroTurmaLivroPaginaComponent, canActivate: [AuthGuard] },
   { path: 'cadastrolivro', component: CadastroLivroPaginaComponent, canActivate: [AuthGuard] },
+  { path: 'cadastroquiz', component: CadastroQuizComponent, canActivate: [AuthGuard] },
   { path: 'cadastroaluno', component: CadastroAlunoPaginaComponent, canActivate: [AuthGuard] },
   { path: 'cadastroprofessor', component: CadastroProfessorPaginaComponent, canActivate: [AuthGuard] },
   { path: 'perfilusuario', component: PerfilUsuarioPaginaComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginPaginaComponent},
-  { path: 'cadastrousuario', component: CadastroUsuarioPaginaComponent},
-  { path: 'verificar-email', component: VerificarEmailPaginaComponent},
+  { path: 'login', component: LoginPaginaComponent },
+  { path: 'cadastrousuario', component: CadastroUsuarioPaginaComponent },
+  { path: 'verificar-email', component: VerificarEmailPaginaComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: '/not-found', pathMatch: 'full' }
 ];
@@ -106,6 +108,7 @@ const appRoutes: Routes = [
     ProfessorListaComponent,
     CadastroUsuarioPaginaComponent,
     PerfilUsuarioPaginaComponent,
+    CadastroQuizComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -122,7 +125,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     MaterialModule
   ],
-  providers: [UsuarioService, TurmaService, PontoService, LivroService, AlunoService,ProfessorService, InstituicaoService, AuthService],
+  providers: [UsuarioService, TurmaService, PontoService, LivroService, AlunoService, ProfessorService, InstituicaoService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

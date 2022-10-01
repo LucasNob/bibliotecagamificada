@@ -18,14 +18,14 @@
   src: url(assets/fonts/SecularOne.ttf);
 }
 
-.navbar-brand{
+.navbar-brand {
   margin: 10px;
   font-family: Usuario;
   font-weight: bold;
   color: #1F9F7D !important;
 }
 
-.bg-light{
+.bg-light {
   background-color: #FFFFFF !important;
 }
 
@@ -37,15 +37,15 @@
   font-family: Usuario;
   font-weight: bold;
 }
-.btn-primary:hover
-{
+
+.btn-primary:hover {
   background-color: #c5671f;
   border: solid #c5671f;
   outline: none !important;
   box-shadow: none;
 }
 
-.btn-primary:focus{
+.btn-primary:focus {
   background-color: #c5671f;
   border: solid #c5671f;
   outline: none !important;
@@ -60,92 +60,112 @@
   font-family: Usuario;
   font-weight: bold;
 }
-.btn-secondary:hover
-{
+
+.btn-secondary:hover {
   background-color: #1A3369;
   border: solid #1A3369;
   outline: none !important;
   box-shadow: none;
 }
 
-.btn-secondary:focus{
+.btn-secondary:focus {
   background-color: #1A3369;
   border: solid #1A3369;
   outline: none !important;
   box-shadow: none !important;
 }
 
-
-.foto-perfil
-{
-border: 5px solid #1A3369;
-object-fit: cover;
-width: 65px;
-height: 65px;
+.btn-warning {
+  color: #fff;
+  background-color: #ecbc14;
+  border: solid #ecbc14;
+  border-radius: 3px;
+  font-family: Usuario;
+  font-weight: bold;
 }
 
-.foto
-{
-object-fit: cover;
-width: 55px;
-height: 55px;
+.btn-warning:hover {
+  color: #fff;
+  background-color: #ddad00;
+  border: solid #ddad00;
+  outline: none !important;
+  box-shadow: none;
 }
 
-.capa
-{
-object-fit: cover;
-width: 52px;
-height: 70px;
+.btn-warning:focus {
+  background-color: #ddad00;
+  border: solid #ddad00;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 
-.titulo
-{
- font-family: Titulo;
- font-weight: bold;
- font-size: xx-large;
- color: #1a3369;
- text-align: center;
- text-transform: uppercase;
+.foto-perfil {
+  border: 5px solid #1A3369;
+  object-fit: cover;
+  width: 65px;
+  height: 65px;
 }
 
-.tabela{
+.foto {
+  object-fit: cover;
+  width: 55px;
+  height: 55px;
+}
+
+.capa {
+  object-fit: cover;
+  width: 52px;
+  height: 70px;
+}
+
+
+.titulo {
+  font-family: Titulo;
+  font-weight: bold;
+  font-size: xx-large;
+  color: #1a3369;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.tabela {
   font-family: Tabela;
 }
 
-.tabela-cheia{
-background-color: #3464cc ;
+.tabela-cheia {
+  background-color: #3464cc;
 }
 
-.cabecalho{
+.cabecalho {
   color: #ecbc14;
   border: #ecbc14;
   font-size: 20px;
   text-transform: uppercase;
 }
 
-.item{
+.item {
   color: #FFFF;
   font-size: 20px;
 }
 
 @media only screen and (min-width: 600px) {
-  .bloco-card{
+  .bloco-card {
     min-height: 200px;
     max-height: 400px;
   }
 }
 
-.bloco-button{
+.bloco-button {
   min-height: 100px;
 }
 
-.alinhamento{
+.alinhamento {
   align-items: center;
   height: 40;
 }
 
-.imagem{
+.imagem {
   text-align: center;
 }
 
@@ -155,27 +175,34 @@ background-color: #3464cc ;
   font-weight: bold;
   color: #1A3369;
   line-height: 1.1;
-  display: grid; 
+  display: grid;
   margin-top: 0.5em;
 }
 
 input[type="checkbox"] {
-margin: 0;
-font: inherit;
-width: 1.15em;
-height: 1.15em;
-border: 0.15em solid currentColor;
-border-radius: 0.15em;
-transform: translateY(-0.075em);
-place-content: center;
+  margin: 0;
+  font: inherit;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+  place-content: center;
 }
 
-.opcoes{
+.opcoes {
   font-family: Usuario;
   font-weight: bold;
   font-size: large;
   color: #1C9474;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

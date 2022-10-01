@@ -1,11 +1,11 @@
 <div class="table-resposive">
     <div class="tabela-cheia" *ngIf="obterLista().length > 0; else erro">
-                <div class="row py-2">
-                    <div class="col-md-3 col-4  text-center tabela cabecalho" scope="col">Nome</div>
-                    <div class="col-md-2 col-3  text-center tabela cabecalho" scope="col">Ano Letivo</div>
-                    <div class="col-md-4 col-5  text-start tabela cabecalho" scope="col">Professor</div>
-                </div>
-                <div>
+        <div class="row py-2">
+            <div class="col-md-3 col-4  text-center tabela cabecalho" scope="col">Nome</div>
+            <div class="col-md-2 col-3  text-center tabela cabecalho" scope="col">Ano Letivo</div>
+            <div class="col-md-4 col-5  text-start tabela cabecalho" scope="col">Professor</div>
+        </div>
+        <div>
             <div *ngFor="let item of obterLista()">
                 <div class="row py-1">
                     <div class="col-md-3 col-4 text-center">
@@ -18,10 +18,14 @@
                         <span class="tabela item">{{obterNomeProfessor(item.professor)}}</span>
                     </div>
                     <div class="col-md-1 col-6 text-center py-2">
-                        <span><button class="btn btn-warning w-75" (click)="Editar(item.id)"><mat-icon>edit</mat-icon><i class="bi bi-pencil" ></i></button></span>
+                        <span><button class="btn btn-warning w-75" (click)="Editar(item.id)">
+                                <mat-icon>edit</mat-icon>
+                            </button></span>
                     </div>
                     <div class="col-md-1 col-6 text-center py-2">
-                        <span><button class="btn btn-danger w-75" (click)="Excluir(item.id)"><mat-icon>delete</mat-icon><i class="bi bi-trash" ></i></button></span>
+                        <span><button class="btn btn-danger w-75" (click)="Excluir(item.id)">
+                                <mat-icon>delete</mat-icon>
+                            </button></span>
                     </div>
                 </div>
             </div>
@@ -29,7 +33,7 @@
     </div>
     <ng-template #erro>
         <div class="alert alert-info" role="alert">
-           <span>Lista de Turmas vazia!</span>
+            <span>Lista de Turmas vazia!</span>
         </div>
     </ng-template>
 </div>
