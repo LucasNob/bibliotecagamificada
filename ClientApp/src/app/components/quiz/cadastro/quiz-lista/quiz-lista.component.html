@@ -1,0 +1,37 @@
+<div class="table-resposive">
+    <div class="tabela-cheia" *ngIf="obterLista().length > 0; else erro">
+        <div class="row py-2">
+            <div class="col-md-7 col-6 text-start tabela cabecalho" scope="col">Pergunta</div>
+            <div class="col-md-3 col-6 text-center tabela cabecalho" scope="col">Alternativa Correta</div>
+            <div class="col-md-1 col-1  text-center tabela cabecalho" scope="col"></div>
+            <div class="col-md-1 col-1  text-center tabela cabecalho" scope="col"></div>
+        </div>
+        <div>
+            <div>
+                <div *ngFor="let item of obterLista()">
+                    <div class="col-md-7 col-7 text-start">
+                        <span class="tabela item text-break">Pergunta 1</span>
+                    </div>
+                    <div class="col-md-3 col-4 text-center">
+                        <span class="tabela item text-break">1</span>
+                    </div>
+                    <div class="col-md-1 col-6 text-center py-2">
+                        <span><button class="btn btn-warning w-75" (click)="Editar(item.id)">
+                                <mat-icon>edit</mat-icon>
+                            </button></span>
+                    </div>
+                    <div class="col-md-1 col-6 text-center py-2">
+                        <span><button class="btn btn-danger w-75" (click)="Excluir(item.id)">
+                                <mat-icon>delete</mat-icon>
+                            </button></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #erro>
+        <div class="alert alert-info" role="alert">
+            <span>Lista de Perguntas vazia!</span>
+        </div>
+    </ng-template>
+</div>

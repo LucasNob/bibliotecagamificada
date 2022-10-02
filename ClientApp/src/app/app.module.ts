@@ -51,7 +51,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { CadastroQuizComponent } from './components/livro/cadastro/cadastro-quiz/cadastro-quiz.component';
+import { CadastroQuizComponent } from './components/quiz/cadastro/cadastro-quiz/cadastro-quiz.component';
+import { QuizListaComponent } from './components/quiz/cadastro/quiz-lista/quiz-lista.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -109,6 +110,7 @@ const appRoutes: Routes = [
     CadastroUsuarioPaginaComponent,
     PerfilUsuarioPaginaComponent,
     CadastroQuizComponent,
+    QuizListaComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

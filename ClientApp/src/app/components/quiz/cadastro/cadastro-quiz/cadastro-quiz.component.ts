@@ -10,10 +10,15 @@ import { Quiz } from 'src/app/models/entidades/Quiz.model';
 export class CadastroQuizComponent implements OnInit {
   formCadastro!: FormGroup;
   edicao: string = "";
+  listaQuizzes: Array<Quiz> = [];
+
   constructor(private formBuilder: FormBuilder,
     private cdRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+  }
+
+  obterLista() {
   }
 
   //livro e instituição são ids presentes na Model Livro
@@ -45,6 +50,12 @@ export class CadastroQuizComponent implements OnInit {
 
   }
 
+  excluirQuiz(id: string) {
+  }
+
+  editarQuiz(id: string) {
+
+  }
 
   salvar() {
   }
