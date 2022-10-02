@@ -20,7 +20,7 @@ import { AppBarService } from '../../app-bar/app-bar.service.';
   templateUrl: './classificacao-pagina.component.html',
   styleUrls: ['./classificacao-pagina.component.css']
 })
-export class ClassificacaoPaginaComponent implements OnInit{
+export class ClassificacaoPaginaComponent implements OnInit {
 
   listaTurmas: Array<Turma> = [];
   listaAlunos: Array<Aluno> = [];
@@ -35,19 +35,19 @@ export class ClassificacaoPaginaComponent implements OnInit{
     private pontoService: PontoService,
     private alunoService: AlunoService,
     private livroService: LivroService,
-    private appbarService:AppBarService,
+    private appbarService: AppBarService,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     private cdRef: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
-    this.usuario = this.authService.obterDadosUsuario(); 
+    this.usuario = this.authService.obterDadosUsuario();
     let url = this.activatedRoute.snapshot.url.join().split(',')
-    this.turmaService.obterTurmaPorIdTurma(url[1]).then(data => { 
+    this.turmaService.obterTurmaPorIdTurma(url[1]).then(data => {
       this.turmaAtual = data as Turma;
       this.obterClassificacaoTurma();
-      
+
       if (this.usuario?.permissao == 1 || this.usuario?.permissao == 2) {
         this.livroService.obterListaLivros(this.turmaAtual?.livros!).then(data => {
           this.listaLivros = data as Array<Livro>;
@@ -58,29 +58,28 @@ export class ClassificacaoPaginaComponent implements OnInit{
     })
   }
 
-  iniciarAppbar() { 
+  iniciarAppbar() {
     this.appbarService.limparLinks();
     this.appbarService.adicionarLinks('Cadastrar turmas', 'cadastroturma');
-    if (this.usuario?.permissao == 1)
-    {
+    if (this.usuario?.permissao == 1) {
       this.appbarService.adicionarLinks('Cadastrar livros', 'cadastrolivro');
       this.appbarService.adicionarLinks('Cadastrar alunos', 'cadastroaluno');
       this.appbarService.adicionarLinks('Cadastrar professores', 'cadastroprofessor');
     }
-    this.appbarService.adicionarLinks('Adicionar alunos', 'cadastroturmaaluno/'+this.turmaAtual?.id);
-    this.appbarService.adicionarLinks('Adicionar livros', 'cadastroturmalivro/'+this.turmaAtual?.id);
+    this.appbarService.adicionarLinks('Adicionar alunos', 'cadastroturmaaluno/' + this.turmaAtual?.id);
+    this.appbarService.adicionarLinks('Adicionar livros', 'cadastroturmalivro/' + this.turmaAtual?.id);
   }
 
   obterClassificacaoTurma() {
     this.pontoService.obterClassificacaoPorIdTurma(this.turmaAtual?.id!).then(data => {
       this.listaPontos = data as Array<Ponto>;
       this.cdRef.detectChanges();
-    }).then(()=>{
+    }).then(() => {
       this.alunoService.ObterListaAlunosPorId(this.turmaAtual?.alunos!).then(data => {
         this.listaAlunos = data as Array<Aluno>;
         this.cdRef.detectChanges();
-      }).then(()=>{
-        if (this.turmaAtual?.id) 
+      }).then(() => {
+        if (this.turmaAtual?.id)
           if (this.usuario?.permissao == 1 || this.usuario?.permissao == 2) {
             this.livroService.obterListaLivros(this.turmaAtual?.livros!).then(data => {
               this.listaLivros = data as Array<Livro>;
@@ -91,40 +90,46 @@ export class ClassificacaoPaginaComponent implements OnInit{
     });
   }
 
-  obterListaAlunos(): Array<Aluno> { 
+  obterListaAlunos(): Array<Aluno> {
     if (this.listaAlunos == undefined)
       return new Array<Aluno>();
     return this.listaAlunos;
   }
-  
+
   obterListaPontos(): Array<Ponto> {
     if (this.listaPontos == undefined)
       return new Array<Ponto>();
     return this.listaPontos;
   }
 
-  obterListaLivros(): Array<Livro> { 
+  obterListaLivros(): Array<Livro> {
     if (this.listaLivros == undefined)
       return new Array<Livro>();
     return this.listaLivros;
   }
 
-  excluirLivro(id:any) { 
+  excluirLivro(id: any) {
     this.turmaService.removerLivroTurma(this.turmaAtual!.id, id);
-    this.turmaAtual?.livros?.splice(this.turmaAtual.livros.findIndex(l => l == id),1)
+    this.turmaAtual?.livros?.splice(this.turmaAtual.livros.findIndex(l => l == id), 1)
     this.obterClassificacaoTurma();
   }
   excluirAluno(id: any) {
-    this.turmaAtual?.alunos?.splice(this.turmaAtual.alunos.findIndex(a => a == id),1)
+    this.turmaAtual?.alunos?.splice(this.turmaAtual.alunos.findIndex(a => a == id), 1)
     this.obterClassificacaoTurma();
   }
 
   obterTurmaAtual() {
     return this.turmaAtual;
   }
-  
+
   checarPermissaoMarcacaoLivro() {
-  if (this.usuario?.permissao == 1 || this.usuario?.permissao == 2)
+    if (this.usuario?.permissao == 1 || this.usuario?.permissao == 2)
+      return true;
+    return false;
+  }
+
+  checarPermissaoLivrosLidos() {
+    if (this.usuario?.permissao == 3)
       return true;
     return false;
   }

@@ -53,6 +53,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { CadastroQuizComponent } from './components/quiz/cadastro/cadastro-quiz/cadastro-quiz.component';
 import { QuizListaComponent } from './components/quiz/cadastro/quiz-lista/quiz-lista.component';
+import { TurmaLivroslidosComponent } from './components/quiz/turma-livroslidos/turma-livroslidos.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -111,6 +112,7 @@ const appRoutes: Routes = [
     PerfilUsuarioPaginaComponent,
     CadastroQuizComponent,
     QuizListaComponent,
+    TurmaLivroslidosComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
