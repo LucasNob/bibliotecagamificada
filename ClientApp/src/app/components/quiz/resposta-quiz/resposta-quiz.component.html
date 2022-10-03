@@ -1,0 +1,33 @@
+<div class="container">
+    <form>
+        <div class="col-12">
+            <div class="row titulo m-4">
+                <span>Quiz do Livro - Nome do Livro</span>
+            </div>
+            <div class="row my-4">
+                <!--O ng for das perguntas deve ser colocado na div abaixo -->
+                <div class="col-md-6 col-12">
+                    <div class="form-group">
+                        <label for="pergunta" class="pergunta text-break">Pergunta 1</label>
+                        <div class="form-control listaGE text-break" id="alternativa">
+                            <!--O ng for das alternativas deve ser colocado na div abaixo -->
+                            <div>
+                                <input type="checkbox" />
+                                <span class="m-2">
+                                    Alternativa 1
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-12">
+                    <input type="submit" class="btn btn-primary h-100 w-100 item" value="Cadastrar"
+                        [disabled]="!estadoBotao()">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

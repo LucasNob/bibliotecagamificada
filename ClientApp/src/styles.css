@@ -177,6 +177,7 @@
   line-height: 1.1;
   display: grid;
   margin-top: 0.5em;
+  text-align: start;
 }
 
 input[type="checkbox"] {
@@ -195,6 +196,14 @@ input[type="checkbox"] {
   font-weight: bold;
   font-size: large;
   color: #1C9474;
+}
+
+.pergunta {
+  font-family: Usuario;
+  font-weight: bold;
+  font-size: 20px;
+  color: #1a3369;
+  text-align: start;
 }
 
 html,

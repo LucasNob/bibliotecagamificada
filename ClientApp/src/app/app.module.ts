@@ -54,6 +54,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { CadastroQuizComponent } from './components/quiz/cadastro/cadastro-quiz/cadastro-quiz.component';
 import { QuizListaComponent } from './components/quiz/cadastro/quiz-lista/quiz-lista.component';
 import { TurmaLivroslidosComponent } from './components/quiz/turma-livroslidos/turma-livroslidos.component';
+import { RespostaQuizComponent } from './components/quiz/resposta-quiz/resposta-quiz.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -65,6 +66,7 @@ const appRoutes: Routes = [
   { path: 'cadastroturmalivro/:id', component: CadastroTurmaLivroPaginaComponent, canActivate: [AuthGuard] },
   { path: 'cadastrolivro', component: CadastroLivroPaginaComponent, canActivate: [AuthGuard] },
   { path: 'cadastroquiz', component: CadastroQuizComponent, canActivate: [AuthGuard] },
+  { path: 'respostaquiz', component: RespostaQuizComponent, canActivate: [AuthGuard] },
   { path: 'cadastroaluno', component: CadastroAlunoPaginaComponent, canActivate: [AuthGuard] },
   { path: 'cadastroprofessor', component: CadastroProfessorPaginaComponent, canActivate: [AuthGuard] },
   { path: 'perfilusuario', component: PerfilUsuarioPaginaComponent, canActivate: [AuthGuard] },
@@ -113,6 +115,7 @@ const appRoutes: Routes = [
     CadastroQuizComponent,
     QuizListaComponent,
     TurmaLivroslidosComponent,
+    RespostaQuizComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
