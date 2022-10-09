@@ -13,7 +13,7 @@ namespace BibliotecaGamificada.Turmas.Negocios
         private readonly TurmaRepositorio turmaRepositorio;
         private readonly PontoRepositorio pontoRepositorio;
 
-        public TurmaNegocio(TurmaRepositorio turmaRepositorio,PontoRepositorio pontoRepositorio)
+        public TurmaNegocio(TurmaRepositorio turmaRepositorio, PontoRepositorio pontoRepositorio)
         {
             this.turmaRepositorio = turmaRepositorio;
             this.pontoRepositorio = pontoRepositorio;
@@ -68,7 +68,7 @@ namespace BibliotecaGamificada.Turmas.Negocios
         {
             RetornoMsg msg;
             var turmas = await turmaRepositorio.ObterporInstituicao(id);
-            
+
             if (turmas == null || turmas.Count == 0)
                 msg = new RetornoMsg("erro", "Registros não encontrados");
             else
@@ -76,7 +76,7 @@ namespace BibliotecaGamificada.Turmas.Negocios
                 var turmasOrdenadas = turmas.OrderByDescending(t => t.anoLetivo).ToList();
                 msg = new RetornoMsg("sucesso", "retorno enviado", turmasOrdenadas);
             }
-                
+
             return new OkObjectResult(msg);
         }
 
@@ -111,8 +111,7 @@ namespace BibliotecaGamificada.Turmas.Negocios
         {
             try
             {
-                //Caso ache necessário criar uma Model de Atualização para Turma
-                if(atualizacao.id != null)
+                if (atualizacao.id != null)
                 {
                     var atual = await turmaRepositorio.ObterPorId(atualizacao.id);
                     var novo = new Turma();
@@ -132,7 +131,7 @@ namespace BibliotecaGamificada.Turmas.Negocios
             try
             {
                 //Caso ache necessário criar uma Model de Atualização para Turma
-                if(atualizacao.id != null)
+                if (atualizacao.id != null)
                 {
                     var atual = await turmaRepositorio.ObterPorId(atualizacao.id);
                     var novo = new Turma();
@@ -154,16 +153,16 @@ namespace BibliotecaGamificada.Turmas.Negocios
                         var lista = novo.alunos;
                         novosalunos = lista.Except(alunos).ToList();
                     }
-                    
+
                     //Para Novo Aluno Criar um Ponto Vazio
-                    if(novosalunos.Count != 0)
+                    if (novosalunos.Count != 0)
                     {
-                        for(int i=0; i< novosalunos.Count; i++)
+                        for (int i = 0; i < novosalunos.Count; i++)
                         {
-                            var novoPonto = new Ponto(novosalunos[i],atualizacao.id, new List<string>(), 0, atualizacao.instituicao);
+                            var novoPonto = new Ponto(novosalunos[i], atualizacao.id, new List<string>(), 0, atualizacao.instituicao);
                             await pontoRepositorio.Cadastrar(novoPonto);
                         }
-                    }                    
+                    }
                     await turmaRepositorio.AtualizarAlunos(novo, atual);
                 }
             }
@@ -184,7 +183,7 @@ namespace BibliotecaGamificada.Turmas.Negocios
             }
             catch
             {
-                return new OkObjectResult(new RetornoMsg("erro", "Erro ao exluir"));
+                return new OkObjectResult(new RetornoMsg("erro", "Erro ao excluir"));
             }
 
             return new OkObjectResult(new RetornoMsg("sucesso", "Turma excluída Excluido"));
@@ -224,6 +223,7 @@ namespace BibliotecaGamificada.Turmas.Negocios
             {
                 await turmaRepositorio.RemoverLivroPorTurma(turma, livro);
                 await pontoRepositorio.RemoverLivroLidoPorTurma(turma, livro);
+                await pontoRepositorio.RemoverLivroQuizPorTurma(turma, livro);
             }
             catch (Exception e)
             {

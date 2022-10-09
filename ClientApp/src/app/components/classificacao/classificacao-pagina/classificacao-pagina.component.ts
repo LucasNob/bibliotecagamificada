@@ -133,4 +133,7 @@ export class ClassificacaoPaginaComponent implements OnInit {
       return true;
     return false;
   }
+  obterAluno() {
+    return this.listaAlunos.find(a=>a.id == this.usuario?.id);
+  }
 }

@@ -14,16 +14,16 @@
         <span class="tabela item">{{livro!.autor}}</span>
     </div>
     <div class="col-md-1 col-4 text-center py-2">
-        <span><button class="btn btn-primary w-75">
+        <span><button class="btn btn-primary w-75" (click)="Quiz()">
                 <mat-icon>checklist</mat-icon>
             </button></span>
     </div>
-    <div class="col-md-1 col-4 text-center py-2">
+    <div class="col-md-1 col-4 text-center py-2" *ngIf="usuario?.permissao == 1">
         <span><button class="btn btn-warning w-75" (click)="Editar()">
                 <mat-icon>edit</mat-icon>
             </button></span>
     </div>
-    <div class="col-md-1 col-4 text-center py-2">
+    <div class="col-md-1 col-4 text-center py-2" *ngIf="usuario?.permissao == 1">
         <span><button class="btn btn-danger w-75" (click)="Excluir()">
                 <mat-icon>delete</mat-icon>
             </button></span>

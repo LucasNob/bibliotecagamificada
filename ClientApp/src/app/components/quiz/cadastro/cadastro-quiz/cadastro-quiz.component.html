@@ -33,8 +33,6 @@
                     <div id="alternativaBInvalido" class="invalid-feedback">Alternativa Inválida.</div>
                 </div>
             </div>
-            <!--
-        Formatação está se perdendo ao inserir esses campos abaixo, corrigindo é só descomentar
             <div class="row my-4">
                 <div class="form-group">
                     <label for="alternativaC">Alternativa 3</label>
@@ -64,7 +62,6 @@
                     <div id="respostaInvalido" class="invalid-feedback">Alternativa Correta Inválida.</div>
                 </div>
             </div>
-            -->
             <div class="row justify-content-center" *ngIf="modoEdicao(); else cadastrar">
                 <div class="col-md-6 col-6">
                     <input class="btn btn-primary h-100 w-100 item" value="Salvar" (click)="salvar()"
@@ -75,7 +72,7 @@
                         [disabled]="!estadoBotao()">
                 </div>
             </div>
-            <ng-template #cadastrar>
+            <ng-template #cadastrar >
                 <div class="row justify-content-center">
                     <div class="col-md-6 col-12">
                         <input type="submit" class="btn btn-primary h-100 w-100 item" value="Cadastrar"
@@ -88,4 +85,5 @@
 </div>
 <div class="row my-4"></div>
 
-<app-quiz-lista></app-quiz-lista>
+<app-quiz-lista [listaQuiz]="listaQuizzes"  (excluirEmitter)="excluirQuiz($event)"
+    (editarEmitter)="editarQuiz($event)"></app-quiz-lista>

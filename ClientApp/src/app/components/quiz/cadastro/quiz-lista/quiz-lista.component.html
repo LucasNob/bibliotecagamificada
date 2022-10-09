@@ -8,12 +8,12 @@
         </div>
         <div>
             <div>
-                <div *ngFor="let item of obterLista()">
+                <div *ngFor="let item of obterLista()" class="row">
                     <div class="col-md-7 col-7 text-start">
-                        <span class="tabela item text-break">Pergunta 1</span>
+                        <span class="tabela item text-break">{{item.pergunta}}</span>
                     </div>
                     <div class="col-md-3 col-4 text-center">
-                        <span class="tabela item text-break">1</span>
+                        <span class="tabela item text-break">{{item.resposta}}</span>
                     </div>
                     <div class="col-md-1 col-6 text-center py-2">
                         <span><button class="btn btn-warning w-75" (click)="Editar(item.id)">

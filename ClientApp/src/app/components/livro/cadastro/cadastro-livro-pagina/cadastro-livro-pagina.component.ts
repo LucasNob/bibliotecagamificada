@@ -33,11 +33,8 @@ export class CadastroLivroPaginaComponent implements OnInit {
     private router: Router,
     private appbarService: AppBarService,
   ) { 
-      // this.authService.usuario =  new Usuario("idinstituicao1", "Anglo Sorocaba",1,
-      // "https://pbs.twimg.com/profile_images/570291758630576128/x3lqZT5Z_400x400.png");
-
       let usuario = authService.obterDadosUsuario();
-      if (usuario?.permissao == 1) {
+      if (usuario?.permissao != 3) {
         this.usuario = usuario as Usuario;
         this.iniciarAppbar();
       }
@@ -124,6 +121,10 @@ export class CadastroLivroPaginaComponent implements OnInit {
     this.livroService.excluirLivro(id).then(data => {
       this.obterListaLivros();
     });
+  }
+ 
+  quizLivro(id:string) {
+    this.router.navigateByUrl('cadastroquiz/'+id);
   }
  
   limparCampos() { 

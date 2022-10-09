@@ -8,6 +8,7 @@ namespace BibliotecaGamificada.Pontos.Comum.Entidades
         public string aluno { get; set; }
         public string turma { get; set; }
         public List<string> livrosLidos { get; set; }
+        public List<string> livrosQuiz { get; set; }
         public double totalPontos { get; set; }
         public string instituicao { get; set; }
 
@@ -18,11 +19,13 @@ namespace BibliotecaGamificada.Pontos.Comum.Entidades
             this.livrosLidos = livrosLidos;
             this.totalPontos = totalPontos;
             this.instituicao = instituicao;
+            this.livrosQuiz = new List<string>();
         }
         public Ponto() {
             this.aluno = "";
             this.turma = "";
             this.livrosLidos = new List<string>();
+            this.livrosQuiz = new List<string>();
             this.totalPontos = 0;
             this.instituicao = "";
         }

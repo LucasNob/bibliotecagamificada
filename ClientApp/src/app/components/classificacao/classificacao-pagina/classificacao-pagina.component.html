@@ -18,7 +18,7 @@
             <div class="row py-3">
                 <span class="titulo">Livros Lidos na {{obterTurmaAtual()!.nome}}</span>
             </div>
-            <app-turma-livroslidos></app-turma-livroslidos>
+            <app-turma-livros-lidos [aluno]="obterAluno()" [turma]="obterTurmaAtual()!"></app-turma-livros-lidos>
         </div>
     </div>
 </div>

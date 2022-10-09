@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TurmaLivroslidosComponent } from './turma-livroslidos.component';
+import { TurmaLivroslidosComponent } from './turma-livros-lidos.component';
 
 describe('TurmaLivroslidosComponent', () => {
   let component: TurmaLivroslidosComponent;

@@ -41,6 +41,15 @@ export class PontoService {
             }
         )
     }
+    public atualizarPontuacaoQuiz(atualizacao:PontoAtualizacao) {
+        return new Promise(
+            resolve => {
+                this.http.put<any>(this.baseUrl + 'v1/pontuacao/atualizarPontuacaoQuizLivros/', atualizacao).subscribe(result => {
+                    resolve(result.objeto);
+                }, error => console.error(error));
+            }
+        )
+    }
     public obterPontoAluno(idTurma:string,idAluno:string) {
         return new Promise(
             resolve => {
