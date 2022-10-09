@@ -17,7 +17,8 @@ using BibliotecaGamificada.Usuario.Negocios;
 using BibliotecaGamificada.Usuario.Comum.Repositorios;
 using BibliotecaGamificada.Comum.Classes.Firebase;
 using BibliotecaGamificada.Quizzes.Comum.Repositorios;
-using BibliotecaGamificada.quizzes.Negocios;
+using BibliotecaGamificada.Quizzes.Negocios;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

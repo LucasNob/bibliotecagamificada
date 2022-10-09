@@ -1,8 +1,8 @@
-using BibliotecaGamificada.quizzes.Negocios;
-using BibliotecaGamificada.Turmas.Api.Models;
+using BibliotecaGamificada.Quizzes.Api.Models;
+using BibliotecaGamificada.Quizzes.Negocios;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BibliotecaGamificada.Quizs.Controllers;
+namespace BibliotecaGamificada.Quizzes.Controllers;
 
 [ApiController]
 [Route("/v1/quiz")]
@@ -27,9 +27,9 @@ public class QuizController : ControllerBase
         return await quizNegocio.ObterQuizPorId(id);
     }
     [HttpGet, Route("obterQuizzesPorLivro/{id}")]
-    public async Task<IActionResult> ObterQuizsPorLivro([FromRoute] string id)
+    public async Task<IActionResult> ObterQuizzesPorLivro([FromRoute] string id)
     {
-        return await quizNegocio.ObterquizzesPorLivro(id);
+        return await quizNegocio.ObterQuizzesPorLivro(id);
     }
     [HttpPost, Route("cadastrarQuiz")]
     public async Task<IActionResult> CadastrarQuiz([FromBody] QuizCadastroModel Quiz)

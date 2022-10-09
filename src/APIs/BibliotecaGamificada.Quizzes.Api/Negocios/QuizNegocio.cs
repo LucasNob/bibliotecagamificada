@@ -3,9 +3,9 @@ using BibliotecaGamificada.Pontos.Comum.Repositorios;
 using BibliotecaGamificada.Quizzes.Comum.Repositorios;
 using Microsoft.AspNetCore.Mvc;
 using BibliotecaGamificada.Quizzes.Comum.Entidades;
-using BibliotecaGamificada.Turmas.Api.Models;
+using BibliotecaGamificada.Quizzes.Api.Models;
 
-namespace BibliotecaGamificada.quizzes.Negocios
+namespace BibliotecaGamificada.Quizzes.Negocios
 {
     public class QuizNegocio
     {
@@ -32,7 +32,7 @@ namespace BibliotecaGamificada.quizzes.Negocios
             return new OkObjectResult(msg);
         }
 
-        public async Task<IActionResult> ObterquizzesPorLivro(string id)
+        public async Task<IActionResult> ObterQuizzesPorLivro(string id)
         {
             RetornoMsg msg;
             var quizzes = await quizRepositorio.ObterPorLivro(id);
@@ -74,19 +74,6 @@ namespace BibliotecaGamificada.quizzes.Negocios
             return new OkObjectResult(new RetornoMsg("sucesso", "Quiz Registrada"));
         }
 
-        public async Task<IActionResult> ExcluirPorInstituicao(string id)
-        {
-            try
-            {
-                await quizRepositorio.ExcluirporInstituicao(id);
-            }
-            catch
-            {
-                return new OkObjectResult(new RetornoMsg("erro", "Erro ao excluir"));
-            }
-
-            return new OkObjectResult(new RetornoMsg("sucesso", "Quiz excluída Excluido"));
-        }
         public async Task<IActionResult> ExcluirQuiz(string id)
         {
             try

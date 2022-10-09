@@ -5,12 +5,13 @@
                 <span>Quiz do Livro - Nome do Livro</span>
             </div>
             <div class="row my-4">
-                <div class="col-md-6 col-12">
-                    <div class="form-group" *ngFor="let pergunta of quizzes;let i= index">
+                <div class="col-md-6 col-12" *ngFor="let pergunta of quizzes;let i= index">
+                    <div class="form-group">
                         <label for="pergunta" class="pergunta text-break">{{pergunta.pergunta}}</label>
                         <div class="form-control listaGE text-break" id="alternativa">
                             <div *ngFor="let alternativa of pergunta.alternativas; let j = index">
-                                <input type="radio" name="{{pergunta.pergunta+i}}" id="id_{{alternativa+j}}" (click)="selecionarResposta(i,j)"/>
+                                <input type="radio" name="{{pergunta.pergunta+i}}" id="id_{{alternativa+j}}"
+                                    (click)="selecionarResposta(i,j)" />
                                 <span class="m-2">
                                     {{alternativa}}
                                 </span>
