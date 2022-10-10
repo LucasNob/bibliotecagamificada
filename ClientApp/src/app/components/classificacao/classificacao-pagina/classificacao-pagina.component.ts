@@ -61,8 +61,8 @@ export class ClassificacaoPaginaComponent implements OnInit {
   iniciarAppbar() {
     this.appbarService.limparLinks();
     this.appbarService.adicionarLinks('Cadastrar turmas', 'cadastroturma');
+    this.appbarService.adicionarLinks('Cadastrar livros', 'cadastrolivro');
     if (this.usuario?.permissao == 1) {
-      this.appbarService.adicionarLinks('Cadastrar livros', 'cadastrolivro');
       this.appbarService.adicionarLinks('Cadastrar alunos', 'cadastroaluno');
       this.appbarService.adicionarLinks('Cadastrar professores', 'cadastroprofessor');
     }
@@ -134,6 +134,6 @@ export class ClassificacaoPaginaComponent implements OnInit {
     return false;
   }
   obterAluno() {
-    return this.listaAlunos.find(a=>a.id == this.usuario?.id);
+    return this.listaAlunos.find(a => a.id == this.usuario?.id);
   }
 }

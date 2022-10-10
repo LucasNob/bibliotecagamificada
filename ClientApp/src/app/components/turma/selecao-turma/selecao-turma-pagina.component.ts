@@ -26,38 +26,37 @@ export class SelecaoTurmaPaginaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.usuario != undefined)
-    {
+    if (this.usuario != undefined) {
       if (this.usuario.permissao == 1)
-          this.turmaService.obterTurmasPorIdInstituicao(this.usuario!.id).then(data => {
+        this.turmaService.obterTurmasPorIdInstituicao(this.usuario!.id).then(data => {
           this.listaTurmas = data as Array<Turma>;
           this.iniciarAppbar();
         });
-        if (this.usuario.permissao == 2)
+      if (this.usuario.permissao == 2)
         this.turmaService.obterTurmasPorIdProfessor(this.usuario!.id).then(data => {
           this.listaTurmas = data as Array<Turma>;
           this.iniciarAppbar();
-      });
+        });
       if (this.usuario.permissao == 3)
         this.turmaService.obterTurmasPorIdAluno(this.usuario!.id).then(data => {
-        this.listaTurmas = data as Array<Turma>;
-      });
+          this.listaTurmas = data as Array<Turma>;
+        });
     }
   }
 
-  iniciarAppbar() { 
+  iniciarAppbar() {
     this.appbarService.limparLinks();
     this.appbarService.adicionarLinks('Cadastrar turmas', 'cadastroturma');
+    this.appbarService.adicionarLinks('Cadastrar livros', 'cadastrolivro');
     if (this.usuario?.permissao == 1) {
-      this.appbarService.adicionarLinks('Cadastrar livros', 'cadastrolivro');
       this.appbarService.adicionarLinks('Cadastrar alunos', 'cadastroaluno');
       this.appbarService.adicionarLinks('Cadastrar professores', 'cadastroprofessor');
     }
   }
 
-  selecionarTurma(id: string) { 
+  selecionarTurma(id: string) {
     let turma = this.listaTurmas.find(value => value.id == id);
-    this.router.navigateByUrl('/listaclassificacao/'+turma!.id);
+    this.router.navigateByUrl('/listaclassificacao/' + turma!.id);
   }
   obterTurmasUsuario() {
     return this.listaTurmas;
