@@ -67,7 +67,7 @@ export class RespostaQuizComponent implements OnInit {
     let i = 0;
     for (i = 0; i < this.respostas.length; i++){
       if (this.respostas[i] == this.quizzes![i].resposta) {
-        acertos++;
+        acertos+=.5;
       } 
     }
     let ponto = new PontoAtualizacao(this.aluno?.id!,this.turma?.id!,this.ponto?.livrosLidos!, acertos);

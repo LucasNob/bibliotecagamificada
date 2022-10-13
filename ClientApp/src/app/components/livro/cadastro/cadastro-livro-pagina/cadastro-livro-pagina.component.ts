@@ -19,7 +19,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class CadastroLivroPaginaComponent implements OnInit {
 
   formCadastro!: FormGroup;
-  usuario?: Usuario;
+  usuario?: any;
   listaLivros: Array<Livro> = [];
   edicao: string = "";
   imgCarregada?: any;
@@ -33,9 +33,10 @@ export class CadastroLivroPaginaComponent implements OnInit {
     private router: Router,
     private appbarService: AppBarService,
   ) { 
-      let usuario = authService.obterDadosUsuario();
+    let usuario = authService.obterDadosUsuario();
+    console.log(usuario)
       if (usuario?.permissao != 3) {
-        this.usuario = usuario as Usuario;
+        this.usuario = usuario;
         this.iniciarAppbar();
       }
       else
@@ -49,7 +50,13 @@ export class CadastroLivroPaginaComponent implements OnInit {
       this.criarForm(new Livro());
   }
   obterListaLivros() {
-    this.livroService.obterLivrosPorIdInstituicao(this.usuario?.id!).then(data => {
+    let id = '';
+    if (this.usuario?.permissao == 1)
+      id= this.usuario.id;
+    if (this.usuario?.permissao == 2)
+      id = this.usuario.instituicao;
+    
+    this.livroService.obterLivrosPorIdInstituicao(id).then(data => {
       this.listaLivros = data as Array<Livro>;
     });
   }

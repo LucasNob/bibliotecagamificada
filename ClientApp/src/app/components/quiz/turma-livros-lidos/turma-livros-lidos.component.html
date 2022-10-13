@@ -1,30 +1,30 @@
 <div class="table-resposive">
-    <div class="tabela-cheia" *ngIf="obterLista().length > 0; else erro">
+    <div class="tabela-cheia" *ngIf="listaLivrosLidos.length > 0; else erro">
         <div class="row py-2">
             <div class="col-md-2 col-2 text-center tabela cabecalho"></div>
             <div class="col-md-5 col-4 tabela cabecalho">Título</div>
             <div class=" col-md-3 col-3 text-center tabela cabecalho">Autor</div>
         </div>
         <div>
-            <div *ngFor="let livro of obterLista()">
+            <div *ngFor="let item of listaLivrosLidos">
                 <div class="row py-1">
                     <div class="col-md-2 col-2 text-center">
-                        <div *ngIf="livro!.capa; else fotoPadrao">
-                            <span><img class="foto" src={{livro!.capa}} alt=""></span>
+                        <div *ngIf="item.livro!.capa; else fotoPadrao">
+                            <span><img class="foto" src={{item.livro!.capa}} alt=""></span>
                         </div>
                         <ng-template #fotoPadrao>
                             <span><img class="foto" src="../../../../assets/images/default_capa.png" alt=""></span>
                         </ng-template>
                     </div>
                     <div class="col-md-5 col-4 tabela item">
-                        <span>{{livro.titulo}}</span>
+                        <span>{{item.livro.titulo}}</span>
                     </div>
                     <div class="col-md-3 col-3 text-center tabela item">
-                        <span>{{livro.autor}}</span>
+                        <span>{{item.livro.autor}}</span>
                     </div>
                     <div class="col-md-1 col-3 text-start">
-                        <span>
-                            <button class="btn btn-primary" (click)="responderQuizLivro(livro)">
+                        <span *ngIf="item.mostrarQuiz">
+                            <button class="btn btn-primary" (click)="responderQuizLivro(item.livro)">
                                 <mat-icon>quiz</mat-icon>
                             </button>
                         </span>
@@ -35,7 +35,7 @@
     </div>
     <ng-template #erro>
         <div class="alert alert-info my-5" role="alert">
-            Lista de Livros Lidos vazia!
+            Lista de item.livros Lidos vazia!
         </div>
     </ng-template>
 </div>
