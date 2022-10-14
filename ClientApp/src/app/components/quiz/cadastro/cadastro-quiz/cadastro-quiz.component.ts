@@ -46,7 +46,6 @@ export class CadastroQuizComponent implements OnInit {
 
   obterLista() {
     this.quizService.obterQuizPorIdLivro(this.livro!.id).then(data => {
-      console.log(data)
       if (data)
         this.listaQuizzes = data as Array<Quiz>;
       else
@@ -183,12 +182,6 @@ export class CadastroQuizComponent implements OnInit {
   }
 
   estadoBotao() {
-  console.log(this.formCadastro.get('resposta')!.value)
-  console.log(this.formCadastro.get('alternativaA')!.value)
-  console.log(this.formCadastro.get('alternativaB')!.value)
-  console.log(this.formCadastro.get('alternativaC')!.value)
-  console.log(this.formCadastro.get('alternativaD')!.value)
-  console.log(this.formCadastro.get('pergunta')!.value )
     if (
     !this.formCadastro.get('resposta')!.value ||
     !this.formCadastro.get('alternativaA')!.value ||

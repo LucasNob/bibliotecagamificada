@@ -34,7 +34,6 @@ export class CadastroLivroPaginaComponent implements OnInit {
     private appbarService: AppBarService,
   ) { 
     let usuario = authService.obterDadosUsuario();
-    console.log(usuario)
       if (usuario?.permissao != 3) {
         this.usuario = usuario;
         this.iniciarAppbar();
