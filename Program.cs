@@ -16,6 +16,9 @@ using BibliotecaGamificada.Professores.Comum.Repositorios;
 using BibliotecaGamificada.Usuario.Negocios;
 using BibliotecaGamificada.Usuario.Comum.Repositorios;
 using BibliotecaGamificada.Comum.Classes.Firebase;
+using BibliotecaGamificada.Quizzes.Comum.Repositorios;
+using BibliotecaGamificada.Quizzes.Negocios;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,6 +56,10 @@ builder.Services.AddTransient<ProfessorRepositorio>();
 //usuario
 builder.Services.AddTransient<UsuarioNegocio>();
 builder.Services.AddTransient<UsuarioRepositorio>();
+
+//quiz
+builder.Services.AddTransient<QuizNegocio>();
+builder.Services.AddTransient<QuizRepositorio>();
 
 //configurar mongo
 // builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
@@ -93,6 +100,7 @@ app.MapControllerRoute(name: "aluno", pattern: "/v1/aluno/{action=Index}/{id?}")
 app.MapControllerRoute(name: "pontuacao", pattern: "/v1/pontuacao/{action=Index}/{id?}");
 app.MapControllerRoute(name: "aluno", pattern: "/v1/professor/{action=Index}/{id?}");
 app.MapControllerRoute(name: "usuario", pattern: "/v1/usuario/{action=Index}/{id?}");
+app.MapControllerRoute(name: "quiz", pattern: "/v1/quiz/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html"); ;
 

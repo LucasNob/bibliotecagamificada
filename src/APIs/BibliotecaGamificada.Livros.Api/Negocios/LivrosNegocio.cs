@@ -3,6 +3,7 @@ using BibliotecaGamificada.Livros.Api.Models;
 using BibliotecaGamificada.Livros.Comum.Entidades;
 using BibliotecaGamificada.Livros.Comum.Repositorios;
 using BibliotecaGamificada.Pontos.Comum.Repositorios;
+using BibliotecaGamificada.Quizzes.Comum.Repositorios;
 using BibliotecaGamificada.Turmas.Comum.Repositorios;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,14 +13,15 @@ namespace BibliotecaGamificada.Livros.Negocios
     {
         private readonly LivroRepositorio livroRepositorio;
         private readonly TurmaRepositorio turmaRepositorio;
-
         private readonly PontoRepositorio pontoRepositorio;
+        private readonly QuizRepositorio quizRepositorio;
 
-        public LivrosNegocio(LivroRepositorio livroRepositorio, TurmaRepositorio turmaRepositorio, PontoRepositorio pontoRepositorio)
+        public LivrosNegocio(LivroRepositorio livroRepositorio, TurmaRepositorio turmaRepositorio, PontoRepositorio pontoRepositorio, QuizRepositorio quizRepositorio)
         {
             this.livroRepositorio = livroRepositorio;
             this.turmaRepositorio = turmaRepositorio;
             this.pontoRepositorio = pontoRepositorio;
+            this.quizRepositorio = quizRepositorio;
         }
 
         public async Task<IActionResult> ObterLivros()
@@ -89,7 +91,7 @@ namespace BibliotecaGamificada.Livros.Negocios
         {
             RetornoMsg msg;
             var livros = await livroRepositorio.ObterPorLista(id);
-            if (livros == null || livros.Count == 0 )
+            if (livros == null || livros.Count == 0)
                 msg = new RetornoMsg("erro", "Registros não encontrados");
             else
                 msg = new RetornoMsg("sucesso", "retorno enviado", livros);
@@ -102,14 +104,14 @@ namespace BibliotecaGamificada.Livros.Negocios
             try
             {
                 await livroRepositorio.Excluir(id);
-                
-                //Somente para livros únicos por instituição
                 await pontoRepositorio.RemoverLivroLido(id);
+                await pontoRepositorio.RemoverLivroQuiz(id);
                 await turmaRepositorio.RemoverLivro(id);
+                await quizRepositorio.ExcluirporLivro(id);
             }
             catch
             {
-                return new OkObjectResult(new RetornoMsg("erro", "Erro ao exluir"));
+                return new OkObjectResult(new RetornoMsg("erro", "Erro ao excluir"));
             }
 
             return new OkObjectResult(new RetornoMsg("sucesso", "Livro Excluido"));
@@ -121,14 +123,15 @@ namespace BibliotecaGamificada.Livros.Negocios
             try
             {
                 var livroAnterior = await livroRepositorio.ObterPorId(livro.id!);
-                
+
                 var bs = new AzureBlobStorage();
 
                 if (livro.capa != capa && livro.capa != livroAnterior.capa)
                 {
                     capa = await bs.UploadImagem(livro.capa!, "imagens");
                 }
-                else {
+                else
+                {
                     capa = livro.capa!;
                 }
 

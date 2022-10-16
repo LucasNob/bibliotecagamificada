@@ -1,6 +1,6 @@
 <div class="row py-1">
     <div class="col-md-2 col-3 text-center">
-        <div *ngIf="livro!.capa != null; else fotoPadrao"> 
+        <div *ngIf="livro!.capa != null; else fotoPadrao">
             <span><img class="capa" src={{livro!.capa}} alt=""></span>
         </div>
         <ng-template #fotoPadrao>
@@ -10,13 +10,22 @@
     <div class="col-md-4 col-5 text-center">
         <span class="tabela item">{{livro!.titulo}}</span>
     </div>
-    <div class="col-md-4 col-4 text-center">
+    <div class="col-md-3 col-4 text-center">
         <span class="tabela item">{{livro!.autor}}</span>
     </div>
-    <div class="col-md-1 col-6 text-center py-2">
-        <span><button class="btn btn-warning w-75" (click)="Editar()"><mat-icon>edit</mat-icon><i class="bi bi-pencil" ></i></button></span>
+    <div class="col-md-1 col-4 text-center py-2">
+        <span><button class="btn btn-primary w-75" (click)="Quiz()">
+                <mat-icon>checklist</mat-icon>
+            </button></span>
     </div>
-    <div class="col-md-1 col-6 text-center py-2">
-        <span><button class="btn btn-danger w-75" (click)="Excluir()"><mat-icon>delete</mat-icon><i class="bi bi-trash" ></i></button></span>
+    <div class="col-md-1 col-4 text-center py-2" *ngIf="usuario?.permissao == 1">
+        <span><button class="btn btn-warning w-75" (click)="Editar()">
+                <mat-icon>edit</mat-icon>
+            </button></span>
+    </div>
+    <div class="col-md-1 col-4 text-center py-2" *ngIf="usuario?.permissao == 1">
+        <span><button class="btn btn-danger w-75" (click)="Excluir()">
+                <mat-icon>delete</mat-icon>
+            </button></span>
     </div>
 </div>

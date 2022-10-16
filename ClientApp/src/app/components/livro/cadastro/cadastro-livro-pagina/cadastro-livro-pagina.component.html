@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="usuario?.permissao == 1">
     <form [formGroup]="formCadastro" (ngSubmit)="cadastrarLivro(formCadastro.value)">
         <div class="col-12">
             <div class="row titulo m-4">
@@ -58,6 +58,6 @@
     </form>
 </div>
 <div class="row my-4"></div>
-<app-livro-lista [listaLivros]="listaLivros" (excluirEmitter)="excluirLivro($event)"
+<app-livro-lista [listaLivros]="listaLivros" (excluirEmitter)="excluirLivro($event)" (quizEmitter)="quizLivro($event)"
     (editarEmitter)="editarLivro($event)">
 </app-livro-lista>

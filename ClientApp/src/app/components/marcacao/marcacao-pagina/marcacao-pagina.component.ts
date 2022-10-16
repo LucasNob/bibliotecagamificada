@@ -86,11 +86,7 @@ export class MarcacaoPaginaComponent implements OnInit{
   }
   excluirAluno(id: any) {
       this.turmaService.removerAlunoTurma(this.turmaAtual!.id, id);
-      // this.turmaAtual?.alunos?.splice(this.turmaAtual.alunos.findIndex(a => a == id),1)
-      // this.listaAlunos?.splice(this.listaAlunos.findIndex(a => a == id),1)
       this.emitExclusao.emit(id);
-      // emitExcluir()
-      // this.obterListaAlunos();
   }
   emitSalvar(event:any) { 
     // this.obterAlunosTurma();

@@ -1,0 +1,32 @@
+<div class="container">
+    <form>
+        <div class="col-12">
+            <div class="row titulo m-4">
+                <span>Quiz do Livro - Nome do Livro</span>
+            </div>
+            <div class="row my-4">
+                <div class="col-md-6 col-12" *ngFor="let pergunta of quizzes;let i= index">
+                    <div class="form-group">
+                        <label for="pergunta" class="pergunta text-break">{{pergunta.pergunta}}</label>
+                        <div class="form-control listaGE text-break" id="alternativa">
+                            <div *ngFor="let alternativa of pergunta.alternativas; let j = index">
+                                <input type="radio" name="{{pergunta.pergunta+i}}" id="id_{{alternativa+j}}"
+                                    (click)="selecionarResposta(i,j)" />
+                                <span class="m-2">
+                                    {{alternativa}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-12">
+                    <input type="submit" class="btn btn-primary h-100 w-100 item" value="Finalizar"
+                        [disabled]="!estadoBotao()" (click)="salvarRespostas()">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Livro } from 'src/app/models/entidades/Livro.model';
+import { Usuario } from 'src/app/models/entidades/Usuario.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-livro-lista',
@@ -15,9 +17,16 @@ export class LivroListaComponent implements OnInit {
   excluirEmitter = new EventEmitter<string>();
   
   @Output()
+  quizEmitter = new EventEmitter<string>();
+  
+  @Output()
   editarEmitter = new EventEmitter<string>();
 
-  constructor() { }
+  usuario?: Usuario;
+  constructor(private authService: AuthService) {
+    let usuario = authService.obterDadosUsuario();
+    this.usuario = usuario;
+  }
 
   ngOnInit(): void {
   }
@@ -29,5 +38,8 @@ export class LivroListaComponent implements OnInit {
   }
   emitEditar(id: string) {
     this.editarEmitter.emit(id);
+  }
+  emitQuiz(id: string) {
+    this.quizEmitter.emit(id);
   }
 }

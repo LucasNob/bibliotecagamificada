@@ -1,8 +1,6 @@
 using BibliotecaGamificada.Comum.Classes.Entidades;
-using BibliotecaGamificada.Comum.Classes.Enums;
 using BibliotecaGamificada.Comum.Classes.Repositorio;
 using BibliotecaGamificada.Comum.Classes.Settings;
-using BibliotecaGamificada.Livros.Comum.Entidades;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;

@@ -1,26 +1,38 @@
 <div class="row justify-content-center">
-            <div class=" col-md-6 px-0" *ngIf="obterTurmaAtual() != undefined; else erroTurma">
-                <div class="row py-3">
-                    <span class="titulo">Ranking {{obterTurmaAtual()!.nome}}</span>
-                </div>
-                <app-classificacao-lista [listaPontos]="obterListaPontos()" [listaAlunos]="obterListaAlunos()">
-                </app-classificacao-lista>
-            </div>
+    <div class=" col-md-6 px-0" *ngIf="obterTurmaAtual() != undefined; else erroTurma">
+        <div class="row py-3">
+            <span class="titulo">Ranking {{obterTurmaAtual()!.nome}}</span>
         </div>
-        <ng-template #erroTurma>
-            <div class="alert alert-info col-8 my-5" role="alert">
-                <span>Nenhuma turma selecionada</span>
+        <app-classificacao-lista [listaPontos]="obterListaPontos()" [listaAlunos]="obterListaAlunos()">
+        </app-classificacao-lista>
+    </div>
+</div>
+<ng-template #erroTurma>
+    <div class="alert alert-info col-8 my-5" role="alert">
+        <span>Nenhuma turma selecionada</span>
+    </div>
+</ng-template>
+<div *ngIf="checarPermissaoLivrosLidos()">
+    <div class="row justify-content-center">
+        <div class=" col-md-6 px-0" *ngIf="obterTurmaAtual() != undefined; else erroTurma">
+            <div class="row py-3">
+                <span class="titulo">Livros Lidos na {{obterTurmaAtual()!.nome}}</span>
             </div>
-        </ng-template>
+            <app-turma-livros-lidos [aluno]="obterAluno()" [turma]="obterTurmaAtual()!"></app-turma-livros-lidos>
+        </div>
+    </div>
+</div>
 <div *ngIf="checarPermissaoMarcacaoLivro()">
-    <app-marcacao-pagina [turmaAtual]="turmaAtual" [listaAlunos]="listaAlunos" [listaPontos]="listaPontos" (emitExclusao)="excluirAluno($event)" (emitSalvo)="obterClassificacaoTurma()"></app-marcacao-pagina>
-    
+    <app-marcacao-pagina [turmaAtual]="turmaAtual" [listaAlunos]="listaAlunos" [listaPontos]="listaPontos"
+        (emitExclusao)="excluirAluno($event)" (emitSalvo)="obterClassificacaoTurma()"></app-marcacao-pagina>
+
     <div class="row justify-content-center">
         <div class=" col-md-6 px-0" *ngIf="obterTurmaAtual() != undefined; else erroTurma">
             <div class="row py-3">
                 <span class="titulo">Livros da {{obterTurmaAtual()!.nome}}</span>
             </div>
-            <app-turma-livros [listaLivros]="listaLivros" [turma]="turmaAtual" (emitExcluirLivro)="excluirLivro($event)"></app-turma-livros>
+            <app-turma-livros [listaLivros]="listaLivros" [turma]="turmaAtual"
+                (emitExcluirLivro)="excluirLivro($event)"></app-turma-livros>
         </div>
     </div>
 </div>

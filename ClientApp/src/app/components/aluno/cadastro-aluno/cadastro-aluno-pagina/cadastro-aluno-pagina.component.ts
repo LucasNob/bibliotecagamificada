@@ -158,9 +158,6 @@ export class CadastroAlunoPaginaComponent implements OnInit {
     else return false;
   }
   estadoBotao() {
-    // console.log(!this.formCadastro.get('nome')?.value)
-    // console.log(this.emailValido())
-    // console.log(!this.dataValida())
     if (!this.formCadastro.get('nome')?.value || this.emailValido() || !this.dataValida())
       return false;
     return this.formCadastro.valid;
