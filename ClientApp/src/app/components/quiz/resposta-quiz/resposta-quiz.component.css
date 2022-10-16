@@ -1,0 +1,22 @@
+.btn-primary {
+    color: #fff;
+    background-color: #E37623;
+    border: solid #E37623;
+    border-radius: 3px;
+    font-family: Usuario;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: #c5671f;
+    border: solid #c5671f;
+    outline: none !important;
+    box-shadow: none;
+}
+
+.btn-primary:focus {
+    background-color: #c5671f;
+    border: solid #c5671f;
+    outline: none !important;
+    box-shadow: none !important;
+}
