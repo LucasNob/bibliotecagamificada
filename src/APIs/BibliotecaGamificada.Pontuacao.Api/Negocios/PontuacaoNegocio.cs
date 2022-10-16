@@ -36,6 +36,28 @@ namespace BibliotecaGamificada.Pontuacao.Negocios
             }
             return new OkObjectResult(new RetornoMsg("sucesso", "Livros Atualizados"));
         }
+         public async Task<IActionResult> AtualizarPontoQuizLivros(PontoAtualizacao atualizacao)
+        {
+            try
+            {
+                var pontos = await pontuacaoRepositorio.ObterPorAluno(atualizacao.idAluno);
+                var ponto = pontos.Find(p => p.turma == atualizacao.idTurma);
+                if (ponto == null)
+                    throw new Exception("Registro não encontrado");
+                var ponto2 = new Ponto();
+
+                ponto.livrosQuiz.Add(atualizacao.idLivroQuiz!);
+                ponto2.livrosQuiz = ponto.livrosQuiz;
+                ponto2.totalPontos = ponto.totalPontos + atualizacao.totalPontos;
+
+                await pontuacaoRepositorio.AtualizarPontoQuizLivros(ponto, ponto2);
+            }
+            catch (Exception e)
+            {
+                return new OkObjectResult(new RetornoMsg("erro", "Registros não encontrados", e));
+            }
+            return new OkObjectResult(new RetornoMsg("sucesso", "Livros Atualizados"));
+        }
 
     }
 }

@@ -47,6 +47,14 @@ namespace BibliotecaGamificada.Pontos.Comum.Repositorios
             );
             await this.AtualizarDados(atual,update);
         }
+        public async Task AtualizarPontoQuizLivros(Ponto atual, Ponto novo){
+            var update = Builders<Ponto>.Update.Combine(
+                Builders<Ponto>.Update
+                .Set(x => x.livrosQuiz, novo.livrosQuiz)
+                .Set(x => x.totalPontos,novo.totalPontos)
+            );
+            await this.AtualizarDados(atual,update);
+        }
         
         public async Task<string> Cadastrar(Ponto ponto)
         {
@@ -82,10 +90,21 @@ namespace BibliotecaGamificada.Pontos.Comum.Repositorios
             var update = Builders<Ponto>.Update.Pull(p => p.livrosLidos, idLivro);
             await this.AtualizarMultiplosDados(new BsonDocument(),update);
         }
+        public async Task RemoverLivroQuiz(string idLivro)
+        {
+            var update = Builders<Ponto>.Update.Pull(p => p.livrosQuiz, idLivro);
+            await this.AtualizarMultiplosDados(new BsonDocument(),update);
+        }
 
         public async Task RemoverLivroLidoPorTurma(string turma, string livro)
         {
             var update = Builders<Ponto>.Update.Pull(p => p.livrosLidos, livro);
+            var filtro = Builders<Ponto>.Filter.Eq(t => t.turma, turma);
+            await this.AtualizarMultiplosDados(filtro,update);
+        }
+        public async Task RemoverLivroQuizPorTurma(string turma, string livro)
+        {
+            var update = Builders<Ponto>.Update.Pull(p => p.livrosQuiz, livro);
             var filtro = Builders<Ponto>.Filter.Eq(t => t.turma, turma);
             await this.AtualizarMultiplosDados(filtro,update);
         }

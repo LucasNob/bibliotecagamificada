@@ -20,4 +20,9 @@ public class PontuacaoController : ControllerBase
     {
         return await pontuacaoNegocio.AtualizarPontoLivrosLidos(livro);
     }
+    [HttpPut, Route("atualizarPontuacaoQuizLivros")]
+    public async Task<IActionResult> AtualizarPontoQuizLivros([FromBody] PontoAtualizacao livro)
+    {
+        return await pontuacaoNegocio.AtualizarPontoQuizLivros(livro);
+    }
 }

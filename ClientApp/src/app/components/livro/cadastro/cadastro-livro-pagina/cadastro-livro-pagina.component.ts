@@ -19,7 +19,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class CadastroLivroPaginaComponent implements OnInit {
 
   formCadastro!: FormGroup;
-  usuario?: Usuario;
+  usuario?: any;
   listaLivros: Array<Livro> = [];
   edicao: string = "";
   imgCarregada?: any;
@@ -33,12 +33,9 @@ export class CadastroLivroPaginaComponent implements OnInit {
     private router: Router,
     private appbarService: AppBarService,
   ) { 
-      // this.authService.usuario =  new Usuario("idinstituicao1", "Anglo Sorocaba",1,
-      // "https://pbs.twimg.com/profile_images/570291758630576128/x3lqZT5Z_400x400.png");
-
-      let usuario = authService.obterDadosUsuario();
-      if (usuario?.permissao == 1) {
-        this.usuario = usuario as Usuario;
+    let usuario = authService.obterDadosUsuario();
+      if (usuario?.permissao != 3) {
+        this.usuario = usuario;
         this.iniciarAppbar();
       }
       else
@@ -52,7 +49,13 @@ export class CadastroLivroPaginaComponent implements OnInit {
       this.criarForm(new Livro());
   }
   obterListaLivros() {
-    this.livroService.obterLivrosPorIdInstituicao(this.usuario?.id!).then(data => {
+    let id = '';
+    if (this.usuario?.permissao == 1)
+      id= this.usuario.id;
+    if (this.usuario?.permissao == 2)
+      id = this.usuario.instituicao;
+    
+    this.livroService.obterLivrosPorIdInstituicao(id).then(data => {
       this.listaLivros = data as Array<Livro>;
     });
   }
@@ -124,6 +127,10 @@ export class CadastroLivroPaginaComponent implements OnInit {
     this.livroService.excluirLivro(id).then(data => {
       this.obterListaLivros();
     });
+  }
+ 
+  quizLivro(id:string) {
+    this.router.navigateByUrl('cadastroquiz/'+id);
   }
  
   limparCampos() { 

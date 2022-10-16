@@ -112,7 +112,7 @@ namespace BibliotecaGamificada.Alunos.Negocios
             }
             catch
             {
-                return new OkObjectResult(new RetornoMsg("erro", "Erro ao exluir"));
+                return new OkObjectResult(new RetornoMsg("erro", "Erro ao excluir"));
             }
 
             return new OkObjectResult(new RetornoMsg("sucesso", "Aluno Excluido"));
@@ -127,9 +127,10 @@ namespace BibliotecaGamificada.Alunos.Negocios
                 var alunoAnterior = await alunoRepositorio.ObterPorId(aluno.id!);
                 var buscaEmail = await usuarioRepositorio.ObterPorEmail(aluno.email);
 
-                if(buscaEmail.Count()>0 || buscaEmail == null){
+                if (buscaEmail.Count() > 0 || buscaEmail == null)
+                {
                     if (alunoAnterior.email != aluno.email)
-                    return new OkObjectResult(new RetornoMsg("erro", "Email ja é utilizado"));
+                        return new OkObjectResult(new RetornoMsg("erro", "Email ja é utilizado"));
                 }
 
                 if (alunoAnterior.email != aluno.email)

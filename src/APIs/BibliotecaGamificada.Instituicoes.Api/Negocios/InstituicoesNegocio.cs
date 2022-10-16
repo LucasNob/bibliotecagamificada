@@ -1,5 +1,4 @@
 using BibliotecaGamificada.Alunos.Comum.Repositorios;
-using BibliotecaGamificada.Alunos.Negocios;
 using BibliotecaGamificada.Comum.Classes.Enums;
 using BibliotecaGamificada.Comum.Classes.Firebase;
 using BibliotecaGamificada.Comum.Classes.Models;
@@ -11,6 +10,7 @@ using BibliotecaGamificada.Livros.Comum.Repositorios;
 using BibliotecaGamificada.Pontos.Comum.Repositorios;
 using BibliotecaGamificada.Professores.Comum.Entidades;
 using BibliotecaGamificada.Professores.Comum.Repositorios;
+using BibliotecaGamificada.Quizzes.Comum.Repositorios;
 using BibliotecaGamificada.Turmas.Comum.Repositorios;
 using BibliotecaGamificada.Usuario.Comum.Repositorios;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +26,7 @@ namespace BibliotecaGamificada.Instituicoes.Negocios
         private readonly LivroRepositorio livroRepositorio;
         private readonly PontoRepositorio pontoRepositorio;
         private readonly TurmaRepositorio turmaRepositorio;
+        private readonly QuizRepositorio quizRepositorio;
         private readonly FireBaseComum firebase;
 
         public InstituicoesNegocio(UsuarioRepositorio usuarioRepositorio,
@@ -35,16 +36,18 @@ namespace BibliotecaGamificada.Instituicoes.Negocios
                                    LivroRepositorio livroRepositorio,
                                    PontoRepositorio pontoRepositorio,
                                    TurmaRepositorio turmaRepositorio,
+                                   QuizRepositorio quizRepositorio,
                                    FireBaseComum firebase)
         {
             this.firebase = firebase;
-            this.instituicaoRepositorio= instituicaoRepositorio;
+            this.instituicaoRepositorio = instituicaoRepositorio;
             this.professorRepositorio = professorRepositorio;
             this.alunoRepositorio = alunoRepositorio;
             this.livroRepositorio = livroRepositorio;
             this.pontoRepositorio = pontoRepositorio;
             this.turmaRepositorio = turmaRepositorio;
             this.usuarioRepositorio = usuarioRepositorio;
+            this.quizRepositorio = quizRepositorio;
         }
 
         public async Task<IActionResult> Obter()
@@ -101,25 +104,25 @@ namespace BibliotecaGamificada.Instituicoes.Negocios
                 var instituicao = await instituicaoRepositorio.ObterPorId(id);
                 var professoresInstituicao = await professorRepositorio.ObterPorInstituicao(id);
                 var alunosInstituicao = await alunoRepositorio.ObterPorInstituicao(id);
-                
+
                 if (instituicao.email != null)
                     await firebase.RemoverUsuario(instituicao.email);
 
-                if(professoresInstituicao != null && professoresInstituicao.Count()>0)
+                if (professoresInstituicao != null && professoresInstituicao.Count() > 0)
                 {
-                    foreach(Professor professor in professoresInstituicao)
+                    foreach (Professor professor in professoresInstituicao)
                     {
                         if (professor.email != null)
-                        await firebase.RemoverUsuario(professor.email);
+                            await firebase.RemoverUsuario(professor.email);
                     }
                 }
 
-                if(alunosInstituicao != null && alunosInstituicao.Count()>0)
+                if (alunosInstituicao != null && alunosInstituicao.Count() > 0)
                 {
-                    foreach(Aluno aluno in alunosInstituicao)
+                    foreach (Aluno aluno in alunosInstituicao)
                     {
                         if (aluno.email != null)
-                        await firebase.RemoverUsuario(aluno.email);
+                            await firebase.RemoverUsuario(aluno.email);
                     }
                 }
 
@@ -129,10 +132,11 @@ namespace BibliotecaGamificada.Instituicoes.Negocios
                 await livroRepositorio.ExcluirporInstituicao(id);
                 await turmaRepositorio.ExcluirporInstituicao(id);
                 await pontoRepositorio.ExcluirporInstituicao(id);
+                await quizRepositorio.ExcluirporInstituicao(id);
             }
             catch
             {
-                return new OkObjectResult(new RetornoMsg("erro", "Erro ao exluir"));
+                return new OkObjectResult(new RetornoMsg("erro", "Erro ao excluir"));
             }
 
             return new OkObjectResult(new RetornoMsg("sucesso", "Instituição Excluida"));
@@ -147,9 +151,10 @@ namespace BibliotecaGamificada.Instituicoes.Negocios
                 var instituicaoAnterior = await instituicaoRepositorio.ObterPorId(instituicao.id!);
                 var buscaEmail = await usuarioRepositorio.ObterPorEmail(instituicao.email);
 
-                if(buscaEmail.Count()>0 || buscaEmail == null){
+                if (buscaEmail.Count() > 0 || buscaEmail == null)
+                {
                     if (instituicaoAnterior.email != instituicao.email)
-                    return new OkObjectResult(new RetornoMsg("erro", "Email ja é utilizado"));
+                        return new OkObjectResult(new RetornoMsg("erro", "Email ja é utilizado"));
                 }
 
                 if (instituicaoAnterior.email != instituicao.email)
@@ -170,9 +175,9 @@ namespace BibliotecaGamificada.Instituicoes.Negocios
                 i.Id = instituicao.id;
                 await instituicaoRepositorio.Editar(i);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                return new OkObjectResult(new RetornoMsg("erro", "Erro: "+e.Message));
+                return new OkObjectResult(new RetornoMsg("erro", "Erro: " + e.Message));
             }
             return new OkObjectResult(new RetornoMsg("sucesso", "Instituicao editada"));
         }

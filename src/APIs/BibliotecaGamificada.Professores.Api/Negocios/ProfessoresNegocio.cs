@@ -23,7 +23,7 @@ namespace BibliotecaGamificada.Professores.Negocios
         public ProfessoresNegocio(UsuarioRepositorio usuarioRepositorio, ProfessorRepositorio professorRepositorio, PontoRepositorio pontoRepositorio, TurmaRepositorio turmaRepositorio, FireBaseComum firebase)
         {
             this.firebase = firebase;
-            this.professorRepositorio= professorRepositorio;
+            this.professorRepositorio = professorRepositorio;
             this.pontoRepositorio = pontoRepositorio;
             this.turmaRepositorio = turmaRepositorio;
             this.usuarioRepositorio = usuarioRepositorio;
@@ -97,9 +97,9 @@ namespace BibliotecaGamificada.Professores.Negocios
                     await firebase.RemoverUsuario(professor.email);
                 await professorRepositorio.Excluir(id);
                 var turmasProfessor = await turmaRepositorio.ObterPorProfessor(id);
-                if(turmasProfessor != null && turmasProfessor.Count()>0)
+                if (turmasProfessor != null && turmasProfessor.Count() > 0)
                 {
-                    foreach(Turma turma in turmasProfessor)
+                    foreach (Turma turma in turmasProfessor)
                     {
                         await pontoRepositorio.ExcluirporTurma(turma.Id!);
                     }
@@ -108,7 +108,7 @@ namespace BibliotecaGamificada.Professores.Negocios
             }
             catch
             {
-                return new OkObjectResult(new RetornoMsg("erro", "Erro ao exluir"));
+                return new OkObjectResult(new RetornoMsg("erro", "Erro ao excluir"));
             }
 
             return new OkObjectResult(new RetornoMsg("sucesso", "Professor Excluido"));
@@ -123,9 +123,10 @@ namespace BibliotecaGamificada.Professores.Negocios
                 var professorAnterior = await professorRepositorio.ObterPorId(professor.id!);
                 var buscaEmail = await usuarioRepositorio.ObterPorEmail(professor.email);
 
-                if(buscaEmail.Count()>0 || buscaEmail == null){
+                if (buscaEmail.Count() > 0 || buscaEmail == null)
+                {
                     if (professorAnterior.email != professor.email)
-                    return new OkObjectResult(new RetornoMsg("erro", "Email ja é utilizado"));
+                        return new OkObjectResult(new RetornoMsg("erro", "Email ja é utilizado"));
                 }
 
                 if (professorAnterior.email != professor.email)

@@ -1,0 +1,89 @@
+<div class="container">
+    <form [formGroup]="formCadastro" (ngSubmit)="cadastrarQuiz()">
+        <div class="col-12">
+            <div class="row titulo m-4">
+                <span>Cadastro do Quiz do Livro - {{obterNome()}}</span>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
+                    <label for="pergunta">Pergunta</label>
+                    <input type="text" [ngClass]="formInvalido('pergunta') ?'form-control is-invalid':'form-control'"
+                        id="pergunta" name="pergunta" formControlName="pergunta" placeholder="Digite a pergunta"
+                        aria-describedby="perguntaInvalido" required>
+                    <div id="perguntaInvalido" class="invalid-feedback">Pergunta Inválida.</div>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
+                    <label for="alternativaA">Alternativa 1</label>
+                    <input type="text"
+                        [ngClass]="formInvalido('alternativaA') ?'form-control is-invalid':'form-control'"
+                        id="alternativaA" name="alternativaA" formControlName="alternativaA"
+                        placeholder="Digite a alternativa" aria-describedby="alternativaAInvalido" required>
+                    <div id="alternativaAInvalido" class="invalid-feedback">Alternativa Inválida.</div>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
+                    <label for="alternativaB">Alternativa 2</label>
+                    <input type="text"
+                        [ngClass]="formInvalido('alternativaB') ?'form-control is-invalid':'form-control'"
+                        id="alternativaB" name="alternativaB" formControlName="alternativaB"
+                        placeholder="Digite a alternativa" aria-describedby="alternativaBInvalido" required>
+                    <div id="alternativaBInvalido" class="invalid-feedback">Alternativa Inválida.</div>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
+                    <label for="alternativaC">Alternativa 3</label>
+                    <input type="text"
+                        [ngClass]="formInvalido('alternativaC') ?'form-control is-invalid':'form-control'"
+                        id="alternativaC" name="alternativaC" formControlName="alternativaC"
+                        placeholder="Digite a alternativa" aria-describedby="alternativaCInvalido" required>
+                    <div id="alternativaCInvalido" class="invalid-feedback">Alternativa Inválida.</div>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
+                    <label for="alternativaD">Alternativa 4</label>
+                    <input type="text"
+                        [ngClass]="formInvalido('alternativaD') ?'form-control is-invalid':'form-control'"
+                        id="alternativaD" name="alternativaD" formControlName="alternativaD"
+                        placeholder="Digite a alternativa" aria-describedby="alternativaDInvalido" required>
+                    <div id="alternativaDInvalido" class="invalid-feedback">Alternativa Inválida.</div>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="form-group">
+                    <label for="resposta">Alternativa Correta</label>
+                    <input type="number" [ngClass]="formInvalido('resposta') ?'form-control is-invalid':'form-control'"
+                        id="resposta" max="4" min="1" name="resposta" formControlName="resposta"
+                        placeholder="Digite a alternativa correta" aria-describedby="respostaInvalido" required>
+                    <div id="respostaInvalido" class="invalid-feedback">Alternativa Correta Inválida.</div>
+                </div>
+            </div>
+            <div class="row justify-content-center" *ngIf="modoEdicao(); else cadastrar">
+                <div class="col-md-6 col-6">
+                    <input class="btn btn-primary h-100 w-100 item" value="Salvar" (click)="salvar()"
+                        [disabled]="!estadoBotao()">
+                </div>
+                <div class="col-md-6 col-6">
+                    <input class="btn btn-danger h-100 w-100 item" value="Cancelar" (click)="limparCampos()"
+                        [disabled]="!estadoBotao()">
+                </div>
+            </div>
+            <ng-template #cadastrar >
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-12">
+                        <input type="submit" class="btn btn-primary h-100 w-100 item" value="Cadastrar"
+                            [disabled]="!estadoBotao()">
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </form>
+</div>
+<div class="row my-4"></div>
+
+<app-quiz-lista [listaQuiz]="listaQuizzes"  (excluirEmitter)="excluirQuiz($event)"
+    (editarEmitter)="editarQuiz($event)"></app-quiz-lista>
