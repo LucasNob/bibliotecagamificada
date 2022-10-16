@@ -29,6 +29,8 @@ export class CadastroQuizComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute) {
     this.usuario = authService.obterDadosUsuario();
+    if (this.usuario.permissao == 3)
+      this.router.navigateByUrl('#');
   }
 
   ngOnInit(): void {

@@ -36,7 +36,7 @@ export class RespostaQuizComponent implements OnInit {
       this.return = state.extras.state.return;
     }
     else {
-      history.back();
+      this.router.navigateByUrl('#');
     }
   }
 
@@ -74,7 +74,7 @@ export class RespostaQuizComponent implements OnInit {
     ponto.totalPontos = acertos;
     ponto.idLivroQuiz = this.livro?.id;
     this.pontoService.atualizarPontuacaoQuiz(ponto).then(res => {
-      this.router.navigate([this.return]);
+      this.router.navigate([this.return],{ replaceUrl: true });
     });
   }
 }
