@@ -4,14 +4,6 @@
             <span class="titulo">Ranking Global - {{ano}}</span>
         </div>
         <div class="table-resposive">
-            <!--
-                Nesse div abaixo no ranking da Classificação lista possuia uma logica de if
-                *ngIf="obterLista().length > 0; else erro"
-                E depois um Ng Template que deixei comentado abaixo.
-                Caso não for usar apagar comentários por favor
-                Não se deve apagar nenhum <div> sem ser o que está comentado
-                Deixarei os campos com textos falsos para poder substituir pelos itens do angular
-            -->
             <div class="tabela-cheia">
                 <div class="row py-2">
                     <div class="col-md-2 col-3 text-center tabela cabecalho">Posição</div>
@@ -31,11 +23,12 @@
                                 </ng-template>
                             </div>
                             <div class="col-md-2 col-2">
-                                <div *ngIf="item.img; else fotoPadrao"> 
-                                    <span><img class= "foto" src={{item.img}} alt=""></span>
+                                <div *ngIf="item.img; else fotoPadrao">
+                                    <span><img class="foto" src={{item.img}} alt=""></span>
                                 </div>
                                 <ng-template #fotoPadrao>
-                                    <span><img class= "foto" src="../../../../assets/images/default_avatar.png" alt=""></span>
+                                    <span><img class="foto" src="../../../../assets/images/default_avatar.png"
+                                            alt=""></span>
                                 </ng-template>
                             </div>
                             <div class="col-md-6 col-3">
@@ -48,13 +41,6 @@
                     </div>
                 </div>
             </div>
-            <!--
-            <ng-template #erro>
-                <div class="alert alert-info" role="alert">
-                    Ranking vazio!
-                </div>
-            </ng-template>
-            -->
         </div>
     </div>
 </div>
