@@ -1,1 +1,51 @@
-<p>classificacao-escolar-pagina works!</p>
+<div class="row justify-content-center">
+    <div class=" col-md-6 px-0" *ngIf="listaPontos != undefined && listaPontos.length > 0; else erroClassificacao">
+        <div class="row py-3">
+            <span class="titulo">Ranking Escolar - {{ano}}</span>
+        </div>
+        <div class="table-resposive">
+            <div class="tabela-cheia">
+                <div class="row py-2">
+                    <div class="col-md-2 col-3 text-center tabela cabecalho">Posição</div>
+                    <div class=" col-md-2 col-2 tabela cabecalho"></div>
+                    <div class=" col-md-6 col-3 tabela cabecalho">Nome</div>
+                    <div class="col-md-2 col-4 text-start tabela cabecalho">Pontos</div>
+                </div>
+                <div>
+                    <div *ngFor="let item of classificacaoEscolar">
+                        <div class="row py-1">
+                            <div class="col-md-2 col-3 text-center">
+                                <div *ngIf="item.premio != null; else colocacaoPadrao">
+                                    <span><img src="{{item.premio}}" alt="" height="50"></span>
+                                </div>
+                                <ng-template #colocacaoPadrao>
+                                    <span class="align-self-center tabela item">{{item.colocacao}}</span>
+                                </ng-template>
+                            </div>
+                            <div class="col-md-2 col-2">
+                                <div *ngIf="item.img; else fotoPadrao">
+                                    <span><img class="foto" src={{item.img}} alt=""></span>
+                                </div>
+                                <ng-template #fotoPadrao>
+                                    <span><img class="foto" src="../../../../assets/images/default_avatar.png"
+                                            alt=""></span>
+                                </ng-template>
+                            </div>
+                            <div class="col-md-6 col-3">
+                                <span class="tabela item">{{item.nome}}</span>
+                            </div>
+                            <div class="col-md-2 col-4 text-center">
+                                <span class="tabela item">{{item.pontos}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #erroClassificacao>
+    <div class="alert alert-info col-8 my-5" role="alert">
+        <span>Acesso realizado com o ranking vazio. Tente novamente mais tarde.</span>
+    </div>
+</ng-template>
