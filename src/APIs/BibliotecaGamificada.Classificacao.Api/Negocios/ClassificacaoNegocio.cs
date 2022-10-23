@@ -3,6 +3,7 @@ using BibliotecaGamificada.Comum.Classes.Models;
 using BibliotecaGamificada.Instituicoes.Comum.Repositorios;
 using BibliotecaGamificada.Pontos.Comum.Entidades;
 using BibliotecaGamificada.Pontos.Comum.Repositorios;
+using BibliotecaGamificada.Professores.Comum.Repositorios;
 using BibliotecaGamificada.Turmas.Comum.Entidades;
 using BibliotecaGamificada.Turmas.Comum.Repositorios;
 using Microsoft.AspNetCore.Mvc;
@@ -14,12 +15,14 @@ namespace BibliotecaGamificada.Classificacao.Negocios
         private readonly PontoRepositorio classificacaoRepositorio;
         private readonly TurmaRepositorio turmaRepositorio;
         private readonly InstituicaoRepositorio instituicaoRepositorio;
+        private readonly ProfessorRepositorio professorRepositorio;
 
-        public ClassificacaoNegocio(PontoRepositorio classificacaoRepositorio, TurmaRepositorio turmaRepositorio, InstituicaoRepositorio instituicaoRepositorio)
+        public ClassificacaoNegocio(PontoRepositorio classificacaoRepositorio, TurmaRepositorio turmaRepositorio, InstituicaoRepositorio instituicaoRepositorio,ProfessorRepositorio professorRepositorio)
         {
             this.classificacaoRepositorio = classificacaoRepositorio;
             this.turmaRepositorio = turmaRepositorio;
             this.instituicaoRepositorio = instituicaoRepositorio;
+            this.professorRepositorio = professorRepositorio;
         }
 
         public async Task<IActionResult> ObterPontos()
@@ -98,6 +101,50 @@ namespace BibliotecaGamificada.Classificacao.Negocios
                         }
                     }
                    msg = new RetornoMsg("sucesso", "retorno enviado", pontosRankingGlobal); 
+                }
+                else{
+                    msg = new RetornoMsg("erro", "Registros não encontrados");
+                }
+            }
+            else
+            {
+                msg = new RetornoMsg("erro", "Registros não encontrados");
+            }
+            
+            return new OkObjectResult(msg);
+        }
+         public async Task<IActionResult> ObterRankingEscolar(int anoLetivo,string idInstituicao)
+        {
+            RetornoMsg msg;
+            var pontosRankingEscolar = new List<RankingEscolar>();
+
+            var turmasAnoLetivo = await turmaRepositorio.ObterporAno(anoLetivo);
+
+            if(turmasAnoLetivo!= null && turmasAnoLetivo.Count() != 0)
+            {
+                var turmasInstituicao = turmasAnoLetivo.Where(t => t.instituicao == idInstituicao);
+
+                if(turmasInstituicao.Count() != 0)
+                {
+                    foreach(Turma turma in turmasInstituicao)
+                    {
+                        var pontosTurma = await classificacaoRepositorio.ObterPorTurma(turma.Id!);
+                        
+                        if(pontosTurma!= null && pontosTurma.Count() != 0)
+                        {
+                            double quantidadePontos = 0;
+                            
+                            foreach(Ponto ponto in pontosTurma)
+                            {
+                                quantidadePontos += ponto.totalPontos;
+                            }
+
+                            var professorTurma = await professorRepositorio.ObterPorId(turma.professor);
+                            var pontoRankingGlobal = new RankingEscolar(quantidadePontos,turma,professorTurma);
+                            pontosRankingEscolar.Add(pontoRankingGlobal);
+                        }
+                    }
+                   msg = new RetornoMsg("sucesso", "retorno enviado", pontosRankingEscolar); 
                 }
                 else{
                     msg = new RetornoMsg("erro", "Registros não encontrados");

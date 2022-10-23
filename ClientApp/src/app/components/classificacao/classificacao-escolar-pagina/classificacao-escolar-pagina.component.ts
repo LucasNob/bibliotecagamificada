@@ -17,7 +17,7 @@ export class ClassificacaoEscolarPaginaComponent implements OnInit {
   listaPontos = new Array<PontoClassificacaoEscolar>();
   classificacaoEscolar = new Array<ItemClassificacaoEscolar>();
   ano = new Date().getFullYear();
-  usuario?: Usuario;
+  usuario?: any;
 
   constructor(
     private pontoService: PontoService,
@@ -43,8 +43,7 @@ export class ClassificacaoEscolarPaginaComponent implements OnInit {
 
 
   obterClassificacaoEscolar() {
-    // inserir lógica para passar o id instituição corretamente
-    this.pontoService.obterClassificacaoEscolar(new Date().getFullYear(), "id").then(data => {
+    this.pontoService.obterClassificacaoEscolar(new Date().getFullYear(), this.usuario!.permissao == 1? this.usuario?.id:this.usuario?.instituicao).then(data => {
       this.listaPontos = data as Array<PontoClassificacaoEscolar>;
       this.obterLista();
     });
@@ -52,7 +51,6 @@ export class ClassificacaoEscolarPaginaComponent implements OnInit {
 
 
   obterLista() {
-    // Somente copiei a lógica, verificar se está adequada para o atual cenário
     let listaClassificacao = new Array<ItemClassificacaoEscolar>();
     let item = 4;
 
