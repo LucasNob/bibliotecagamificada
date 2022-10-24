@@ -1,5 +1,4 @@
 export class ItemClassificacaoEscolar {
-    // Somente copiei a lógica, verificar se está adequada para o atual cenário
     pontos: number;
     colocacao: number;
     premio?: string;

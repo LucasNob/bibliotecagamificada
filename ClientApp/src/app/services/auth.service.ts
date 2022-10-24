@@ -5,11 +5,11 @@ import { Router } from "@angular/router";
 import { UsuarioService } from './usuario.service';
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
 export class AuthService {
-    userData: any; 
-    constructor(public afAuth: AngularFireAuth, public router: Router, public ngZone: NgZone,private usuarioService: UsuarioService) {
+    userData: any;
+    constructor(public afAuth: AngularFireAuth, public router: Router, public ngZone: NgZone, private usuarioService: UsuarioService) {
         this.afAuth.authState.subscribe((user) => {
             if (user) {
                 this.userData = user;
@@ -25,29 +25,28 @@ export class AuthService {
 
     login(provider: any) {
         return this.afAuth
-          .signInWithPopup(provider)
-          .then((result) => {
-            this.ngZone.run(() => {
-              this.router.navigate(['/']);
+            .signInWithPopup(provider)
+            .then((result) => {
+                this.ngZone.run(() => {
+                    this.router.navigate(['/']);
+                });
+                this.SetUserData(result.user);
+            })
+            .catch((error) => {
+                window.alert('Usuário ou senha inválida');
             });
-            this.SetUserData(result.user);
-          })
-          .catch((error) => {
-            window.alert('Usuário ou senha inválida');
-          });
     }
 
     usuarioLogado(): boolean {
-        const user = JSON.parse(localStorage.getItem('user')!); //auth
-        const usuario = JSON.parse(localStorage.getItem('usuario')!); //dados
-        // return user !== null && user.emailVerified !== false && usuario !== null ? true : false;//TODO: uncomment
+        const user = JSON.parse(localStorage.getItem('user')!);
+        const usuario = JSON.parse(localStorage.getItem('usuario')!);
         return user !== null && usuario !== null ? true : false;
     }
 
     enviarEmailVerificacao(navegarVerificacao = true) {
         return this.afAuth.currentUser.then((u: any) => u.sendEmailVerification()).then(() => {
             if (navegarVerificacao)
-            this.router.navigate(['verificar-email']);//TODO
+                this.router.navigate(['verificar-email']);
         });
     }
     redefinirSenha(email: string, customstr = 'E-mail de recuperação enviado.') {
@@ -67,12 +66,12 @@ export class AuthService {
         });
     }
     criarUsuario(email: string, password: string) {
-        return this.afAuth.currentUser.then((u:any) => {
+        return this.afAuth.currentUser.then((u: any) => {
             let original = u;
             return this.afAuth.createUserWithEmailAndPassword(email, password).then((result) => {
                 this.SetUserData(result.user);
-                    this.afAuth.updateCurrentUser(original);
-                    return true;
+                this.afAuth.updateCurrentUser(original);
+                return true;
             }).catch((error) => {
                 switch (error.code) {
                     case 'auth/email-already-in-use':
@@ -85,7 +84,7 @@ export class AuthService {
                 return false;
             });
         });
-    } 
+    }
 
     signIn(email: string, password: string) {
         return this.afAuth.signInWithEmailAndPassword(email, password).then((result) => {
@@ -95,7 +94,7 @@ export class AuthService {
                     window.location.reload();
                 });
             });
-          }).catch((error) => {
+        }).catch((error) => {
             window.alert('Usuário ou Senha Inválida');
         });
     }
@@ -109,7 +108,7 @@ export class AuthService {
     usuarioInstituicao() {
         const usuario = JSON.parse(localStorage.getItem('usuario')!);
         if (usuario.permissao == 1)
-        return true;
+            return true;
         return false;
     }
     usuarioProfessor() {
@@ -132,11 +131,11 @@ export class AuthService {
 
     obterDadosUsuario() {
         let data = localStorage.getItem('usuario')
-        if(data)
+        if (data)
             return JSON.parse(data);
         return null;
     }
-      
+
     SignOut() {
         return this.afAuth.signOut().then(() => {
             localStorage.removeItem('user');
@@ -145,4 +144,3 @@ export class AuthService {
         });
     }
 }
-  

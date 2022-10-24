@@ -33,7 +33,6 @@ export class PontoService {
     }
 
     public obterClassificacaoEscolar(ano: number, id: string) {
-        //Verificar se o método da api foi chamado corretamente
         return new Promise(
             resolve => {
                 this.http.get<GetModelLista<Ponto>>(this.baseUrl + 'v1/classificacao/ObterRankingEscolar/' + ano + '/' + id).subscribe(result => {

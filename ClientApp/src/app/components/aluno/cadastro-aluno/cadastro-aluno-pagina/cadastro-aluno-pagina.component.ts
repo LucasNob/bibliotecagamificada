@@ -14,13 +14,13 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./cadastro-aluno-pagina.component.css']
 })
 export class CadastroAlunoPaginaComponent implements OnInit {
-  
+
   formCadastro!: FormGroup;
   usuario?: any;
   listaAlunos: Array<Aluno> = [];
   edicao: string = "";
   estado: boolean = false;
-  
+
   imgCarregada?: any;
   imagemAtual?: String = "../../../assets/images/default_avatar.png";
 
@@ -30,8 +30,7 @@ export class CadastroAlunoPaginaComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private cdRef: ChangeDetectorRef
-  )
-  { 
+  ) {
     let usuario = authService.obterDadosUsuario();
     if (usuario?.permissao == 1) {
       this.usuario = usuario as Usuario;
@@ -41,19 +40,19 @@ export class CadastroAlunoPaginaComponent implements OnInit {
       this.router.navigateByUrl('#');
   }
 
-  ngOnInit(): void { 
-    this.criarForm(new Aluno("","",3,undefined));
+  ngOnInit(): void {
+    this.criarForm(new Aluno("", "", 3, undefined));
     this.obterLista();
   }
 
-  iniciarAppbar() { 
+  iniciarAppbar() {
     this.appbarService.limparLinks();
   }
 
   obterLista() {
     this.alunoService.ObterAlunosPorInstituicao(this.usuario?.id!).then(data => {
-        this.listaAlunos = data as Array<Aluno>;
-      });
+      this.listaAlunos = data as Array<Aluno>;
+    });
   }
 
   criarForm(aluno: Aluno) {
@@ -63,30 +62,29 @@ export class CadastroAlunoPaginaComponent implements OnInit {
         email: [aluno.email],
         instituicao: [this.usuario.id],
         foto: [aluno.foto],
-        dataNascimento:[aluno.dataNascimento]
+        dataNascimento: [aluno.dataNascimento]
       }
     );
   }
-  
+
   cadastrarAluno() {
-      this.formCadastro.get('nome')!.setValue(this.formCadastro.get('nome')?.value.trim());
-      this.formCadastro.get('email')!.setValue(this.formCadastro.get('email')?.value.trim());
-      if (this.formCadastro.valid && this.estado == false)
-      {
-        this.estado = true;
-        let aluno = this.obterObjeto();
-        this.authService.criarUsuario(aluno.email, '12341234').then(res => {
-          if (res) {
-            this.authService.redefinirSenha(aluno.email,'E-mail para cadastro de senha enviado.');
-            this.alunoService.cadastrarAluno(aluno).then(() => {
-              this.obterLista();
-              this.limparCampos();
-            });
-          }
-        }).finally(() => {
-          this.estado = false;
-        });
-      }
+    this.formCadastro.get('nome')!.setValue(this.formCadastro.get('nome')?.value.trim());
+    this.formCadastro.get('email')!.setValue(this.formCadastro.get('email')?.value.trim());
+    if (this.formCadastro.valid && this.estado == false) {
+      this.estado = true;
+      let aluno = this.obterObjeto();
+      this.authService.criarUsuario(aluno.email, '12341234').then(res => {
+        if (res) {
+          this.authService.redefinirSenha(aluno.email, 'E-mail para cadastro de senha enviado.');
+          this.alunoService.cadastrarAluno(aluno).then(() => {
+            this.obterLista();
+            this.limparCampos();
+          });
+        }
+      }).finally(() => {
+        this.estado = false;
+      });
+    }
   }
 
   obterObjeto() {
@@ -99,7 +97,7 @@ export class CadastroAlunoPaginaComponent implements OnInit {
     );
     if (this.edicao != "")
       aluno.id = this.edicao;
-    
+
     return aluno;
   }
 
@@ -118,14 +116,13 @@ export class CadastroAlunoPaginaComponent implements OnInit {
   excluirAluno(id: string) {
     const aluno = this.listaAlunos.find(a => a.id == id);
     if (aluno) {
-      // this.authService.excluirLogin(aluno.email)
       this.alunoService.excluirAluno(id).then(() => {
         this.obterLista();
       });
     }
   }
 
-  limparCampos() { 
+  limparCampos() {
     this.criarForm(new Aluno("", "", 3, undefined));
     const str: String = "../../../assets/images/default_avatar.png";
     this.edicao = "";
@@ -137,18 +134,17 @@ export class CadastroAlunoPaginaComponent implements OnInit {
   salvar() {
     this.formCadastro.get('nome')!.setValue(this.formCadastro.get('nome')?.value.trim());
     this.formCadastro.get('email')!.setValue(this.formCadastro.get('email')?.value.trim());
-    if (this.formCadastro.valid && this.estado == false)
-    {
+    if (this.formCadastro.valid && this.estado == false) {
       this.estado = true;
       let aluno = this.obterObjeto();
-        this.alunoService.editarAluno(aluno).then(() => {
-          this.obterLista()
-          this.limparCampos()
-          }
-        ).finally(() => { 
-          this.estado = false;
-        });
-        this.edicao = "";
+      this.alunoService.editarAluno(aluno).then(() => {
+        this.obterLista()
+        this.limparCampos()
+      }
+      ).finally(() => {
+        this.estado = false;
+      });
+      this.edicao = "";
     }
   }
   modoEdicao() {
@@ -163,7 +159,7 @@ export class CadastroAlunoPaginaComponent implements OnInit {
     return this.formCadastro.valid;
   }
 
-  formInvalido(nome: any) { 
+  formInvalido(nome: any) {
     if (nome == "" || nome == undefined)
       return true;
     if (this.formCadastro != undefined)
@@ -187,13 +183,13 @@ export class CadastroAlunoPaginaComponent implements OnInit {
         Number(data[0]) <= 1900 ||
         Number(data[0]) > this.obterAnoAtual() ||
         Number(data[1]) < 1 ||
-        Number(data[1]) > 12||
+        Number(data[1]) > 12 ||
         Number(data[2]) > 32 ||
-        Number(data[2]) < 1 
+        Number(data[2]) < 1
       )
         return false;
       return true;
-    } 
+    }
     return false;
   }
   obterAnoAtual() {

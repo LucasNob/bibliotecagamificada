@@ -1,8 +1,8 @@
-export class Usuario{
+export class Usuario {
     id: string = "";
     nome: string = "";
     foto: string = "../../assets/images/default_avatar.png";
-    permissao: number = 3; //TODO criar enum
+    permissao: number = 3;
     email: string = "";
     constructor(id: string, nome: string, permissao: number, foto?: string) {
         this.id = id;

@@ -5,17 +5,17 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
   templateUrl: './upload-imagem.component.html',
   styleUrls: ['./upload-imagem.component.css']
 })
-export class UploadImagemComponent implements OnInit,OnChanges {
-  
+export class UploadImagemComponent implements OnInit, OnChanges {
+
   @Output() img = new EventEmitter<any>();
-  
+
   tamanhoInvalido: boolean = false;
   formatoInvalido: boolean = false;
   imagemNaoEncontrada: boolean = false;
 
   @Input()
   imagemAtual?: String;
-  
+
   constructor() { }
 
   ngOnInit(): void {
@@ -23,7 +23,7 @@ export class UploadImagemComponent implements OnInit,OnChanges {
   ngOnChanges(): void {
   }
 
-  test:string = "";
+  test: string = "";
   processarArquivo(arquivos: HTMLInputElement) {
     this.tamanhoInvalido = false;
     this.formatoInvalido = false;
@@ -31,15 +31,15 @@ export class UploadImagemComponent implements OnInit,OnChanges {
 
     let arquivo = arquivos.files?.item(0);
     let reader = new FileReader();
-    
-    if (arquivo?.size! > 1000000) { //1mb
+
+    if (arquivo?.size! > 1000000) {
       this.tamanhoInvalido = true;
     }
 
-    if (arquivo?.type != "image/png" && arquivo?.type != "image/jpeg" && arquivo?.type != "image/gif") { 
+    if (arquivo?.type != "image/png" && arquivo?.type != "image/jpeg" && arquivo?.type != "image/gif") {
       this.formatoInvalido = true;
     }
-    
+
     if (this.tamanhoInvalido || this.formatoInvalido) {
       return;
     }
@@ -50,37 +50,20 @@ export class UploadImagemComponent implements OnInit,OnChanges {
       this.img.emit(reader.result);
       this.imagemAtual = reader.result as String;
     };
-    
+
     reader.onerror = function (error) {
       console.log('Error: ', error);
     };
   }
   ObterImagem() {
-    this.tamanhoInvalido  = false;
+    this.tamanhoInvalido = false;
     this.formatoInvalido = false;
     this.imagemNaoEncontrada = false;
     if (this.imagemAtual == undefined || this.imagemAtual == "")
       return "../../../assets/images/default_capa.png";
     return this.imagemAtual;
   }
-  erroCarregar() { 
+  erroCarregar() {
     this.imagemNaoEncontrada = true;
   }
-
-  // carregarPorUrl(url: string) {
-  //   var xhr = new XMLHttpRequest();
-  //   let imagem: any;
-  //   xhr.onload = function () {
-  //     var reader = new FileReader();
-  //     reader.onloadend = function () {
-  //       // callback(reader.result);
-  //       imagem = reader.result;
-  //     }
-  //     reader.readAsDataURL(xhr.response);
-  //   };
-  //   xhr.open('GET', url);
-  //   xhr.responseType = 'blob';
-  //   xhr.send();
-
-  // }
 }

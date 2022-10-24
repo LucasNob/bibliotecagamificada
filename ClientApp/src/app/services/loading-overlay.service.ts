@@ -6,7 +6,6 @@ import { Inject, Injectable, Injector } from '@angular/core';
 
 export class LoadingOverlayService {
 
-    //TODO implementacao timeout
 
     public showing: boolean;
 

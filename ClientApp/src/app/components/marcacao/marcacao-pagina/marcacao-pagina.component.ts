@@ -14,9 +14,8 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   templateUrl: './marcacao-pagina.component.html',
   styleUrls: ['./marcacao-pagina.component.css']
 })
-export class MarcacaoPaginaComponent implements OnInit{
+export class MarcacaoPaginaComponent implements OnInit {
 
-  // listaTurmas: Array<Turma> = [];
   @Input()
   listaAlunos = new Array<Aluno>();
   @Input()
@@ -34,22 +33,22 @@ export class MarcacaoPaginaComponent implements OnInit{
   emitExclusao = new EventEmitter<any>();
 
   @ViewChild('modal') modal: any;
-  
+
   constructor(
     private authService: AuthService,
     private turmaService: TurmaService,
-    private cdRef: ChangeDetectorRef) { 
+    private cdRef: ChangeDetectorRef) {
   }
-  
+
   ngOnInit(): void {
-    this.usuario = this.authService.obterDadosUsuario();    
+    this.usuario = this.authService.obterDadosUsuario();
   }
 
   obterListaAlunos(): Array<Aluno> {
 
     let listaA: Array<Aluno> = [];
     let listaP: Array<Ponto> = [];
-    if(this.listaAlunos)
+    if (this.listaAlunos)
       this.listaAlunos.forEach((aluno) => {
         let p = this.listaPontos.find(p => p.aluno == aluno.id);
         if (p != undefined) {
@@ -62,34 +61,33 @@ export class MarcacaoPaginaComponent implements OnInit{
 
     if (listaA == undefined || listaA.length == 0)
       return [];
-    
+
     if (a == undefined)
       return [];
 
     this.listaAlunos = listaA;
     this.listaPontos = listaP;
-    
+
     return this.listaAlunos;
   }
   obterTurmaAtual() {
     return this.turmaAtual;
-  } 
+  }
   obterAlunoAtual() {
     return this.alunoAtual;
-  } 
-  obterListaPonto() { 
+  }
+  obterListaPonto() {
     return this.listaPontos;
   }
   emitSelecao(aluno: Aluno) {
     this.alunoAtual = aluno;
-    this.modal.mostrarModal(aluno,this.turmaAtual);
+    this.modal.mostrarModal(aluno, this.turmaAtual);
   }
   excluirAluno(id: any) {
-      this.turmaService.removerAlunoTurma(this.turmaAtual!.id, id);
-      this.emitExclusao.emit(id);
+    this.turmaService.removerAlunoTurma(this.turmaAtual!.id, id);
+    this.emitExclusao.emit(id);
   }
-  emitSalvar(event:any) { 
-    // this.obterAlunosTurma();
+  emitSalvar(event: any) {
     this.emitSalvo.emit(event);
   }
 }
