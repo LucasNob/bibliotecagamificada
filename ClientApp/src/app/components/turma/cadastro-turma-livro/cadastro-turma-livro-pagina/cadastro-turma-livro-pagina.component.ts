@@ -31,16 +31,15 @@ export class CadastroTurmaLivroPaginaComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router) {
     let usuario = authService.obterDadosUsuario();
-      if (usuario?.permissao == 1)
-        this.usuario = usuario as Usuario;
-      else if (usuario?.permissao == 2)
-        this.usuario = usuario as Professor;
-      else
-        this.router.navigateByUrl('#');
+    if (usuario?.permissao == 1)
+      this.usuario = usuario as Usuario;
+    else if (usuario?.permissao == 2)
+      this.usuario = usuario as Professor;
+    else
+      this.router.navigateByUrl('#');
   }
-  
-  // @Input()
-  turma?: Turma; 
+
+  turma?: Turma;
 
   ponto?: Ponto;
   listaLivros?: Array<Livro> = [];
@@ -51,19 +50,19 @@ export class CadastroTurmaLivroPaginaComponent implements OnInit {
   carregado = false;
 
   ngOnInit(): void {
-    this.obter();    
+    this.obter();
   }
-  obter() { 
+  obter() {
     let url = this.activatedRoute.snapshot.url.join().split(',')
-    this.turmaService.obterTurmaPorIdTurma(url[1]).then(data => { 
+    this.turmaService.obterTurmaPorIdTurma(url[1]).then(data => {
       this.turma = data as Turma;
       if (this.turma == undefined)
         this.location.back()
-    
-        this.livroService.obterLivrosPorIdInstituicao(this.usuario.permissao == 1? this.usuario.id: this.usuario.instituicao).then(data => {
-          
-          this.listaLivros = data as Array<Livro>;
-          
+
+      this.livroService.obterLivrosPorIdInstituicao(this.usuario.permissao == 1 ? this.usuario.id : this.usuario.instituicao).then(data => {
+
+        this.listaLivros = data as Array<Livro>;
+
         if (this.turma?.livros != undefined && this.turma.livros.length > 0)
           this.livroService.obterListaLivros(this.turma?.livros).then(data => {
             this.listaLivrosTurma = data as Array<Livro>;
@@ -76,18 +75,18 @@ export class CadastroTurmaLivroPaginaComponent implements OnInit {
                 }
               });
             })
-            
-            this.listaLivros = this.listaLivros?.filter( l => {
+
+            this.listaLivros = this.listaLivros?.filter(l => {
               return !this.listaLivrosMarcados!.includes(l.id);
             });
             this.carregado = true;
           })
-          else
+        else
           this.carregado = true;
       })
     })
   }
-  obterListaLivros() { 
+  obterListaLivros() {
     if (this.listaLivros == undefined)
       return [];
     return this.listaLivros;
@@ -99,29 +98,28 @@ export class CadastroTurmaLivroPaginaComponent implements OnInit {
   }
   check(id: string) {
     let livro = this.listaLivros?.find(l => l.id == id);
-    this.listaLivros?.splice(this.listaLivros.findIndex(l => l.id == id),1)
+    this.listaLivros?.splice(this.listaLivros.findIndex(l => l.id == id), 1)
     this.listaLivrosTurma?.push(livro!);
     this.listaLivrosMarcados?.push(livro!.id);
-  } 
+  }
   uncheck(id: string) {
     let livro = this.listaLivrosTurma?.find(l => l.id == id);
     this.listaLivros?.push(livro!);
-    this.listaLivrosTurma?.splice(this.listaLivrosTurma.findIndex(l => l.id == id),1)
-    this.listaLivrosMarcados?.splice(this.listaLivrosMarcados.findIndex(l => l == id),1)
-  } 
-  salvar() { 
+    this.listaLivrosTurma?.splice(this.listaLivrosTurma.findIndex(l => l.id == id), 1)
+    this.listaLivrosMarcados?.splice(this.listaLivrosMarcados.findIndex(l => l == id), 1)
+  }
+  salvar() {
     let turma = new TurmaCadastroModel(this.turma!.nome, this.turma?.anoLetivo!, this.turma?.instituicao!, this.usuario.id)
     turma.id = this.turma?.id;
     turma.livros = this.listaLivrosMarcados!;
     this.turmaService.atualizarLivrosTurma(turma).then(data => {
-      // this.obter();
       this.location.back()
     })
   }
   mostrarBotaoVoltar(id: string) {
     if (this.listaLivrosMarcadosOriginal?.includes(id))
       return false;
-      return true;
+    return true;
   }
 
 }

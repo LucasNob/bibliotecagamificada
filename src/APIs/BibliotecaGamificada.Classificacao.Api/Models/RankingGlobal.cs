@@ -11,7 +11,6 @@ namespace BibliotecaGamificada.Classificacao.Api.Models
             this.quantidadePontos = quantidadePontos;
             this.instituicao = instituicao;
         }
-
     }
 }
  

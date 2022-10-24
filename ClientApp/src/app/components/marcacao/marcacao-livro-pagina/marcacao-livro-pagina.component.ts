@@ -27,34 +27,30 @@ export class MarcacaoLivroPaginaComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private modalService: NgbModal) {
-      let usuario = authService.obterDadosUsuario();
+    let usuario = authService.obterDadosUsuario();
     if (usuario?.permissao == 1) {
-      // this.iniciarAppbar();
-    } else 
-    if (usuario?.permissao == 2) {
-      // this.iniciarAppbar();
-    }
-    // else if (usuario?.permissao == 2) {
-    //   this.usuario = usuario as Professor;
-    //   this.iniciarAppbar();
-    // }
-    else
-      this.router.navigateByUrl('#');
-    
+
+    } else
+      if (usuario?.permissao == 2) {
+
+      }
+      else
+        this.router.navigateByUrl('#');
+
   }
-  iniciarAppbar() { 
+  iniciarAppbar() {
     this.appbarService.limparLinks();
   }
 
   @Input()
   aluno?: Aluno;
-  
+
   @Input()
-  turma?: Turma; 
+  turma?: Turma;
 
   @Output()
   emitSalvar = new EventEmitter<any>();
-  
+
   @ViewChild('content')
   contentModal: any;
 
@@ -68,76 +64,73 @@ export class MarcacaoLivroPaginaComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  obterListaLivros() { 
+  obterListaLivros() {
     if (this.listaLivros == undefined)
       return [];
     return this.listaLivros;
   }
-  obterListaLivrosLidos() { 
+  obterListaLivrosLidos() {
     if (this.listaLivrosLidos == undefined)
       return [];
     return this.listaLivrosLidos;
   }
   check(id: string) {
     let livro = this.listaLivros?.find(l => l.id == id);
-    this.listaLivros?.splice(this.listaLivros.findIndex(l => l.id == id),1)
+    this.listaLivros?.splice(this.listaLivros.findIndex(l => l.id == id), 1)
     this.listaLivrosLidos?.push(livro!);
     this.listaLivrosMarcados?.push(livro!.id);
-  } 
+  }
   uncheck(id: string) {
     let livro = this.listaLivrosLidos?.find(l => l.id == id);
     this.listaLivros?.push(livro!);
-    this.listaLivrosLidos?.splice(this.listaLivrosLidos.findIndex(l => l.id == id),1)
-    this.listaLivrosMarcados?.splice(this.listaLivrosMarcados.findIndex(l => l == id),1)
-  } 
+    this.listaLivrosLidos?.splice(this.listaLivrosLidos.findIndex(l => l.id == id), 1)
+    this.listaLivrosMarcados?.splice(this.listaLivrosMarcados.findIndex(l => l == id), 1)
+  }
   salvar() {
-    let atualizacao = new PontoAtualizacao(this.aluno?.id!,this.turma?.id!,this.listaLivrosMarcados!,0)
-      this.pontoService.atualizarPontuacao(atualizacao).then(data => {
-        this.emitSalvar.emit(data);
-        this.modalService.dismissAll();
-      });
+    let atualizacao = new PontoAtualizacao(this.aluno?.id!, this.turma?.id!, this.listaLivrosMarcados!, 0)
+    this.pontoService.atualizarPontuacao(atualizacao).then(data => {
+      this.emitSalvar.emit(data);
+      this.modalService.dismissAll();
+    });
   }
   mostrarModal(aluno: any, turma: any) {
-    
+
     const opcoes: NgbModalOptions = {
-      // backdrop: 'static',
-      // keyboard: false,
-      // size: 'lg',
       windowClass: "custom-modal"
     };
     this.reiniciar()
     this.aluno = aluno;
     this.turma = turma;
-    
+
     if (this.turma?.livros != undefined && this.turma.livros.length > 0)
-    this.livroService.obterListaLivros(this.turma!.livros!).then(data => {
-      this.listaLivros = data as Array<Livro>;
-      
-      this.pontoService.obterPontoAluno(this.turma?.id!, this.aluno?.id!).then(data => {
-        let ponto = data as Ponto;
-        this.listaLivros?.forEach(livro => {
-          if (ponto.livrosLidos.includes(livro.id)) { 
-            this.listaLivrosLidos?.push(livro);
-            this.listaLivrosMarcados?.push(livro.id);
-            this.listaLivrosMarcadosOriginal?.push(livro.id);
-          }
+      this.livroService.obterListaLivros(this.turma!.livros!).then(data => {
+        this.listaLivros = data as Array<Livro>;
+
+        this.pontoService.obterPontoAluno(this.turma?.id!, this.aluno?.id!).then(data => {
+          let ponto = data as Ponto;
+          this.listaLivros?.forEach(livro => {
+            if (ponto.livrosLidos.includes(livro.id)) {
+              this.listaLivrosLidos?.push(livro);
+              this.listaLivrosMarcados?.push(livro.id);
+              this.listaLivrosMarcadosOriginal?.push(livro.id);
+            }
+          })
+          this.listaLivros = this.listaLivros?.filter(l => {
+            return !this.listaLivrosMarcados!.includes(l.id);
+          });
+          this.carregado = true;
         })
-        this.listaLivros = this.listaLivros?.filter( l => {
-          return !this.listaLivrosMarcados!.includes(l.id);
-        } );
-        this.carregado = true;
       })
-    })
     this.modalService.open(this.contentModal, opcoes)
   }
 
   mostrarBotaoVoltar(id: string) {
     if (this.listaLivrosMarcadosOriginal?.includes(id))
       return false;
-      return true;
+    return true;
   }
 
-  reiniciar() { 
+  reiniciar() {
     this.carregado = false;
     this.listaLivros = new Array<Livro>();
     this.listaLivrosLidos = new Array<Livro>();

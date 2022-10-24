@@ -14,11 +14,14 @@
             <img class="img-fluid rounded-circle foto-perfil" src="../../../../assets/images/default_avatar.png" alt="">
         </ng-template>
     </div>
-    <div class="col-md-2 col-9 d-flex justify-content-start usuario"> {{usuario.nome}}
-        <mat-icon class="align-self-center icone" *ngIf="usuario!.permissao==1" role="button" (click)="perfil()">account_box</mat-icon>
+    <div class="col-md-1 col-6 d-flex justify-content-start usuario">
+        <span class="text-break">{{usuario.nome}}</span>
+    </div>
+    <div class="col-md-1 col-3 d-flex justify-content-start usuario">
+        <mat-icon class="align-self-center icone" *ngIf="usuario!.permissao==1" role="button" (click)="perfil()">
+            account_box</mat-icon>
         <mat-icon class="align-self-center icone" role="button" (click)="logout()">logout</mat-icon>
     </div>
-
     <nav class="navbar navbar-expand-lg bg-light" *ngIf="usuario!.permissao!=3">
         <div *ngFor="let item of links">
             <a class="navbar-brand" href="{{item.link}}">{{item.nome}}</a>

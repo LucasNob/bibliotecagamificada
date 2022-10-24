@@ -10,43 +10,23 @@ import { GetModelUnico } from "../models/GetModelUnico.model";
   providedIn: 'root',
 })
 
-export class UsuarioService{
-  
-  // usuario: Usuario = new Usuario("idinstituicao1", "Anglo Sorocaba", 1,"https://pbs.twimg.com/profile_images/570291758630576128/x3lqZT5Z_400x400.png");
-  
+export class UsuarioService {
+
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private loading: LoadingOverlayService) {
   }
-  
-  public obterUsuarioPorEmail(email: string) {
-      this.loading.show();
-      
-      return new Promise(
-          resolve => {
-          this.http.get<GetModelUnico<Usuario>>(this.baseUrl + 'v1/usuario/obterUsuario/'+email).subscribe(result => {
-                  this.loading.hide();
-                  resolve(result.objeto);
-              }, error => console.error(error));
-          }
-      )
-  }
-  // novoUsuario(id:string,nome:string,permissao:number,foto?:string) { 
-    // this.usuario = new Usuario(id, nome, permissao, foto);
-  // }
-  // novoUsuario(usuario: Usuario) { 
-  //   localStorage.setItem('usuario', JSON.stringify(usuario));
-  //   // this.usuario = usuario;
-  // }
 
-  // obterUsuario() {
-  //   let data = localStorage.getItem('usuario')
-  //   if (data)
-  //     return JSON.parse(data);
-    
-  //   return this.usuario;
-  // }
-  // ObterNivelPermissao() {
-  //   return this.usuario.permissao;
-  // }
-  
-  
+  public obterUsuarioPorEmail(email: string) {
+    this.loading.show();
+
+    return new Promise(
+      resolve => {
+        this.http.get<GetModelUnico<Usuario>>(this.baseUrl + 'v1/usuario/obterUsuario/' + email).subscribe(result => {
+          this.loading.hide();
+          resolve(result.objeto);
+        }, error => console.error(error));
+      }
+    )
+  }
+
+
 }

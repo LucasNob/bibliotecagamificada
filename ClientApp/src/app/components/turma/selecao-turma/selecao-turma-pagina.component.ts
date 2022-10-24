@@ -64,4 +64,8 @@ export class SelecaoTurmaPaginaComponent implements OnInit {
   classificacaoglobal() {
     this.router.navigate(['classificacaoglobal'])
   }
+
+  classificacaoescolar() {
+    this.router.navigate(['classificacaoescolar'])
+  }
 }
