@@ -55,12 +55,14 @@ import { TurmaService } from './services/turma.service';
 import { UsuarioService } from './services/usuario.service';
 import { AuthGuard } from './shared/guard/auth.guard';
 import { MaterialModule } from './shared/modules/material/material.module';
+import { ClassificacaoEscolarPaginaComponent } from './components/classificacao/classificacao-escolar-pagina/classificacao-escolar-pagina.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'listaclassificacao/:id', component: ClassificacaoPaginaComponent, canActivate: [AuthGuard] },
   { path: 'classificacaoglobal', component: ClassificacaoGlobalPaginaComponent, canActivate: [AuthGuard] },
+  { path: 'classificacaoescolar', component: ClassificacaoEscolarPaginaComponent, canActivate: [AuthGuard] },
   { path: 'cadastroturma', component: CadastroTurmaPaginaComponent, canActivate: [AuthGuard] },
   { path: 'cadastroturmaaluno/:id', component: CadastroTurmaAlunoPaginaComponent, canActivate: [AuthGuard] },
   { path: 'cadastroturmalivro/:id', component: CadastroTurmaLivroPaginaComponent, canActivate: [AuthGuard] },
@@ -116,6 +118,7 @@ const appRoutes: Routes = [
     QuizListaComponent,
     TurmaLivroslidosComponent,
     RespostaQuizComponent,
+    ClassificacaoEscolarPaginaComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

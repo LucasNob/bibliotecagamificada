@@ -1,13 +1,17 @@
-.background{
+.background {
     background-color: white;
 }
-.usuario{
+
+.usuario {
     font-family: Usuario;
     font-weight: bold;
     color: #1C9474;
-    padding-left: 0px;
+    padding-left: 3px;
     padding-right: 5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
-.icone{
+
+.icone {
     padding-left: 10px;
 }

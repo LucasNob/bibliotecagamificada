@@ -130,7 +130,6 @@ namespace BibliotecaGamificada.Turmas.Negocios
         {
             try
             {
-                //Caso ache necessário criar uma Model de Atualização para Turma
                 if (atualizacao.id != null)
                 {
                     var atual = await turmaRepositorio.ObterPorId(atualizacao.id);
@@ -141,20 +140,17 @@ namespace BibliotecaGamificada.Turmas.Negocios
                     var alunos = new List<string>();
                     var novosalunos = new List<string>();
 
-                    //Copiar alunos de todos os pontos da turma
                     foreach (Ponto alunosPonto in ponto)
                     {
                         alunos.Add(alunosPonto.aluno);
                     }
 
-                    //Encontrar ALunos que não possuem ponto criado
                     if (novo.alunos != null)
                     {
                         var lista = novo.alunos;
                         novosalunos = lista.Except(alunos).ToList();
                     }
 
-                    //Para Novo Aluno Criar um Ponto Vazio
                     if (novosalunos.Count != 0)
                     {
                         for (int i = 0; i < novosalunos.Count; i++)

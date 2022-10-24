@@ -10,15 +10,13 @@ import { AlunoService } from 'src/app/services/aluno.service';
   styleUrls: ['./classificacao-lista.component.css']
 })
 export class ClassificacaoListaComponent implements OnInit {
-  
+
   @Input()
   listaPontos!: Array<Ponto>;
   @Input()
   listaAlunos!: Array<Aluno>;
 
-  // listaClassificacao!: Array<ItemClassificacao> ;
-
-  constructor( private alunoServie:AlunoService) { }
+  constructor(private alunoServie: AlunoService) { }
 
   ngOnInit(): void {
   }
@@ -26,15 +24,15 @@ export class ClassificacaoListaComponent implements OnInit {
   obterLista() {
     let listaClassificacao = new Array<ItemClassificacao>();
     let item = 4;
-    
+
     if (this.listaPontos.length == 0 || this.listaAlunos.length == 0)
       return listaClassificacao;
-    
+
     this.listaPontos = this.listaPontos.sort((a: Ponto, b: Ponto) => (a.totalPontos <= b.totalPontos) ? 1 : -1);
-    
+
     let listaA: Array<Aluno> = [];
     let listaP: Array<Ponto> = [];
-    
+
     this.listaPontos.forEach((ponto) => {
       let a = this.listaAlunos.find(p => p.id == ponto.aluno);
       if (a != undefined) {
@@ -42,15 +40,15 @@ export class ClassificacaoListaComponent implements OnInit {
         listaP.push(ponto);
       }
     });
-    
+
     let a = listaA.find(a => a.id == listaP[0].aluno);
 
     if (listaA == undefined || listaA.length == 0)
       return listaClassificacao;
-    
+
     if (a == undefined)
       return listaClassificacao;
-    
+
     listaClassificacao.push(
       new ItemClassificacao(
         listaP[0],
@@ -60,8 +58,8 @@ export class ClassificacaoListaComponent implements OnInit {
         "../../../../assets/images/Ouro.png",
       )
     )
-    
-    for (let i = 1; i < listaP.length; i++){
+
+    for (let i = 1; i < listaP.length; i++) {
 
       let aluno = listaA.find(a => a.id == listaP[i].aluno);
 
@@ -98,7 +96,7 @@ export class ClassificacaoListaComponent implements OnInit {
           )
         );
       }
-      else{
+      else {
         listaClassificacao.push(
           new ItemClassificacao(
             listaP[i],

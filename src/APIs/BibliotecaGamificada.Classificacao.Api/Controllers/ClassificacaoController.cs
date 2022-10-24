@@ -36,4 +36,9 @@ public class ClassificacaoController : ControllerBase
     {
         return await classificacaoNegocio.ObterRankingGlobal(ano);
     }
+    [HttpGet, Route("ObterRankingEscolar/{ano}/{instituicao}")]
+    public async Task<IActionResult> ObterRankingEscolar([FromRoute] int ano,[FromRoute]string instituicao)
+    {
+        return await classificacaoNegocio.ObterRankingEscolar(ano,instituicao);
+    }
 }

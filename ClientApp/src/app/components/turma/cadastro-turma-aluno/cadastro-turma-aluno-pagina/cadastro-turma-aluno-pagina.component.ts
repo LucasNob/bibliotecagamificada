@@ -26,20 +26,18 @@ export class CadastroTurmaAlunoPaginaComponent implements OnInit {
     private alunoService: AlunoService,
     private location: Location,
     private activatedRoute: ActivatedRoute,
-    private router: Router)
-  {
+    private router: Router) {
     this.usuario = authService.obterDadosUsuario() as Professor;
     let usuario = authService.obterDadosUsuario();
-      if (usuario?.permissao == 1)
-        this.usuario = usuario as Usuario; //TODO as instituicao
-      else if (usuario?.permissao == 2)
-        this.usuario = usuario as Professor;
-      else
-        this.router.navigateByUrl('#');
+    if (usuario?.permissao == 1)
+      this.usuario = usuario as Usuario;
+    else if (usuario?.permissao == 2)
+      this.usuario = usuario as Professor;
+    else
+      this.router.navigateByUrl('#');
   }
-  
-  // @Input()
-  turma?: Turma; 
+
+  turma?: Turma;
 
   listaAlunos?: Array<Aluno> = [];
   listaAlunosTurma?: Array<Aluno> = [];
@@ -51,16 +49,16 @@ export class CadastroTurmaAlunoPaginaComponent implements OnInit {
   ngOnInit(): void {
     this.obter();
   }
-  obter() { 
+  obter() {
     let url = this.activatedRoute.snapshot.url.join().split(',')
-    this.turmaService.obterTurmaPorIdTurma(url[1]).then(data => { 
+    this.turmaService.obterTurmaPorIdTurma(url[1]).then(data => {
       this.turma = data as Turma;
       if (this.turma == undefined)
         this.location.back()
-    
-        this.alunoService.ObterAlunosPorInstituicao(this.usuario.permissao == 1? this.usuario.id: this.usuario.instituicao).then(data => {
-          
-          this.listaAlunos = data as Array<Aluno>;
+
+      this.alunoService.ObterAlunosPorInstituicao(this.usuario.permissao == 1 ? this.usuario.id : this.usuario.instituicao).then(data => {
+
+        this.listaAlunos = data as Array<Aluno>;
         if (this.turma?.alunos != undefined && this.turma.alunos.length > 0)
           this.alunoService.ObterListaAlunosPorId(this.turma?.alunos).then(data => {
             this.listaAlunosTurma = data as Array<Aluno>;
@@ -68,24 +66,23 @@ export class CadastroTurmaAlunoPaginaComponent implements OnInit {
 
               this.listaAlunosTurma!.forEach(element => {
                 if (element.id == aluno.id) {
-                  // this.listaAlunosTurma?.push(aluno);
                   this.listaAlunosMarcados?.push(aluno.id);
                   this.listaAlunosMarcadosOriginal?.push(aluno.id);
                 }
               });
             })
-            
-            this.listaAlunos = this.listaAlunos?.filter( l => {
+
+            this.listaAlunos = this.listaAlunos?.filter(l => {
               return !this.listaAlunosMarcados!.includes(l.id);
             });
             this.carregado = true;
           })
-          else
+        else
           this.carregado = true;
       })
     })
   }
-  obterListaAlunos() { 
+  obterListaAlunos() {
     if (this.listaAlunos == undefined)
       return [];
     return this.listaAlunos;
@@ -97,32 +94,29 @@ export class CadastroTurmaAlunoPaginaComponent implements OnInit {
   }
   check(id: string) {
     let aluno = this.listaAlunos?.find(l => l.id == id);
-    this.listaAlunos?.splice(this.listaAlunos.findIndex(l => l.id == id),1)
+    this.listaAlunos?.splice(this.listaAlunos.findIndex(l => l.id == id), 1)
     this.listaAlunosTurma?.push(aluno!);
     this.listaAlunosMarcados?.push(aluno!.id);
-  } 
+  }
   uncheck(id: string) {
     let aluno = this.listaAlunosTurma?.find(l => l.id == id);
     this.listaAlunos?.push(aluno!);
-    this.listaAlunosTurma?.splice(this.listaAlunosTurma.findIndex(l => l.id == id),1)
-    this.listaAlunosMarcados?.splice(this.listaAlunosMarcados.findIndex(l => l == id),1)
-  } 
-  salvar() { 
+    this.listaAlunosTurma?.splice(this.listaAlunosTurma.findIndex(l => l.id == id), 1)
+    this.listaAlunosMarcados?.splice(this.listaAlunosMarcados.findIndex(l => l == id), 1)
+  }
+  salvar() {
     let turma = new TurmaCadastroModel(this.turma!.nome, this.turma?.anoLetivo!, this.turma?.instituicao!, this.usuario.id)
     turma.id = this.turma?.id;
     turma.alunos = this.listaAlunosMarcados!;
-    
-    this.turmaService.atualizarAlunosTurma(turma).then(() => { 
+
+    this.turmaService.atualizarAlunosTurma(turma).then(() => {
       this.location.back()
-      // this.obter();
     });
-    // this.turmaService.atualizarAlunosTurma(turma).then(data => { 
-    //   //?
-    // })
+
   }
   mostrarBotaoVoltar(id: string) {
     if (this.listaAlunosMarcadosOriginal?.includes(id))
       return false;
-      return true;
+    return true;
   }
 }  

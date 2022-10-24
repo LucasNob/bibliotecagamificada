@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class=" col-md-6 px-0" *ngIf="listaPontos != undefined && listaPontos.length > 0; else erroClassificacao">
         <div class="row py-3">
-            <span class="titulo">Ranking Global - {{ano}}</span>
+            <span class="titulo">Ranking Escolar - {{ano}}</span>
         </div>
         <div class="table-resposive">
             <div class="tabela-cheia">
@@ -12,7 +12,7 @@
                     <div class="col-md-2 col-4 text-start tabela cabecalho">Pontos</div>
                 </div>
                 <div>
-                    <div *ngFor="let item of classificacaoGlobal">
+                    <div *ngFor="let item of classificacaoEscolar">
                         <div class="row py-1">
                             <div class="col-md-2 col-3 text-center">
                                 <div *ngIf="item.premio != null; else colocacaoPadrao">
