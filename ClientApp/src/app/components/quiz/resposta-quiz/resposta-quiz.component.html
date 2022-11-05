@@ -2,7 +2,7 @@
     <form>
         <div class="col-12">
             <div class="row titulo m-4">
-                <span>Quiz do Livro - Nome do Livro</span>
+                <span>Quiz do Livro - {{obterNome()}}</span>
             </div>
             <div class="row my-4">
                 <div class="col-md-6 col-12" *ngFor="let pergunta of quizzes;let i= index">
