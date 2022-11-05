@@ -17,15 +17,15 @@ import { QuizService } from 'src/app/services/quiz.service';
 })
 export class RespostaQuizComponent implements OnInit {
 
-  ponto?: Ponto; 
+  ponto?: Ponto;
   aluno?: Aluno;
   livro?: Livro;
   turma?: Turma;
   return: string = '/home';
   quizzes?: Array<Quiz>;
-  respostas:Array<number> = [];
+  respostas: Array<number> = [];
 
-  constructor(private router: Router, private quizService: QuizService,private pontoService:PontoService, private cdRef: ChangeDetectorRef) { 
+  constructor(private router: Router, private quizService: QuizService, private pontoService: PontoService, private cdRef: ChangeDetectorRef) {
     const state = this.router.getCurrentNavigation()
     if (state?.extras &&
       state.extras.state) {
@@ -41,7 +41,7 @@ export class RespostaQuizComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.ponto?.livrosQuiz.findIndex(e => e == this.livro!.id)!=-1){
+    if (this.ponto?.livrosQuiz.findIndex(e => e == this.livro!.id) != -1) {
       this.router.navigate(['/home']);
     };
     this.quizService.obterQuizPorIdLivro(this.livro!.id).then(res => {
@@ -55,26 +55,30 @@ export class RespostaQuizComponent implements OnInit {
 
   estadoBotao() {
     if (this.respostas.find(e => e == -1) != null)
-      return false;  
+      return false;
     return true;
   }
 
-  selecionarResposta(pergunta: number, alternativa:number) {
-    this.respostas[pergunta] = alternativa+1;
+  selecionarResposta(pergunta: number, alternativa: number) {
+    this.respostas[pergunta] = alternativa + 1;
   }
   salvarRespostas() {
     let acertos = 0;
     let i = 0;
-    for (i = 0; i < this.respostas.length; i++){
+    for (i = 0; i < this.respostas.length; i++) {
       if (this.respostas[i] == this.quizzes![i].resposta) {
-        acertos+=.5;
-      } 
+        acertos += .5;
+      }
     }
-    let ponto = new PontoAtualizacao(this.aluno?.id!,this.turma?.id!,this.ponto?.livrosLidos!, acertos);
+    let ponto = new PontoAtualizacao(this.aluno?.id!, this.turma?.id!, this.ponto?.livrosLidos!, acertos);
     ponto.totalPontos = acertos;
     ponto.idLivroQuiz = this.livro?.id;
     this.pontoService.atualizarPontuacaoQuiz(ponto).then(res => {
-      this.router.navigate([this.return],{ replaceUrl: true });
+      this.router.navigate([this.return], { replaceUrl: true });
     });
+  }
+
+  obterNome() {
+    return this.livro?.titulo
   }
 }
